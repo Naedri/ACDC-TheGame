@@ -38,53 +38,17 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="card.INumberCard" project="FIL A1 ACDC Partie1 Jallais Adrien" 
-    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/INumberCard.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="643" y="317"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <enumeration id="7" language="java" name="card.Ascending" project="FIL A1 ACDC Partie1 Jallais Adrien" 
-    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/Ascending.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="458" y="485"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <enumeration id="8" language="java" name="card.Descending" project="FIL A1 ACDC Partie1 Jallais Adrien" 
-    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/Descending.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="239" y="484"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <enumeration id="9" language="java" name="card.Number" project="FIL A1 ACDC Partie1 Jallais Adrien" 
-    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/Number.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="643" y="489"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <package id="10" language="java" name="services" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <package id="6" language="java" name="services" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services" binary="false" corner="BOTTOM_RIGHT">    
     <position height="152" width="329" x="314" y="22"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="11" language="java" name="game" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <package id="7" language="java" name="game" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game" binary="false" corner="BOTTOM_RIGHT">    
     <position height="349" width="412" x="781" y="208"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="12" language="java" name="game.DescendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="8" language="java" name="game.DescendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/DescendingPile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="882" y="515"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -93,8 +57,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="game.LayPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
-    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/LayPile.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="game.ALayPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/ALayPile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="854" y="417"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -102,7 +66,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="game.APile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="10" language="java" name="game.APile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/APile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="984" y="297"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -111,7 +75,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="game.DrawPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="11" language="java" name="game.DrawPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/DrawPile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="989" y="417"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -120,7 +84,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="game.Hand" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="12" language="java" name="game.Hand" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/Hand.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1116" y="417"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -129,7 +93,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="game.AscendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="13" language="java" name="game.AscendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/AscendingPile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1078" y="515"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -138,7 +102,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="18" language="java" name="services.IResolution" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <interface id="14" language="java" name="services.IResolution" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services/IResolution.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="559" y="122"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -147,7 +111,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="19" language="java" name="services.Resolution" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+  <class id="15" language="java" name="services.Resolution" project="FIL A1 ACDC Partie1 Jallais Adrien" 
     file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services/Resolution.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="394" y="120"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
@@ -156,29 +120,47 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="20">    
+  <interface id="16" language="java" name="card.INumberCard" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/INumberCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="637" y="343"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="card.ACard" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/ACard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="82" x="457" y="320"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="19">    
     <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="14"/>  
+    <end type="TARGET" refId="9"/>  
   </generalization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <realization id="23">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="18"/>  
-  </realization>  
-  <generalization id="24">    
+  <generalization id="20">    
     <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
+    <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="25">    
+  <realization id="21">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="14"/>  
+  </realization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

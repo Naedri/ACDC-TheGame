@@ -1,7 +1,12 @@
 package card;
 
-public enum Ascending extends ACard implements IRowCard {
+public class Ascending extends ACard implements IRowCard {
 	;
+
+	public Ascending(int value) {
+		super(value);
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getBorderMin() {
 		// TODO Auto-generated method stub

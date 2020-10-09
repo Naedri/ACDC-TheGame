@@ -1,5 +1,5 @@
 package game;
 
-public class AscendingPile extends LayPile {
+public class AscendingPile extends ALayPile {
 
 }
