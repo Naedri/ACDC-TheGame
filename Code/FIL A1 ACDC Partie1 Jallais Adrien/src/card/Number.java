@@ -1,16 +1,14 @@
 package card;
 
-public class Number extends ACard implements INumberCard {
-	;
+public class Number implements ICard {
+	int value ;
 
 	public Number(int value) {
-		super(value);
-		// TODO Auto-generated constructor stub
+		this.value = value;
 	}
 
 	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.value;
 	}
 
 }

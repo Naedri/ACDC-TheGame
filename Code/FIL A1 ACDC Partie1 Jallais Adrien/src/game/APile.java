@@ -1,5 +1,7 @@
 package game;
 
+import card.ICard;
+
 public abstract class APile {
-	public Number[] cards;
+	public ICard[] cards;
 }
