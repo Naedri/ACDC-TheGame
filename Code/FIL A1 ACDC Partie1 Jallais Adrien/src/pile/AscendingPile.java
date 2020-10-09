@@ -1,4 +1,4 @@
-package game;
+package pile;
 
 public class AscendingPile extends ALayPile {
 

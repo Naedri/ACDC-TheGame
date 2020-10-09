@@ -1,7 +1,7 @@
-package game;
+package pile;
 
 import card.ICard;
 
 public abstract class APile {
-	public ICard[] cards;
+	private ICard[] cards;
 }

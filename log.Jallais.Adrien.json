@@ -1,0 +1,26 @@
+{
+    "auteur": "Adrien Jallais",
+    "specialité": "FIL",
+    "année": "1",
+    "module": "ACDC",
+    "Projet": "The Game",
+    "Partie 1": [
+        {
+            "date": "09/10/2020",
+            "travail": [
+                "diagramme UML simplification",
+                "creation de factory",
+                "mise en place d interface",
+                "commencement de code"
+            ]
+        },
+        {
+            "date": "06/10/2020",
+            "travail": [
+                "workspace init",
+                "Lecture des regles",
+                "Debut diagramme UML"
+            ]
+        }
+    ]
+}
