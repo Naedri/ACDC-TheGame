@@ -8,19 +8,19 @@ import pile.DrawPile;
 import pile.IDrawPile;
 
 public class DrawPileFactory {
-	
+
 	public IDrawPile getDrawPile(String path) {
 		if (path == null) {
-			return(new DrawPile());
-        } else {
-        	return getDrawPile(path);
-        }
+			return (new DrawPile());
+		} else {
+			return getDrawPile(path);
+		}
 	}
-	
+
 	private IDrawPile getDrawPileFromFile(String path) {
 		return new DrawPile();
 	}
-	
+
 	private int[] getNumberFromFile(String path) throws IOException {
 		// https://techblogstation.com/java/read-text-file-in-java/
 		FileReader fileReader = null;
@@ -36,10 +36,9 @@ public class DrawPileFactory {
 		}
 		return null;
 	}
-	
+
 	private boolean isValid(String path) {
 		return false;
 	}
-	
-	
+
 }
