@@ -14,4 +14,7 @@ public interface IDrawPile {
 
 	public ICard draw();
 
+	public boolean contains(ICard card);
+
+	public boolean miss(ICard card);
 }

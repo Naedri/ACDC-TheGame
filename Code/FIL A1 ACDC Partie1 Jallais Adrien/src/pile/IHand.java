@@ -4,7 +4,7 @@ import card.ICard;
 
 public interface IHand {
 
-	public void addCard();
+	public void addCard(ICard card);
 
 	public ICard[] getCard();
 
@@ -17,7 +17,5 @@ public interface IHand {
 	public ICard getMinCard();
 
 	public ICard getMaxCard();
-
-	public void sortCard();
 
 }
