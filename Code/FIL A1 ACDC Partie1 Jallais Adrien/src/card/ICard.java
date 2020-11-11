@@ -10,4 +10,5 @@ public interface ICard {
 	public int getUp();
 
 	public int getDown();
+
 }

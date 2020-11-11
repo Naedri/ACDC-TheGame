@@ -3,17 +3,22 @@ package factory;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
+import card.ICard;
+import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
 
 public class DrawPileFactory {
+	Queue<ICard> queue;
 
 	public IDrawPile getDrawPile(String path) {
 		if (path == null) {
 			return (new DrawPile());
 		} else {
-			return getDrawPile(path);
+			return DrawPile(path);
 		}
 	}
 
@@ -21,24 +26,35 @@ public class DrawPileFactory {
 		return new DrawPile();
 	}
 
-	private int[] getNumberFromFile(String path) throws IOException {
-		// https://techblogstation.com/java/read-text-file-in-java/
+	private Queue<ICard> getNumbersFromFile(String path) throws IOException {
+		this.queue = new LinkedList<>();
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(path);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int i;
+		String number = "";
 		while ((i = fileReader.read()) != -1) {
-			System.out.print((char) i);
+			char digit = (char) i;
+			if (digit != '\n') {
+				number += String.valueOf(digit);
+			} else {
+				Number card = new Number(Integer.parseInt(number));
+				this.queue.add(card);
+				number = "";
+			}
 		}
-		return null;
+		return queue;
 	}
 
-	private boolean isValid(String path) {
-		return false;
+	/**
+	 * Check for redundancy in the table of ICard
+	 * 
+	 * @return true if DrawPile is valid
+	 */
+	private boolean isNumbersValid() {
+		return true;
 	}
-
 }

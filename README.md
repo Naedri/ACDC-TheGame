@@ -50,10 +50,13 @@ Ainsi lorsque l on va passer une carte à un joueur il va pouvoir la modifier. E
 
 #### Options
 
-1. duplication des cartes (copie en locale) pour comparaison des cartes données et reçues
+1. duplication des cartes (copie en locale) pour comparaison des cartes données et reçues = [copie défensives stackoverflow](https://stackoverflow.com/questions/15020850/copy-constructors-and-defensive-copying) ou [how to copy an object in java](https://stackoverflow.com/questions/869033/how-do-i-copy-an-object-in-java) ou [unmodifiableMap  stackoverflow](https://stackoverflow.com/questions/18141234/should-defensive-copies-always-be-made)-> [Collections.unmodifiableSet](https://www.geeksforgeeks.org/collections-unmodifiableset-method-in-java-with-examples/)
 2. liste immuable
 3. ? observation en fin de jeu des cartes ?
 4. comme configuration 1 joueur, l'ensemble des cartes formé par {*LayPile*, *DrawPile*, *Hand*} est un ensemble complet des cartes disponibles -> on peut donc comparer ce qu il y a dans les *LayPile* et la *DrawPile* pour savoir si *Hand* ne donne pas de cartes redondantes.
+5. utiliser *final int*  ou *Integer* pour les numéros de card ? 
+
+[references sur copie defensive](https://code.i-harness.com/fr/q/d42a9)
 
 #### Décisions
 

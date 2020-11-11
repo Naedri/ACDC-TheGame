@@ -6,6 +6,23 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "4",
+            "date": "11/11/2020",
+            "travail": [
+                "travaux sur factory",
+                "remise à niveau sur copie superficielle et profonde"
+            ]
+        }
+        {
+            "log_number": "3",
+            "date": "10/10/2020",
+            "travail": [
+                "more interface",
+                "ecriture des choix à faire"
+            ]
+        },
+        {
+            "log_number": "2",
             "date": "09/10/2020",
             "travail": [
                 "diagramme UML simplification",
@@ -15,6 +32,7 @@
             ]
         },
         {
+            "log_number": "1",
             "date": "06/10/2020",
             "travail": [
                 "workspace init",
