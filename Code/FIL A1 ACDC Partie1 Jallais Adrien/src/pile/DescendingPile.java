@@ -4,7 +4,7 @@ import java.util.Deque;
 
 import card.ICard;
 
-public class DescendingPile extends APile implements ILayPile {
+public class DescendingPile implements ILayPile {
 
 	Deque<ICard> deque;
 

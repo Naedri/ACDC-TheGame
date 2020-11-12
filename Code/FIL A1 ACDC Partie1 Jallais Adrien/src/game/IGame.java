@@ -2,6 +2,11 @@ package game;
 
 public interface IGame {
 
-	public void play();
+	public void playHuman();
 
+	public void playIA();
+
+	public void restart();
+
+	public void abandon();
 }

@@ -4,19 +4,25 @@ import java.util.Deque;
 
 import card.ICard;
 
-public class DrawPile extends APile implements IDrawPile {
-	// private Deque<ICard> cards;
+public class DrawPile implements IDrawPile {
 	private Deque<ICard> pile;
 
 	public DrawPile(Deque<ICard> cardDrawPile) {
-		super(cardDrawPile);
 		this.pile = cardDrawPile;
 	}
 
 	@Override
 	public ICard draw() {
-		// return ((Deque<ICard>) super.cards).pop();
 		return this.pile.pop();
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return this.pile.size() <= 0;
+	}
+
+	@Override
+	public int getSize() {
+		return pile.size();
+	}
 }

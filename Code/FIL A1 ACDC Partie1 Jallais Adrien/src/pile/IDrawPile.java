@@ -24,4 +24,18 @@ public interface IDrawPile {
 	 * @return a card to be consumed
 	 */
 	public ICard draw();
+
+	/**
+	 * allow an user to know if the pile is empty
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty();
+
+	/**
+	 * allow an user to know how many card are still in this collection of Pile
+	 * 
+	 * @return
+	 */
+	public int getSize();
 }
