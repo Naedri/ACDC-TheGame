@@ -4,21 +4,17 @@ package services;
  * @author Adrien Jallais
  * @source https://stackoverflow.com/questions/7486012/static-classes-in-java
  */
-public final class Rules {
+public final class RulesService {
 
 	private static int handLength = 5;
 	private static int playerNumber = 1;
-	private static int[] cardRange = new int[] { 1, 99 };
-	private static int[] drawPileRange = Rules.cardRange;
+	private static int[] cardRange = new int[] { 2, 99 }; // from 2 to 99 included
+	private static int[] drawPileRange = RulesService.cardRange;
 
 	/*
-	private Rules() {
-		Rules.cardRange = new int[] { 1, 99 };
-		Rules.playerNumber = 1;
-		Rules.drawPileRange = Rules.cardRange;
-		Rules.handLength = 5;
-	}
-	*/
+	 * private Rules() { Rules.cardRange = new int[] { 1, 99 }; Rules.playerNumber =
+	 * 1; Rules.drawPileRange = Rules.cardRange; Rules.handLength = 5; }
+	 */
 
 	/**
 	 * @return the playerNumber
@@ -42,7 +38,7 @@ public final class Rules {
 	}
 
 	/**
-	 * @return the cardRange [0] is the min [1] is the max
+	 * @return the cardRange [0] is the min, [1] is the max
 	 */
 	public static int[] getCardRange() {
 		return cardRange;

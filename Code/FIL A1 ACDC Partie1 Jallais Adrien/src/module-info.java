@@ -6,4 +6,5 @@
  *
  */
 module acdc_partie1 {
+	requires org.junit.jupiter.api;
 }

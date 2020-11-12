@@ -13,7 +13,7 @@ import card.ICard;
 import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
-import services.Rules;
+import services.RulesService;
 
 public class DrawPileFactory {
 	Deque<ICard> cardDrawPile;
@@ -23,25 +23,27 @@ public class DrawPileFactory {
 	}
 
 	public IDrawPile getDrawPile(String path) throws IOException {
+		this.resetCardDrawPile();
 		if (path == null) {
-			this.fillcardDrawPile();
+			this.fillCardDrawPile();
 		} else {
-			this.fillcardDrawPile(path);
+			this.fillCardDrawPile(path);
 		}
 		return new DrawPile(cardDrawPile);
 	}
 
 	public IDrawPile getDrawPile() {
-		this.fillcardDrawPile();
+		this.cardDrawPile = new LinkedList<>();
+		this.fillCardDrawPile();
 		return new DrawPile(cardDrawPile);
 	}
 
 	/**
 	 * produce 1 to 99 number and shuffle it and fill cardDrawPile with
 	 */
-	private void fillcardDrawPile() {
+	private void fillCardDrawPile() {
 		List<Integer> list = new ArrayList<Integer>();
-		for (int i = Rules.getCardRange()[0]; i <= Rules.getCardRange()[1]; i++) {
+		for (int i = RulesService.getCardRange()[0]; i <= RulesService.getCardRange()[1]; i++) {
 			list.add((Integer) i);
 		}
 		Collections.shuffle(list);
@@ -57,7 +59,7 @@ public class DrawPileFactory {
 	 * @param path of the file
 	 * @throws IOException about redundancy
 	 */
-	private void fillcardDrawPile(String path) throws IOException {
+	private void fillCardDrawPile(String path) throws IOException {
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(path);
@@ -76,12 +78,26 @@ public class DrawPileFactory {
 					if (isCardValid(card)) {
 						this.cardDrawPile.add(card);
 					} else {
-						throw new IllegalArgumentException("Card value number" + number + " is not unique");
+						throw new IllegalArgumentException(
+								"In the given file path, the current card value number" + number + " is not unique.");
 					}
 					number = "";
 				}
 			}
 		}
+		if (!isDrawPileFull()) {
+			throw new IllegalArgumentException("With the given file path, the draw pile can not be full.");
+		}
+	}
+
+	/**
+	 * Does the Draw pile is full according the RulesService DrawPileRange
+	 * 
+	 * @return
+	 */
+	private boolean isDrawPileFull() {
+		int cardLength = 1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0];
+		return this.cardDrawPile.size() == cardLength;
 	}
 
 	/**
@@ -91,5 +107,12 @@ public class DrawPileFactory {
 	 */
 	private boolean isCardValid(ICard card) {
 		return !cardDrawPile.contains(card);
+	}
+
+	/**
+	 * reset draw pile
+	 */
+	private void resetCardDrawPile() {
+		this.cardDrawPile = new LinkedList<>();
 	}
 }
