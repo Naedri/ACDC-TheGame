@@ -6,6 +6,15 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "5",
+            "date": "12/11/2020",
+            "travail": [
+                "test factory Pioche avec ou sans path etc",
+                "développement factory Jeu",
+                "refactoring carte de dépots"
+            ]
+        }
+        {
             "log_number": "4",
             "date": "11/11/2020",
             "travail": [
