@@ -5,20 +5,20 @@ import game.IGame;
 
 public class GameFactory {
 
-	public IGame getGame(String path, int nbrPlayer) {
+	public IGame getGame(String path) {
 		if (path == null) {
-			return (makeGame(nbrPlayer));
+			return (makeGame());
 		} else {
-			return makeGame(nbrPlayer, path);
+			return makeGame(path);
 		}
 	}
 
-	private Game makeGame(int nbrPlayer) {
+	private Game makeGame() {
 		return null;
 
 	};
 
-	private Game makeGame(int nbrPlayer, String path) {
+	private Game makeGame(String path) {
 		return null;
 	};
 }

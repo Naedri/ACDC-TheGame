@@ -3,31 +3,61 @@ package factory;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 import card.ICard;
 import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
+import services.Rules;
 
 public class DrawPileFactory {
-	Queue<ICard> queue;
+	Deque<ICard> cardDrawPile;
 
-	public IDrawPile getDrawPile(String path) {
+	public DrawPileFactory() {
+		this.cardDrawPile = new LinkedList<>();
+	}
+
+	public IDrawPile getDrawPile(String path) throws IOException {
 		if (path == null) {
-			return (new DrawPile());
+			this.fillcardDrawPile();
 		} else {
-			return DrawPile(path);
+			this.fillcardDrawPile(path);
 		}
+		return new DrawPile(cardDrawPile);
 	}
 
-	private IDrawPile getDrawPileFromFile(String path) {
-		return new DrawPile();
+	public IDrawPile getDrawPile() {
+		this.fillcardDrawPile();
+		return new DrawPile(cardDrawPile);
 	}
 
-	private Queue<ICard> getNumbersFromFile(String path) throws IOException {
-		this.queue = new LinkedList<>();
+	/**
+	 * produce 1 to 99 number and shuffle it and fill cardDrawPile with
+	 */
+	private void fillcardDrawPile() {
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = Rules.getCardRange()[0]; i <= Rules.getCardRange()[1]; i++) {
+			list.add((Integer) i);
+		}
+		Collections.shuffle(list);
+		list.forEach(i -> {
+			ICard card = new Number(i);
+			this.cardDrawPile.add(card);
+		});
+	}
+
+	/**
+	 * read a given file and fill cardDrawPile with its integer from its row
+	 * 
+	 * @param path of the file
+	 * @throws IOException about redundancy
+	 */
+	private void fillcardDrawPile(String path) throws IOException {
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(path);
@@ -37,16 +67,21 @@ public class DrawPileFactory {
 		int i;
 		String number = "";
 		while ((i = fileReader.read()) != -1) {
-			char digit = (char) i;
-			if (digit != '\n') {
-				number += String.valueOf(digit);
+			String digit = String.valueOf((char) i);
+			if (!digit.matches("(\\r\\n|\\r|\\n)")) {
+				number += digit;
 			} else {
-				Number card = new Number(Integer.parseInt(number));
-				this.queue.add(card);
-				number = "";
+				if (!number.isBlank()) {
+					ICard card = new Number(Integer.parseInt(number));
+					if (isCardValid(card)) {
+						this.cardDrawPile.add(card);
+					} else {
+						throw new IllegalArgumentException("Card value number" + number + " is not unique");
+					}
+					number = "";
+				}
 			}
 		}
-		return queue;
 	}
 
 	/**
@@ -54,7 +89,7 @@ public class DrawPileFactory {
 	 * 
 	 * @return true if DrawPile is valid
 	 */
-	private boolean isNumbersValid() {
-		return true;
+	private boolean isCardValid(ICard card) {
+		return !cardDrawPile.contains(card);
 	}
 }

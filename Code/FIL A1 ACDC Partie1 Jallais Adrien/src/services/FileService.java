@@ -1,5 +1,5 @@
 package services;
 
-public class FileService {
+public final class FileService {
 
 }
