@@ -13,28 +13,40 @@ import card.ICard;
 import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
+import services.FileService;
 import services.RulesService;
 
 public class DrawPileFactory {
-	Deque<ICard> cardDrawPile;
 
+	private Deque<ICard> cardDrawPile;
+	private IDrawPile drawPile;
+
+	/**
+	 * constructor should be used only by the GameFactory
+	 */
 	public DrawPileFactory() {
 		this.cardDrawPile = new LinkedList<>();
 	}
 
+	/**
+	 * return a DrawPile made with the given file or random
+	 * 
+	 * @param path set null if random pile desired
+	 * @return
+	 * @throws IOException
+	 */
 	public IDrawPile getDrawPile(String path) throws IOException {
-		this.resetCardDrawPile();
+		if (path != null && !FileService.isPathValid(path)) {
+			throw new IllegalArgumentException("The given file path seems to be incorrect.");
+		}
+		if (drawPile != null) {
+			this.resetCardDrawPile();
+		}
 		if (path == null) {
 			this.fillCardDrawPile();
 		} else {
 			this.fillCardDrawPile(path);
 		}
-		return new DrawPile(cardDrawPile);
-	}
-
-	public IDrawPile getDrawPile() {
-		this.cardDrawPile = new LinkedList<>();
-		this.fillCardDrawPile();
 		return new DrawPile(cardDrawPile);
 	}
 
@@ -86,18 +98,17 @@ public class DrawPileFactory {
 			}
 		}
 		if (!isDrawPileFull()) {
-			throw new IllegalArgumentException("With the given file path, the draw pile can not be full.");
+			throw new IllegalArgumentException("With the given file path, the size of draw pile is not correct.");
 		}
 	}
 
 	/**
 	 * Does the Draw pile is full according the RulesService DrawPileRange
 	 * 
-	 * @return
+	 * @return true if the size of the Draw pile is correct
 	 */
 	private boolean isDrawPileFull() {
-		int cardLength = 1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0];
-		return this.cardDrawPile.size() == cardLength;
+		return this.cardDrawPile.size() == RulesService.getDrawPileSize();
 	}
 
 	/**
@@ -114,5 +125,6 @@ public class DrawPileFactory {
 	 */
 	private void resetCardDrawPile() {
 		this.cardDrawPile = new LinkedList<>();
+		this.drawPile = null;
 	}
 }

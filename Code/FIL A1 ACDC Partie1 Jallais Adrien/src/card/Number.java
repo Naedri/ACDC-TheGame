@@ -59,4 +59,12 @@ public class Number implements ICard {
 		// Compare the data members and return accordingly
 		return Double.compare(this.getValue(), n.getValue()) == 0;
 	}
+
+	@Override
+	public int compareTo(ICard c) {
+		if (c == null) {
+			return (-this.getValue());
+		}
+		return (c.getValue() - this.getValue());
+	}
 }

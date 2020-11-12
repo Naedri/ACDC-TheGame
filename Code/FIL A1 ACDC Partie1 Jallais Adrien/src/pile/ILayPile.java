@@ -10,29 +10,34 @@ public interface ILayPile {
 	 * 
 	 * @return card
 	 */
-	public ICard getThresholdMin();
+	public ICard readThresholdMin();
 
 	/**
 	 * Indicates until which card you can lay
 	 * 
 	 * @return card
 	 */
-	public ICard getThresholdMax();
+	public ICard readThresholdMax();
 
 	/**
 	 * Indicates the matching card to allow backWard tricks
 	 * 
 	 * @return card
 	 */
-	public ICard getBackwards();
+	public ICard readBackwardsAllowed();
 
 	/**
 	 * Indicates the current card
 	 * 
+	 * @return the last card played in readOnlyState or the card from the beginning
+	 */
+	public ICard readCard();
+
+	/**
+	 * is it an ascending pile or a descending one ?
+	 * 
 	 * @return
 	 */
-	public ICard getCard();
-
 	public Direction getDirection();
 
 	/**
@@ -41,5 +46,5 @@ public interface ILayPile {
 	 * @param card
 	 * @return
 	 */
-	public boolean isValid(ICard card);
+	public boolean isLayable(ICard card);
 }

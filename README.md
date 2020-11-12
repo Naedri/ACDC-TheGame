@@ -88,7 +88,29 @@ Spécialiser IA fonction nombre de joueur
 
 10 points pour augmenter la marge
 
+### find duplicate for DrawPile
 
+duplication number wll be check in the factory
+
+### CAPile
+
+factoring some method on its colletion card ?
+but we can not specialized its attribute in queue or 
+
+### Comment piocher et déposer de sa main ?
+répatir la pioche et la déposer dans les classes IDrawPile et ILAyPile respectivement
+mettre en protected les fonction piocher et déposer
+```
+	// CAUTION
+	public void addCard(ICard card);
+```
+
+### List = ArrayList or Linked List
+
+linked list for one Laying Pile as we do not need to sort them
+ArrayList for one hand as we need to sort them
+
+the group of hands and the groupe of LayingPile need to be sorted thus ArrayList
 
 ## Draft code
 

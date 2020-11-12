@@ -9,4 +9,8 @@ public interface IGame {
 	public void restart();
 
 	public void abandon();
+
+	public void draw();
+
+	public void lay();
 }

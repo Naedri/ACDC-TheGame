@@ -1,12 +1,12 @@
 package pile;
 
+import java.util.List;
+
 import card.ICard;
 
 public interface IHand {
 
-	public void addCard(ICard card);
-
-	public ICard[] getCard();
+	public List<ICard> readImmuableHands();
 
 	public int getNumberOfCard();
 
@@ -14,8 +14,9 @@ public interface IHand {
 
 	public boolean isFull();
 
+	public boolean isEmpty();
+
 	public ICard getMinCard();
 
 	public ICard getMaxCard();
-
 }

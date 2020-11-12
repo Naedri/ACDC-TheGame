@@ -1,6 +1,6 @@
 package card;
 
-public interface ICard {
+public interface ICard extends Comparable<ICard> {
 
 	/**
 	 * 
@@ -29,7 +29,8 @@ public interface ICard {
 	public int getDown();
 
 	/**
-	 * Overriding equals() to compare two Complex objects
+	 * Overriding equals() to compare two ICard objects
 	 */
 	public boolean equals(Object o);
+
 }

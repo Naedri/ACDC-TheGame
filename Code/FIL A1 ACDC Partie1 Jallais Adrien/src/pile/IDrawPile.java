@@ -19,9 +19,12 @@ public interface IDrawPile {
 	 */
 
 	/**
-	 * allow an user to consume a card by drawing it
+	 * Add a card to the hand and consume it. The hand is not declared as there is
+	 * only one hand
 	 * 
-	 * @return a card to be consumed
+	 * @category alone mode
+	 * @deprecated Icard should be void
+	 * 
 	 */
 	public ICard draw();
 

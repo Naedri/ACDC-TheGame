@@ -15,6 +15,18 @@ class Test_Factory {
 
 		DrawPileFactory drawF = new DrawPileFactory();
 
+		/**
+		 * everything all right without path
+		 */
+		assertDoesNotThrow(new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				drawF.getDrawPile();
+			}
+
+		});
+
 		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
 		String path2 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game2.txt"; //
 		String path3 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game3.txt"; //

@@ -5,43 +5,86 @@ package services;
  * @source https://stackoverflow.com/questions/7486012/static-classes-in-java
  */
 public final class RulesService {
-
-	private static int handLength = 5;
-	private static int playerNumber = 1;
-	private static int[] cardRange = new int[] { 2, 99 }; // from 2 to 99 included
-	private static int[] drawPileRange = RulesService.cardRange;
-
-	/*
-	 * private Rules() { Rules.cardRange = new int[] { 1, 99 }; Rules.playerNumber =
-	 * 1; Rules.drawPileRange = Rules.cardRange; Rules.handLength = 5; }
-	 */
+	private final static int handLength = 5;
+	private final static int playerNumber = 1;
+	private final static int[] cardRange = new int[] { 1, 100 };
+	private final static int numberDrawPile = 1;
+	private final static int numberDescendingPile = 2;
+	private final static int numberAscendingPile = 2;
 
 	/**
 	 * @return the playerNumber
 	 */
-	public int getPlayerNumber() {
-		return playerNumber;
-	}
-
-	/**
-	 * @return the drawPileRange
-	 */
-	public static int[] getDrawPileRange() {
-		return drawPileRange;
+	public static int getPlayerNumber() {
+		return RulesService.playerNumber;
 	}
 
 	/**
 	 * @return the handLength number of card in the hand of ONE player
 	 */
-	public int getHandLength() {
-		return handLength;
+	public static int getHandLength() {
+		return RulesService.handLength;
 	}
 
 	/**
 	 * @return the cardRange [0] is the min, [1] is the max
 	 */
 	public static int[] getCardRange() {
-		return cardRange;
+		return RulesService.cardRange;
 	}
 
+	/**
+	 * @return the drawPileRange
+	 */
+	public static int[] getDrawPileRange() {
+		int[] drawPileRange = { RulesService.getCardRange()[0] + 1, RulesService.getCardRange()[1] + 1 };
+		return drawPileRange;
+	}
+
+	/**
+	 * @return the layascendingpilerange
+	 */
+	public static int[] getLayAscendingPileRange() {
+		int[] layAscendingPileRange = { RulesService.getCardRange()[0], RulesService.getCardRange()[1] };
+		return layAscendingPileRange;
+	}
+
+	/**
+	 * @return the laydescendingpilerange
+	 */
+	public static int[] getLayDescendingPileRange() {
+		int[] layDescendingPileRange = { RulesService.getCardRange()[1], RulesService.getCardRange()[0] };
+		return layDescendingPileRange;
+	}
+
+	/**
+	 * 
+	 * @return the draw pile size allowed
+	 */
+	public static int getDrawPileSize() {
+		// +1 for the element and not the interval
+		// -2 cause the limits should be excluded
+		return (-2 + 1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0]);
+	}
+
+	/**
+	 * @return the numberDrawPile
+	 */
+	public static int getNumberDrawPile() {
+		return RulesService.numberDrawPile;
+	}
+
+	/**
+	 * @return the numberDescendingPile
+	 */
+	public static int getNumberDescendingPile() {
+		return RulesService.numberDescendingPile;
+	}
+
+	/**
+	 * @return the numberAscendingPile
+	 */
+	public static int getNumberAscendingPile() {
+		return RulesService.numberAscendingPile;
+	}
 }

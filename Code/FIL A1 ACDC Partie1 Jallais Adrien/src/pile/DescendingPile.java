@@ -1,11 +1,12 @@
 package pile;
 
-import java.util.Deque;
+import direction.Direction;
 
-import card.ICard;
+public class DescendingPile extends CALayPile {
 
-public class DescendingPile implements ILayPile {
-
-	Deque<ICard> deque;
+	public DescendingPile() {
+		super(Direction.DOWN);
+		// TODO Auto-generated constructor stub
+	}
 
 }

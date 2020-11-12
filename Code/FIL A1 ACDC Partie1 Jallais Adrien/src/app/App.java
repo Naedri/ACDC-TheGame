@@ -17,18 +17,14 @@ public class App {
 		DrawPileFactory drawF = new DrawPileFactory();
 
 		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
-		String path2 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game2.txt"; //
-		String path3 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game3.txt"; //
-		String path4 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game4.txt"; //
 
 		IDrawPile draw;
-		draw = drawF.getDrawPile(path4);
+		draw = drawF.getDrawPile(path1);
 
 		while (!draw.isEmpty()) {
 			ICard card = draw.draw();
 			System.out.println(card.getValue());
 		}
-
 	}
 
 }
