@@ -87,4 +87,14 @@ public final class RulesService {
 	public static int getNumberAscendingPile() {
 		return RulesService.numberAscendingPile;
 	}
+
+	/**
+	 * 
+	 * @return the number of card expected in a game
+	 */
+	public static int getSizeExpected() {
+		// there is one card on each laying piles
+		return (RulesService.getDrawPileSize() + RulesService.getNumberAscendingPile()
+				+ RulesService.getNumberDescendingPile());
+	}
 }

@@ -3,21 +3,6 @@ package pile;
 import card.ICard;
 
 public interface IDrawPile {
-
-	/*
-	 * public boolean isClean();
-	 * 
-	 * public boolean isComplete();
-	 * 
-	 * public boolean isRedundant();
-	 * 
-	 * public void shuffle();
-	 * 
-	 * public boolean contains(ICard card);
-	 * 
-	 * public boolean miss(ICard card);
-	 */
-
 	/**
 	 * Add a card to the hand and consume it. The hand is not declared as there is
 	 * only one hand
@@ -39,4 +24,18 @@ public interface IDrawPile {
 	 * @return
 	 */
 	public int getSize();
+
+	/**
+	 * allow to reset from the beginning a draw pile
+	 * 
+	 */
+	public boolean reset();
+
+	/**
+	 * is the draw size is equals to the Service Rules Size
+	 * 
+	 * @return true if convenient
+	 */
+	public boolean isSizeValid();
+
 }

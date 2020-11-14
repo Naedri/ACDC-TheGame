@@ -97,7 +97,7 @@ public class DrawPileFactory {
 				}
 			}
 		}
-		if (!isDrawPileFull()) {
+		if (!isDrawPileValide()) {
 			throw new IllegalArgumentException("With the given file path, the size of draw pile is not correct.");
 		}
 	}
@@ -107,7 +107,7 @@ public class DrawPileFactory {
 	 * 
 	 * @return true if the size of the Draw pile is correct
 	 */
-	private boolean isDrawPileFull() {
+	private boolean isDrawPileValide() {
 		return this.cardDrawPile.size() == RulesService.getDrawPileSize();
 	}
 

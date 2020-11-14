@@ -74,4 +74,14 @@ public class Hand implements IHand {
 	public boolean remove(ICard card) {
 		return this.list.remove(card);
 	}
+
+	@Override
+	public boolean reset() {
+		/*
+		 * this.list.forEach(card -> { card = null; });
+		 */
+		this.list.removeAll(this.list);
+		assert (this.list.size() == 0);
+		return this.list.size() == 0;
+	}
 }

@@ -5,6 +5,49 @@ import card.ICard;
 public interface ILayPile {
 
 	/**
+	 * Indicates the current card
+	 * 
+	 * @return the last card played or the card from the beginning
+	 */
+	public ICard read();
+
+	/**
+	 * Lay the given card
+	 * 
+	 * @param card
+	 */
+	public boolean lay(ICard card);
+
+	/**
+	 * Indicates the matching card to allow backWard tricks
+	 * 
+	 * @return card
+	 */
+	public ICard readBackwardsAllowed();
+
+	/***
+	 * get the number of the card included in the pile
+	 * 
+	 * @return
+	 */
+	public int getSize();
+
+	/**
+	 * Is the laying deck full ? (Does the last card match with readThresholdMax ?)
+	 * 
+	 * @return
+	 */
+	public boolean isFull();
+
+	/**
+	 * May we lay the given ICard
+	 * 
+	 * @param card
+	 * @return
+	 */
+	public boolean isLayable(ICard card);
+
+	/**
 	 * Indicates from which card you can lay
 	 * 
 	 * @return card
@@ -19,46 +62,15 @@ public interface ILayPile {
 	public ICard readThresholdMax();
 
 	/**
-	 * Indicates the matching card to allow backWard tricks
 	 * 
-	 * @return card
+	 * @return true if the laying pile contains only its card from the beginning
 	 */
-	public ICard readBackwardsAllowed();
-
-	/**
-	 * Indicates the current card
-	 * 
-	 * @return the last card played or the card from the beginning
-	 */
-	public ICard read();
+	public boolean reset();
 
 	/**
 	 * is it an ascending pile or a descending one ?
 	 * 
 	 * @return
 	 */
-//	public Direction getDirection();
-
-	/**
-	 * Indicates if we can lay a card or not
-	 * 
-	 * @param card
-	 * @return
-	 */
-	public boolean isLayable(ICard card);
-
-	/**
-	 * Lay the given card
-	 * 
-	 * @param card
-	 */
-	public boolean lay(ICard card);
-
-	/**
-	 * Is the laying deck full ? (Does the last card match with readThresholdMax ?)
-	 * 
-	 * @return
-	 */
-	public boolean isFull();
-
+	// public Direction getDirection();
 }

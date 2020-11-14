@@ -20,17 +20,17 @@ public class Game implements IGame {
 	private IDrawPile draw;
 	private List<IHand> hands;
 	private List<ILayPile> lays;
-	private int cardByHand;
 	private IHand hand;
 	private boolean victory;
+	private int score;
 
 	public Game(IDrawPile _draw, List<IHand> _hands, List<ILayPile> _lays) {
 		this.draw = _draw;
 		this.hands = _hands;
 		this.lays = _lays;
-		this.cardByHand = RulesService.getHandLength();
 		this.victory = false;
 		this.hand = this.hands.get(0);
+		this.score = this.getMinScore();
 	}
 
 	/***
@@ -49,25 +49,6 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public String[][] readLayInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ICard> readHand() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getScore() {
-		int score = 0;
-		// TODO Auto-generated method stub
-		return score;
-	}
-
-	@Override
 	public int endTurn() {
 		int drawedCards = this.draw();
 		if (drawedCards <= 0) {
@@ -78,52 +59,105 @@ public class Game implements IGame {
 
 	/**
 	 * 
-	 * @return the number of point
+	 * Clean the game
 	 */
-	private int closeGame() {
-		int score = this.getScore();
-		this.victory = this.isVictory();
+	public void cleanGame() {
 		this.draw = null;
 		this.hands = null;
 		this.lays = null;
-		this.cardByHand = RulesService.getHandLength();
+		this.victory = false;
 		this.hand = null;
-		return score;
+		this.score = 0;
+
 	}
 
 	/**
-	 * is the draw pile and the hand empty
+	 * is the draw pile and the hand empty && there is no missed card
 	 * 
 	 * @return
 	 */
-	private boolean isVictory() {
+	public boolean isVictory() {
 		return (this.getScore() <= 0 && this.isGameComplete());
 	}
 
+	private int getScore() {
+		return this.score;
+	}
+
 	/**
-	 * make sure the totality of card is present
+	 * Give the number of cards included in the game
+	 * 
+	 * @return
+	 */
+	private int getSize() {
+		// forEach loop not allowed
+		int size = this.draw.getSize();
+		for (final IHand hand : this.hands) {
+			size += hand.getSize();
+		}
+		for (final ILayPile lay : this.lays) {
+			size += lay.getSize();
+		}
+		return size;
+	}
+
+	/**
+	 * make sure the totality of card is present, and not redundant
+	 * 
+	 * @return
 	 */
 	private boolean isGameComplete() {
-		// check size draw
+		return (this.getSize() == RulesService.getSizeExpected());
 	}
+
+	/**
+	 * Remove the card from a full pile with laying pile and hand. Than check the
+	 * size is the same than the draw pile.
+	 * 
+	 * @return a set of ICard
+	 */
+	/*
+	 * private boolean checkUnicity() { Set<ICard> drawCheck = makeDrawCheck();
+	 * this.lays.forEach(lay -> { drawCheck.removeAll(lay); });
+	 * this.hands.forEach(hand -> { drawCheck.removeAll(hand); }); return
+	 * drawCheck.size() == this.draw.getSize(); }
+	 */
+
+	/**
+	 * Produce a set of ICard with the same range than the pile. In order to check
+	 * the conformity of the game then.
+	 * 
+	 * @return a set of ICard
+	 */
+	/*
+	 * private Set<ICard> makeDrawCheck() { Set<ICard> draw = new HashSet<ICard>();
+	 * for (int i = RulesService.getDrawPileRange()[0]; i <=
+	 * RulesService.getDrawPileRange()[1]; i++) { ICard card = new Number(i);
+	 * draw.add(card); } return draw; }
+	 */
 
 	@Override
 	@Deprecated
 	public boolean lay(int pileIndice, ICard card) {
 		// check if card is from the hand
 		ILayPile lay = this.lays.get(pileIndice);
-		return lay.lay(card);
+		boolean successLaying = lay.lay(card);
+		if (successLaying) {
+			this.score -= card.getValue();
+		}
+		return successLaying;
 	}
 
 	@Override
-	public void quit() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void restart() {
-		// TODO Auto-generated method stub
-
-	}
+	public void restart() throws IllegalArgumentException {
+		this.draw.reset();
+		this.lays.forEach(lay -> {
+			lay.reset();
+		});
+		this.hands.forEach(hand -> {
+			hand.reset();
+		});
+		this.hand = this.hands.get(0);
+		this.victory = false;
+	};
 }

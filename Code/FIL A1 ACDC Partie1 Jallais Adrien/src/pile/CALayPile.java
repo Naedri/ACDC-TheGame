@@ -23,6 +23,11 @@ public abstract class CALayPile implements ILayPile {
 	public CALayPile(Direction direction) {
 		this.direction = direction;
 		this.deque = new LinkedList<ICard>();
+		this.addFirstCard();
+	}
+
+	// add the first card to a laying pile (100 or 1)
+	private void addFirstCard() {
 		switch (this.direction) {
 		case DOWN: {
 			// Descending Pile
@@ -44,14 +49,14 @@ public abstract class CALayPile implements ILayPile {
 
 	// AC Method
 	/**
-	 * adding card to the deque
+	 * adding card to the dequeue
 	 * 
-	 * @param c
+	 * @param card
 	 * @return
 	 */
 	private boolean add(ICard card) {
 		assert (card != null);
-		return this.deque.add(card);
+		return this.isFull() ? false : this.deque.add(card);
 	}
 
 	/**
@@ -85,8 +90,36 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	@Override
+	public int getSize() {
+		return this.deque.size();
+	}
+
+	@Override
 	public boolean isFull() {
 		return this.get().getValue() >= this.readThresholdMax().getValue();
+	}
+
+	@Override
+	public boolean isLayable(ICard card) {
+		assert (card != null);
+		if (!this.isFull()) {
+			switch (this.direction) {
+			case DOWN: {
+				// Descending Pile
+				// current - card > 0
+				return this.get().compareTo(card) > 0;
+			}
+			case UP: {
+				// Ascending Pile
+				// current - card < 0
+				return this.get().compareTo(card) < 0;
+			}
+			default:
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -115,22 +148,17 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	@Override
-	public boolean isLayable(ICard card) {
-		assert (card != null);
-		switch (this.direction) {
-		case DOWN: {
-			// Descending Pile
-			// current - card > 0
-			return this.get().compareTo(card) > 0;
-		}
-		case UP: {
-			// Ascending Pile
-			// current - card > 0
-			return this.get().compareTo(card) < 0;
-		}
-		default:
-			return false;
-		}
+	public boolean reset() {
+		this.deque.clear();
+		this.addFirstCard();
+		return this.deque.size() == 1;
 	}
+
+	/*
+	 * @Override public Direction getDirection() { switch (this.direction) { case
+	 * DOWN: { // Descending Pile return Direction.DOWN; } case UP: { // Ascending
+	 * Pile return Direction.UP; } default: throw new
+	 * IllegalArgumentException("Unexpected value: " + this.direction); } }
+	 */
 
 }

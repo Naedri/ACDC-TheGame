@@ -27,8 +27,7 @@ public interface IGame {
 	/**
 	 * Allow to read information about the lay piles
 	 * 
-	 * @return first row for the direction of pile, second row for the associated
-	 *         card
+	 * @return array | Indice | Pile Direction | Current Card |
 	 */
 	public String[][] readLayInfo();
 
@@ -49,10 +48,23 @@ public interface IGame {
 	public boolean lay(int pileIndice, ICard card);
 
 	/**
-	 * count the value of card in the draw pile and in hands
+	 * the lowest score you could ever have
 	 * 
 	 * @return
 	 */
-	public int getScore();
+	public int getMinScore();
+
+	/**
+	 * Did the player win ?
+	 * 
+	 * @ return true if the player has played all cards from the draw pile and from
+	 * his hands.
+	 */
+	public boolean isVictory();
+
+	/**
+	 * Clean the game
+	 */
+	public void cleanGame();
 
 }

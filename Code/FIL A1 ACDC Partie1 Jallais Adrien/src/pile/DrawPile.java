@@ -7,22 +7,34 @@ import card.ICard;
 import services.RulesService;
 
 /**
- * Only one instance of this class. Thus we use the singleton pattern.
+ * ONLY ONE INSTANCE FOR THIS CLASS. Thus we use the singleton pattern.
  * 
  * @author Adrien Jallais
  *
  */
 public class DrawPile implements IDrawPile {
+
 	private Deque<ICard> pile;
+	private Deque<ICard> pileComplement;
 	private static DrawPile _instance = null;
 
+	/**
+	 * ONLY ONE INSTANCE FOR THIS CLASS
+	 * 
+	 * @param cardDrawPile
+	 */
 	private DrawPile(Deque<ICard> cardDrawPile) {
-		assert (cardDrawPile.size() == RulesService.getDrawPileSize());
 		this.pile = cardDrawPile;
+		assert (this.isSizeValid());
+	}
+
+	@Override
+	public boolean isSizeValid() {
+		return this.pile.size() == RulesService.getDrawPileSize();
 	}
 
 	/**
-	 * The instance method
+	 * The instance method.
 	 * 
 	 * @param cardDrawPile
 	 * @return
@@ -36,7 +48,9 @@ public class DrawPile implements IDrawPile {
 
 	@Override
 	public ICard draw() throws NoSuchElementException {
-		return this.pile.pop();
+		ICard c = this.pile.pop();
+		this.pileComplement.add(c);
+		return c;
 	}
 
 	@Override
@@ -47,5 +61,14 @@ public class DrawPile implements IDrawPile {
 	@Override
 	public int getSize() {
 		return pile.size();
+	}
+
+	@Override
+	public boolean reset() {
+		while (!this.pileComplement.isEmpty()) {
+			ICard c = this.pileComplement.pop();
+			this.pile.add(c);
+		}
+		return this.isSizeValid();
 	}
 }

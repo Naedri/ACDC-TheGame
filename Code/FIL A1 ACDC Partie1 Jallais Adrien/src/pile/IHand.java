@@ -68,4 +68,11 @@ public interface IHand {
 	 * @return true if card removed, false if not
 	 */
 	public boolean remove(ICard card);
+
+	/**
+	 * remove all the card from a hand
+	 * 
+	 * @return true if successful
+	 */
+	public boolean reset();
 }
