@@ -33,4 +33,9 @@ public interface ICard extends Comparable<ICard> {
 	 */
 	public boolean equals(Object o);
 
+	/**
+	 * 
+	 */
+	public int compareTo(ICard card);
+
 }

@@ -44,7 +44,6 @@ public class Number implements ICard {
 		if (o == this) {
 			return true;
 		}
-
 		/*
 		 * Check if o is an instance of Complex or not "null instanceof [type]" also
 		 * returns false
@@ -52,19 +51,17 @@ public class Number implements ICard {
 		if (!(o instanceof Number)) {
 			return false;
 		}
-
-		// typecast o to Number so that we can compare data members
+		// typecast o to Number n so that we can compare data members
 		Number n = (Number) o;
-
 		// Compare the data members and return accordingly
-		return Double.compare(this.getValue(), n.getValue()) == 0;
+		return (this.getValue() == n.getValue());
 	}
 
 	@Override
-	public int compareTo(ICard c) {
-		if (c == null) {
-			return (-this.getValue());
+	public int compareTo(ICard card) {
+		if (card == null) {
+			return (this.getValue());
 		}
-		return (c.getValue() - this.getValue());
+		return (this.getValue() - card.getValue());
 	}
 }
