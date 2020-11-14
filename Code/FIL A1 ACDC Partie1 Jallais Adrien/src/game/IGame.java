@@ -1,5 +1,7 @@
 package game;
 
+import java.util.List;
+
 import card.ICard;
 
 public interface IGame {
@@ -15,24 +17,42 @@ public interface IGame {
 	public void restart();
 
 	/**
-	 * full the hand until its maximum
+	 * full the hand until its maximum. Ends the turn. Ends the game : if no card
+	 * where played OR if the draw pile is empty
+	 * 
+	 * @return the number of drawed cards
 	 */
-	public void draw();
+	public int endTurn();
 
 	/**
-	 * laying a card on a ASCending Pile
+	 * Allow to read information about the lay piles
 	 * 
-	 * @param pileIndice from 1
-	 * @param c          the card to be layed
+	 * @return first row for the direction of pile, second row for the associated
+	 *         card
 	 */
-	public void layAP(int pileIndice, ICard c);
+	public String[][] readLayInfo();
 
 	/**
-	 * laying a card on a DESCending Pile
+	 * Allow to read information about the current playing hand
 	 * 
-	 * @param pileIndice from 1
-	 * @param c          the card to be layed
+	 * @return
 	 */
-	public void layDP(int pileIndice, ICard c);
+	public List<ICard> readHand();
+
+	/**
+	 * laying a card on a ASCending OR DESCending Pile
+	 * 
+	 * @param pileIndice from 0 to size of the List of LayPile
+	 * @param c          the card to be layed
+	 * @return true if success, false if do not lay
+	 */
+	public boolean lay(int pileIndice, ICard card);
+
+	/**
+	 * count the value of card in the draw pile and in hands
+	 * 
+	 * @return
+	 */
+	public int getScore();
 
 }
