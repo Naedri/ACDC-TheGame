@@ -6,7 +6,10 @@ import card.ICard;
 
 public interface IHand {
 
-	public List<ICard> readImmuableHands();
+	/**
+	 * Allow to read list of ICard.
+	 */
+	public List<ICard> read();
 
 	/**
 	 * get the number of Card from the List
@@ -41,26 +44,28 @@ public interface IHand {
 	 * 
 	 * @return
 	 */
-	public ICard getMinCard();
+	public ICard getMin();
 
 	/**
 	 * What is the highest card from the List
 	 * 
 	 * @return
 	 */
-	public ICard getMaxCard();
+	public ICard getMax();
 
 	/**
 	 * to be used by the IGame for the IDrawPile
 	 * 
 	 * @param c the card to be added
+	 * @return true if card added, false if not
 	 */
-	public void addCard(ICard c);
+	public boolean add(ICard card);
 
 	/**
 	 * to be used by the IGame for the ILayPile
 	 * 
 	 * @param c the card to be removed
+	 * @return true if card removed, false if not
 	 */
-	public void removeCard(ICard c);
+	public boolean remove(ICard card);
 }
