@@ -1,7 +1,6 @@
 package pile;
 
 import card.ICard;
-import direction.Direction;
 
 public interface ILayPile {
 
@@ -29,16 +28,16 @@ public interface ILayPile {
 	/**
 	 * Indicates the current card
 	 * 
-	 * @return the last card played in readOnlyState or the card from the beginning
+	 * @return the last card played or the card from the beginning
 	 */
-	public ICard readCard();
+	public ICard read();
 
 	/**
 	 * is it an ascending pile or a descending one ?
 	 * 
 	 * @return
 	 */
-	public Direction getDirection();
+//	public Direction getDirection();
 
 	/**
 	 * Indicates if we can lay a card or not
@@ -47,4 +46,19 @@ public interface ILayPile {
 	 * @return
 	 */
 	public boolean isLayable(ICard card);
+
+	/**
+	 * Lay the given card
+	 * 
+	 * @param card
+	 */
+	public boolean lay(ICard card);
+
+	/**
+	 * Is the laying deck full ? (Does the last card match with readThresholdMax ?)
+	 * 
+	 * @return
+	 */
+	public boolean isFull();
+
 }

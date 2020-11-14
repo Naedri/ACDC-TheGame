@@ -8,5 +8,4 @@ public class DescendingPile extends CALayPile {
 		super(Direction.DOWN);
 		// TODO Auto-generated constructor stub
 	}
-
 }

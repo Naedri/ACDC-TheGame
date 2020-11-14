@@ -1,6 +1,7 @@
 package pile;
 
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 import card.ICard;
 import services.RulesService;
@@ -34,7 +35,7 @@ public class DrawPile implements IDrawPile {
 	}
 
 	@Override
-	public ICard draw() {
+	public ICard draw() throws NoSuchElementException {
 		return this.pile.pop();
 	}
 
