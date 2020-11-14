@@ -5,6 +5,7 @@ public final class FileService {
 	/**
 	 * check if the given string match with a path
 	 * 
+	 * @deprecated
 	 * @param filePath of the file to be evaluated
 	 * @return
 	 */

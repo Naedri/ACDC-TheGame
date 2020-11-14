@@ -25,21 +25,4 @@ public class Hand implements IHand {
 		return Collections.unmodifiableList(list);
 	}
 
-	/**
-	 * to be used by the IDrawPile
-	 * 
-	 * @param c
-	 */
-	protected void addCard(ICard c) {
-
-	}
-
-	/**
-	 * to be used by the ILayPile
-	 * 
-	 * @param c
-	 */
-	protected void removeCard(ICard c) {
-
-	}
 }

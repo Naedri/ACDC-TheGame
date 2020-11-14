@@ -98,12 +98,23 @@ factoring some method on its colletion card ?
 but we can not specialized its attribute in queue or 
 
 ### Comment piocher et déposer de sa main ?
-répatir la pioche et la déposer dans les classes IDrawPile et ILAyPile respectivement
+répartir la pioche et la déposer dans les classes IDrawPile et ILAyPile respectivement
 mettre en protected les fonction piocher et déposer
+
 ```
 	// CAUTION
 	public void addCard(ICard card);
 ```
+
+#### comment gérer le flux des cartes entre 2 acteurs ?
+
+Doit on avoir une méthode dans chacune des classes qui donnent un résultat similaire ? et risquer de ne pas avoir le même resultat alors qu on veut la même chose ?
+doit on choisir une seule des deux classes impliquées ? mais la quelle ? la receveuse ou la donneuse ? 
+
++ la donneuse puisqu elle est en amont
++ mais comment controle que la donneuse donne au bon endroit ? la donneuse n'a pas à le savoir, mais le receuveur ne pas controler ce choix non plus -> il faut un 3ème acteur un mediateur
++ ce mediateur ne doit pas être dans un package différent que les acteurs eux mêmes, puisqu on va utiliser des méthodes protected ... pourquoi utiliser des méthodes protected ??? 
++ ce mediateur sera la classe *Game* et les classes donnantes et receveuse devront présenté des méthodes public donnantes receveuse
 
 ### List = ArrayList or Linked List
 
@@ -111,6 +122,9 @@ linked list for one Laying Pile as we do not need to sort them
 ArrayList for one hand as we need to sort them
 
 the group of hands and the groupe of LayingPile need to be sorted thus ArrayList
+
+### comment choisir une laypile ? avec direction + number ou juste number ?
+méthodes au non differentes suivant asc et desc et un nombre
 
 ## Draft code
 

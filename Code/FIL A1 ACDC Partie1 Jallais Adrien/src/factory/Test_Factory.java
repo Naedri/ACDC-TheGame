@@ -1,4 +1,4 @@
-package test;
+package factory;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,13 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import factory.DrawPileFactory;
-
 class Test_Factory {
 
 	@Test
-	void test() {
-
+	void test_DrawFactory() {
 		DrawPileFactory drawF = new DrawPileFactory();
 
 		/**
@@ -22,9 +19,8 @@ class Test_Factory {
 
 			@Override
 			public void execute() throws Throwable {
-				drawF.getDrawPile();
+				drawF.getDrawPile(null);
 			}
-
 		});
 
 		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
@@ -79,6 +75,6 @@ class Test_Factory {
 			}
 
 		});
-	}
 
+	}
 }

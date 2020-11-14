@@ -1,5 +1,5 @@
 package app;
 
-public class Menu {
+public class Menu implements IMenu {
 
 }

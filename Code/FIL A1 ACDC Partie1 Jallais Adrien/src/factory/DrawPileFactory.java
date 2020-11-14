@@ -24,7 +24,7 @@ public class DrawPileFactory {
 	/**
 	 * constructor should be used only by the GameFactory
 	 */
-	public DrawPileFactory() {
+	protected DrawPileFactory() {
 		this.cardDrawPile = new LinkedList<>();
 	}
 
@@ -35,7 +35,7 @@ public class DrawPileFactory {
 	 * @return
 	 * @throws IOException
 	 */
-	public IDrawPile getDrawPile(String path) throws IOException {
+	protected IDrawPile getDrawPile(String path) throws IOException {
 		if (path != null && !FileService.isPathValid(path)) {
 			throw new IllegalArgumentException("The given file path seems to be incorrect.");
 		}
@@ -47,7 +47,7 @@ public class DrawPileFactory {
 		} else {
 			this.fillCardDrawPile(path);
 		}
-		return new DrawPile(cardDrawPile);
+		return DrawPile.Instance(cardDrawPile);
 	}
 
 	/**
