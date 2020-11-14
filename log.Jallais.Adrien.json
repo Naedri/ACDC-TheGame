@@ -6,6 +6,16 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "6",
+            "date": "14/11/2020",
+            "travail": [
+                "implementation interface carte depot (CALayPile)",
+                "implementation interface carte en main (Hand)",
+                "implementation interface pioche (DrawPile)",
+                "initiation méthode Jeu (Game)"
+            ]
+        },
+        {
             "log_number": "5",
             "date": "12/11/2020",
             "travail": [
@@ -13,7 +23,7 @@
                 "développement factory Jeu",
                 "refactoring carte de dépots"
             ]
-        }
+        },
         {
             "log_number": "4",
             "date": "11/11/2020",
@@ -21,7 +31,7 @@
                 "travaux sur factory",
                 "remise à niveau sur copie superficielle et profonde"
             ]
-        }
+        },
         {
             "log_number": "3",
             "date": "10/10/2020",
