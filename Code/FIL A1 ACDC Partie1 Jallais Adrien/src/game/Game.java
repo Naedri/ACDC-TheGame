@@ -23,7 +23,7 @@ public class Game implements IGame {
 	private List<IHand> hands;
 	private List<ILayPile> lays;
 	private IHand hand;
-	private IHand handToShow;
+	// private IHand handToShow;
 	private int playerI;
 	private boolean victory;
 	private int score;
@@ -99,10 +99,49 @@ public class Game implements IGame {
 	}
 
 	@Override
+	public List<ICard> readHand() {
+		return this.hand.read();
+	}
+
+	@Override
+	public boolean[] whereToLay(ICard card) {
+		boolean[] layable = new boolean[RulesService.getNumberDescendingPile() + RulesService.getNumberAscendingPile()];
+		int i = 0;
+		for (final ILayPile lay : this.lays) {
+			layable[i] = lay.isLayable(card);
+			++i;
+		}
+		return layable;
+	}
+
+	@Override
+	public boolean lay(int pileIndex, ICard card) {
+		boolean laying = false;
+		ILayPile lay = this.lays.get(pileIndex);
+		if (isCardFromHand(card)) {
+			laying = lay.lay(card);
+			if (laying) {
+				this.score -= card.getValue();
+			}
+		}
+		return laying;
+	}
+
+	/**
+	 * to avoid a short cut utilization of the Number constructor
+	 * 
+	 * @param card
+	 * @return true if a card is well from the current hand player
+	 */
+	private boolean isCardFromHand(ICard card) {
+		return false;
+	}
+
+	@Override
 	public int endTurn() {
 		int drawedCards = this.draw();
 		if (drawedCards <= 0) {
-			this.closeGame();
+			this.close();
 		}
 		return drawedCards;
 	}
@@ -122,18 +161,24 @@ public class Game implements IGame {
 		return drawedCards;
 	}
 
-	/**
-	 * 
-	 * Clean the game
-	 */
-	private void cleanGame() {
-		this.draw = null;
-		this.hands = null;
-		this.lays = null;
+	@Override
+	public void restart() throws IllegalArgumentException {
+		this.draw.reset();
+		this.lays.forEach(lay -> {
+			lay.reset();
+		});
+		this.hands.forEach(hand -> {
+			hand.reset();
+		});
+		this.hand = this.hands.get(0);
 		this.victory = false;
-		this.hand = null;
 		this.score = this.getMinScore();
+	};
 
+	@Override
+	public int close() {
+		this.victory = isVictory();
+		return this.getScore();
 	}
 
 	/**
@@ -148,6 +193,15 @@ public class Game implements IGame {
 	// should stay private
 	private int getScore() {
 		return this.score;
+	}
+
+	/**
+	 * make sure the amount of card is correct
+	 * 
+	 * @return
+	 */
+	private boolean isGameComplete() {
+		return (this.getSize() == RulesService.getSizeExpected());
 	}
 
 	/**
@@ -167,13 +221,23 @@ public class Game implements IGame {
 		return size;
 	}
 
+	@Override
+	public void quit() {
+		this.cleanGame();
+		this.victory = false;
+		this.score = this.getMinScore();
+
+	}
+
 	/**
-	 * make sure the amount of card is correct
 	 * 
-	 * @return
+	 * Clean the game
 	 */
-	private boolean isGameComplete() {
-		return (this.getSize() == RulesService.getSizeExpected());
+	private void cleanGame() {
+		this.draw = null;
+		this.hands = null;
+		this.lays = null;
+		this.hand = null;
 	}
 
 	/**
@@ -202,28 +266,4 @@ public class Game implements IGame {
 	 * draw.add(card); } return draw; }
 	 */
 
-	@Override
-	@Deprecated // check if card is from the hand
-	public boolean lay(int pileIndice, ICard card) {
-		ILayPile lay = this.lays.get(pileIndice);
-		boolean successLaying = lay.lay(card);
-		if (successLaying) {
-			this.score -= card.getValue();
-		}
-		return successLaying;
-	}
-
-	@Override
-	public void restart() throws IllegalArgumentException {
-		this.draw.reset();
-		this.lays.forEach(lay -> {
-			lay.reset();
-		});
-		this.hands.forEach(hand -> {
-			hand.reset();
-		});
-		this.hand = this.hands.get(0);
-		this.victory = false;
-		this.score = this.getMinScore();
-	};
 }

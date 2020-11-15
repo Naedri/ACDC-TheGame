@@ -30,21 +30,31 @@ public interface IGame {
 	public List<ICard> readHand();
 
 	/**
-	 * full the hand until its maximum. Ends the turn. Ends the game : if no card
-	 * where played OR if the draw pile is empty
+	 * return a table of the same size than the laying piles (ascending and
+	 * descending ones) for each their capacity to lay the given card is evaluated
 	 * 
-	 * @return the number of drawed cards
+	 * @param card to be evaluated
+	 * @return a table of boolean, of which index match with the same pileIndex from
+	 *         the list of ILay
 	 */
-	public int endTurn();
+	public boolean[] whereToLay(ICard c);
 
 	/**
 	 * laying a card on a ASCending OR DESCending Pile
 	 * 
-	 * @param pileIndice from 0 to size of the List of LayPile
-	 * @param c          the card to be layed
+	 * @param pileIndex from 0 to size of the List of LayPile
+	 * @param card      the card to be layed
 	 * @return true if success, false if do not lay
 	 */
 	public boolean lay(int pileIndex, ICard card);
+
+	/**
+	 * full the hand until its maximum. Ends the turn. Ends the game : if no card
+	 * where played OR if the draw pile is empty
+	 * 
+	 * @return the number of drawed cards, if 0 the game is closed (win or loose)
+	 */
+	public int endTurn();
 
 	/**
 	 * the lowest score you could ever have
@@ -54,20 +64,28 @@ public interface IGame {
 	// public int getMinScore();
 
 	/**
-	 * Did the player win ?
-	 * 
-	 * @ return true if the player has played all cards from the draw pile and from
-	 * his hands.
-	 */
-	public boolean isVictory();
-
-	/**
 	 * restart the game
 	 */
 	public void restart();
 
 	/**
-	 * Leave a game, at its end or during its play
+	 * Stop playing, but restart still possible
+	 * 
+	 * @return the number of points
+	 */
+	public int close();
+
+	/**
+	 * Did the player win ?
+	 * 
+	 * @return true if the player has played all cards from the draw pile and from
+	 *         his hands.
+	 */
+	public boolean isVictory();
+
+	/**
+	 * Leave a game, at its end or during its play. Stop playing for ever, you can
+	 * not restart the play.
 	 */
 	public void quit();
 
