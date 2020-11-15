@@ -6,6 +6,15 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "7",
+            "date": "15/11/2020",
+            "travail": [
+                "tour de jeu (classe Game)",
+                "conditions de victoire (classe Game) ",
+                "interface client humain (classe Game)"
+            ]
+        },
+        {
             "log_number": "6",
             "date": "14/11/2020",
             "travail": [
