@@ -21,7 +21,8 @@ public class Number implements ICard {
 	 * @return new card copied by defensive way
 	 */
 	public Number(ICard card) {
-		this(card.getValue());
+		// this(card.getValue());
+		this.value = card.getValue();
 	}
 
 	@Override

@@ -109,4 +109,14 @@ public class Hand implements IHand {
 		}
 		return array;
 	}
+
+	@Override
+	public boolean contains(ICard card) {
+		for (ICard c : this.list) {
+			if (c.equals(card)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

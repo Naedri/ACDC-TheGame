@@ -5,14 +5,14 @@ import java.util.List;
 
 import card.ICard;
 import direction.Direction;
+import pile.Hand;
 import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
 import services.RulesService;
 
 /**
- * Game will act as a Mediator of the card flow between class of the pile
- * package.
+ * 
  * 
  * @author Adrien Jallais
  *
@@ -23,16 +23,14 @@ public class Game implements IGame {
 	private List<IHand> hands;
 	private List<ILayPile> lays;
 	private IHand hand;
-	// private IHand handToShow;
+	private IHand handCheck;
 	private int playerI;
-	private boolean victory;
 	private int score;
 
 	public Game(IDrawPile _draw, List<IHand> _hands, List<ILayPile> _lays) {
 		this.draw = _draw;
 		this.hands = _hands;
 		this.lays = _lays;
-		this.victory = false;
 		this.playerI = 0;
 		this.hand = this.hands.get(this.playerI);
 		this.score = this.getMinScore();
@@ -56,11 +54,28 @@ public class Game implements IGame {
 	}
 
 	@Override
-	@Deprecated // we can change the player with get
 	public int beginTurn() {
 		this.playerI = 0;
 		this.hand = this.hands.get(this.playerI);
+		if (isHandBlocked() && RulesService.getPlayerNumber() == 1) {
+			this.close();
+		}
+		this.writeHandCheck();
 		return this.playerI;
+	}
+
+	/**
+	 * over write handCheck with a shallow copy of the current hand. The copy is
+	 * only shallow and not made with serialization
+	 * https://stackoverflow.com/questions/1387954/how-to-serialize-a-list-in-java
+	 */
+	@Deprecated
+	private void writeHandCheck() {
+		/*
+		 * for (ICard card : this.hand.read()) { this.handCheck.add((ICard) new
+		 * Number(card)); }
+		 */
+		this.handCheck = new Hand(this.hand);
 	}
 
 	/**
@@ -104,12 +119,35 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public boolean[] whereToLay(ICard card) {
+	public boolean canHandLay() {
+		for (final ICard card : this.hand.read()) {
+			List<Integer> pileLayable = this.whereToLay(card);
+			if (pileLayable.size() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean[] mayBeLay(ICard card) {
 		boolean[] layable = new boolean[RulesService.getNumberDescendingPile() + RulesService.getNumberAscendingPile()];
 		int i = 0;
 		for (final ILayPile lay : this.lays) {
 			layable[i] = lay.isLayable(card);
 			++i;
+		}
+		return layable;
+	}
+
+	@Override
+	public List<Integer> whereToLay(ICard card) {
+		List<Integer> layable = new ArrayList<Integer>();
+		for (int i = 0; i < lays.size(); i++) {
+			ILayPile lay = lays.get(i);
+			if (lay.isLayable(card)) {
+				layable.add(Integer.valueOf(i));
+			}
 		}
 		return layable;
 	}
@@ -134,13 +172,13 @@ public class Game implements IGame {
 	 * @return true if a card is well from the current hand player
 	 */
 	private boolean isCardFromHand(ICard card) {
-		return false;
+		return this.handCheck.contains(card);
 	}
 
 	@Override
 	public int endTurn() {
 		int drawedCards = this.draw();
-		if (drawedCards <= 0) {
+		if (isHandBlocked() && RulesService.getPlayerNumber() == 1) {
 			this.close();
 		}
 		return drawedCards;
@@ -162,6 +200,27 @@ public class Game implements IGame {
 	}
 
 	@Override
+	public boolean isHandBlocked() {
+		if (this.draw.isEmpty()) {
+			if (this.hand.isEmpty()) {
+				// hand has won // and
+				return false;
+			} else {
+				// hand has to play
+				return this.canHandLay();
+			}
+		} else {
+			if (!this.hand.isFull()) {
+				// hand has to draw
+				return false;
+			} else {
+				// hand have to play
+				return this.canHandLay();
+			}
+		}
+	}
+
+	@Override
 	public void restart() throws IllegalArgumentException {
 		this.draw.reset();
 		this.lays.forEach(lay -> {
@@ -171,23 +230,22 @@ public class Game implements IGame {
 			hand.reset();
 		});
 		this.hand = this.hands.get(0);
-		this.victory = false;
 		this.score = this.getMinScore();
 	};
 
 	@Override
 	public int close() {
-		this.victory = isVictory();
 		return this.getScore();
 	}
 
 	/**
-	 * is the draw pile and the hand empty && there is no missed card
+	 * is the draw pile and the hand empty && there is no missed card && the score
+	 * is the highest possible
 	 * 
 	 * @return
 	 */
 	public boolean isVictory() {
-		return (this.getScore() <= 0 && this.isGameComplete());
+		return (this.getScore() <= 0 && this.isGameComplete() && this.allHandsEmpty() && this.draw.isEmpty());
 	}
 
 	// should stay private
@@ -221,10 +279,24 @@ public class Game implements IGame {
 		return size;
 	}
 
+	/**
+	 * Useful for several players all the hands are empty OR is there at least one
+	 * hand not empty
+	 * 
+	 * @return
+	 */
+	private boolean allHandsEmpty() {
+		for (final IHand hand : this.hands) {
+			if (!hand.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public void quit() {
 		this.cleanGame();
-		this.victory = false;
 		this.score = this.getMinScore();
 
 	}

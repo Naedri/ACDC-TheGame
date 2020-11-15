@@ -30,6 +30,13 @@ public interface IGame {
 	public List<ICard> readHand();
 
 	/**
+	 * 
+	 * @return true if there is at least one card from the hand which can be layed
+	 *         on at least one laying pile
+	 */
+	public boolean canHandLay();
+
+	/**
 	 * return a table of the same size than the laying piles (ascending and
 	 * descending ones) for each their capacity to lay the given card is evaluated
 	 * 
@@ -37,10 +44,20 @@ public interface IGame {
 	 * @return a table of boolean, of which index match with the same pileIndex from
 	 *         the list of ILay
 	 */
-	public boolean[] whereToLay(ICard c);
+	public boolean[] mayBeLay(ICard c);
 
 	/**
-	 * laying a card on a ASCending OR DESCending Pile
+	 * give int list where to lay card
+	 * 
+	 * @param card
+	 * @return a list of index from the list of laying pile, where to lay the given
+	 *         card
+	 */
+	public List<Integer> whereToLay(ICard card);
+
+	/**
+	 * laying a card on a ASCending OR DESCending Pile. Should check if card is from
+	 * Hand
 	 * 
 	 * @param pileIndex from 0 to size of the List of LayPile
 	 * @param card      the card to be layed
@@ -57,11 +74,12 @@ public interface IGame {
 	public int endTurn();
 
 	/**
-	 * the lowest score you could ever have
+	 * To use at the beginning or ending of a turn
 	 * 
-	 * @return
+	 * @return true if the game is blocked (winner or looser) ; false if the player
+	 *         can still continue to play
 	 */
-	// public int getMinScore();
+	public boolean isHandBlocked();
 
 	/**
 	 * restart the game
@@ -69,7 +87,7 @@ public interface IGame {
 	public void restart();
 
 	/**
-	 * Stop playing, but restart still possible
+	 * Stop playing after Winning or Loosing. Restart still possible
 	 * 
 	 * @return the number of points
 	 */
@@ -88,10 +106,4 @@ public interface IGame {
 	 * not restart the play.
 	 */
 	public void quit();
-
-	/**
-	 * Clean the game
-	 */
-	// public void cleanGame();
-
 }

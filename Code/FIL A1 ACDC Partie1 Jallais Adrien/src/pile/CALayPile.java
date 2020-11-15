@@ -27,15 +27,19 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	// add the first card to a laying pile (100 or 1)
+	// we can not use the add method as the deque is empty
 	private void addFirstCard() {
+		assert (isEmpty());
 		switch (this.direction) {
 		case DOWN: {
 			// Descending Pile
-			this.add(new Number(RulesService.getLayDescendingPileRange()[0]));
+			this.deque.add(new Number(RulesService.getLayDescendingPileRange()[0]));
+			break;
 		}
 		case UP: {
 			// Ascending Pile
-			this.add(new Number(RulesService.getLayAscendingPileRange()[0]));
+			this.deque.add(new Number(RulesService.getLayAscendingPileRange()[0]));
+			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + this.direction);
@@ -48,6 +52,16 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	// AC Method
+
+	/**
+	 * to assert for the add of the first card
+	 * 
+	 * @return if the dequeue is empty or not
+	 */
+	private boolean isEmpty() {
+		return this.deque.size() == 0;
+	}
+
 	/**
 	 * adding card to the dequeue
 	 * 
@@ -104,6 +118,11 @@ public abstract class CALayPile implements ILayPile {
 	public boolean isLayable(ICard card) {
 		assert (card != null);
 		if (!this.isFull()) {
+			// Backwards laying
+			if (this.readBackwardsAllowed().equals(card)) {
+				return true;
+			}
+			// usual laying
 			switch (this.direction) {
 			case DOWN: {
 				// Descending Pile

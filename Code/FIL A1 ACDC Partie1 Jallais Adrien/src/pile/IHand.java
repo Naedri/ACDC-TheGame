@@ -33,7 +33,7 @@ public interface IHand {
 	public boolean isFull();
 
 	/**
-	 * Is the List of Card empty
+	 * Is the List of Card empty. Or is there at least one ICard in the hand ?
 	 * 
 	 * @return
 	 */
@@ -81,5 +81,12 @@ public interface IHand {
 	 * @return a string array of the value of card
 	 */
 	public String[] toArray();
+
+	/**
+	 * 
+	 * @param card
+	 * @return true if the given card is contained in this hand
+	 */
+	public boolean contains(ICard card);
 
 }
