@@ -10,6 +10,7 @@ import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
 import services.RulesService;
+import services.ServiceUser;
 
 /**
  * 
@@ -26,14 +27,32 @@ public class Game implements IGame {
 	private IHand handCheck;
 	private int playerI;
 	private int score;
+	private boolean stop;
+	int choiceQuitTurn = 1;
+	int choiceQuitGame = 1;
 
 	public Game(IDrawPile _draw, List<IHand> _hands, List<ILayPile> _lays) {
 		this.draw = _draw;
 		this.hands = _hands;
 		this.lays = _lays;
+		this.firstDraw();
 		this.playerI = 0;
 		this.hand = this.hands.get(this.playerI);
 		this.score = this.getMinScore();
+		this.stop = false;
+	}
+
+	/**
+	 * fill all the hands with the conventional hand lenght from the draw
+	 * 
+	 * @return
+	 */
+	private void firstDraw() {
+		for (int i = 0; i < this.hands.size(); i++) {
+			this.hand = this.hands.get(i);
+			int nc = this.draw(); // draw for this.draw
+			assert (nc == RulesService.getHandLength());
+		}
 	}
 
 	/**
@@ -111,6 +130,16 @@ public class Game implements IGame {
 			++i;
 		}
 		return gameState;
+	}
+
+	@Override
+	public void printLays() {
+		String colNames = "| LayPile_index | LayPile_direction | LayPile_Card |";
+		System.out.println(colNames);
+		List<LayInfo> layInfo = readLaysInfo();
+		for (int i = 0; i < layInfo.size(); i++) {
+			System.out.println(layInfo.get(i).toString());
+		}
 	}
 
 	@Override
@@ -203,7 +232,7 @@ public class Game implements IGame {
 	public boolean isHandBlocked() {
 		if (this.draw.isEmpty()) {
 			if (this.hand.isEmpty()) {
-				// hand has won // and
+				// hand has won
 				return false;
 			} else {
 				// hand has to play
@@ -231,11 +260,12 @@ public class Game implements IGame {
 		});
 		this.hand = this.hands.get(0);
 		this.score = this.getMinScore();
+		this.stop = false;
 	};
 
 	@Override
-	public int close() {
-		return this.getScore();
+	public void close() {
+		this.stop = true;
 	}
 
 	/**
@@ -296,9 +326,10 @@ public class Game implements IGame {
 
 	@Override
 	public void quit() {
+		System.out.println("Bye");
 		this.cleanGame();
 		this.score = this.getMinScore();
-
+		this.stop = true;
 	}
 
 	/**
@@ -310,6 +341,76 @@ public class Game implements IGame {
 		this.hands = null;
 		this.lays = null;
 		this.hand = null;
+		this.stop = false;
+	}
+
+	@Override
+	public boolean play() {
+		int choiceCard = 0;
+		int choiceLayPile = 0;
+		int choiceTurn = 0;
+		ICard cardTemp;
+		while (!this.stop) {
+			// whole game
+			beginTurn();
+			while (!this.stop) {
+				cardTemp = null;
+				// whole turn
+				// state of the game
+				System.out.println("Ci dessous l'état du plateau :");
+				printLays();
+				System.out.println("Ci dessous l'état de votre main:");
+				this.hand.print();
+				// choice of the card
+				System.out.println("Choisissez l'indice de la carte à jouer.");
+				printChoiceQuit(this.hand.getSize());
+				choiceCard = ServiceUser.setChoice(0, this.hand.getSize() + 1);
+				if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
+					if (choiceCard == choiceQuitGame) {
+						this.quit();
+					}
+					break;
+				}
+				// choice of the laying pile
+				System.out.println("Choisissez l'indice de la pile sur laquelle déposer la carte choisie.");
+				printChoiceQuit(RulesService.getNumberLayingPile());
+				choiceLayPile = ServiceUser.setChoice(0, RulesService.getNumberLayingPile() + 1);
+				if (choiceLayPile == choiceQuitTurn || choiceLayPile == choiceQuitGame) {
+					if (choiceLayPile == choiceQuitGame) {
+						this.quit();
+					}
+					break;
+				}
+				// laying card
+				cardTemp = this.hand.read().get(choiceCard);
+				if (this.lay(choiceLayPile, cardTemp)) {
+					System.out.println("Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
+					choiceTurn = ServiceUser.setChoice(0, 1);
+					if (choiceTurn == 1) {
+						break;
+					}
+				} else {
+					System.out.println("La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile :");
+					this.lays.get(choiceLayPile).toString();
+					System.out.println("Nous allons vous rappeler l'état du jeu...");
+				}
+			}
+			endTurn();
+		}
+		if (isVictory()) {
+			System.out.println("You win !");
+		} else {
+			System.out.println("The game won.");
+		}
+		System.out.println("Your score is " + this.getScore() / this.getMinScore() + " .");
+		return isVictory();
+	}
+
+	private void printChoiceQuit(int startChoice) {
+		this.choiceQuitTurn = startChoice;
+		this.choiceQuitGame = startChoice + 1;
+		System.out.println("Ou tapez '" + this.choiceQuitTurn + "' pour terminer votre tour.");
+		System.out.println("Ou tapez '" + this.choiceQuitGame + "' pour quitter.");
 	}
 
 	/**

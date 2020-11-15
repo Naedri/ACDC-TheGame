@@ -23,6 +23,11 @@ public interface IGame {
 	public List<LayInfo> readLaysInfo();
 
 	/**
+	 * syso the readLaysInfo for Human console
+	 */
+	public void printLays();
+
+	/**
 	 * For the client : Allow to read information about the current playing hand
 	 * 
 	 * @return
@@ -89,9 +94,8 @@ public interface IGame {
 	/**
 	 * Stop playing after Winning or Loosing. Restart still possible
 	 * 
-	 * @return the number of points
 	 */
-	public int close();
+	public void close();
 
 	/**
 	 * Did the player win ?
@@ -106,4 +110,12 @@ public interface IGame {
 	 * not restart the play.
 	 */
 	public void quit();
+
+	/**
+	 * To organize the succession as a mediator of the functions from the Game
+	 * Class.
+	 * 
+	 * @return isVictory();
+	 */
+	public boolean play();
 }

@@ -111,6 +111,15 @@ public class Hand implements IHand {
 	}
 
 	@Override
+	public void print() {
+		String colNames = "| Card_index | Card_value |";
+		System.out.println(colNames);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
+	}
+
+	@Override
 	public boolean contains(ICard card) {
 		for (ICard c : this.list) {
 			if (c.equals(card)) {
@@ -119,4 +128,5 @@ public class Hand implements IHand {
 		}
 		return false;
 	}
+
 }

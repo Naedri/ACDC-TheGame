@@ -83,6 +83,12 @@ public interface IHand {
 	public String[] toArray();
 
 	/**
+	 * syso the card info for Human console
+	 * 
+	 */
+	public void print();
+
+	/**
 	 * 
 	 * @param card
 	 * @return true if the given card is contained in this hand

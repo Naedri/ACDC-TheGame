@@ -74,6 +74,10 @@ public final class RulesService {
 		return RulesService.numberDrawPile;
 	}
 
+	public static int getNumberLayingPile() {
+		return (RulesService.numberDescendingPile + RulesService.numberAscendingPile);
+	}
+
 	/**
 	 * @return the numberDescendingPile
 	 */

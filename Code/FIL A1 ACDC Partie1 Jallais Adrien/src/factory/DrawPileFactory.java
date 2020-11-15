@@ -13,7 +13,7 @@ import card.ICard;
 import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
-import services.FileService;
+import services.ServiceUser;
 import services.RulesService;
 
 public class DrawPileFactory {
@@ -36,7 +36,7 @@ public class DrawPileFactory {
 	 * @throws IOException
 	 */
 	protected IDrawPile getDrawPile(String path) throws IOException {
-		if (path != null && !FileService.isPathValid(path)) {
+		if (path != null && !ServiceUser.isPathValid(path)) {
 			throw new IllegalArgumentException("The given file path seems to be incorrect.");
 		}
 		if (drawPile != null) {

@@ -13,7 +13,7 @@ import pile.Hand;
 import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
-import services.FileService;
+import services.ServiceUser;
 import services.RulesService;
 
 public class GameFactory {
@@ -44,7 +44,7 @@ public class GameFactory {
 	}
 
 	public IGame getGame(String path) throws IOException {
-		if (path != null && !FileService.isPathValid(path)) {
+		if (path != null && !ServiceUser.isPathValid(path)) {
 			throw new IllegalArgumentException("The given file path seems to be incorrect.");
 		}
 		if (this.game != null) {

@@ -74,4 +74,6 @@ public interface ILayPile {
 	 * @return
 	 */
 	public Direction getDirection();
+
+	public void print();
 }

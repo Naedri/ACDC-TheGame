@@ -182,4 +182,28 @@ public abstract class CALayPile implements ILayPile {
 		return this.direction;
 	}
 
+	/**
+	 * syso the lay pile info for Human console
+	 * 
+	 */
+	public void print() {
+		String s;
+		switch (this.direction) {
+		case DOWN: {
+			// Descending Pile
+			s = "Descending Pile ( ";
+			break;
+		}
+		case UP: {
+			// Ascending Pile
+			s = "Ascending Pile ( ";
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + this.direction);
+		}
+		s += this.read().toString() + " )";
+		System.out.println(s);
+	}
+
 }
