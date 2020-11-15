@@ -12,4 +12,23 @@ public enum Direction {
 	public int getDRow() {
 		return directionRow;
 	}
+
+	public String toString() {
+		switch (directionRow) {
+		case 1: {
+			return "UP";
+		}
+		case -1: {
+			return "DOWN";
+		}
+		case 10: {
+			return "SUPER_UP";
+		}
+		case -10: {
+			return "SUPER_DOWN";
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + directionRow);
+		}
+	}
 }

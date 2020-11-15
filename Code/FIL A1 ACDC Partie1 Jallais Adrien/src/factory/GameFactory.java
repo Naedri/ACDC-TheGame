@@ -43,17 +43,6 @@ public class GameFactory {
 		this.dscPile = RulesService.getNumberDescendingPile();
 	}
 
-	public IGame getGame() {
-		if (path != null && !FileService.isPathValid(path)) {
-			throw new IllegalArgumentException("The given file path seems to be incorrect.");
-		}
-		if (this.game != null) {
-			this.resetGameFactory();
-		}
-		makeGame(path);
-		return this.game;
-	}
-
 	public IGame getGame(String path) throws IOException {
 		if (path != null && !FileService.isPathValid(path)) {
 			throw new IllegalArgumentException("The given file path seems to be incorrect.");

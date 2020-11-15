@@ -21,6 +21,17 @@ public class Hand implements IHand {
 	}
 
 	/**
+	 * Copy constructors and defensive copying
+	 * https://stackoverflow.com/questions/15020850/copy-constructors-and-defensive-copying
+	 * 
+	 * @param hand
+	 * @return new hand copied by defensive way
+	 */
+	public Hand(IHand hand) {
+		this(hand.read());
+	}
+
+	/**
 	 * Sort the List of ICard. From the min ICard to the Max ICard
 	 */
 	private void sort() {
@@ -81,7 +92,21 @@ public class Hand implements IHand {
 		 * this.list.forEach(card -> { card = null; });
 		 */
 		this.list.removeAll(this.list);
-		assert (this.list.size() == 0);
+		assert (this.list.size() == 0); // to erase if work
 		return this.list.size() == 0;
+	}
+
+	@Override
+	public String[] toArray() {
+		String[] array = new String[this.getSize()];
+		int i = 0;
+		/*
+		 * this.read().forEach(card -> { array[i] = card.toString(); ++i; });
+		 */
+		for (final ICard card : this.read()) {
+			array[i] = card.toString();
+			++i;
+		}
+		return array;
 	}
 }

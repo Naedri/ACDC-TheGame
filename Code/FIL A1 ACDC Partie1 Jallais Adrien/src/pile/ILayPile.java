@@ -1,6 +1,7 @@
 package pile;
 
 import card.ICard;
+import direction.Direction;
 
 public interface ILayPile {
 
@@ -72,5 +73,5 @@ public interface ILayPile {
 	 * 
 	 * @return
 	 */
-	// public Direction getDirection();
+	public Direction getDirection();
 }

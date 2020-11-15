@@ -1,8 +1,10 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import card.ICard;
+import direction.Direction;
 import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
@@ -21,6 +23,8 @@ public class Game implements IGame {
 	private List<IHand> hands;
 	private List<ILayPile> lays;
 	private IHand hand;
+	private IHand handToShow;
+	private int playerI;
 	private boolean victory;
 	private int score;
 
@@ -29,8 +33,78 @@ public class Game implements IGame {
 		this.hands = _hands;
 		this.lays = _lays;
 		this.victory = false;
-		this.hand = this.hands.get(0);
+		this.playerI = 0;
+		this.hand = this.hands.get(this.playerI);
 		this.score = this.getMinScore();
+	}
+
+	/**
+	 * the lowest score you could ever have
+	 * 
+	 * @return the sum of the draw pile according the Rules
+	 */
+	private int getMinScore() {
+		int n = RulesService.getDrawPileRange()[1];
+		int sum = 0;
+
+		int i = RulesService.getDrawPileRange()[0];
+		while (i <= n) {
+			sum += i;
+			++i;
+		}
+		return sum;
+	}
+
+	@Override
+	@Deprecated // we can change the player with get
+	public int beginTurn() {
+		this.playerI = 0;
+		this.hand = this.hands.get(this.playerI);
+		return this.playerI;
+	}
+
+	/**
+	 * An internal class to be used in the list Information for one lay pile
+	 * 
+	 * @source https://fr.wikibooks.org/wiki/Programmation_Java/Classes_internes
+	 * @author Adrien Jallais
+	 *
+	 */
+	protected class LayInfo extends Object {
+		private final int index;
+		private final Direction direction;
+		private final ICard card;
+
+		public LayInfo(int _index, Direction _direction, ICard _card) {
+			this.index = _index;
+			this.direction = _direction;
+			this.card = _card;
+		}
+
+		public String toString() {
+			return ("| " + Integer.toString(this.index) + " | " + this.direction.toString() + " | "
+					+ this.card.toString() + " |");
+		}
+	}
+
+	@Override
+	public List<LayInfo> readLaysInfo() {
+		List<LayInfo> gameState = new ArrayList<LayInfo>();
+		int i = 0;
+		for (final ILayPile lay : this.lays) {
+			gameState.add(new LayInfo(i, lay.getDirection(), lay.read()));
+			++i;
+		}
+		return gameState;
+	}
+
+	@Override
+	public int endTurn() {
+		int drawedCards = this.draw();
+		if (drawedCards <= 0) {
+			this.closeGame();
+		}
+		return drawedCards;
 	}
 
 	/***
@@ -48,26 +122,17 @@ public class Game implements IGame {
 		return drawedCards;
 	}
 
-	@Override
-	public int endTurn() {
-		int drawedCards = this.draw();
-		if (drawedCards <= 0) {
-			this.closeGame();
-		}
-		return drawedCards;
-	}
-
 	/**
 	 * 
 	 * Clean the game
 	 */
-	public void cleanGame() {
+	private void cleanGame() {
 		this.draw = null;
 		this.hands = null;
 		this.lays = null;
 		this.victory = false;
 		this.hand = null;
-		this.score = 0;
+		this.score = this.getMinScore();
 
 	}
 
@@ -80,6 +145,7 @@ public class Game implements IGame {
 		return (this.getScore() <= 0 && this.isGameComplete());
 	}
 
+	// should stay private
 	private int getScore() {
 		return this.score;
 	}
@@ -102,7 +168,7 @@ public class Game implements IGame {
 	}
 
 	/**
-	 * make sure the totality of card is present, and not redundant
+	 * make sure the amount of card is correct
 	 * 
 	 * @return
 	 */
@@ -137,9 +203,8 @@ public class Game implements IGame {
 	 */
 
 	@Override
-	@Deprecated
+	@Deprecated // check if card is from the hand
 	public boolean lay(int pileIndice, ICard card) {
-		// check if card is from the hand
 		ILayPile lay = this.lays.get(pileIndice);
 		boolean successLaying = lay.lay(card);
 		if (successLaying) {
@@ -159,5 +224,6 @@ public class Game implements IGame {
 		});
 		this.hand = this.hands.get(0);
 		this.victory = false;
+		this.score = this.getMinScore();
 	};
 }

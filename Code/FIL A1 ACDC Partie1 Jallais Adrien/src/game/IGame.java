@@ -3,18 +3,31 @@ package game;
 import java.util.List;
 
 import card.ICard;
+import game.Game.LayInfo;
 
 public interface IGame {
 
 	/**
-	 * Leave a game, at its end or during its play
+	 * 
+	 * @return the index of the current player
 	 */
-	public void quit();
+	public int beginTurn();
 
 	/**
-	 * restart the game
+	 * For the client : Allow to read information about the different lay piles : |
+	 * LayPile_index | LayPile_direction | LayPile_Card |
+	 * https://stackoverflow.com/questions/19602601/create-an-arraylist-with-multiple-object-types
+	 * 
+	 * @return List<Integer, Direction, ICard>
 	 */
-	public void restart();
+	public List<LayInfo> readLaysInfo();
+
+	/**
+	 * For the client : Allow to read information about the current playing hand
+	 * 
+	 * @return
+	 */
+	public List<ICard> readHand();
 
 	/**
 	 * full the hand until its maximum. Ends the turn. Ends the game : if no card
@@ -25,34 +38,20 @@ public interface IGame {
 	public int endTurn();
 
 	/**
-	 * Allow to read information about the lay piles
-	 * 
-	 * @return array | Indice | Pile Direction | Current Card |
-	 */
-	public String[][] readLayInfo();
-
-	/**
-	 * Allow to read information about the current playing hand
-	 * 
-	 * @return
-	 */
-	public List<ICard> readHand();
-
-	/**
 	 * laying a card on a ASCending OR DESCending Pile
 	 * 
 	 * @param pileIndice from 0 to size of the List of LayPile
 	 * @param c          the card to be layed
 	 * @return true if success, false if do not lay
 	 */
-	public boolean lay(int pileIndice, ICard card);
+	public boolean lay(int pileIndex, ICard card);
 
 	/**
 	 * the lowest score you could ever have
 	 * 
 	 * @return
 	 */
-	public int getMinScore();
+	// public int getMinScore();
 
 	/**
 	 * Did the player win ?
@@ -63,8 +62,18 @@ public interface IGame {
 	public boolean isVictory();
 
 	/**
+	 * restart the game
+	 */
+	public void restart();
+
+	/**
+	 * Leave a game, at its end or during its play
+	 */
+	public void quit();
+
+	/**
 	 * Clean the game
 	 */
-	public void cleanGame();
+	// public void cleanGame();
 
 }

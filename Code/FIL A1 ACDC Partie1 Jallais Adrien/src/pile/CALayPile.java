@@ -18,7 +18,7 @@ import services.RulesService;
 public abstract class CALayPile implements ILayPile {
 
 	private Deque<ICard> deque;
-	private Direction direction;
+	private final Direction direction;
 
 	public CALayPile(Direction direction) {
 		this.direction = direction;
@@ -64,7 +64,8 @@ public abstract class CALayPile implements ILayPile {
 	 */
 	@Override
 	public ICard read() {
-		return new Number(this.get().getValue());
+		// return new Number(this.get().getValue());
+		return new Number(this.get()); // defensive copy
 	}
 
 	@Override
@@ -154,11 +155,12 @@ public abstract class CALayPile implements ILayPile {
 		return this.deque.size() == 1;
 	}
 
-	/*
-	 * @Override public Direction getDirection() { switch (this.direction) { case
-	 * DOWN: { // Descending Pile return Direction.DOWN; } case UP: { // Ascending
-	 * Pile return Direction.UP; } default: throw new
-	 * IllegalArgumentException("Unexpected value: " + this.direction); } }
+	/**
+	 * we can return this.direction and avoid modification, as we use final
 	 */
+	@Override
+	public Direction getDirection() {
+		return this.direction;
+	}
 
 }

@@ -75,4 +75,11 @@ public interface IHand {
 	 * @return true if successful
 	 */
 	public boolean reset();
+
+	/**
+	 * 
+	 * @return a string array of the value of card
+	 */
+	public String[] toArray();
+
 }

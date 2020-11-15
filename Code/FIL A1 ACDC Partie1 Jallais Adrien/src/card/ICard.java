@@ -34,8 +34,14 @@ public interface ICard extends Comparable<ICard> {
 	public boolean equals(Object o);
 
 	/**
-	 * 
+	 * Overriding compareTo(Object o) to compare two ICard objects
 	 */
 	public int compareTo(ICard card);
+
+	/**
+	 * 
+	 * @return the value of the card
+	 */
+	public String toString();
 
 }

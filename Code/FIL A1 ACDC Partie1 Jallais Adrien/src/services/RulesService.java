@@ -8,7 +8,7 @@ public final class RulesService {
 	private final static int handLength = 5;
 	private final static int playerNumber = 1;
 	private final static int[] cardRange = new int[] { 1, 100 };
-	private final static int numberDrawPile = 1;
+	private final static int numberDrawPile = 1; // there is also a singleton pattern
 	private final static int numberDescendingPile = 2;
 	private final static int numberAscendingPile = 2;
 
