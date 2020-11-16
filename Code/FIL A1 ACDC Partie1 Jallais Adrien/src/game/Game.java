@@ -414,7 +414,7 @@ public class Game implements IGame {
 							break;
 						} else {
 							System.out.println(
-									"Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
+									"Si vous souhaitez continuer à tenter de poser des cartes, tapez 0 ; sinon tapez 1.");
 							choiceTurn = ServiceUser.setChoice(0, 1);
 							if (choiceTurn == 1) {
 								// end turn
@@ -423,8 +423,8 @@ public class Game implements IGame {
 						}
 					} else {
 						// bad laying
-						System.out.println(
-								"La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile :");
+						System.out
+								.println("La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile.");
 						this.lays.get(choiceLayPile).toString();
 						System.out.println("Nous allons vous rappeler l'état du jeu...");
 					}
@@ -437,8 +437,8 @@ public class Game implements IGame {
 			} else {
 				System.out.println("The game won.");
 			}
-			System.out
-					.println("Your score is " + this.getScore() / this.getMinScore() + " , with the following view : ");
+			System.out.println(
+					"Your score is " + this.getScore() + "/" + this.getMinScore() + " , with the following view : ");
 			this.print();
 			System.out.println(
 					"Souhaitez vous recommencer la même configuration de partie ? Tapez 0 pour Oui, 1 pour Non.");

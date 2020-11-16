@@ -15,15 +15,26 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		GameFactory gameF = new GameFactory();
 		String path;
-		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
 
 		/**
-		 * wanna play a short game ? please change ass well services.ServicesRules line
-		 * 11 with private final static int[] cardRange = new int[] { 10, 20 };
+		 * USUAL GAME
 		 */
-		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall.txt"; // ok
+		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
+		// for given cards
+		path = null;
+		// for random cards
 
-		IGame game = gameF.getGame(path);
+		/**
+		 * SHORT GAME?
+		 */
+		// please change services.ServicesRules line
+		// add line 11 with private final static int[] cardRange = new int[] { 10, 20 };
+		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Win.txt";
+		// you win if you do : 020 - 020 - 020 ...
+		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Loose.txt";
+		// you loose if you do : 430 - 320 - 000 - 010
+
+		IGame game = gameF.getGame(null);
 		game.playHuman();
 
 	}
