@@ -83,6 +83,10 @@ public interface ILayPile {
 	 */
 	public Direction getDirection();
 
+	/**
+	 * syso the lay info for Human console
+	 * 
+	 */
 	public void print();
 
 }

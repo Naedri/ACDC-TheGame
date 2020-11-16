@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import card.ICard;
@@ -111,7 +112,7 @@ public class Game implements IGame {
 	 * @author Adrien Jallais
 	 *
 	 */
-	protected class LayInfo extends Object {
+	public class LayInfo extends Object {
 		private final int index;
 		private final Direction direction;
 		private final ICard card;
@@ -164,6 +165,11 @@ public class Game implements IGame {
 		System.out.println("- The state of the current hand : ");
 		this.printHand();
 		System.out.println("_________________________________________\n");
+	}
+
+	@Override
+	public List<ILayPile> readLays() {
+		return Collections.unmodifiableList(this.lays);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import card.ICard;
 import game.Game.LayInfo;
+import pile.ILayPile;
 
 public interface IGame {
 
@@ -36,6 +37,14 @@ public interface IGame {
 	 * syso the printLays + printHand, for Human console
 	 */
 	public void print();
+
+	/**
+	 * For the client : Allow to read information about the current playing laying
+	 * pile
+	 * 
+	 * @return
+	 */
+	public List<ILayPile> readLays();
 
 	/**
 	 * For the client : Allow to read information about the current playing hand
@@ -122,8 +131,7 @@ public interface IGame {
 	public void quit();
 
 	/**
-	 * To organize the succession as a mediator of the functions from the Game
-	 * Class.
+	 * Allow an human to play
 	 * 
 	 * @return
 	 */
