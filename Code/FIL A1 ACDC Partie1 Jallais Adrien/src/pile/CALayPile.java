@@ -47,8 +47,9 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	// shortcut
+	// beware : Deque.getFirst() == Queue.getFirst();
 	private ICard get() {
-		return this.deque.getFirst();
+		return this.deque.getLast();
 	}
 
 	// AC Method
@@ -130,8 +131,20 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	@Override
+	@Deprecated
 	public boolean isFull() {
-		return this.get().getValue() >= this.readThresholdMax().getValue();
+		switch (this.direction) {
+		case DOWN: {
+			// Descending Pile
+			return this.get().getValue() <= this.readThresholdMax().getValue();
+		}
+		case UP: {
+			// Ascending Pile
+			return this.get().getValue() >= this.readThresholdMax().getValue();
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + this.direction);
+		}
 	}
 
 	@Override

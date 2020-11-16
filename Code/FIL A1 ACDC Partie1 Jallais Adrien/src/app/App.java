@@ -17,7 +17,7 @@ public class App {
 		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
 		IGame game = gameF.getGame(path1);
 
-		game.play();
+		// game.playHuman();
 	}
 
 }

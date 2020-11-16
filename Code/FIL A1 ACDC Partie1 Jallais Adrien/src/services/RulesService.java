@@ -37,7 +37,7 @@ public final class RulesService {
 	 * @return the drawPileRange
 	 */
 	public static int[] getDrawPileRange() {
-		int[] drawPileRange = { RulesService.getCardRange()[0] + 1, RulesService.getCardRange()[1] + 1 };
+		int[] drawPileRange = { RulesService.getCardRange()[0] + 1, RulesService.getCardRange()[1] - 1 };
 		return drawPileRange;
 	}
 
@@ -45,7 +45,7 @@ public final class RulesService {
 	 * @return the layascendingpilerange
 	 */
 	public static int[] getLayAscendingPileRange() {
-		int[] layAscendingPileRange = { RulesService.getCardRange()[0], RulesService.getCardRange()[1] };
+		int[] layAscendingPileRange = { RulesService.getCardRange()[0], RulesService.getCardRange()[1] - 1 };
 		return layAscendingPileRange;
 	}
 
@@ -53,7 +53,7 @@ public final class RulesService {
 	 * @return the laydescendingpilerange
 	 */
 	public static int[] getLayDescendingPileRange() {
-		int[] layDescendingPileRange = { RulesService.getCardRange()[1], RulesService.getCardRange()[0] };
+		int[] layDescendingPileRange = { RulesService.getCardRange()[1], RulesService.getCardRange()[0] + 2 };
 		return layDescendingPileRange;
 	}
 
@@ -63,8 +63,7 @@ public final class RulesService {
 	 */
 	public static int getDrawPileSize() {
 		// +1 for the element and not the interval
-		// -2 cause the limits should be excluded
-		return (-2 + 1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0]);
+		return (1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0]);
 	}
 
 	/**

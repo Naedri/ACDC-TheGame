@@ -68,10 +68,10 @@ public class Game implements IGame {
 	 * @return the sum of the draw pile according the Rules
 	 */
 	private int getMinScore() {
+		int i = RulesService.getDrawPileRange()[0];
 		int n = RulesService.getDrawPileRange()[1];
 		int sum = 0;
 
-		int i = RulesService.getDrawPileRange()[0];
 		while (i <= n) {
 			sum += i;
 			++i;
@@ -212,6 +212,7 @@ public class Game implements IGame {
 		if (isCardFromHand(card)) {
 			laying = lay.lay(card);
 			if (laying) {
+				this.hand.remove(card);
 				this.score -= card.getValue();
 			}
 		}
@@ -260,15 +261,15 @@ public class Game implements IGame {
 				return false;
 			} else {
 				// hand has to play
-				return this.canHandLay();
+				return !this.canHandLay();
 			}
 		} else {
 			if (!this.hand.isFull()) {
 				// hand has to draw
 				return false;
 			} else {
-				// hand have to play
-				return this.canHandLay();
+				// hand has to play
+				return !this.canHandLay();
 			}
 		}
 	}
@@ -367,7 +368,7 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public void play() {
+	public void playHuman() {
 		int choiceCard = 0;
 		int choiceLayPile = 0;
 		int choiceTurn = 0;
@@ -377,6 +378,8 @@ public class Game implements IGame {
 			while (!this.stop) {
 				// whole game
 				beginTurn();
+				System.out.println("_________________________________________\n");
+				System.out.println("Début du tour.");
 				while (!this.stop) {
 					cardTemp = null;
 					// whole turn
@@ -405,6 +408,8 @@ public class Game implements IGame {
 					// laying card
 					cardTemp = this.hand.read().get(choiceCard);
 					if (this.lay(choiceLayPile, cardTemp)) {
+						System.out.println("La carte " + cardTemp.toString() + " a pu être déposée.");
+						this.print();
 						System.out.println("Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
 						choiceTurn = ServiceUser.setChoice(0, 1);
 						if (choiceTurn == 1) {
@@ -418,14 +423,16 @@ public class Game implements IGame {
 					}
 				}
 				endTurn();
+				System.out.println("Fin du tour.");
 			}
 			if (isVictory()) {
 				System.out.println("You win !");
 			} else {
 				System.out.println("The game won.");
 			}
+			System.out
+					.println("Your score is " + this.getScore() / this.getMinScore() + " , with the following view : ");
 			this.print();
-			System.out.println("Your score is " + this.getScore() / this.getMinScore() + " .");
 			System.out.println(
 					"Souhaitez vous recommencer la même configuration de partie ? Tapez 0 pour Oui, 1 pour Non.");
 			choiceRestart = ServiceUser.setChoice(0, 1);

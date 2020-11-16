@@ -127,5 +127,5 @@ public interface IGame {
 	 * 
 	 * @return
 	 */
-	public void play();
+	public void playHuman();
 }

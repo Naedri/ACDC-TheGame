@@ -25,6 +25,7 @@ public final class ServiceUser {
 	public static int setChoice(int borneMin, int borneMax) {
 		boolean saisieCorrecte = false;
 		int nombreChoisie = borneMin;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		while (!saisieCorrecte) {
 			System.out.println("Veuillez choisir un nombre entre " + borneMin + " et " + borneMax
@@ -49,7 +50,8 @@ public final class ServiceUser {
 				System.out.println("Le format est invalide, recommencez.\n");
 			}
 		}
-		sc.close();
+		// sc.close(); // Exception in thread "main" java.util.NoSuchElementException:
+		// No line found
 		return nombreChoisie;
 	}
 
