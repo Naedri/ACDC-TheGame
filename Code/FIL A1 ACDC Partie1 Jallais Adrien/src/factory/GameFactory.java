@@ -14,7 +14,7 @@ import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
 import services.ServiceUser;
-import services.RulesService;
+import services.ServiceRules;
 
 public class GameFactory {
 
@@ -38,9 +38,9 @@ public class GameFactory {
 		this.drawF = new DrawPileFactory();
 		this.laysList = new ArrayList<ILayPile>();
 		this.handsList = new ArrayList<IHand>();
-		this.players = RulesService.getPlayerNumber();
-		this.ascPile = RulesService.getNumberAscendingPile();
-		this.dscPile = RulesService.getNumberDescendingPile();
+		this.players = ServiceRules.getPlayerNumber();
+		this.ascPile = ServiceRules.getNumberAscendingPile();
+		this.dscPile = ServiceRules.getNumberDescendingPile();
 	}
 
 	public IGame getGame(String path) throws IOException {

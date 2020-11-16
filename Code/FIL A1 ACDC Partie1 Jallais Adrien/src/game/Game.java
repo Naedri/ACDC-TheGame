@@ -9,7 +9,7 @@ import pile.Hand;
 import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
-import services.RulesService;
+import services.ServiceRules;
 import services.ServiceUser;
 
 /**
@@ -58,7 +58,7 @@ public class Game implements IGame {
 		for (int i = 0; i < this.hands.size(); i++) {
 			this.hand = this.hands.get(i);
 			int nc = this.draw(); // draw for this.draw
-			assert (nc == RulesService.getHandLength());
+			assert (nc == ServiceRules.getHandLength());
 		}
 	}
 
@@ -68,8 +68,8 @@ public class Game implements IGame {
 	 * @return the sum of the draw pile according the Rules
 	 */
 	private int getMinScore() {
-		int i = RulesService.getDrawPileRange()[0];
-		int n = RulesService.getDrawPileRange()[1];
+		int i = ServiceRules.getDrawPileRange()[0];
+		int n = ServiceRules.getDrawPileRange()[1];
 		int sum = 0;
 
 		while (i <= n) {
@@ -83,7 +83,7 @@ public class Game implements IGame {
 	public int beginTurn() {
 		this.playerI = 0;
 		this.hand = this.hands.get(this.playerI);
-		if (isHandBlocked() && RulesService.getPlayerNumber() == 1) {
+		if (isHandBlocked() && ServiceRules.getPlayerNumber() == 1) {
 			this.close();
 		}
 		this.writeHandCheck();
@@ -184,7 +184,7 @@ public class Game implements IGame {
 
 	@Override
 	public boolean[] mayBeLay(ICard card) {
-		boolean[] layable = new boolean[RulesService.getNumberDescendingPile() + RulesService.getNumberAscendingPile()];
+		boolean[] layable = new boolean[ServiceRules.getNumberDescendingPile() + ServiceRules.getNumberAscendingPile()];
 		int i = 0;
 		for (final ILayPile lay : this.lays) {
 			layable[i] = lay.isLayable(card);
@@ -232,7 +232,7 @@ public class Game implements IGame {
 	@Override
 	public int endTurn() {
 		int drawedCards = this.draw();
-		if (isHandBlocked() && RulesService.getPlayerNumber() == 1) {
+		if (isHandBlocked() && ServiceRules.getPlayerNumber() == 1) {
 			this.close();
 		}
 		return drawedCards;
@@ -258,7 +258,7 @@ public class Game implements IGame {
 		if (this.draw.isEmpty()) {
 			if (this.hand.isEmpty()) {
 				// hand has won
-				return false;
+				return ServiceRules.getPlayerNumber() == 1; // if only one hand win game
 			} else {
 				// hand has to play
 				return !this.canHandLay();
@@ -312,7 +312,7 @@ public class Game implements IGame {
 	 * @return
 	 */
 	private boolean isGameComplete() {
-		return (this.getSize() == RulesService.getSizeExpected());
+		return (this.getSize() == ServiceRules.getSizeExpected());
 	}
 
 	/**
@@ -349,7 +349,7 @@ public class Game implements IGame {
 
 	@Override
 	public void quit() {
-		System.out.println("Bye");
+		System.out.println("Bye.");
 		this.cleanGame();
 		this.score = this.getMinScore();
 		this.stop = true;
@@ -385,6 +385,7 @@ public class Game implements IGame {
 					// whole turn
 					// state of the game
 					this.print();
+					// choice
 					// choice of the card
 					System.out.println("Choisissez l'indice de la carte à jouer.");
 					printChoiceQuit(this.hand.getSize());
@@ -392,30 +393,36 @@ public class Game implements IGame {
 					if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
 						if (choiceCard == choiceQuitGame) {
 							this.quit();
+							return; // hard quit
 						}
 						break;
 					}
 					// choice of the laying pile
 					System.out.println("Choisissez l'indice de la pile sur laquelle déposer la carte choisie.");
-					printChoiceQuit(RulesService.getNumberLayingPile());
-					choiceLayPile = ServiceUser.setChoice(0, RulesService.getNumberLayingPile() + 1);
-					if (choiceLayPile == choiceQuitTurn || choiceLayPile == choiceQuitGame) {
-						if (choiceLayPile == choiceQuitGame) {
-							this.quit();
-						}
-						break;
-					}
+					choiceLayPile = ServiceUser.setChoice(0, ServiceRules.getNumberLayingPile() - 1);
+
+					// action
 					// laying card
 					cardTemp = this.hand.read().get(choiceCard);
 					if (this.lay(choiceLayPile, cardTemp)) {
+						// good laying
 						System.out.println("La carte " + cardTemp.toString() + " a pu être déposée.");
 						this.print();
-						System.out.println("Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
-						choiceTurn = ServiceUser.setChoice(0, 1);
-						if (choiceTurn == 1) {
+						if (this.hand.getSize() == 0) {
+							// empty hand
+							System.out.println("Votre main est vide, votre tour se termine.");
 							break;
+						} else {
+							System.out.println(
+									"Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
+							choiceTurn = ServiceUser.setChoice(0, 1);
+							if (choiceTurn == 1) {
+								// end turn
+								break;
+							}
 						}
 					} else {
+						// bad laying
 						System.out.println(
 								"La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile :");
 						this.lays.get(choiceLayPile).toString();

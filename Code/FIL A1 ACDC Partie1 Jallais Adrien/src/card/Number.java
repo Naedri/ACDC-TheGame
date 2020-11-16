@@ -1,13 +1,13 @@
 package card;
 
 import direction.Direction;
-import services.RulesService;
+import services.ServiceRules;
 
 public class Number implements ICard {
 	final int value;
 
 	public Number(int value) {
-		if (value < RulesService.getCardRange()[0] || value > RulesService.getCardRange()[1]) {
+		if (value < ServiceRules.getCardRange()[0] || value > ServiceRules.getCardRange()[1]) {
 			throw new IllegalArgumentException("Card value should be included in the range allowed");
 		}
 		this.value = value;

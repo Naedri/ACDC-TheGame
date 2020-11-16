@@ -7,13 +7,13 @@ public final class ServiceUser {
 	/**
 	 * check if the given string match with a path
 	 * 
-	 * @Deprecated
+	 * @Deprecated do not know if it will be used in Unix or Windows computer
 	 * @param filePath of the file to be evaluated
 	 * @return
 	 */
 	public static boolean isPathValid(String filePath) {
-		return true;
 		// return filePath.matches("([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?");
+		return true;
 	}
 
 	/**

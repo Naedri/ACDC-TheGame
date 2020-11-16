@@ -14,10 +14,18 @@ public class App {
 	 */
 	public static void main(String[] args) throws IOException {
 		GameFactory gameF = new GameFactory();
-		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
-		IGame game = gameF.getGame(path1);
+		String path;
+		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
 
-		// game.playHuman();
+		/**
+		 * wanna play a short game ? please change ass well services.ServicesRules line
+		 * 11 with private final static int[] cardRange = new int[] { 10, 20 };
+		 */
+		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall.txt"; // ok
+
+		IGame game = gameF.getGame(path);
+		game.playHuman();
+
 	}
 
 }

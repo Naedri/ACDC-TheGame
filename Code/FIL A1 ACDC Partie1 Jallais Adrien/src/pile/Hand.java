@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import card.ICard;
-import services.RulesService;
+import services.ServiceRules;
 
 public class Hand implements IHand {
 	private List<ICard> list; // should be sortable to help the human client to choose
@@ -15,7 +15,7 @@ public class Hand implements IHand {
 	 * @param set of the cards
 	 */
 	public Hand(List<ICard> list) {
-		assert (list.size() <= RulesService.getHandLength());
+		assert (list.size() <= ServiceRules.getHandLength());
 		this.list = list;
 		this.sort();
 	}
@@ -52,12 +52,12 @@ public class Hand implements IHand {
 
 	@Override
 	public int getMaxSize() {
-		return RulesService.getHandLength();
+		return ServiceRules.getHandLength();
 	}
 
 	@Override
 	public boolean isFull() {
-		return this.getSize() >= RulesService.getHandLength();
+		return this.getSize() >= ServiceRules.getHandLength();
 	}
 
 	@Override

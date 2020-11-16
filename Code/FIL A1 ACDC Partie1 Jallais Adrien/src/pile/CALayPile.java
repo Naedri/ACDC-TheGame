@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import card.ICard;
 import card.Number;
 import direction.Direction;
-import services.RulesService;
+import services.ServiceRules;
 
 /**
  * @author Adrien Jallais
@@ -33,12 +33,12 @@ public abstract class CALayPile implements ILayPile {
 		switch (this.direction) {
 		case DOWN: {
 			// Descending Pile
-			this.deque.add(new Number(RulesService.getLayDescendingPileRange()[0]));
+			this.deque.add(new Number(ServiceRules.getLayDescendingPileRange()[0]));
 			break;
 		}
 		case UP: {
 			// Ascending Pile
-			this.deque.add(new Number(RulesService.getLayAscendingPileRange()[0]));
+			this.deque.add(new Number(ServiceRules.getLayAscendingPileRange()[0]));
 			break;
 		}
 		default:
@@ -95,12 +95,12 @@ public abstract class CALayPile implements ILayPile {
 		case DOWN: {
 			// Descending Pile
 			// card <= 90
-			return val <= (RulesService.getDrawPileRange()[1] - Direction.SUPER_UP.getDRow());
+			return val <= (ServiceRules.getDrawPileRange()[1] - Direction.SUPER_UP.getDRow());
 		}
 		case UP: {
 			// Ascending Pile
 			// card >= 11
-			return val >= (RulesService.getDrawPileRange()[0] - Direction.SUPER_DOWN.getDRow());
+			return val >= (ServiceRules.getDrawPileRange()[0] - Direction.SUPER_DOWN.getDRow());
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + this.direction);
@@ -189,11 +189,11 @@ public abstract class CALayPile implements ILayPile {
 		switch (this.direction) {
 		case DOWN: {
 			// Descending Pile
-			return (new Number(RulesService.getLayDescendingPileRange()[1]));
+			return (new Number(ServiceRules.getLayDescendingPileRange()[1]));
 		}
 		case UP: {
 			// Ascending Pile
-			return (new Number(RulesService.getLayAscendingPileRange()[1]));
+			return (new Number(ServiceRules.getLayAscendingPileRange()[1]));
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + this.direction);

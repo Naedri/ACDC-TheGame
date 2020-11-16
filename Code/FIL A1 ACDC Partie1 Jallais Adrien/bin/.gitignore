@@ -1,4 +1,6 @@
-/game/
 /app/
-/pile/
 /services/
+/card/
+/factory/
+/game/
+/pile/

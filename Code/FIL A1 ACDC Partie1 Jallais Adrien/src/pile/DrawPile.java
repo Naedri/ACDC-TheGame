@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import card.ICard;
-import services.RulesService;
+import services.ServiceRules;
 
 /**
  * ONLY ONE INSTANCE FOR THIS CLASS. Thus we use the singleton pattern.
@@ -32,7 +32,7 @@ public class DrawPile implements IDrawPile {
 
 	@Override
 	public boolean isSizeValid() {
-		return this.pile.size() == RulesService.getDrawPileSize();
+		return this.pile.size() == ServiceRules.getDrawPileSize();
 	}
 
 	/**

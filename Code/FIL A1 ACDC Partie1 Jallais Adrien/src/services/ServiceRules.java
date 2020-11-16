@@ -4,10 +4,11 @@ package services;
  * @author Adrien Jallais
  * @source https://stackoverflow.com/questions/7486012/static-classes-in-java
  */
-public final class RulesService {
+public final class ServiceRules {
 	private final static int handLength = 5;
 	private final static int playerNumber = 1;
-	private final static int[] cardRange = new int[] { 1, 100 };
+	// private final static int[] cardRange = new int[] { 1, 100 };
+	private final static int[] cardRange = new int[] { 10, 20 };
 	private final static int numberDrawPile = 1; // there is also a singleton pattern
 	private final static int numberDescendingPile = 2;
 	private final static int numberAscendingPile = 2;
@@ -16,28 +17,28 @@ public final class RulesService {
 	 * @return the playerNumber
 	 */
 	public static int getPlayerNumber() {
-		return RulesService.playerNumber;
+		return ServiceRules.playerNumber;
 	}
 
 	/**
 	 * @return the handLength number of card in the hand of ONE player
 	 */
 	public static int getHandLength() {
-		return RulesService.handLength;
+		return ServiceRules.handLength;
 	}
 
 	/**
 	 * @return the cardRange [0] is the min, [1] is the max
 	 */
 	public static int[] getCardRange() {
-		return RulesService.cardRange;
+		return ServiceRules.cardRange;
 	}
 
 	/**
 	 * @return the drawPileRange
 	 */
 	public static int[] getDrawPileRange() {
-		int[] drawPileRange = { RulesService.getCardRange()[0] + 1, RulesService.getCardRange()[1] - 1 };
+		int[] drawPileRange = { ServiceRules.getCardRange()[0] + 1, ServiceRules.getCardRange()[1] - 1 };
 		return drawPileRange;
 	}
 
@@ -45,7 +46,7 @@ public final class RulesService {
 	 * @return the layascendingpilerange
 	 */
 	public static int[] getLayAscendingPileRange() {
-		int[] layAscendingPileRange = { RulesService.getCardRange()[0], RulesService.getCardRange()[1] - 1 };
+		int[] layAscendingPileRange = { ServiceRules.getCardRange()[0], ServiceRules.getCardRange()[1] - 1 };
 		return layAscendingPileRange;
 	}
 
@@ -53,7 +54,7 @@ public final class RulesService {
 	 * @return the laydescendingpilerange
 	 */
 	public static int[] getLayDescendingPileRange() {
-		int[] layDescendingPileRange = { RulesService.getCardRange()[1], RulesService.getCardRange()[0] + 2 };
+		int[] layDescendingPileRange = { ServiceRules.getCardRange()[1], ServiceRules.getCardRange()[0] + 2 };
 		return layDescendingPileRange;
 	}
 
@@ -63,32 +64,32 @@ public final class RulesService {
 	 */
 	public static int getDrawPileSize() {
 		// +1 for the element and not the interval
-		return (1 + RulesService.getDrawPileRange()[1] - RulesService.getDrawPileRange()[0]);
+		return (1 + ServiceRules.getDrawPileRange()[1] - ServiceRules.getDrawPileRange()[0]);
 	}
 
 	/**
 	 * @return the numberDrawPile
 	 */
 	public static int getNumberDrawPile() {
-		return RulesService.numberDrawPile;
+		return ServiceRules.numberDrawPile;
 	}
 
 	public static int getNumberLayingPile() {
-		return (RulesService.numberDescendingPile + RulesService.numberAscendingPile);
+		return (ServiceRules.numberDescendingPile + ServiceRules.numberAscendingPile);
 	}
 
 	/**
 	 * @return the numberDescendingPile
 	 */
 	public static int getNumberDescendingPile() {
-		return RulesService.numberDescendingPile;
+		return ServiceRules.numberDescendingPile;
 	}
 
 	/**
 	 * @return the numberAscendingPile
 	 */
 	public static int getNumberAscendingPile() {
-		return RulesService.numberAscendingPile;
+		return ServiceRules.numberAscendingPile;
 	}
 
 	/**
@@ -97,7 +98,7 @@ public final class RulesService {
 	 */
 	public static int getSizeExpected() {
 		// there is one card on each laying piles
-		return (RulesService.getDrawPileSize() + RulesService.getNumberAscendingPile()
-				+ RulesService.getNumberDescendingPile());
+		return (ServiceRules.getDrawPileSize() + ServiceRules.getNumberAscendingPile()
+				+ ServiceRules.getNumberDescendingPile());
 	}
 }

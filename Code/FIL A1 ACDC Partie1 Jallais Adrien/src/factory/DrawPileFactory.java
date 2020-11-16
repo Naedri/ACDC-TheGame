@@ -14,7 +14,7 @@ import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
 import services.ServiceUser;
-import services.RulesService;
+import services.ServiceRules;
 
 public class DrawPileFactory {
 
@@ -55,7 +55,7 @@ public class DrawPileFactory {
 	 */
 	private void fillCardDrawPile() {
 		List<Integer> list = new ArrayList<Integer>();
-		for (int i = RulesService.getCardRange()[0]; i <= RulesService.getCardRange()[1]; i++) {
+		for (int i = ServiceRules.getCardRange()[0]; i <= ServiceRules.getCardRange()[1]; i++) {
 			list.add((Integer) i);
 		}
 		Collections.shuffle(list);
@@ -108,7 +108,7 @@ public class DrawPileFactory {
 	 * @return true if the size of the Draw pile is correct
 	 */
 	private boolean isDrawPileValide() {
-		return this.cardDrawPile.size() == RulesService.getDrawPileSize();
+		return this.cardDrawPile.size() == ServiceRules.getDrawPileSize();
 	}
 
 	/**
