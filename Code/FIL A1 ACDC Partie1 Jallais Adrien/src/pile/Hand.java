@@ -28,7 +28,8 @@ public class Hand implements IHand {
 	 * @return new hand copied by defensive way
 	 */
 	public Hand(IHand hand) {
-		this(hand.read());
+		// this(hand.read());
+		this.list = hand.read();
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class Hand implements IHand {
 		String colNames = "| Card_index | Card_value |";
 		System.out.println(colNames);
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).toString());
+			System.out.println("| " + i + " | " + list.get(i).toString() + " |");
 		}
 	}
 

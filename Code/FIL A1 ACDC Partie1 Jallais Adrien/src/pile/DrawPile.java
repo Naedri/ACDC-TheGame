@@ -1,6 +1,7 @@
 package pile;
 
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import card.ICard;
@@ -26,6 +27,7 @@ public class DrawPile implements IDrawPile {
 	private DrawPile(Deque<ICard> cardDrawPile) {
 		this.pile = cardDrawPile;
 		assert (this.isSizeValid());
+		this.pileComplement = new LinkedList<>();
 	}
 
 	@Override

@@ -87,9 +87,29 @@ public abstract class CALayPile implements ILayPile {
 		return isLayable(card) ? this.add(card) : false;
 	}
 
+	@Override
+	public boolean isBackwardsAllowed() {
+		int val = this.get().getValue();
+		switch (this.direction) {
+		case DOWN: {
+			// Descending Pile
+			// card <= 90
+			return val <= (RulesService.getDrawPileRange()[1] - Direction.SUPER_UP.getDRow());
+		}
+		case UP: {
+			// Ascending Pile
+			// card >= 11
+			return val >= (RulesService.getDrawPileRange()[0] - Direction.SUPER_DOWN.getDRow());
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + this.direction);
+		}
+	}
+
 	// CA Method
 	@Override
 	public ICard readBackwardsAllowed() throws IllegalArgumentException {
+		assert (isBackwardsAllowed());
 		switch (this.direction) {
 		case DOWN: {
 			// Descending Pile
@@ -119,7 +139,7 @@ public abstract class CALayPile implements ILayPile {
 		assert (card != null);
 		if (!this.isFull()) {
 			// Backwards laying
-			if (this.readBackwardsAllowed().equals(card)) {
+			if (this.isBackwardsAllowed() && this.readBackwardsAllowed().equals(card)) {
 				return true;
 			}
 			// usual laying

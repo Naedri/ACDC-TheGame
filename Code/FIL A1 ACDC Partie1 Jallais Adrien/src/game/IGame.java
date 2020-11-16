@@ -28,6 +28,16 @@ public interface IGame {
 	public void printLays();
 
 	/**
+	 * syso the current Hand for Human console
+	 */
+	public void printHand();
+
+	/**
+	 * syso the printLays + printHand, for Human console
+	 */
+	public void print();
+
+	/**
 	 * For the client : Allow to read information about the current playing hand
 	 * 
 	 * @return
@@ -115,7 +125,7 @@ public interface IGame {
 	 * To organize the succession as a mediator of the functions from the Game
 	 * Class.
 	 * 
-	 * @return isVictory();
+	 * @return
 	 */
-	public boolean play();
+	public void play();
 }

@@ -20,6 +20,14 @@ public interface ILayPile {
 	public boolean lay(ICard card);
 
 	/**
+	 * Indicates if an associated backward ICard exists for the given card
+	 * 
+	 * @return true if the card >= 11 or card <= 90 according the direction up or
+	 *         down respectively
+	 */
+	public boolean isBackwardsAllowed();
+
+	/**
 	 * Indicates the matching card to allow backWard tricks
 	 * 
 	 * @return card
@@ -76,4 +84,5 @@ public interface ILayPile {
 	public Direction getDirection();
 
 	public void print();
+
 }

@@ -35,6 +35,13 @@ public class Game implements IGame {
 		this.draw = _draw;
 		this.hands = _hands;
 		this.lays = _lays;
+		this.start();
+	}
+
+	/**
+	 * start a game
+	 */
+	private void start() {
 		this.firstDraw();
 		this.playerI = 0;
 		this.hand = this.hands.get(this.playerI);
@@ -140,6 +147,23 @@ public class Game implements IGame {
 		for (int i = 0; i < layInfo.size(); i++) {
 			System.out.println(layInfo.get(i).toString());
 		}
+	}
+
+	@Override
+	public void printHand() {
+		this.hand.print();
+	}
+
+	@Override
+	public void print() {
+		System.out.println("_________________________________________\n");
+		System.out.println("The state of the game is the following : ");
+		System.out.println("- The state of the board game : ");
+		this.printLays();
+		System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
+		System.out.println("- The state of the current hand : ");
+		this.printHand();
+		System.out.println("_________________________________________\n");
 	}
 
 	@Override
@@ -258,9 +282,7 @@ public class Game implements IGame {
 		this.hands.forEach(hand -> {
 			hand.reset();
 		});
-		this.hand = this.hands.get(0);
-		this.score = this.getMinScore();
-		this.stop = false;
+		this.start();
 	};
 
 	@Override
@@ -345,67 +367,79 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public boolean play() {
+	public void play() {
 		int choiceCard = 0;
 		int choiceLayPile = 0;
 		int choiceTurn = 0;
+		int choiceRestart = 0;
 		ICard cardTemp;
-		while (!this.stop) {
-			// whole game
-			beginTurn();
+		while (choiceRestart == 0) {
 			while (!this.stop) {
-				cardTemp = null;
-				// whole turn
-				// state of the game
-				System.out.println("Ci dessous l'état du plateau :");
-				printLays();
-				System.out.println("Ci dessous l'état de votre main:");
-				this.hand.print();
-				// choice of the card
-				System.out.println("Choisissez l'indice de la carte à jouer.");
-				printChoiceQuit(this.hand.getSize());
-				choiceCard = ServiceUser.setChoice(0, this.hand.getSize() + 1);
-				if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
-					if (choiceCard == choiceQuitGame) {
-						this.quit();
-					}
-					break;
-				}
-				// choice of the laying pile
-				System.out.println("Choisissez l'indice de la pile sur laquelle déposer la carte choisie.");
-				printChoiceQuit(RulesService.getNumberLayingPile());
-				choiceLayPile = ServiceUser.setChoice(0, RulesService.getNumberLayingPile() + 1);
-				if (choiceLayPile == choiceQuitTurn || choiceLayPile == choiceQuitGame) {
-					if (choiceLayPile == choiceQuitGame) {
-						this.quit();
-					}
-					break;
-				}
-				// laying card
-				cardTemp = this.hand.read().get(choiceCard);
-				if (this.lay(choiceLayPile, cardTemp)) {
-					System.out.println("Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
-					choiceTurn = ServiceUser.setChoice(0, 1);
-					if (choiceTurn == 1) {
+				// whole game
+				beginTurn();
+				while (!this.stop) {
+					cardTemp = null;
+					// whole turn
+					// state of the game
+					this.print();
+					// choice of the card
+					System.out.println("Choisissez l'indice de la carte à jouer.");
+					printChoiceQuit(this.hand.getSize());
+					choiceCard = ServiceUser.setChoice(0, this.hand.getSize() + 1);
+					if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
+						if (choiceCard == choiceQuitGame) {
+							this.quit();
+						}
 						break;
 					}
-				} else {
-					System.out.println("La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile :");
-					this.lays.get(choiceLayPile).toString();
-					System.out.println("Nous allons vous rappeler l'état du jeu...");
+					// choice of the laying pile
+					System.out.println("Choisissez l'indice de la pile sur laquelle déposer la carte choisie.");
+					printChoiceQuit(RulesService.getNumberLayingPile());
+					choiceLayPile = ServiceUser.setChoice(0, RulesService.getNumberLayingPile() + 1);
+					if (choiceLayPile == choiceQuitTurn || choiceLayPile == choiceQuitGame) {
+						if (choiceLayPile == choiceQuitGame) {
+							this.quit();
+						}
+						break;
+					}
+					// laying card
+					cardTemp = this.hand.read().get(choiceCard);
+					if (this.lay(choiceLayPile, cardTemp)) {
+						System.out.println("Si vous souhaitez continuer à poser des cartes, tapez 0 ; sinon tapez 1.");
+						choiceTurn = ServiceUser.setChoice(0, 1);
+						if (choiceTurn == 1) {
+							break;
+						}
+					} else {
+						System.out.println(
+								"La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile :");
+						this.lays.get(choiceLayPile).toString();
+						System.out.println("Nous allons vous rappeler l'état du jeu...");
+					}
 				}
+				endTurn();
 			}
-			endTurn();
+			if (isVictory()) {
+				System.out.println("You win !");
+			} else {
+				System.out.println("The game won.");
+			}
+			this.print();
+			System.out.println("Your score is " + this.getScore() / this.getMinScore() + " .");
+			System.out.println(
+					"Souhaitez vous recommencer la même configuration de partie ? Tapez 0 pour Oui, 1 pour Non.");
+			choiceRestart = ServiceUser.setChoice(0, 1);
+			if (choiceRestart == 0) {
+				this.restart();
+			}
 		}
-		if (isVictory()) {
-			System.out.println("You win !");
-		} else {
-			System.out.println("The game won.");
-		}
-		System.out.println("Your score is " + this.getScore() / this.getMinScore() + " .");
-		return isVictory();
+		this.quit();
 	}
 
+	/**
+	 * 
+	 * @param startChoice
+	 */
 	private void printChoiceQuit(int startChoice) {
 		this.choiceQuitTurn = startChoice;
 		this.choiceQuitGame = startChoice + 1;
