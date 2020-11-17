@@ -13,8 +13,8 @@ import card.ICard;
 import card.Number;
 import pile.DrawPile;
 import pile.IDrawPile;
-import services.ServiceUser;
 import services.ServiceRules;
+import services.ServiceUser;
 
 public class DrawPileFactory {
 
@@ -55,7 +55,7 @@ public class DrawPileFactory {
 	 */
 	private void fillCardDrawPile() {
 		List<Integer> list = new ArrayList<Integer>();
-		for (int i = ServiceRules.getCardRange()[0]; i <= ServiceRules.getCardRange()[1]; i++) {
+		for (int i = ServiceRules.getDrawPileRange()[0]; i <= ServiceRules.getDrawPileRange()[1]; i++) {
 			list.add((Integer) i);
 		}
 		Collections.shuffle(list);

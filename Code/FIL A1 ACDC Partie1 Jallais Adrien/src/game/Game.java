@@ -307,7 +307,6 @@ public class Game implements IGame {
 		return (this.getScore() <= 0 && this.isGameComplete() && this.allHandsEmpty() && this.draw.isEmpty());
 	}
 
-	// should stay private
 	@Override
 	public int getScore() {
 		return this.score;
@@ -465,7 +464,8 @@ public class Game implements IGame {
 	private void printChoiceQuit(int startChoice) {
 		this.choiceQuitTurn = startChoice;
 		this.choiceQuitGame = startChoice + 1;
-		System.out.println("Ou tapez '" + this.choiceQuitTurn + "' pour terminer votre tour.");
+		System.out.println(
+				"Ou tapez '" + this.choiceQuitTurn + "' pour terminer votre tour, et tenter de piocher des cartes.");
 		System.out.println("Ou tapez '" + this.choiceQuitGame + "' pour quitter.");
 	}
 

@@ -1,10 +1,12 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import card.ICard;
 import direction.Direction;
 import game.IGame;
+import game.Move;
 import pile.ILayPile;
 
 /**
@@ -156,34 +158,37 @@ public class ServiceResolution {
 	}
 
 	/**
+	 * this method allows to use again and directly the game
 	 * 
 	 * @param g
 	 * @return a array with 2 column : | LayPile_index | Card_index | ; of which
 	 *         size == drawPile.size
 	 */
-	public static int[][] resolve(IGame g) {
+	public static List<Move> resolve(IGame g) {
 		int[] resultTurn = new int[2];
-		int[][] result = new int[g.cardsToLay()][2];
+		Move resultRow;
+		List<Move> result = new ArrayList<Move>();
 		int i = 0;
 		while (!g.isHandBlocked() && (ServiceRules.getPlayerNumber() == 1)) {
 			g.beginTurn();
 			resultTurn = ServiceResolution.chooseOneLayOneCard(g.readLays(), g.readHand());
 			boolean l = g.lay(resultTurn[0], g.readHand().get(resultTurn[1]));
 			if (l) {
-				result[i] = resultTurn;
+				resultRow = new Move(resultTurn[0], resultTurn[1]);
+				result.add(resultRow);
 				++i;
 			}
 			g.endTurn();
 		}
-		System.out.println("Score is :" + g.getScore() + " / " + g.getMinScore());
+		System.out.println("The score is : " + g.getScore() + " / " + g.getMinScore());
+		System.out.println("IA has layed " + Integer.valueOf(i) + " cards.");
 		if (g.isVictory()) {
 			System.out.println("IA beat the game");
 		} else {
 			System.out.println("The Game won.");
 		}
 		g.close();
+		g.restart();
 		return result;
-
 	}
-
 }

@@ -1,11 +1,12 @@
 package app;
 
 import java.io.IOException;
+import java.util.List;
 
 import factory.GameFactory;
 import game.IGame;
+import game.Move;
 import services.ServiceResolution;
-import services.ServiceRules;
 
 public class App {
 
@@ -16,12 +17,9 @@ public class App {
 	 */
 	public static void main(String[] args) throws IOException {
 		GameFactory gameF = new GameFactory();
-		@SuppressWarnings("unused")
 		String path1, path2;
 
 		IGame game;
-
-		int[][] tableResolved = new int[ServiceRules.getDrawPileSize()][2];
 
 		/**
 		 * USUAL GAME ?
@@ -49,8 +47,13 @@ public class App {
 		game.playHuman();
 		// IA
 		game = gameF.getGame(path1);
-		tableResolved = ServiceResolution.resolve(game);
-		System.out.println(tableResolved);
+		List<Move> tableResolved = ServiceResolution.resolve(game);
+
+		// showing IA results
+		System.out.println("| LayPile_index | Card_index |");
+		tableResolved.forEach(row -> {
+			row.print();
+		});
 	}
 
 }
