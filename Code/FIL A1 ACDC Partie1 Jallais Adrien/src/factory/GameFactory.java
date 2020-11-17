@@ -13,8 +13,8 @@ import pile.Hand;
 import pile.IDrawPile;
 import pile.IHand;
 import pile.ILayPile;
-import services.ServiceUser;
 import services.ServiceRules;
+import services.ServiceUser;
 
 public class GameFactory {
 
@@ -58,6 +58,7 @@ public class GameFactory {
 	 * reset the attributes of the factory
 	 */
 	private void resetGameFactory() {
+		this.drawF = new DrawPileFactory();
 		this.draw = null;
 		this.layTemp = null;
 		this.handTemp = null;

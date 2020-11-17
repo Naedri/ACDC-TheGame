@@ -379,6 +379,7 @@ public class Game implements IGame {
 		int choiceTurn = 0;
 		int choiceRestart = 0;
 		ICard cardTemp;
+		System.out.println("Hello.");
 		while (choiceRestart == 0) {
 			while (!this.stop) {
 				// whole game
