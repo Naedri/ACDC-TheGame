@@ -54,7 +54,7 @@ public final class ServiceRules {
 	 * @return the laydescendingpilerange
 	 */
 	public static int[] getLayDescendingPileRange() {
-		int[] layDescendingPileRange = { ServiceRules.getCardRange()[1], ServiceRules.getCardRange()[0] + 2 };
+		int[] layDescendingPileRange = { ServiceRules.getCardRange()[1], ServiceRules.getCardRange()[0] + 1 };
 		return layDescendingPileRange;
 	}
 

@@ -131,7 +131,6 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	@Override
-	@Deprecated
 	public boolean isFull() {
 		switch (this.direction) {
 		case DOWN: {
@@ -176,6 +175,15 @@ public abstract class CALayPile implements ILayPile {
 	}
 
 	@Override
+	public int getRemainCards() {
+		if (isFull()) {
+			return 0;
+		}
+		return (1 + this.getDirection().getDRow()
+				* (this.readThresholdMax().getValue() - this.readThresholdMin().getValue()));
+	}
+
+	@Override
 	public ICard readThresholdMin() {
 		if (this.isFull()) {
 			return new Number(this.get().getValue());
@@ -184,7 +192,7 @@ public abstract class CALayPile implements ILayPile {
 		}
 	}
 
-	@Override
+	// @Override
 	public ICard readThresholdMax() throws IllegalArgumentException {
 		switch (this.direction) {
 		case DOWN: {
@@ -215,11 +223,13 @@ public abstract class CALayPile implements ILayPile {
 		return this.direction;
 	}
 
-	/**
-	 * syso the lay pile info for Human console
-	 * 
-	 */
+	@Override
 	public void print() {
+		System.out.println(this.toString());
+	}
+
+	@Override
+	public String toString() {
 		String s;
 		switch (this.direction) {
 		case DOWN: {
@@ -236,7 +246,6 @@ public abstract class CALayPile implements ILayPile {
 			throw new IllegalArgumentException("Unexpected value: " + this.direction);
 		}
 		s += this.read().toString() + " )";
-		System.out.println(s);
+		return s;
 	}
-
 }

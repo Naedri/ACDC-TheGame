@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import factory.GameFactory;
 import game.IGame;
+import services.ServiceResolution;
+import services.ServiceRules;
 
 public class App {
 
@@ -14,28 +16,41 @@ public class App {
 	 */
 	public static void main(String[] args) throws IOException {
 		GameFactory gameF = new GameFactory();
-		String path;
+		@SuppressWarnings("unused")
+		String path1, path2;
+
+		IGame game;
+
+		int[][] tableResolved = new int[ServiceRules.getDrawPileSize()][2];
 
 		/**
-		 * USUAL GAME
+		 * USUAL GAME ?
 		 */
-		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
-		// for given cards
-		path = null;
 		// for random cards
+		path1 = null;
+		// for given cards
+		path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
 
 		/**
-		 * SHORT GAME?
+		 * SHORT GAME ?
 		 */
 		// please change services.ServicesRules line
 		// add line 11 with private final static int[] cardRange = new int[] { 10, 20 };
-		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Win.txt";
+		path2 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Win.txt";
 		// you win if you do : 020 - 020 - 020 ...
-		path = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Loose.txt";
+		path2 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\gameSmall_Loose.txt";
 		// you loose if you do : 430 - 320 - 000 - 010
 
-		IGame game = gameF.getGame(null);
+		/**
+		 * PLAY
+		 */
+		// HUMAN
+		game = gameF.getGame(null);
 		game.playHuman();
+		// IA
+		game = gameF.getGame(path1);
+		tableResolved = ServiceResolution.resolve(game);
+		System.out.println(tableResolved);
 
 	}
 

@@ -3,26 +3,186 @@ package services;
 import java.util.List;
 
 import card.ICard;
-import game.Game.LayInfo;
+import direction.Direction;
+import pile.IHand;
+import pile.ILayPile;
 
-public class ServiceResolution implements IResolution {
+/**
+ *
+ * Il faut minimiser au maximum les coups A chaque coup on associe un poids et
+ * on prendre le coup au poids le plus faible
+ * 
+ * @author Adrien Jallais
+ *
+ */
+public class ServiceResolution {
 
-	@Override
-	public boolean isCombination() {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * allow to know the cost of a move ; the less it is, the better is
+	 * 
+	 * @param lays from game.readLays()
+	 * @param card from game.readHand()
+	 * @return
+	 */
+	public static int evalCardLay(ILayPile lay, ICard card) {
+		assert (lay != null && card != null);
+		if (!lay.isLayable(card)) {
+			return Integer.MAX_VALUE; // card can not be layed
+		}
+		return (lay.getDirection().getDRow() * (card.getValue() - lay.read().getValue()));
 	}
 
-	@Override
-	public int evalLay(List<LayInfo> lays, ICard card) {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * 
+	 * @param lays
+	 * @param card
+	 * @return a int[] with the weight
+	 */
+	public static int[] evalCardAllLay(List<ILayPile> lays, ICard card) {
+		int[] tab = new int[lays.size()];
+		for (int i = 0; i < lays.size(); i++) {
+			tab[i] = evalCardLay(lays.get(i), card);
+		}
+		return tab;
 	}
 
-	@Override
-	public int[] evalAllLay(List<LayInfo> lays, List<ICard> card) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * which is the better lay for a given card ?
+	 * 
+	 * @param lays
+	 * @param card
+	 * @return
+	 */
+	public static int chooseOneLay(List<ILayPile> lays, ICard card) {
+		int[] tab = evalCardAllLay(lays, card);
+		int m = 0;
+		for (int i = 1; i < tab.length; i++) {
+			if (tab[i] <= tab[m]) {
+				if (tab[i] == tab[m]) {
+					// both card move are equivalent
+					ILayPile layI = lays.get(i);
+					ILayPile layM = lays.get(m);
+					if (layI.getRemainCards() > layM.getRemainCards()) {
+						// we choose the lay with the more place
+						m = i;
+					}
+				} else {
+					// the new card move is better
+					m = i;
+				}
+			}
+		}
+		return m;
+	}
+
+	/**
+	 * which is the better card for a lay ?
+	 * 
+	 * @param lays
+	 * @param card
+	 * @return
+	 */
+	public static int chooseOneCard(ILayPile lay, IHand hand) {
+		int m = 0;
+		ICard cardM = hand.read().get(m);
+		int eval = evalCardLay(lay, cardM);
+		ICard cardI;
+		for (int i = 1; i < hand.read().size(); i++) {
+			cardI = hand.read().get(i);
+			if (evalCardLay(lay, cardI) < eval) {
+				m = i;
+				cardM = hand.read().get(m);
+			}
+		}
+		return m;
+	}
+
+	/**
+	 * Calculated with chooseOneLay and chooseOneCard. It will act as a tournament.
+	 * 
+	 * @param lays
+	 * @param hand
+	 * @return [ lay_index, card_index ]
+	 */
+	public static int[] chooseOneLayOneCard(List<ILayPile> lays, IHand hand) {
+		// each lay chooses one card
+		int[] tabChoice = new int[lays.size()];
+		for (int i = 0; i < lays.size(); i++) {
+			tabChoice[i] = chooseOneCard(lays.get(i), hand);
+		}
+		// then we calculate move for each
+		int[] tabMove = new int[lays.size()];
+		for (int i = 0; i < tabChoice.length; i++) {
+			tabMove[i] = evalCardLay(lays.get(i), hand.read().get(tabChoice[i]));
+		}
+		// then we selected the lowest move
+		int m = 0;
+		for (int i = 1; i < tabMove.length; i++) {
+			if (tabMove[i] <= tabMove[m]) {
+				// the new move can be more better
+				if (tabMove[i] == tabMove[m]) {
+					// both move are equivalent
+					ILayPile layI = lays.get(i);
+					ILayPile layM = lays.get(m);
+					if (layI.getRemainCards() > layM.getRemainCards()) {
+						// we choose the lay with the more place
+						m = i;
+					}
+				} else {
+					// the new move is better
+					m = i;
+				}
+			}
+		}
+		int[] result = { m, tabChoice[m] };
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param dir direction of the draw pile
+	 * @param c1
+	 * @param c2
+	 * @return the card associated with the lightest move
+	 */
+	public static ICard getMinCard(Direction dir, ICard c1, ICard c2) {
+		assert (c1 != null && c2 != null && dir.getDRow() != 0);
+		int d = dir.getDRow() * (c1.getValue() - c2.getValue());
+		if (d < 0) {
+			return c1;
+		} else {
+			return c2;
+		}
+	}
+
+	public static ICard getMinCard(ILayPile lay, ICard c1, ICard c2) {
+		assert (c1 != null && c2 != null && lay.getDirection().getDRow() != 0);
+		int d = lay.getDirection().getDRow() * (c1.getValue() - c2.getValue());
+		if (d < 0) {
+			return c1;
+		} else {
+			return c2;
+		}
+	}
+
+	/**
+	 * Which is the less damaged lay, among the lays ?
+	 * 
+	 * @param lays
+	 * @return the index of the lay in the list
+	 */
+	public static int getMinLay(List<ILayPile> lays) {
+		int i = 0;
+		ILayPile layM = lays.get(i);
+		ILayPile layT;
+		for (int j = 1; j < lays.size(); j++) {
+			layT = lays.get(j);
+			if (layT.getRemainCards() > layM.getRemainCards()) {
+				layM = layT;
+				i = j;
+			}
+		}
+		return i;
 	}
 
 }

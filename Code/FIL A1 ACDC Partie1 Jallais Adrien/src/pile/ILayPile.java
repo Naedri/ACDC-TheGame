@@ -57,6 +57,13 @@ public interface ILayPile {
 	public boolean isLayable(ICard card);
 
 	/**
+	 * Ho many card can we lay at maximum ?
+	 * 
+	 * @return
+	 */
+	public int getRemainCards();
+
+	/**
 	 * Indicates from which card you can lay
 	 * 
 	 * @return card
@@ -88,5 +95,12 @@ public interface ILayPile {
 	 * 
 	 */
 	public void print();
+
+	/**
+	 * 
+	 * @return same value as print() but in string
+	 * 
+	 */
+	public String toString();
 
 }
