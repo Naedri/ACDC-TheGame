@@ -3,7 +3,6 @@ package services;
 import java.util.List;
 
 import card.ICard;
-import direction.Direction;
 import pile.IHand;
 import pile.ILayPile;
 
@@ -136,53 +135,6 @@ public class ServiceResolution {
 		}
 		int[] result = { m, tabChoice[m] };
 		return result;
-	}
-
-	/**
-	 * 
-	 * @param dir direction of the draw pile
-	 * @param c1
-	 * @param c2
-	 * @return the card associated with the lightest move
-	 */
-	public static ICard getMinCard(Direction dir, ICard c1, ICard c2) {
-		assert (c1 != null && c2 != null && dir.getDRow() != 0);
-		int d = dir.getDRow() * (c1.getValue() - c2.getValue());
-		if (d < 0) {
-			return c1;
-		} else {
-			return c2;
-		}
-	}
-
-	public static ICard getMinCard(ILayPile lay, ICard c1, ICard c2) {
-		assert (c1 != null && c2 != null && lay.getDirection().getDRow() != 0);
-		int d = lay.getDirection().getDRow() * (c1.getValue() - c2.getValue());
-		if (d < 0) {
-			return c1;
-		} else {
-			return c2;
-		}
-	}
-
-	/**
-	 * Which is the less damaged lay, among the lays ?
-	 * 
-	 * @param lays
-	 * @return the index of the lay in the list
-	 */
-	public static int getMinLay(List<ILayPile> lays) {
-		int i = 0;
-		ILayPile layM = lays.get(i);
-		ILayPile layT;
-		for (int j = 1; j < lays.size(); j++) {
-			layT = lays.get(j);
-			if (layT.getRemainCards() > layM.getRemainCards()) {
-				layM = layT;
-				i = j;
-			}
-		}
-		return i;
 	}
 
 }
