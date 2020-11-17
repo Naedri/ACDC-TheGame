@@ -179,8 +179,9 @@ public class ServiceResolution {
 				++i;
 			}
 			g.endTurn();
+			// g.print();// to activate if you wanna see the game in progression
 		}
-		System.out.println("The score is : " + g.getScore() + " / " + g.getMinScore());
+		System.out.println("The score is : " + g.getScore() + " / " + g.getMinScore() + " .");
 		System.out.println("IA has layed " + Integer.valueOf(i) + " cards.");
 		if (g.isVictory()) {
 			System.out.println("IA beat the game");

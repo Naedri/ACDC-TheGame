@@ -17,15 +17,36 @@ import game.IGame;
 import game.Move;
 import pile.AscendingPile;
 import pile.DescendingPile;
+import pile.Hand;
+import pile.IHand;
 import pile.ILayPile;
 
 class TestServices {
 	String path1;
 
+	// for first test
 	ICard c2 = new Number(2);
 	ICard c10 = new Number(10);
 	ICard c15 = new Number(15);
 	ICard c20 = new Number(20);
+
+	// for backward trick test
+	// for hand
+	ICard c12 = new Number(12);
+	ICard c18 = new Number(18);
+	ICard c22 = new Number(22);
+	ICard c44 = new Number(44);
+	ICard c43 = new Number(43);
+	ICard c91 = new Number(91);
+	ICard c14 = new Number(14);
+	ICard c23 = new Number(33);
+
+	// for lay
+	ICard c4 = new Number(4);
+	ICard c33 = new Number(33);
+	ICard c94 = new Number(94);
+	ICard c13 = new Number(13);
+
 	Direction dsc = Direction.DOWN;
 	Direction asc = Direction.UP;
 	Direction dscS = Direction.SUPER_DOWN;
@@ -34,11 +55,16 @@ class TestServices {
 
 	ILayPile ascP = new AscendingPile();
 	ILayPile dscP = new DescendingPile();
+	ILayPile ascP2 = new AscendingPile();
+	ILayPile dscP2 = new DescendingPile();
 
 	int mv1; // moveweight
 	int mv2;
 
 	List<ILayPile> lays = new ArrayList<ILayPile>();
+	List<ICard> listC = new ArrayList<ICard>();
+	IHand hand;
+
 	int[] tabc;
 	int[] tablc;
 
@@ -54,6 +80,32 @@ class TestServices {
 	private void initBW() {
 		dscP.lay(c10);
 		ascP.lay(c20);
+	}
+
+	private void initBW2() {
+		// init lay piles
+		dscP.lay(c4);
+		dscP2.lay(c33);
+		ascP.lay(c94);
+		ascP2.lay(c13);
+		lays.add(dscP);
+		lays.add(dscP2);
+		lays.add(ascP);
+		lays.add(ascP2);
+
+		// init hand
+		listC.add(c12);
+		listC.add(c14);
+		listC.add(c18);
+		listC.add(c22);
+	}
+
+	private void print() {
+		hand = new Hand(listC);
+		lays.forEach(lay -> {
+			lay.print();
+		});
+		hand.print();
 	}
 
 	@Test
@@ -117,6 +169,46 @@ class TestServices {
 		 * ServiceResolution.evalCardAllLay(lays, c10); assertEquals(-10, mv1);
 		 * assertEquals(-10, mv2);
 		 */
+	}
+
+	@Test
+	void test_ServiceResolution_chooseOneLayOneCard() {
+		initBW2();
+		listC.add(c91);
+
+		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
+		print();
+		ILayPile ltemp = lays.get(move[0]);
+		ICard ctemp = listC.get(move[1]);
+
+		assertEquals(lays.get(0), ltemp);
+		assertEquals(listC.get(1), ctemp);
+	}
+
+	void test_ServiceResolution_chooseOneLayOneCard2() {
+		initBW2();
+		listC.add(c43);
+
+		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
+		print();
+		ILayPile ltemp = lays.get(move[0]);
+		ICard ctemp = listC.get(move[1]);
+
+		assertEquals(lays.get(1), ltemp);
+		assertEquals(listC.get(4), ctemp);
+	}
+
+	void test_ServiceResolution_chooseOneLayOneCard3() {
+		initBW2();
+		listC.add(c23);
+
+		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
+		print();
+		ILayPile ltemp = lays.get(move[0]);
+		ICard ctemp = listC.get(move[1]);
+
+		assertEquals(lays.get(1), ltemp);
+		assertEquals(listC.get(4), ctemp);
 	}
 
 	@Test
