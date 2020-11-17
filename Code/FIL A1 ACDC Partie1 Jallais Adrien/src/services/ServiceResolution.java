@@ -3,7 +3,8 @@ package services;
 import java.util.List;
 
 import card.ICard;
-import pile.IHand;
+import direction.Direction;
+import game.IGame;
 import pile.ILayPile;
 
 /**
@@ -15,6 +16,23 @@ import pile.ILayPile;
  *
  */
 public class ServiceResolution {
+
+	/**
+	 * 
+	 * @param dir direction of the draw pile
+	 * @param c1
+	 * @param c2
+	 * @return the card associated with the lightest move
+	 */
+	public static ICard getMinCard(Direction dir, ICard c1, ICard c2) {
+		assert (c1 != null && c2 != null && dir.getDRow() != 0);
+		int d = dir.getDRow() * (c1.getValue() - c2.getValue());
+		if (d < 0) {
+			return c1;
+		} else {
+			return c2;
+		}
+	}
 
 	/**
 	 * allow to know the cost of a move ; the less it is, the better is
@@ -81,16 +99,16 @@ public class ServiceResolution {
 	 * @param card
 	 * @return
 	 */
-	public static int chooseOneCard(ILayPile lay, IHand hand) {
+	public static int chooseOneCard(ILayPile lay, List<ICard> hand) {
 		int m = 0;
-		ICard cardM = hand.read().get(m);
+		ICard cardM = hand.get(m);
 		int eval = evalCardLay(lay, cardM);
 		ICard cardI;
-		for (int i = 1; i < hand.read().size(); i++) {
-			cardI = hand.read().get(i);
+		for (int i = 1; i < hand.size(); i++) {
+			cardI = hand.get(i);
 			if (evalCardLay(lay, cardI) < eval) {
 				m = i;
-				cardM = hand.read().get(m);
+				cardM = hand.get(m);
 			}
 		}
 		return m;
@@ -103,7 +121,7 @@ public class ServiceResolution {
 	 * @param hand
 	 * @return [ lay_index, card_index ]
 	 */
-	public static int[] chooseOneLayOneCard(List<ILayPile> lays, IHand hand) {
+	public static int[] chooseOneLayOneCard(List<ILayPile> lays, List<ICard> hand) {
 		// each lay chooses one card
 		int[] tabChoice = new int[lays.size()];
 		for (int i = 0; i < lays.size(); i++) {
@@ -112,7 +130,7 @@ public class ServiceResolution {
 		// then we calculate move for each
 		int[] tabMove = new int[lays.size()];
 		for (int i = 0; i < tabChoice.length; i++) {
-			tabMove[i] = evalCardLay(lays.get(i), hand.read().get(tabChoice[i]));
+			tabMove[i] = evalCardLay(lays.get(i), hand.get(tabChoice[i]));
 		}
 		// then we selected the lowest move
 		int m = 0;
@@ -135,6 +153,37 @@ public class ServiceResolution {
 		}
 		int[] result = { m, tabChoice[m] };
 		return result;
+	}
+
+	/**
+	 * 
+	 * @param g
+	 * @return a array with 2 column : | LayPile_index | Card_index | ; of which
+	 *         size == drawPile.size
+	 */
+	public static int[][] resolve(IGame g) {
+		int[] resultTurn = new int[2];
+		int[][] result = new int[g.cardsToLay()][2];
+		int i = 0;
+		while (!g.isHandBlocked() && (ServiceRules.getPlayerNumber() == 1)) {
+			g.beginTurn();
+			resultTurn = ServiceResolution.chooseOneLayOneCard(g.readLays(), g.readHand());
+			boolean l = g.lay(resultTurn[0], g.readHand().get(resultTurn[1]));
+			if (l) {
+				result[i] = resultTurn;
+				++i;
+			}
+			g.endTurn();
+		}
+		System.out.println("Score is :" + g.getScore() + " / " + g.getMinScore());
+		if (g.isVictory()) {
+			System.out.println("IA beat the game");
+		} else {
+			System.out.println("The Game won.");
+		}
+		g.close();
+		return result;
+
 	}
 
 }

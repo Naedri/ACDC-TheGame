@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import card.ICard;
 import card.Number;
 import direction.Direction;
+import factory.GameFactory;
+import game.IGame;
 import pile.AscendingPile;
 import pile.DescendingPile;
 import pile.ILayPile;
@@ -60,7 +62,7 @@ class TestServices {
 	}
 
 	@Test
-	void test_ServiceResolution_getMinCardLay() {
+	void test_ServiceResolution_getMinCard() {
 
 		// usual dir
 		cT = ServiceResolution.getMinCard(asc, c10, c15);
@@ -109,10 +111,6 @@ class TestServices {
 	void test_ServiceResolution_evalCardAllLay() throws IOException {
 		init();
 		tabc = ServiceResolution.evalCardAllLay(lays, c20);
-		for (int i = 0; i < tabc.length; i++) {
-			System.out.println(tabc[i]);
-		}
-
 		/*
 		 * mv1 = ServiceResolution.evalCardAllLay(lays, c20); mv2 =
 		 * ServiceResolution.evalCardAllLay(lays, c10); assertEquals(-10, mv1);
@@ -120,4 +118,20 @@ class TestServices {
 		 */
 	}
 
+	@Test
+	void test_ServiceResolution_resolve() throws IOException {
+		GameFactory gameF = new GameFactory();
+		String path1;
+		IGame game;
+		path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
+		game = gameF.getGame(path1);
+		int[][] tableResolved = ServiceResolution.resolve(game);
+
+		System.out.println("| LayPile_index | Card_index |");
+		for (int i = 0; i < tableResolved.length; i++) {
+			String lp = Integer.toString(tableResolved[i][0]);
+			String cd = Integer.toString(tableResolved[i][1]);
+			System.out.println("| " + lp + " | " + cd + " |");
+		}
+	}
 }

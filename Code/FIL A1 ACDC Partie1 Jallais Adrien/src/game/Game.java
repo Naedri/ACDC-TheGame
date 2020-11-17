@@ -68,7 +68,8 @@ public class Game implements IGame {
 	 * 
 	 * @return the sum of the draw pile according the Rules
 	 */
-	private int getMinScore() {
+	@Override
+	public int getMinScore() {
 		int i = ServiceRules.getDrawPileRange()[0];
 		int n = ServiceRules.getDrawPileRange()[1];
 		int sum = 0;
@@ -307,7 +308,8 @@ public class Game implements IGame {
 	}
 
 	// should stay private
-	private int getScore() {
+	@Override
+	public int getScore() {
 		return this.score;
 	}
 
@@ -467,30 +469,8 @@ public class Game implements IGame {
 		System.out.println("Ou tapez '" + this.choiceQuitGame + "' pour quitter.");
 	}
 
-	/**
-	 * Remove the card from a full pile with laying pile and hand. Than check the
-	 * size is the same than the draw pile.
-	 * 
-	 * @return a set of ICard
-	 */
-	/*
-	 * private boolean checkUnicity() { Set<ICard> drawCheck = makeDrawCheck();
-	 * this.lays.forEach(lay -> { drawCheck.removeAll(lay); });
-	 * this.hands.forEach(hand -> { drawCheck.removeAll(hand); }); return
-	 * drawCheck.size() == this.draw.getSize(); }
-	 */
-
-	/**
-	 * Produce a set of ICard with the same range than the pile. In order to check
-	 * the conformity of the game then.
-	 * 
-	 * @return a set of ICard
-	 */
-	/*
-	 * private Set<ICard> makeDrawCheck() { Set<ICard> draw = new HashSet<ICard>();
-	 * for (int i = RulesService.getDrawPileRange()[0]; i <=
-	 * RulesService.getDrawPileRange()[1]; i++) { ICard card = new Number(i);
-	 * draw.add(card); } return draw; }
-	 */
-
+	@Override
+	public int cardsToLay() {
+		return this.draw.getSize();
+	}
 }

@@ -51,7 +51,6 @@ public class App {
 		game = gameF.getGame(path1);
 		tableResolved = ServiceResolution.resolve(game);
 		System.out.println(tableResolved);
-
 	}
 
 }

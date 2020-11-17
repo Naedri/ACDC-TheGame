@@ -9,6 +9,26 @@ public interface IGame {
 
 	/**
 	 * 
+	 * @return the number of card in the draw pile
+	 */
+	public int cardsToLay();
+
+	/**
+	 * the lowest score you could ever have
+	 * 
+	 * @return the sum of the draw pile according the Rules
+	 */
+	public int getMinScore();
+
+	/**
+	 * your current score
+	 * 
+	 * @return
+	 */
+	public int getScore();
+
+	/**
+	 * 
 	 * @return the index of the current player
 	 */
 	public int beginTurn();
