@@ -6,6 +6,16 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "9",
+            "date": "17/11/2020",
+            "travail": [
+                "version1 service résolution Jeu IA",
+                "presentation resultat IA",
+                "fix some bugs from factory",
+                "ajout de certains test pour supporter service IA"
+            ]
+        },
+        {
             "log_number": "8",
             "date": "16/11/2020",
             "travail": [
