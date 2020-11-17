@@ -112,7 +112,7 @@ public class Game implements IGame {
 	 * @author Adrien Jallais
 	 *
 	 */
-	public class LayInfo extends Object {
+	private class LayInfo extends Object {
 		private final int index;
 		private final Direction direction;
 		private final ICard card;
@@ -129,8 +129,7 @@ public class Game implements IGame {
 		}
 	}
 
-	@Override
-	public List<LayInfo> readLaysInfo() {
+	private List<LayInfo> readLaysInfo() {
 		List<LayInfo> gameState = new ArrayList<LayInfo>();
 		int i = 0;
 		for (final ILayPile lay : this.lays) {

@@ -3,7 +3,6 @@ package game;
 import java.util.List;
 
 import card.ICard;
-import game.Game.LayInfo;
 import pile.ILayPile;
 
 public interface IGame {
@@ -21,7 +20,7 @@ public interface IGame {
 	 * 
 	 * @return List<Integer, Direction, ICard>
 	 */
-	public List<LayInfo> readLaysInfo();
+	// public List<LayInfo> readLaysInfo();
 
 	/**
 	 * syso the readLaysInfo for Human console
