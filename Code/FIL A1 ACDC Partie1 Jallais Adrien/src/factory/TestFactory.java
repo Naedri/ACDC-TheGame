@@ -23,10 +23,15 @@ class TestFactory {
 			}
 		});
 
-		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt"; // ok
-		String path2 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game2.txt"; //
-		String path3 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game3.txt"; //
-		String path4 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game4.txt"; //
+		/**
+		 * path1 =
+		 * "C:\\Users\\Adrien_Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
+		 * // absolute path
+		 */
+		String path1 = "../../Jeu_essai/game1.txt"; // relative path
+		String path2 = "../../Jeu_essai/game2.txt"; // relative path
+		String path3 = "../../Jeu_essai/game3.txt"; // relative path
+		String path4 = "../../Jeu_essai/game4.txt"; // relative path
 
 		/**
 		 * everything all right
