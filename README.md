@@ -1,8 +1,12 @@
 # ACDC-TheGame
 
-Un arbitre, une IA et une IHM pour The game
+Un arbitre, une IA et une IHM pour *The game*.
 
 IMT - FIL1 - 2020
+
+*JALLAIS Adrien : adrien.jallais@protonmail.com*
+
+**Partie 1 - Version 1.0**
 
 ## Présentation
 
@@ -10,11 +14,19 @@ Dans le cadre du cours de Web, Rémi Douence a proposé de développer une appli
 
 ### Règles
 
+Les règles du jeu sont disponibles au fichier suivant : [the-game-english](./Consignes/the-game-english.pdf).
+
+### Utilisation de l'application 
+
+Les fichiers sources sont accessibles au dossier suivant : [Code/FIL A1 ACDC Partie1 Jallais Adrien](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src).
+Pour savoir comment lancer l'application, reportez-vous au fichier suivant : [module-info.java](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/module-info.java).
+
 ### Traduction
 
-Dans le but de maintenir un langage homogène de développement avec celui des règles founies, il a été favorisé l'anglais.  
-Pour respecter l'uniformité du code fourni au sein du groupe de travail, il sera envisagé que les méthodes de l'interface API soit rédigées en français.  
-Néanmoins une traduction est fournie ci-dessous afin de faciliter la lecture de code :
+Dans le but de maintenir un langage homogène de développement avec celui des règles fournies, il a été favorisé l'anglais.
+Pour permettre à des utilisateurs non anglophones de jouer, les dialogues d'interaction lors d'un tour de jeu ont été, pour la plupart, rédigés en français.
+
+Une traduction est fournie ci-dessous afin de faciliter la lecture de code :
 
 + *Pile*
   + *LayPile* = pile de dépôt
@@ -22,22 +34,32 @@ Néanmoins une traduction est fournie ci-dessous afin de faciliter la lecture de
     + *Ascending pile* = pile de dépôt ascendante  
   + *DrawPile* = pioche
   + *Hand* = cartes en main
-+ *backwards* = action de poser une carte sur une LayPile +/-=10 à la valeur de sa dernière carte (dans le but de tenter de redéposer des cartes non posées)
-
-## Auteur
-
-JALLAIS Adrien : adrien.jallais@protonmail.com
++ *Backwards* = action de poser une carte sur une *LayPile* +/-=10 à la valeur de sa dernière carte (dans le but de tenter de redéposer des cartes non posées)
++ *Factory* = Fabrique (patron de conception)
++ *Rules* = règles du jeu
 
 ## Informations générales
 
 ### Objectifs
 
-+ Favoriser la programmation orientée objet.
-+ Appréhender l'utilisation de code réalisé par les ressources métiers pour la réalisation d'une interface graphique.
+Comme le décrivent les consignes disponibles dans au document suivant : [presentation-projet-eleves-2020-2021.pdf](./Consignes/presentation-projet-eleves-2020-2021.pdf), les objectifs pédagogiques de son projet sont les suivants : 
 
-### Diagramme de classe
++ Favoriser la programmation orientée objet ;
++ Appréhender l'utilisation de code réalisé par les ressources métiers pour la réalisation d'une interface graphique ;
++ Suivre l'évolution de la conception d'un projet logiciel.
 
-![Diagramme de classe](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/bin/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML.png)
+### Progression et suivi du projet
+
+Un fichier décrivant les logs réalisés est disponible au fichier suivant : [log.Jallais.Adrien.json](./log.Jallais.Adrien.json). 
+La grille de progression ci-dessous, permet d'évaluer la manière dont s'est développé le projet. On y voit, par exemple, que l'écriture des interfaces a permis de guider le développement des classes concrètes les implémentant, et que le développement a commencé par les objets les plus basiques (cartes, piles) pour servir de base à des objets intermédiaires (Fabriques), ou plus complexes (Jeu puis Service de Résolution). 
+
+![Grille de progression](./Grille_progression/avt.Jallais.Adrien.jpg)
+
+## Diagramme de classe
+
+Le diagramme de classe ci dessous est une version légère d'un autre diagramme disponible au fichier suivant [FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vraw.png](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vraw.png). En effet, les relations de dépendances entre les objets ne sont pas représentés, exceptées celles pour les packages.
+
+![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
 
 ## Choix réalisés
 
@@ -60,7 +82,7 @@ Ainsi lorsque l on va passer une carte à un joueur il va pouvoir la modifier. E
 
 #### Décisions
 
-A définir
+[java.util.Collections.unmodifiableCollection() ](https://www.tutorialspoint.com/java/util/collections_unmodifiablecollection.htm)
 
 ### Minimser le nbr de cartes posées ?
 
@@ -80,7 +102,9 @@ Cela est peut *risqué* si l on est seul car on maitrise quel sont les prochaine
 
 #### Décision
 
-Spécialiser IA fonction nombre de joueur
+Options : 
+1) Spécialiser IA fonction nombre de joueur
+2) piocher à chaque fin de tour 
 
 ### Poser Min(Diff(cartes)) ou Diff(10)
 
@@ -106,7 +130,7 @@ mettre en protected les fonction piocher et déposer
 	public void addCard(ICard card);
 ```
 
-#### comment gérer le flux des cartes entre 2 acteurs ?
+### comment gérer le flux des cartes entre 2 acteurs ?
 
 Doit on avoir une méthode dans chacune des classes qui donnent un résultat similaire ? et risquer de ne pas avoir le même resultat alors qu on veut la même chose ?
 doit on choisir une seule des deux classes impliquées ? mais la quelle ? la receveuse ou la donneuse ? 
@@ -126,36 +150,59 @@ the group of hands and the groupe of LayingPile need to be sorted thus ArrayList
 ### comment choisir une laypile ? avec direction + number ou juste number ?
 méthodes au non differentes suivant asc et desc et un nombre
 
-## Draft code
+### Externalisation des paramètres orchestrant les règles du jeu
 
-### shallow and deep copying and immuable attributes 
+
+
+### Externalisation de la méthode de résolution
+
+
+
+## Bilan de l'application
+
+### Points faibles 
+
++ IA qui ne fonctionne pas assez bien : ne visualise pas les combinaisons de drawback entre deux cartes de sa main :  Seulement entre une carte de sa main et une carte de la pile.
+
+### Points forts
+
++ D'après les tests, la fabrique de pile est capable d'identifier un jeu de données falsifiés.
++ D'après les tests, les services IA fonctionnent tout de même.
++ Les acteurs du jeu sont des piles ce qui permet d'optimiser le fonctionnement de l'application.
+
++ Il est possible de modifier facilement un certains nombre de paramètres
+	+  différence de valeur entre deux cartes interposées dans une pile,
+	+ Paramètres de nombre de joueur et de grandeur de pile sont définis en un seul fichier :
+		+ ce qui permet de jouer avec une pioche d'un nombre restreint  de cartes, comme 20.
+
++ Les classes utilisent des méthodes définies au sein d'interfaces et non au sein de classes concrètes 
+	+ ce qui permettra une modification plus rapide et légère de l'impléntation des méthodes si  nécessaire.
++ les patrons de conception ont été implémentés:
+	+ singleton
+	+ fabrique  
+ 	
+
+## Fonctionnement du service de résolution du jeu
+
+Il faut minimiser au maximum les coups : 
++ A chaque coup on associe un poids et,
++ On prend le coup au poids le plus faible.
+
+chooseOneLayOneCard 
+Calculated with chooseOneLay and chooseOneCard. It will act as a tournament.
 
 ```java
-		/* POINT */
-		// https://stackoverflow.com/questions/15020850/copy-constructors-and-defensive-copying
-		// A simple point.
-		Point p1 = new Point(3, 42);
-		// A new point at the same place as p1 but a completely different object.
-		Point p2 = new Point(p1);
-		p2.x = 5;
+	 * @param lays
+	 * @param hand
+	 * @return [ lay_index, card_index ]
 
-		System.out.println(p1.toString());
+	public static int[] chooseOneLayOneCard(List<ILayPile> lays, List<ICard> hand) {
 
-		System.out.println(p1.x);
-		System.out.println(p2.toString());
-		System.out.println(p2.x);
 
-		/* DUMMY */
-		// https://stackoverflow.com/questions/869033/how-do-i-copy-an-object-in-java
-		DummyBean dum = new DummyBean();
-		dum.setDummy("foo");
-		System.out.println(dum.getDummy()); // prints 'foo'
-
-		// DummyBean dumtwo = dum; // prints 'bar' but it should print 'foo'
-		DummyBean dumtwo = new DummyBean(dum); // prints 'bar'
-		System.out.println(dumtwo.getDummy()); // prints 'foo'
-
-		dum.setDummy("bar");
-		System.out.println(dumtwo.getDummy()); // prints 'bar' but it should print 'foo'
-
+// each lay chooses one card
+		// then we calculate move for each, with evalCardLay
+		// then we selected the lowest move
+// if the new move can be more better
+	// we choose the lay with the more place
+	
 ```
