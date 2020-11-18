@@ -6,6 +6,16 @@
     "Projet": "The Game",
     "Partie 1": [
         {
+            "log_number": "10",
+            "date": "18/11/2020",
+            "travail": [
+                "diagramme UML finalisation",
+                "table de progression",
+                "début rédaction rapport",
+                "fonction main"
+            ]
+        },
+        {
             "log_number": "9",
             "date": "17/11/2020",
             "travail": [
