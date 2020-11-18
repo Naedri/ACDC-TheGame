@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="pile.TestPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/TestPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="69" x="2321" y="1333"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="services.ServiceUser" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services/ServiceUser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="94" x="881" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="pile.IDrawPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/IDrawPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="78" x="1510" y="1469"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="pile.ILayPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/ILayPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="68" x="1227" y="1469"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" language="java" name="game.Game.LayInfo" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="65" x="1745" y="1469"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="factory.DrawPileFactory" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/factory/DrawPileFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="117" x="1954" y="1333"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="pile.CALayPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/CALayPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="84" x="2651" y="1333"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="8" language="java" name="game" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="56" x="1535" y="889"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="factory" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/factory" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="64" x="2086" y="963"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="card" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="50" x="2672" y="1111"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="pile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="44" x="2672" y="1037"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="12" language="java" name="pile.Hand" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/Hand.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="53" x="1836" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="pile.DrawPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/DrawPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="75" x="2013" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="game.IGame" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/IGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="60" x="1316" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="game.Game" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="57" x="1689" y="1333"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="pile.IHand" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/IHand.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="56" x="1628" y="1469"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="17" language="java" name="card.ICard" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/ICard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="54" x="736" y="1532"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="18" language="java" name="direction.Direction" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/direction/Direction.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="75" x="2375" y="1532"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="19" language="java" name="services.ServiceRules" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services/ServiceRules.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="99" x="2213" y="1469"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="20" language="java" name="app" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/app" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="45" x="1344" y="815"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="21" language="java" name="factory.GameFactory" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/factory/GameFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="99" x="1645" y="1259"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="pile.DescendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/DescendingPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="112" x="2539" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="23" language="java" name="direction" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/direction" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="74" x="1489" y="1259"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="24" language="java" name="app.App" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/app/App.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="46" x="1447" y="1185"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="card.Number" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/card/Number.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="69" x="2264" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="pile.AscendingPile" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/pile/AscendingPile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="105" x="2394" y="1396"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="services.ServiceResolution" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services/ServiceResolution.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="127" x="1070" y="1259"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="game.Move" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/game/Move.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="23" width="54" x="1175" y="1333"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="29" language="java" name="services" project="FIL A1 ACDC Partie1 Jallais Adrien" 
+    file="/FIL A1 ACDC Partie1 Jallais Adrien/src/services" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2164" y="1202"/>    
+    <display autosize="true" stereotype="false" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="30">    
+    <bendpoint x="2290" y="963"/>    
+    <bendpoint x="2515" y="1037"/>    
+    <bendpoint x="2515" y="1111"/>    
+    <bendpoint x="2515" y="1185"/>    
+    <bendpoint x="2515" y="1259"/>    
+    <bendpoint x="2557" y="1333"/>    
+    <bendpoint x="2681" y="1396"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="31">    
+    <bendpoint x="1325" y="1469"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="32">    
+    <bendpoint x="2149" y="1396"/>    
+    <bendpoint x="2149" y="1469"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="33" name="cardDrawPile"/>      
+      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="35">    
+    <bendpoint x="2620" y="1111"/>    
+    <bendpoint x="2599" y="1185"/>    
+    <bendpoint x="2536" y="1259"/>    
+    <bendpoint x="2483" y="1333"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="36">    
+    <bendpoint x="1374" y="963"/>    
+    <bendpoint x="1353" y="1037"/>    
+    <bendpoint x="1353" y="1111"/>    
+    <bendpoint x="1353" y="1185"/>    
+    <bendpoint x="1353" y="1259"/>    
+    <bendpoint x="1343" y="1333"/>    
+    <bendpoint x="1264" y="1396"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <association id="37">    
+    <bendpoint x="2744" y="1396"/>    
+    <bendpoint x="2744" y="1469"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="38" name="deque"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="40">    
+    <bendpoint x="1724" y="889"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="42">    
+    <bendpoint x="2118" y="1037"/>    
+    <bendpoint x="2118" y="1111"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <association id="43">    
+    <bendpoint x="1574" y="1333"/>    
+    <bendpoint x="1511" y="1396"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="44" name="draw"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="46">    
+    <bendpoint x="2828" y="1185"/>    
+    <bendpoint x="2849" y="1259"/>    
+    <bendpoint x="2870" y="1333"/>    
+    <bendpoint x="2891" y="1396"/>    
+    <bendpoint x="2891" y="1469"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="47">    
+    <bendpoint x="2034" y="1037"/>    
+    <bendpoint x="2034" y="1111"/>    
+    <bendpoint x="2034" y="1185"/>    
+    <bendpoint x="1963" y="1259"/>    
+    <bendpoint x="1902" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="48">    
+    <bendpoint x="1374" y="1259"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="49">    
+    <bendpoint x="1259" y="1333"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="50">    
+    <bendpoint x="2311" y="889"/>    
+    <bendpoint x="2311" y="963"/>    
+    <bendpoint x="2311" y="1037"/>    
+    <bendpoint x="2269" y="1111"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="51">    
+    <bendpoint x="2933" y="963"/>    
+    <bendpoint x="2933" y="1037"/>    
+    <bendpoint x="2933" y="1111"/>    
+    <bendpoint x="2933" y="1185"/>    
+    <bendpoint x="2933" y="1259"/>    
+    <bendpoint x="2933" y="1333"/>    
+    <bendpoint x="2933" y="1396"/>    
+    <bendpoint x="2933" y="1469"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="52">    
+    <bendpoint x="2641" y="1037"/>    
+    <bendpoint x="2755" y="1111"/>    
+    <bendpoint x="2870" y="1185"/>    
+    <bendpoint x="2870" y="1259"/>    
+    <bendpoint x="2849" y="1333"/>    
+    <bendpoint x="2849" y="1396"/>    
+    <bendpoint x="2828" y="1469"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="54">    
+    <bendpoint x="1248" y="889"/>    
+    <bendpoint x="1248" y="963"/>    
+    <bendpoint x="1248" y="1037"/>    
+    <bendpoint x="1249" y="1111"/>    
+    <bendpoint x="1275" y="1185"/>    
+    <bendpoint x="1290" y="1259"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="55">    
+    <bendpoint x="1332" y="963"/>    
+    <bendpoint x="1311" y="1037"/>    
+    <bendpoint x="1270" y="1111"/>    
+    <bendpoint x="1254" y="1185"/>    
+    <bendpoint x="1248" y="1259"/>    
+    <bendpoint x="1144" y="1333"/>    
+    <bendpoint x="1173" y="1396"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="56">    
+    <bendpoint x="2912" y="1111"/>    
+    <bendpoint x="2912" y="1185"/>    
+    <bendpoint x="2912" y="1259"/>    
+    <bendpoint x="2912" y="1333"/>    
+    <bendpoint x="2912" y="1396"/>    
+    <bendpoint x="2912" y="1469"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="57">    
+    <bendpoint x="1903" y="1469"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="58" name="pileComplement"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="60">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="61">    
+    <bendpoint x="1469" y="1333"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="62" name="game"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="65">    
+    <bendpoint x="1637" y="1333"/>    
+    <bendpoint x="1595" y="1396"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="66" name="handTemp"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="68">    
+    <bendpoint x="1523" y="963"/>    
+    <bendpoint x="1523" y="1037"/>    
+    <bendpoint x="1523" y="1111"/>    
+    <bendpoint x="1544" y="1185"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="69">    
+    <bendpoint x="1269" y="963"/>    
+    <bendpoint x="1101" y="1037"/>    
+    <bendpoint x="864" y="1111"/>    
+    <bendpoint x="626" y="1185"/>    
+    <bendpoint x="388" y="1259"/>    
+    <bendpoint x="388" y="1333"/>    
+    <bendpoint x="388" y="1396"/>    
+    <bendpoint x="388" y="1469"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="70">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="71">    
+    <bendpoint x="1982" y="1396"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="72">    
+    <bendpoint x="1532" y="1333"/>    
+    <bendpoint x="1427" y="1396"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="73" name="layTemp"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="75">    
+    <bendpoint x="1395" y="963"/>    
+    <bendpoint x="1395" y="1037"/>    
+    <bendpoint x="1395" y="1111"/>    
+    <bendpoint x="1395" y="1185"/>    
+    <bendpoint x="1416" y="1259"/>    
+    <bendpoint x="1448" y="1333"/>    
+    <bendpoint x="1448" y="1396"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="76">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="77">    
+    <bendpoint x="2849" y="1111"/>    
+    <bendpoint x="2849" y="1185"/>    
+    <bendpoint x="2828" y="1259"/>    
+    <bendpoint x="2828" y="1333"/>    
+    <bendpoint x="2828" y="1396"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="78">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="79">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="80">    
+    <bendpoint x="2005" y="1259"/>    
+    <bendpoint x="1923" y="1333"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="81">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="82" name="direction"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="84">    
+    <bendpoint x="1797" y="1333"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="85">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="86">    
+    <bendpoint x="2055" y="963"/>    
+    <bendpoint x="2055" y="1037"/>    
+    <bendpoint x="2097" y="1111"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="87">    
+    <bendpoint x="2405" y="1469"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="88">    
+    <bendpoint x="2807" y="1185"/>    
+    <bendpoint x="2807" y="1259"/>    
+    <bendpoint x="2807" y="1333"/>    
+    <bendpoint x="2807" y="1396"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="89">    
+    <bendpoint x="1353" y="889"/>    
+    <bendpoint x="1353" y="963"/>    
+    <bendpoint x="1374" y="1037"/>    
+    <bendpoint x="1448" y="1111"/>    
+    <bendpoint x="1523" y="1185"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="90">    
+    <bendpoint x="2786" y="1396"/>    
+    <bendpoint x="2870" y="1469"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="91" name="direction"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="93">    
+    <bendpoint x="2248" y="1259"/>    
+    <bendpoint x="2269" y="1333"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="94">    
+    <bendpoint x="1060" y="1333"/>    
+    <bendpoint x="1131" y="1396"/>    
+    <bendpoint x="1131" y="1469"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="95">    
+    <bendpoint x="1593" y="1259"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="96">    
+    <bendpoint x="1586" y="1037"/>    
+    <bendpoint x="1544" y="1111"/>    
+    <bendpoint x="1416" y="1185"/>    
+    <bendpoint x="1395" y="1259"/>    
+    <bendpoint x="1364" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="97">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="98">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <realization id="99">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <dependency id="100">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="101">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="102" name="_instance"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <bendpoint x="1637" y="1396"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="105" name="hand"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="107">    
+    <bendpoint x="1837" y="1037"/>    
+    <bendpoint x="1822" y="1111"/>    
+    <bendpoint x="1808" y="1185"/>    
+    <bendpoint x="1795" y="1259"/>    
+    <bendpoint x="1616" y="1333"/>    
+    <bendpoint x="1553" y="1396"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <association id="108">    
+    <bendpoint x="1595" y="1333"/>    
+    <bendpoint x="1574" y="1396"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="109" name="handsList"/>      
+      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="111">    
+    <bendpoint x="2557" y="1259"/>    
+    <bendpoint x="2765" y="1333"/>    
+    <bendpoint x="2765" y="1396"/>    
+    <bendpoint x="2765" y="1469"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="112">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="113">    
+    <bendpoint x="2599" y="1037"/>    
+    <bendpoint x="2599" y="1111"/>    
+    <bendpoint x="2620" y="1185"/>    
+    <bendpoint x="2620" y="1259"/>    
+    <bendpoint x="2620" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="114">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="115">    
+    <bendpoint x="1679" y="1396"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="116" name="hands"/>      
+      <multiplicity id="117" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="118">    
+    <bendpoint x="1039" y="1333"/>    
+    <bendpoint x="1068" y="1396"/>    
+    <bendpoint x="1068" y="1469"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="119">    
+    <bendpoint x="1427" y="1333"/>    
+    <bendpoint x="1700" y="1396"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="120">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="121">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="122">    
+    <bendpoint x="2466" y="1469"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="124">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="125">    
+    <bendpoint x="1532" y="1396"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="126" name="lays"/>      
+      <multiplicity id="127" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="128">    
+    <bendpoint x="2191" y="1396"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="129">    
+    <bendpoint x="1616" y="1396"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="130" name="draw"/>      
+      <multiplicity id="131" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="132">    
+    <bendpoint x="2311" y="1111"/>    
+    <bendpoint x="2013" y="1185"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <realization id="133">    
+    <bendpoint x="2212" y="1396"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="134">    
+    <bendpoint x="2494" y="1259"/>    
+    <bendpoint x="2504" y="1333"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="135">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="136">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="137">    
+    <bendpoint x="2620" y="1037"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="138">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="139">    
+    <bendpoint x="2891" y="1111"/>    
+    <bendpoint x="2891" y="1185"/>    
+    <bendpoint x="2891" y="1259"/>    
+    <bendpoint x="2891" y="1333"/>    
+    <bendpoint x="2870" y="1396"/>    
+    <bendpoint x="2849" y="1469"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="140">    
+    <bendpoint x="1784" y="1396"/>    
+    <bendpoint x="1840" y="1469"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="141">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="142">    
+    <bendpoint x="2363" y="1396"/>    
+    <bendpoint x="2363" y="1469"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="143">    
+    <bendpoint x="2170" y="1396"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="144">    
+    <bendpoint x="1081" y="1333"/>    
+    <bendpoint x="1152" y="1396"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="145">    
+    <bendpoint x="1882" y="1469"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="146" name="pile"/>      
+      <multiplicity id="147" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="148">    
+    <bendpoint x="2269" y="1259"/>    
+    <bendpoint x="2420" y="1333"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="149">    
+    <bendpoint x="1123" y="1333"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="150">    
+    <bendpoint x="1490" y="1333"/>    
+    <bendpoint x="1406" y="1396"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="151" name="laysList"/>      
+      <multiplicity id="152" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="153">    
+    <bendpoint x="2076" y="1037"/>    
+    <bendpoint x="2076" y="1111"/>    
+    <bendpoint x="2076" y="1185"/>    
+    <bendpoint x="2076" y="1259"/>    
+    <bendpoint x="2143" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <association id="154">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="155" name="card"/>      
+      <multiplicity id="156" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="157">    
+    <bendpoint x="1544" y="963"/>    
+    <bendpoint x="1544" y="1037"/>    
+    <bendpoint x="1565" y="1111"/>    
+    <bendpoint x="1565" y="1185"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="158">    
+    <bendpoint x="2206" y="1333"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <nesting id="159">    
+    <bendpoint x="1742" y="1396"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="160">    
+    <bendpoint x="1919" y="1396"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="161" name="drawPile"/>      
+      <multiplicity id="162" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="163">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="164">    
+    <bendpoint x="2290" y="1037"/>    
+    <bendpoint x="2290" y="1111"/>    
+    <bendpoint x="2290" y="1185"/>    
+    <bendpoint x="2290" y="1259"/>    
+    <bendpoint x="2290" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="165">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="166">    
+    <bendpoint x="2227" y="1259"/>    
+    <bendpoint x="2227" y="1333"/>    
+    <bendpoint x="2233" y="1396"/>    
+    <bendpoint x="2182" y="1469"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="167">    
+    <bendpoint x="1940" y="1396"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="168">    
+    <bendpoint x="1721" y="1396"/>    
+    <bendpoint x="1714" y="1469"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="169">    
+    <bendpoint x="1984" y="1259"/>    
+    <bendpoint x="1860" y="1333"/>    
+    <bendpoint x="1805" y="1396"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="170">    
+    <bendpoint x="2097" y="1185"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="171">    
+    <bendpoint x="1553" y="1333"/>    
+    <bendpoint x="1469" y="1396"/>    
+    <bendpoint x="1469" y="1469"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <generalization id="172">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="173">    
+    <bendpoint x="2746" y="963"/>    
+    <bendpoint x="2746" y="1037"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="174">    
+    <bendpoint x="1658" y="1396"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="175" name="handCheck"/>      
+      <multiplicity id="176" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="177">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="178">    
+    <bendpoint x="1437" y="1259"/>    
+    <bendpoint x="1385" y="1333"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="179">    
+    <bendpoint x="1565" y="1037"/>    
+    <bendpoint x="1469" y="1111"/>    
+    <bendpoint x="1374" y="1185"/>    
+    <bendpoint x="1332" y="1259"/>    
+    <bendpoint x="1280" y="1333"/>    
+    <bendpoint x="1243" y="1396"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="180">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <dependency id="181">    
+    <bendpoint x="1900" y="1259"/>    
+    <bendpoint x="1658" y="1333"/>    
+    <bendpoint x="1490" y="1396"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="182">    
+    <bendpoint x="2536" y="1111"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="183">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="184">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="185">    
+    <bendpoint x="1921" y="1037"/>    
+    <bendpoint x="1921" y="1111"/>    
+    <bendpoint x="1921" y="1185"/>    
+    <bendpoint x="1921" y="1259"/>    
+    <bendpoint x="1818" y="1333"/>    
+    <bendpoint x="1763" y="1396"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="186">    
+    <bendpoint x="1080" y="889"/>    
+    <bendpoint x="1080" y="963"/>    
+    <bendpoint x="1080" y="1037"/>    
+    <bendpoint x="1080" y="1111"/>    
+    <bendpoint x="1080" y="1185"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="187">    
+    <bendpoint x="1416" y="1037"/>    
+    <bendpoint x="1312" y="1111"/>    
+    <bendpoint x="1144" y="1185"/>    
+    <bendpoint x="976" y="1259"/>    
+    <bendpoint x="913" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="188">    
+    <bendpoint x="1290" y="889"/>    
+    <bendpoint x="1290" y="963"/>    
+    <bendpoint x="1290" y="1037"/>    
+    <bendpoint x="1291" y="1111"/>    
+    <bendpoint x="1301" y="1185"/>    
+    <bendpoint x="1311" y="1259"/>    
+    <bendpoint x="1322" y="1333"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="189">    
+    <bendpoint x="2494" y="1037"/>    
+    <bendpoint x="2494" y="1111"/>    
+    <bendpoint x="2536" y="1185"/>    
+    <bendpoint x="2578" y="1259"/>    
+    <bendpoint x="2599" y="1333"/>    
+    <bendpoint x="2702" y="1396"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="190">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="191">    
+    <bendpoint x="2578" y="1037"/>    
+    <bendpoint x="2578" y="1111"/>    
+    <bendpoint x="2578" y="1185"/>    
+    <bendpoint x="2599" y="1259"/>    
+    <bendpoint x="2578" y="1333"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="192">    
+    <bendpoint x="2384" y="1469"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="193">    
+    <bendpoint x="2342" y="1469"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <association id="194">    
+    <bendpoint x="1861" y="1469"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="195" name="list"/>      
+      <multiplicity id="196" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="197">    
+    <bendpoint x="2332" y="963"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="198">    
+    <bendpoint x="2122" y="1333"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="199">    
+    <bendpoint x="1839" y="1333"/>    
+    <bendpoint x="2128" y="1396"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="200">    
+    <bendpoint x="1837" y="1259"/>    
+    <bendpoint x="1511" y="1333"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="201">    
+    <bendpoint x="1858" y="1037"/>    
+    <bendpoint x="1858" y="1111"/>    
+    <bendpoint x="1858" y="1185"/>    
+    <bendpoint x="1858" y="1259"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="202">    
+    <bendpoint x="1311" y="963"/>    
+    <bendpoint x="1269" y="1037"/>    
+    <bendpoint x="1137" y="1111"/>    
+    <bendpoint x="1004" y="1185"/>    
+    <bendpoint x="871" y="1259"/>    
+    <bendpoint x="871" y="1333"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="203">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="204">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="205">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="206">    
+    <bendpoint x="1816" y="963"/>    
+    <bendpoint x="1816" y="1037"/>    
+    <bendpoint x="1879" y="1111"/>    
+    <bendpoint x="1900" y="1185"/>    
+    <bendpoint x="1942" y="1259"/>    
+    <bendpoint x="1881" y="1333"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="207">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="208" name="drawF"/>      
+      <multiplicity id="209" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="210">    
+    <bendpoint x="2723" y="1396"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="false" package="false" initial-value="true" signature="false" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
