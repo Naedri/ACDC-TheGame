@@ -157,7 +157,6 @@ méthodes au non differentes suivant asc et desc et un nombre
 ### Externalisation de la méthode de résolution
 
 
-
 ## Bilan de l'application
 
 ### Points faibles 
@@ -180,7 +179,7 @@ méthodes au non differentes suivant asc et desc et un nombre
 + les patrons de conception ont été implémentés:
 	+ singleton
 	+ fabrique  
- 	
+
 
 ## Fonctionnement du service de résolution du jeu
 
@@ -205,4 +204,17 @@ Calculated with chooseOneLay and chooseOneCard. It will act as a tournament.
 // if the new move can be more better
 	// we choose the lay with the more place
 	
+```
+
+Si l'on minimise au maximum les coups à l'échelle d'un tour (etat en log 9), on obtient le résultat suivant :
+```
+The score is : 2993 / 4949 .
+IA has layed 39 cards.
+The Game won.
+```
+Si l'on favorise la réalisation de Backward tricks avec deux cartes de nos mains (état en log 10), on obtient le résultat suivant : 
+```
+The score is : 2643 / 4949 .
+IA has layed 48 cards.
+The Game won.
 ```

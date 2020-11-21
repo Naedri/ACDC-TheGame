@@ -208,6 +208,30 @@ public class ServiceResolution {
 	}
 
 	/**
+	 * if combination, it will indicate which lay and which first card to lay
+	 * 
+	 * @param lays
+	 * @param hand
+	 * @return [lay_index, card_index]
+	 */
+	public static int[] chooseOneLayOneCombination(List<ILayPile> lays, List<ICard> hand) {
+		int[] coupleCards = new int[2]; // {0,0}
+		int[] coupleCardLay = new int[2];
+
+		coupleCards = getCombination(hand);
+		if (coupleCards[0] != coupleCards[1]) {
+
+			List<ICard> handTemp = new ArrayList<ICard>();
+			handTemp.add(hand.get(coupleCards[0]));// index = O
+			handTemp.add(hand.get(coupleCards[1]));// index = 1
+
+			coupleCardLay = chooseOneLayOneCard(lays, handTemp);
+			coupleCardLay[1] = hand.indexOf(handTemp.get(coupleCardLay[1]));
+		}
+		return coupleCardLay;
+	}
+
+	/**
 	 * this method allows to use again and directly the game
 	 * 
 	 * @param g
@@ -221,7 +245,11 @@ public class ServiceResolution {
 		int i = 0;
 		while (!g.isHandBlocked() && (ServiceRules.getPlayerNumber() == 1)) {
 			g.beginTurn();
-			resultTurn = ServiceResolution.chooseOneLayOneCard(g.readLays(), g.readHand());
+			if (ServiceResolution.isCombination(g.readHand())) {
+				resultTurn = ServiceResolution.chooseOneLayOneCombination(g.readLays(), g.readHand());
+			} else {
+				resultTurn = ServiceResolution.chooseOneLayOneCard(g.readLays(), g.readHand());
+			}
 			boolean l = g.lay(resultTurn[0], g.readHand().get(resultTurn[1]));
 			if (l) {
 				resultRow = new Move(resultTurn[0], resultTurn[1]);
