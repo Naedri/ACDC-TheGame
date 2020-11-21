@@ -1,6 +1,7 @@
 package services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ class TestServices {
 	ICard c91 = new Number(91);
 	ICard c14 = new Number(14);
 	ICard c23 = new Number(33);
+	ICard c28 = new Number(28);
 
 	// for lay
 	ICard c4 = new Number(4);
@@ -63,6 +65,8 @@ class TestServices {
 
 	List<ILayPile> lays = new ArrayList<ILayPile>();
 	List<ICard> listC = new ArrayList<ICard>();
+	List<ICard> listCtemp = new ArrayList<ICard>();
+
 	IHand hand;
 
 	int[] tabc;
@@ -177,7 +181,7 @@ class TestServices {
 		listC.add(c91);
 
 		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
-		print();
+		// print();
 		ILayPile ltemp = lays.get(move[0]);
 		ICard ctemp = listC.get(move[1]);
 
@@ -190,7 +194,7 @@ class TestServices {
 		listC.add(c43);
 
 		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
-		print();
+		// print();
 		ILayPile ltemp = lays.get(move[0]);
 		ICard ctemp = listC.get(move[1]);
 
@@ -203,7 +207,7 @@ class TestServices {
 		listC.add(c23);
 
 		int[] move = ServiceResolution.chooseOneLayOneCard(lays, listC);
-		print();
+		// print();
 		ILayPile ltemp = lays.get(move[0]);
 		ICard ctemp = listC.get(move[1]);
 
@@ -217,9 +221,73 @@ class TestServices {
 		String path1 = "C:\\Users\\Adrien Jallais\\Documents\\IMT\\Cours\\ACDC\\PROJET\\Jeu_essai\\game1.txt";
 		IGame game = gameF.getGame(path1);
 		List<Move> tableResolved = ServiceResolution.resolve(game);
-		System.out.println("| LayPile_index | Card_index |");
+		// System.out.println("| LayPile_index | Card_index |");
 		tableResolved.forEach(row -> {
-			row.print();
+			// row.print();
 		});
+	}
+
+	@Test
+	void test_ServiceResolution_isCombination() {
+		initBW2();
+		listC.add(c28);
+		assertTrue(ServiceResolution.isCombination(listC));
+
+		listC.remove(4);
+		assertTrue(ServiceResolution.isCombination(listC));
+		listC.remove(3);
+		assertFalse(ServiceResolution.isCombination(listC));
+		listC.remove(2);
+		listC.remove(1);
+		listC.remove(0);
+		assertFalse(ServiceResolution.isCombination(listC));
+	}
+
+	@Test
+	void test_ServiceResolution_getCombination() {
+		initBW2();
+		listC.add(c28);
+		IHand h = new Hand(listC);
+		h.print();
+
+		int[] resultTurn = new int[2];
+
+		resultTurn[0] = 0;
+		resultTurn[1] = 3;
+		assertEquals(resultTurn[0], ServiceResolution.getCombination(listC)[0]);
+		assertEquals(resultTurn[1], ServiceResolution.getCombination(listC)[1]);
+
+		listC.remove(3);
+		resultTurn[0] = 2;
+		resultTurn[1] = 3;
+		assertEquals(resultTurn[0], ServiceResolution.getCombination(listC)[0]);
+		assertEquals(resultTurn[1], ServiceResolution.getCombination(listC)[1]);
+
+		listC.remove(3);
+		resultTurn = new int[2];
+		assertEquals(resultTurn[0], ServiceResolution.getCombination(listC)[0]);
+		assertEquals(resultTurn[1], ServiceResolution.getCombination(listC)[1]);
+
+		listC.remove(2);
+		listC.remove(1);
+		listC.remove(0);
+		assertEquals(resultTurn[0], ServiceResolution.getCombination(listC)[0]);
+		assertEquals(resultTurn[1], ServiceResolution.getCombination(listC)[1]);
+
+		/*
+		 * listCtemp = new ArrayList<ICard>(); listCtemp.add(c18); listCtemp.add(c28);
+		 * assertEquals(listCtemp, ServiceResolution.getCombination(listC));
+		 * 
+		 * listC.remove(4); listCtemp = new ArrayList<ICard>(); listCtemp.add(c12);
+		 * listCtemp.add(c22); assertEquals(listCtemp,
+		 * ServiceResolution.getCombination(listC));
+		 * 
+		 * listC.remove(3); listCtemp = new ArrayList<ICard>(); assertEquals(listCtemp,
+		 * ServiceResolution.isCombination(listC));
+		 * 
+		 * listC.remove(2); listC.remove(1); listC.remove(0); assertEquals(listCtemp,
+		 * ServiceResolution.isCombination(listC));
+		 */
+
 	}
 }

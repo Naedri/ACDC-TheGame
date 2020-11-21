@@ -21,6 +21,56 @@ public class ServiceResolution {
 
 	/**
 	 * 
+	 * @param hand
+	 * @return
+	 */
+	public static boolean isCombination(List<ICard> hand) {
+		ICard c;
+		ICard ctemp;
+		for (int i = 0; i < (hand.size() - 1); i++) {
+			c = hand.get(i);
+			for (int j = (i + 1); j < hand.size(); j++) {
+				ctemp = hand.get(j);
+				int diff = ctemp.getValue() - c.getValue();
+				if (diff == Direction.SUPER_UP.getDRow() || diff == Direction.SUPER_DOWN.getDRow()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param hand
+	 * @return the first
+	 */
+	public static int[] getCombination(List<ICard> hand) {
+		int[] combi = new int[2];
+
+		if (hand.size() >= 2) {
+			ICard c;
+			ICard ctemp;
+
+			for (int i = 0; i < (hand.size() - 1); i++) {
+				c = hand.get(i);
+				for (int j = (i + 1); j < hand.size(); j++) {
+					ctemp = hand.get(j);
+					int diff = ctemp.getValue() - c.getValue();
+					if (diff == Direction.SUPER_UP.getDRow() || diff == Direction.SUPER_DOWN.getDRow()) {
+						combi[0] = i;
+						combi[1] = j;
+						return combi;
+					}
+				}
+			}
+
+		}
+		return combi;
+	}
+
+	/**
+	 * 
 	 * @param dir direction of the draw pile
 	 * @param c1
 	 * @param c2
