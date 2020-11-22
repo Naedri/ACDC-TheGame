@@ -21,10 +21,10 @@ public class GameFactory {
 	private DrawPileFactory drawF;
 	private IDrawPile draw;
 
-	private ILayPile layTemp;
+	// private ILayPile layTemp;
 	private List<ILayPile> laysList;
 
-	private IHand handTemp;
+	// private IHand handTemp;
 	private List<IHand> handsList;
 
 	private IGame game;
@@ -60,8 +60,8 @@ public class GameFactory {
 	private void resetGameFactory() {
 		this.drawF = new DrawPileFactory();
 		this.draw = null;
-		this.layTemp = null;
-		this.handTemp = null;
+		// this.layTemp = null;
+		// this.handTemp = null;
 		this.handsList = new ArrayList<IHand>();
 		this.laysList = new ArrayList<ILayPile>();
 		this.game = null;
@@ -87,8 +87,8 @@ public class GameFactory {
 	 */
 	private void fillDscPile() {
 		for (int i = 0; i < this.dscPile; i++) {
-			this.layTemp = new DescendingPile();
-			this.laysList.add(this.layTemp);
+			ILayPile layTemp = new DescendingPile();
+			this.laysList.add(layTemp);
 		}
 	}
 
@@ -97,8 +97,8 @@ public class GameFactory {
 	 */
 	private void fillAscPile() {
 		for (int i = this.dscPile; i < (this.dscPile + this.ascPile); i++) {
-			this.layTemp = new AscendingPile();
-			this.laysList.add(this.layTemp);
+			ILayPile layTemp = new AscendingPile();
+			this.laysList.add(layTemp);
 		}
 	}
 
@@ -107,8 +107,8 @@ public class GameFactory {
 	 */
 	private void fillHands() {
 		for (int i = 0; i < this.players; i++) {
-			this.handTemp = new Hand(new ArrayList<ICard>());
-			this.handsList.add(this.handTemp);
+			IHand handTemp = new Hand(new ArrayList<ICard>());
+			this.handsList.add(handTemp);
 		}
 	}
 }

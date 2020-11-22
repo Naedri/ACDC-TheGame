@@ -4,7 +4,7 @@ import direction.Direction;
 import services.ServiceRules;
 
 public class Number implements ICard {
-	final int value;
+	private final int value;
 
 	public Number(int value) {
 		if (value < ServiceRules.getCardRange()[0] || value > ServiceRules.getCardRange()[1]) {
