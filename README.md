@@ -35,7 +35,7 @@ Les règles du jeu sont disponibles au fichier suivant : [the-game-english](./Co
 
 L'*Illustration 1* présente ce qu'affiche la console lors du lancement d'une partie.
 
-![Capture console au lancement d'une partie](./Illustrations/Capture_1.png)
+![Capture console au lancement d'une partie](./Illustrations/Capture_1.PNG)
 
 <u>Illustration 1 :</u> Capture de la console au lancement d'une partie.
 
@@ -51,7 +51,7 @@ Une traduction des éléments du jeu est fournie ci-dessous afin de faciliter l'
     + *Ascending pile* = pile de dépôt ascendante  
   + *DrawPile* = pioche
   + *Hand* = cartes en main
-+ *Backwards* = action de poser une carte sur une *LayPile* +/-=10 à la valeur de sa dernière carte (dans le but de tenter de redéposer des cartes non posées)
++ *Backwards* (BW) *trick* = action de poser une carte sur une *LayPile*, dont la valeur est +/-=10 à la valeur de la dernière carte posée.
 + *Rules* = règles du jeu
 
 ### Progression et suivi du projet
@@ -78,9 +78,9 @@ En effet, afin d'améliorer sa lisibilité, les caractéristiques suivantes ne s
 
 ![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
 
-<u>Illustration 1 :</u>  Diagramme UML de classe de l'application.
+<u>Illustration 2 :</u>  Diagramme UML de classe de l'application.
 
-L'*Illustration 1* présente la composition de notre application. Les packages ont été divisés dans le but de rassembler des fonctionnalités communes et/ou des classes au degré de complexité commun et/ou des objets strictement indépendants. 
+L'*Illustration 2* présente la composition de notre application. Les packages ont été divisés dans le but de rassembler des fonctionnalités communes et/ou des classes au degré de complexité commun et/ou des objets strictement indépendants. 
 
 Ainsi, les méthodes statiques ayant pour but de fournir un service, pour l'interaction avec l'utilisateur (*ServiceUser*),  pour la formalisation des règles du jeu (*ServiceRules*) et pour la résolution du jeu (*ServiceResolution*), sont regroupés dans le package *services*. Les classes suivant le patron de conception Fabrique, ont été regroupées dans le package *fabrique*. 
 Ainsi, avec un degré de complexité croissant, on note les packages suivants : *card*, *pile* et *game*. 
@@ -96,40 +96,26 @@ Les classes *LayInfo* et *Move* du package *game* permettent de présenter des i
 En effet, *LayInfo* présente l'état des piles de dépôt (*LayPile*) et leur indice, afin de permettre à l'utilisateur de les distinguer dans une partie. 
 En effet, *Move* représente un coup (c'est à dire l'association de l'indice d'une carte et de l'indice d'une pile de dépôt), la succession d'instance de cette classe permet de représenter les résultat du service de résolution du jeu (*ServiceResolution*).
 
-La classe *Enumeration* permet de donner un sens, croissant ou décroissant, de dépôt des cartes sur les piles de dépôt (*LayPile*).
+La classe *Enumeration* permet de donner un sens, croissant ou décroissant, de dépôt des cartes sur les piles de dépôt (*LayPile*). Elle permet également de régler la valeur qui sépare deux cartes pour réaliser un coup BW.
 
 ### Fonctionnement du service de résolution du jeu
 
-Il faut minimiser au maximum les coups : 
-+ A chaque coup on associe un poids et,
-+ On prend le coup au poids le plus faible.
+Le service de résolution du jeu (IA) propose un succession de coups (couple d'indices de pile du jeu et de carte en main) à jouer pour tenter de gagner une partie.
+Pour cela, l'IA associe un poids à chacun de ces couples, et sélectionne le plus faibles de ceux-ci. Dans le cas où deux couples auraient le même poids on sélectionne le couple pour lequel la pioche a l'intervalle de cartes disponibles le plus grand.
 
-chooseOneLayOneCard 
-Calculated with chooseOneLay and chooseOneCard. It will act as a tournament.
+Le poids de ce couple augmente proportionnellement à l'écart entre la valeur de la carte de la pioche et la valeur de la carte de la main. L'IA recherche donc à poser des cartes dont la valeur est au plus proche de la dernière carte des piles de dépôt. Lorsqu'il y a la possibilité de réaliser un coup BW avec la carte de la pioche celui est favorisé puisque le poids associé est inférieur à 0.
+Ce processus est réalisé par la méthode suivante : *ServiceResolution.chooseOneLayOneCard*.
 
-```java
-	 * @param lays
-	 * @param hand
-	 * @return [ lay_index, card_index ]
-
-	public static int[] chooseOneLayOneCard(List<ILayPile> lays, List<ICard> hand) {
-
-
-// each lay chooses one card
-		// then we calculate move for each, with evalCardLay
-		// then we selected the lowest move
-// if the new move can be more better
-	// we choose the lay with the more place
-	
-```
-
-Si l'on minimise au maximum les coups à l'échelle d'un tour (etat en log 9), on obtient le résultat suivant :
+Si l'on minimise au maximum les coups à l'échelle d'un tour (état en *log 9*), la fonction *ServiceResolution.resolve*  fournit des indications qui permettent d'arriver au résultat suivant :
 ```
 IA has layed 39 cards.
 The Game won.
 ```
 
-Si l'on favorise la réalisation de Backward tricks avec deux cartes de nos mains (état en log 10), on obtient le résultat suivant : 
+Dans le but d'améliorer ce résultat, il a été développer une fonctionnalité qui permet d'indiquer quelle carte poser pour favoriser la mise en place d'un coup BW avec deux cartes de sa main.
+Ce processus est réalisé par la méthode suivante : *ServiceResolution.chooseOneLayOneCombination*.
+
+Avec l'utilisation de cette nouvelle fonctionnalité (état en *log 10*), la fonction *ServiceResolution.resolve*  fournit désormais des indications qui permettent d'arriver au résultat suivant : 
 ```
 IA has layed 48 cards.
 The Game won.
