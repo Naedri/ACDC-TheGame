@@ -28,26 +28,26 @@ public final class ServiceUser {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		while (!saisieCorrecte) {
-			System.out.println("Veuillez choisir un nombre entre " + borneMin + " et " + borneMax
-					+ " compris.\nPuis appuyez sur \'Entree\'.\n");
+			System.out.println("Please choose a number between " + borneMin + " and " + borneMax
+					+ " included.\nThen press \'Enter\'.\n");
 
 			String saisie = sc.nextLine();
-			System.out.println("Vous avez choisie : " + saisie + ".\n");
+			System.out.println("You have choosen : " + saisie + ".\n");
 
 			try {
 				if (saisie.matches("\\s*\\d+\\s*")) {
 					nombreChoisie = Integer.parseInt(saisie);
 					if (nombreChoisie >= borneMin && nombreChoisie <= borneMax) {
-						// sortie de la boucle
+						// break the loop
 						saisieCorrecte = true;
 					} else
-						System.out.println("La saisie est incorrecte, recommencez.\n");
+						System.out.println("The input is incorect, retry.\n");
 				} else
-					System.out.println("La saisie est incorrecte, recommencez.\n");
+					System.out.println("The input is incorect, retry.\n");
 			}
 
 			catch (java.lang.NumberFormatException e1) {
-				System.out.println("Le format est invalide, recommencez.\n");
+				System.out.println("The input format is incorrect, retry.\n");
 			}
 		}
 		// sc.close(); // Exception in thread "main" java.util.NoSuchElementException:

@@ -386,7 +386,7 @@ public class Game implements IGame {
 				// whole game
 				beginTurn();
 				System.out.println("_________________________________________\n");
-				System.out.println("Début du tour.");
+				System.out.println("Start of the turn.");
 				while (!this.stop) {
 					cardTemp = null;
 					// whole turn
@@ -394,7 +394,7 @@ public class Game implements IGame {
 					this.print();
 					// choice
 					// choice of the card
-					System.out.println("Choisissez l'indice de la carte à jouer.");
+					System.out.println("Choose the index of the playing card.");
 					printChoiceQuit(this.hand.getSize());
 					choiceCard = ServiceUser.setChoice(0, this.hand.getSize() + 1);
 					if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
@@ -405,7 +405,7 @@ public class Game implements IGame {
 						break;
 					}
 					// choice of the laying pile
-					System.out.println("Choisissez l'indice de la pile sur laquelle déposer la carte choisie.");
+					System.out.println("Choose the index of the pile on which to place the chosen card.");
 					choiceLayPile = ServiceUser.setChoice(0, ServiceRules.getNumberLayingPile() - 1);
 
 					// action
@@ -413,15 +413,15 @@ public class Game implements IGame {
 					cardTemp = this.hand.read().get(choiceCard);
 					if (this.lay(choiceLayPile, cardTemp)) {
 						// good laying
-						System.out.println("La carte " + cardTemp.toString() + " a pu être déposée.");
+						System.out.println("The card " + cardTemp.toString() + " has been deposited.");
 						this.print();
 						if (this.hand.getSize() == 0) {
 							// empty hand
-							System.out.println("Votre main est vide, votre tour se termine.");
+							System.out.println("Your hand is empty, your turn ends.");
 							break;
 						} else {
 							System.out.println(
-									"Si vous souhaitez continuer à tenter de poser des cartes, tapez 0 ; sinon tapez 1.");
+									"If you wish to continue trying to place cards, press '0'; otherwise type '1'.");
 							choiceTurn = ServiceUser.setChoice(0, 1);
 							if (choiceTurn == 1) {
 								// end turn
@@ -430,14 +430,14 @@ public class Game implements IGame {
 						}
 					} else {
 						// bad laying
-						System.out
-								.println("La carte " + cardTemp.toString() + " ne semble pas compatible avec la pile.");
+						System.out.println("The card " + cardTemp.toString()
+								+ " seems to not be compatible with the choosen pile.");
 						this.lays.get(choiceLayPile).toString();
-						System.out.println("Nous allons vous rappeler l'état du jeu...");
+						System.out.println("We are going to remind you the state of the game...");
 					}
 				}
 				endTurn();
-				System.out.println("Fin du tour.");
+				System.out.println("End of the turn.");
 			}
 			if (isVictory()) {
 				System.out.println("You win !");
@@ -448,7 +448,7 @@ public class Game implements IGame {
 					"Your score is " + this.getScore() + "/" + this.getMinScore() + " , with the following view : ");
 			this.print();
 			System.out.println(
-					"Souhaitez vous recommencer la même configuration de partie ? Tapez 0 pour Oui, 1 pour Non.");
+					"If you wish restart the game with the same configurations, press '0'; otherwise type '1'.");
 			choiceRestart = ServiceUser.setChoice(0, 1);
 			if (choiceRestart == 0) {
 				this.restart();
@@ -464,9 +464,8 @@ public class Game implements IGame {
 	private void printChoiceQuit(int startChoice) {
 		this.choiceQuitTurn = startChoice;
 		this.choiceQuitGame = startChoice + 1;
-		System.out.println(
-				"Ou tapez '" + this.choiceQuitTurn + "' pour terminer votre tour, et tenter de piocher des cartes.");
-		System.out.println("Ou tapez '" + this.choiceQuitGame + "' pour quitter.");
+		System.out.println("Or press '" + this.choiceQuitTurn + "' to end your turn, and try to draw cards.");
+		System.out.println("Or press '" + this.choiceQuitGame + "' to leave.");
 	}
 
 	@Override
