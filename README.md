@@ -37,7 +37,7 @@ L'*Illustration 1* présente ce qu'affiche la console lors du lancement d'une pa
 
 ![Capture console au lancement d'une partie](./Illustrations/Capture_1.PNG)
 
-<u>Illustration 1 :</u> Capture de la console au lancement d'une partie.
+*<u>Illustration 1 :</u> Capture de la console au lancement d'une partie.*
 
 ### Dimension linguistique
 
@@ -59,18 +59,13 @@ Une traduction des éléments du jeu est fournie ci-dessous afin de faciliter l'
 Un fichier décrivant les logs quotidiens réalisés est disponible au fichier suivant : [log.Jallais.Adrien.json](./log.Jallais.Adrien.json). En complément, le *Tableau 1* illustre ces logs pour mieux visualiser la cinétique de développement du projet. 
 
 ![Tableau de progression](./Grille_progression/avt.Jallais.Adrien.jpg)
-<u>Tableau 1 :</u> Grille de progression du développement de l'application. Les logs représentant un jour de travail.
+*<u>Tableau 1 :</u> Grille de progression du développement de l'application. Les logs représentant un jour de travail.*
 
 Avec le *Tableau 1*, on observe que l'écriture des interfaces a permis de guider le développement des classes concrètes les implémentant, et que le développement a commencé par les objets les plus basiques (Cartes, Piles) pour servir de base à des objets intermédiaires (Fabriques), ou plus complexes (Jeu puis Service de Résolution). 
 
 ### Diagramme de classe
 
-Les diagrammes page suivante, présentent une organisation ascendante des différentes parties de
-cette application. On y observe en amont des interfaces, permettant le lancement des applications
-par l'Appli.java. Celles-ci sont implémentées par des classes abstraites dont CA_Grille_Partie
-définissant le déroulement commun des parties. C'est cette dernière que les parties concrétisent.
-
-L' *Illustration 1* est un diagramme de classe UM généré avec [ObjectAid UML Explorer](https://objectaid.com/home). Les relations entre ses entités étant ajoutées de manière automatique, il est rapidement devenu surchargé et illisible, comme le montre sa [version brute](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vraw.png). 
+L' *Illustration 2* est un diagramme de classe UML généré avec [ObjectAid UML Explorer](https://objectaid.com/home). Les relations entre ses entités étant ajoutées de manière automatique, il est rapidement devenu surchargé et illisible, comme le montre sa [version brute](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vraw.png). 
 En effet, afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas montrées :
 
 + les relations de dépendance entre les classes (au profit de celles entre les packages),
@@ -78,7 +73,7 @@ En effet, afin d'améliorer sa lisibilité, les caractéristiques suivantes ne s
 
 ![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
 
-<u>Illustration 2 :</u>  Diagramme UML de classe de l'application.
+*<u>Illustration 2 :</u>  Diagramme UML de classe de l'application.*
 
 L'*Illustration 2* présente la composition de notre application. Les packages ont été divisés dans le but de rassembler des fonctionnalités communes et/ou des classes au degré de complexité commun et/ou des objets strictement indépendants. 
 
@@ -90,7 +85,7 @@ Les classes concrètes (comme *GameFactory*, *Game*, *DrawPileFactory*, *DrawPil
 
 Les Fabriques permettent de sécuriser la création de la pile de pioche (*DrawPile*) et du jeu (*Game*), avec *DrawPileFactory*. En effet, selon les règles données par *ServicesRules*, les fabriques vérifient notamment la validité de la pioche fournie (comme l'intervalle des cartes autorisées) et règlent la composition concrète d'un jeu (comme le nombre de *Descending* et *Ascending Pile*).
 
-Les méthodes de *ServiceResolution* sont statistiques, et ne sont pas dans le même package que celui de la classe *Game* afin d'inciter sur la résolution d'une partie selon le principe d'une API ([Interface de programmation](https://fr.wikipedia.org/wiki/Interface_de_programmation)).
+Les méthodes de *ServiceResolution* sont statistiques, et ne sont pas dans le même package que celui de la classe *Game* afin d'inciter sur la résolution d'une partie selon le principe d'une API ([interface de programmation](https://fr.wikipedia.org/wiki/Interface_de_programmation)).
 
 Les classes *LayInfo* et *Move* du package *game* permettent de présenter des informations à l'utilisateur. 
 En effet, *LayInfo* présente l'état des piles de dépôt (*LayPile*) et leur indice, afin de permettre à l'utilisateur de les distinguer dans une partie. 
@@ -125,117 +120,71 @@ The Game won.
 
 ### Choix réalisés
 
-#### Collections.unmodifiableSet()
+#### Comment empêcher l'utilisateur de modifier les données présentées ?
 
-##### Problème
++ problème : 
+  En java, les tableaux sont des données non immuables. Ainsi si l'on va présente un tableau de cartes (en montrant une main ou une pile) à un joueur, il va pouvoir le modifier. En effet avec une méthode de type *get* on lui donne la référence de notre objet.
++ options :
+	1. Renvoyer un tableau mais réaliser une copie [profonde](https://stackoverflow.com/questions/869033/how-do-i-copy-an-object-in-java) et [défensive](https://code.i-harness.com/fr/q/d42a9) de celui-ci et utiliser cette copie défensive comme contrôle.
+	2. Renvoyer une collection de données qui ne soit pas modifiable : [Collections.unmodifiableCollection()](https://www.tutorialspoint.com/java/util/collections_unmodifiablecollection.htm).
++ décision : 
+  Pour plus d'efficacité, on choisira de renvoyer une collection non modifiable d'objets.
 
-Les tableaux sont des données non immuables.
-Ainsi lorsque l on va passer une carte à un joueur il va pouvoir la modifier. En effet avec un get on lui donne la référence de notre objet.
+#### Quel interface de collection de données choisir pour les groupes de cartes ?
 
-##### Options
+| Classe     | Collection | Causes |
+| ---------- | ---------- | ------ |
+| *Hand*     | `List<ICard>`  | Sélectionner les cartes | 
+| *LayPile*  | `Deque<ICard>` | LIFO |
+| *DrawPile* | `Deque<ICard>` | LIFO |
+| *Game*     | `List<ILayPile>` <br/>`List<IHand>` | Sélectionner les piles de dépôt <br />et les mains des joueurs |
 
-1. duplication des cartes (copie en locale) pour comparaison des cartes données et reçues = [copie défensives stackoverflow](https://stackoverflow.com/questions/15020850/copy-constructors-and-defensive-copying) ou [how to copy an object in java](https://stackoverflow.com/questions/869033/how-do-i-copy-an-object-in-java) ou [unmodifiableMap  stackoverflow](https://stackoverflow.com/questions/18141234/should-defensive-copies-always-be-made)-> [Collections.unmodifiableSet](https://www.geeksforgeeks.org/collections-unmodifiableset-method-in-java-with-examples/)
-2. liste immuable
-3. ? observation en fin de jeu des cartes ?
-4. comme configuration 1 joueur, l'ensemble des cartes formé par {*LayPile*, *DrawPile*, *Hand*} est un ensemble complet des cartes disponibles -> on peut donc comparer ce qu il y a dans les *LayPile* et la *DrawPile* pour savoir si *Hand* ne donne pas de cartes redondantes.
-5. utiliser *final int*  ou *Integer* pour les numéros de card ? 
+#### Comment vérifier que l'utilisateur renvoie bien des cartes de sa main ?
 
-[references sur copie defensive](https://code.i-harness.com/fr/q/d42a9)
++ problème : 
+  L'utilisateur peut instancier des cartes et tenter de les déposer pour réaliser un coup *BW*, ou diminuer son score notamment.
++ options : 
+	1. Cacher les classes productrices de cartes : *Number* (en la mettant dans le package pile avec une visibilité protégée), et *DrawPile* (en utilisant un pattern *Singleton*).
+	2. 	Evaluer l'ensemble des cartes (formé par la pioche, la main et les piles de dépôt) qui est un ensemble complet et unique de cartes. En effet, on peut donc comparer ce qu il y a dans les piles de dépôt et la pioche pour savoir si la main donne des cartes uniques.
+	3. Stocker dans *Game* une main temporaire, qui est une copie de la main jouant, et vérifier que les cartes déposées de la main jouant sont aussi présente dans la main temporaire. 
+	4. Renvoyer une collection non modifiable, et demander à l'utilisateur de choisir une carte en choisissant un indice et non la référence de l'objet.
++ décision : 
+  Pour plus de simplicité,ne as choisir l'option (l.) pour laisser une visibilité publique de la classe *Number*. 
+  Dans le cas où il y aurait plusieurs joueurs, l'option (2.) ne serait pas utilisable. 
+  Pour plus de sécurité, l'option (3.) et (4.) seront toutes deux choisies et implémentées.
 
-##### Décisions
+#### Doit favoriser les coups *BW* ou maximiser le nombre de carte posé.
 
-[java.util.Collections.unmodifiableCollection() ](https://www.tutorialspoint.com/java/util/collections_unmodifiablecollection.htm)
-
-#### Minimser le nbr de cartes posées ?
-
-##### Problème
-
-Il est possible de garder en reserve un **couple** de cartes permettant de réaliser un draw back, afin de maximiser le dépot de carte >/< à la première carte de se couple, récupéré après une action de pioche.
-Cela est peut *risqué* si l on est seul car on maitrise quel sont les prochaines cartes posées, cependant à plusieurs ce n'est plus le cas.
-
-##### Options
-
-+ si oui
-  + toujours proche de 2 
-  + plus optimal quand joueur seul
-+ si non
-  + maximiser les sauts/ combinaisons
-  + plus optimal quand X joueurs
-
-##### Décision
-
-Options : 
-1) Spécialiser IA fonction nombre de joueur
-2) piocher à chaque fin de tour 
-
-#### Poser Min(Diff(cartes)) ou Diff(10) ?
-
-10 points pour augmenter la marge
-
-#### find duplicate for DrawPile
-
-duplication number wll be check in the factory
-
-#### CAPile
-
-factoring some method on its colletion card ?
-but we can not specialized its attribute in queue or 
-
-#### Comment piocher et déposer de sa main ?
-répartir la pioche et la déposer dans les classes IDrawPile et ILAyPile respectivement
-mettre en protected les fonction piocher et déposer
-
-```
-	// CAUTION
-	public void addCard(ICard card);
-```
-
-#### comment gérer le flux des cartes entre 2 acteurs ?
-
-Doit on avoir une méthode dans chacune des classes qui donnent un résultat similaire ? et risquer de ne pas avoir le même resultat alors qu on veut la même chose ?
-doit on choisir une seule des deux classes impliquées ? mais la quelle ? la receveuse ou la donneuse ? 
-
-+ la donneuse puisqu elle est en amont
-+ mais comment controle que la donneuse donne au bon endroit ? la donneuse n'a pas à le savoir, mais le receuveur ne pas controler ce choix non plus -> il faut un 3ème acteur un mediateur
-+ ce mediateur ne doit pas être dans un package différent que les acteurs eux mêmes, puisqu on va utiliser des méthodes protected ... pourquoi utiliser des méthodes protected ??? 
-+ ce mediateur sera la classe *Game* et les classes donnantes et receveuse devront présenté des méthodes public donnantes receveuse
-
-#### List = ArrayList or Linked List
-
-linked list for one Laying Pile as we do not need to sort them
-ArrayList for one hand as we need to sort them
-
-the group of hands and the groupe of LayingPile need to be sorted thus ArrayList
-
-#### comment choisir une laypile ? avec direction + number ou juste number ?
-méthodes au non differentes suivant asc et desc et un nombre
-
-#### Externalisation des paramètres orchestrant les règles du jeu
-
-
-
-#### Externalisation de la méthode de résolution
-
++ problème :
+  Il est possible de garder en réserve un couple de cartes afin de favoriser la réalisation d'un coup *BW*. Cependant, il se peut que l'on ne puisse plus réaliser ce coup, à la fin de notre tour si une autre main pose une carte à la place de la deuxième carte.
++ options :
+    + favoriser les coups BW est la meilleure option lorsque le mode de jeu est solo ;
+    + maximiser le nombre de carte posée, qui respectent une différence critique (à déterminer) par rapport à la carte de la pile de dépôt, est la solutoin la plus optimale quand il y a plusieurs joueurs.
++ décisions :
+  Comme la configuration actuelle consiste à jouer en mode solo, l'IA piochera à chaque fin de tour, et privilégier la mise en place de coups *BW* .
+  Cette décision sera mise sous la condition qu'il n'y a qu'un seul joueur (spécialisation de l'IA).
 
 ### Bilan de l'application
 
 #### Points faibles 
 
-+ IA qui ne fonctionne pas assez bien : ne visualise pas les combinaisons de drawback entre deux cartes de sa main :  Seulement entre une carte de sa main et une carte de la pile.
++ Les méthodes de l'IA ne fonctionne pas avec des instances de *IHand* mais avec une *List<ICard>*.  
++ L'IA qui ne fonctionne pas assez bien : elle n'arrive pas à battre le jeu. 
+	+ En effet, lorsque deux cartes sont compatibles pour un coup *DW*, la pose d'une de celle-ci est réalisée (celle dont le poids du coup est le plus faible). Cependant cela ne permet non plus de mettre en place une configuration favorable pour la mise en place de la seconde. 
+	+ En effet, l'IA favorise la pose d'une des deux cartes mais ne prend pas en compte le sens de la pile de dépôt et donc ne permet dans tous les cas de déposer la deuxième carte réalisant le coup *DW* . 
++ L'utilisation de la classe *[StringBuilder](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html)* pourrait être plus sollicité pour affifher la sortie console des résultats du service de résolution du jeu.
 
 #### Points forts
 
++ D'après les tests, les services IA fonctionnent tout de même de manière acceptable.
 + D'après les tests, la fabrique de pile est capable d'identifier un jeu de données falsifiés.
-+ D'après les tests, les services IA fonctionnent tout de même.
-+ Les acteurs du jeu sont des piles ce qui permet d'optimiser le fonctionnement de l'application.
-
-+ Il est possible de modifier facilement un certains nombre de paramètres
-	+  différence de valeur entre deux cartes interposées dans une pile,
-	+ Paramètres de nombre de joueur et de grandeur de pile sont définis en un seul fichier :
-		+ ce qui permet de jouer avec une pioche d'un nombre restreint  de cartes, comme 20.
-
-+ Les classes utilisent des méthodes définies au sein d'interfaces et non au sein de classes concrètes 
-	+ ce qui permettra une modification plus rapide et légère de l'implémentation des méthodes si  nécessaire.
-+ les patrons de conception ont été implémentés:
-	+ singleton
-	+ fabrique  
++ La plupart des composants du jeu sont des piles, ce qui permet d'optimiser le fonctionnement de l'application.
++ Des patrons de conception ont été implémentés :
+	+ Singleton : pour la pioche,
+	+ Fabrique : pour la construction d'une instance de la classe *Game*.
++ Le controle du flux du cartes est réalisé au sein d'une seule classe : *Game*.
++ L'utilisation de méthodes définies au sein d'interface est favorisée, afin de permettre une modification plus rapide et légère des méthodes si nécessaire.
++ Les méthodes des piles de dépôts sont regroupées dans une seule classe abstraites (*CALayPile*), et sont fonction des directions, ce qui permet de limiter le développement des classes concrètes l'implémentant.
++ Il est possible de modifier facilement un certains nombre de paramètres, et ceux-ci sont rassemblé en un même fichier (*ServiceRules*) :
+	+  La différence de valeur entre deux cartes interposées dans une pile,
+	+  Le nombre de joueur et la taille de la pile (permettant de jouer avec une pioche d'un nombre restreint  de cartes, comme 20).
