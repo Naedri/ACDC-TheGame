@@ -16,16 +16,29 @@ public interface IGame {
 	/**
 	 * the lowest score you could ever have
 	 * 
-	 * @return the sum of the draw pile according the Rules
+	 * @return the sum of the draw pile according the Rules Services
 	 */
 	public int getMinScore();
 
 	/**
-	 * your current score
+	 * the sum of the value of the remaining card
 	 * 
 	 * @return
 	 */
 	public int getScore();
+
+	/**
+	 * 
+	 * @return the size of the draw pile according the Rules Service
+	 */
+	public int getMinScoreNumberCard();
+
+	/**
+	 * 
+	 * @return the number of card in the draw + the number of card in the different
+	 *         hands
+	 */
+	public int getScoreNumberCard();
 
 	/**
 	 * 
@@ -105,6 +118,8 @@ public interface IGame {
 	 * @param pileIndex from 0 to size of the List of LayPile
 	 * @param card      the card to be layed
 	 * @return true if success, false if do not lay
+	 * @throws IndexOutOfBoundsException if the pileIndex is out of range
+	 *                                   ({@code index < 0 || index >= List<ILayPile>.size()})
 	 */
 	public boolean lay(int pileIndex, ICard card);
 

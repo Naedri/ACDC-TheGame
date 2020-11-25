@@ -394,7 +394,7 @@ public class Game implements IGame {
 					this.print();
 					// choice
 					// choice of the card
-					System.out.println("Choose the index of the playing card.");
+					System.out.println("Choose the index of the card, from your hand, to be played.");
 					printChoiceQuit(this.hand.getSize());
 					choiceCard = ServiceUser.setChoice(0, this.hand.getSize() + 1);
 					if (choiceCard == choiceQuitTurn || choiceCard == choiceQuitGame) {
@@ -413,7 +413,7 @@ public class Game implements IGame {
 					cardTemp = this.hand.read().get(choiceCard);
 					if (this.lay(choiceLayPile, cardTemp)) {
 						// good laying
-						System.out.println("The card " + cardTemp.toString() + " has been deposited.");
+						System.out.println("The card " + cardTemp.toString() + " has been layed.");
 						this.print();
 						if (this.hand.getSize() == 0) {
 							// empty hand
@@ -421,7 +421,7 @@ public class Game implements IGame {
 							break;
 						} else {
 							System.out.println(
-									"If you wish to continue trying to place cards, press '0'; otherwise type '1'.");
+									"If you wish to continue trying to place cards, press 0; otherwise type 1.");
 							choiceTurn = ServiceUser.setChoice(0, 1);
 							if (choiceTurn == 1) {
 								// end turn
@@ -439,13 +439,16 @@ public class Game implements IGame {
 				endTurn();
 				System.out.println("End of the turn.");
 			}
+			System.out.println("_________________________________________\n");
 			if (isVictory()) {
 				System.out.println("You win !");
 			} else {
 				System.out.println("The game won.");
 			}
 			System.out.println(
-					"Your score is " + this.getScore() + "/" + this.getMinScore() + " , with the following view : ");
+					"The sum of the value of unlayed cards is " + this.getScore() + "/" + this.getMinScore() + " .");
+			System.out.println("Your score is " + this.getScoreNumberCard() + "/" + this.getMinScoreNumberCard()
+					+ " , with the following view : ");
 			this.print();
 			System.out.println(
 					"If you wish restart the game with the same configurations, press '0'; otherwise type '1'.");
@@ -471,5 +474,22 @@ public class Game implements IGame {
 	@Override
 	public int cardsToLay() {
 		return this.draw.getSize();
+	}
+
+	@Override
+	public int getMinScoreNumberCard() {
+		return ServiceRules.getDrawPileSize();
+	}
+
+	@Override
+	public int getScoreNumberCard() {
+		int numberCard = ServiceRules.getDrawPileSize(); // minScore
+		int numberCardInLay = 0;
+		for (final ILayPile lay : this.lays) {
+			numberCardInLay += lay.getSize();
+			--numberCardInLay; // each lay has one card at the beginning
+		}
+		numberCard -= numberCardInLay;
+		return numberCard;
 	}
 }
