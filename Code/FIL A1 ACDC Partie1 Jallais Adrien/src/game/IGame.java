@@ -113,13 +113,12 @@ public interface IGame {
 
 	/**
 	 * laying a card on a ASCending OR DESCending Pile. Should check if card is from
-	 * Hand
+	 * Hand. To be layed the pileIndex should be in range (index < 0 || index >=
+	 * List<ILayPile>.size())
 	 * 
 	 * @param pileIndex from 0 to size of the List of LayPile
 	 * @param card      the card to be layed
 	 * @return true if success, false if do not lay
-	 * @throws IndexOutOfBoundsException if the pileIndex is out of range
-	 *                                   ({@code index < 0 || index >= List<ILayPile>.size()})
 	 */
 	public boolean lay(int pileIndex, ICard card);
 

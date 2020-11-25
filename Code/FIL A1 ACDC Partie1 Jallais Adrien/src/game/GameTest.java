@@ -41,14 +41,16 @@ class GameTest {
 			}
 
 		});
-		assertThrows(IndexOutOfBoundsException.class, new Executable() {
 
-			@Override
-			public void execute() throws Throwable {
-				game.lay(4, hand.get(2));
-			}
-
-		});
+		assertFalse(game.lay(4, hand.get(2)));
+		/*
+		 * assertThrows(IndexOutOfBoundsException.class, new Executable() {
+		 * 
+		 * @Override public void execute() throws Throwable { game.lay(4, hand.get(2));
+		 * }
+		 * 
+		 * });
+		 */
 
 	}
 

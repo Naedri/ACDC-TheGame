@@ -214,8 +214,8 @@ public class Game implements IGame {
 	@Override
 	public boolean lay(int pileIndex, ICard card) {
 		boolean laying = false;
-		ILayPile lay = this.lays.get(pileIndex);
-		if (isCardFromHand(card)) {
+		if (isCardFromHand(card) && pileIndex >= 0 && pileIndex < this.lays.size()) {
+			ILayPile lay = this.lays.get(pileIndex);
 			laying = lay.lay(card);
 			if (laying) {
 				this.hand.remove(card);
