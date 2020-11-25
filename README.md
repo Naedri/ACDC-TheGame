@@ -37,7 +37,7 @@ L'*Illustration 1* présente ce qu'affiche la console lors du lancement d'une pa
 
 ![Capture console au lancement d'une partie](./Illustrations/Capture_1.PNG)
 
-*<u>Illustration 1 :</u> Capture de la console au lancement d'une partie.*
+*__Illustration 1 :__ Capture de la console au lancement d'une partie.*
 
 ### Dimension linguistique
 
@@ -59,7 +59,7 @@ Une traduction des éléments du jeu est fournie ci-dessous afin de faciliter l'
 Un fichier décrivant les logs réalisés quotidiennement est disponible dans le fichier suivant : [log.Jallais.Adrien.json](./log.Jallais.Adrien.json). En complément, le *Tableau 1* illustre ces logs pour mieux visualiser la cinétique de développement du projet.
 
 ![Tableau de progression](./Grille_progression/avt.Jallais.Adrien.jpg)
-*<u>Tableau 1 :</u> Grille de progression du développement de l'application. Les logs représentent un jour de travail.*
+*__Tableau 1 :__ Grille de progression du développement de l'application. Les logs représentent un jour de travail.*
 
 Avec le *Tableau 1*, on observe que l'écriture des interfaces a permis de guider le développement des classes concrètes les implémentant, et que le développement a commencé par les objets les plus basiques (Cartes, Piles) pour servir de base à des objets intermédiaires (Fabriques), ou plus complexes (Jeu puis Service de Résolution). 
 
@@ -73,7 +73,7 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 
 ![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
 
-*<u>Illustration 2 :</u>  Diagramme UML de classe de l'application.*
+*__Illustration 2 :__  Diagramme UML de classe de l'application.*
 
 L'*Illustration 2* présente la composition de notre application. Les packages ont été divisés dans le but de rassembler des fonctionnalités communes et/ou des classes au degré de complexité commun et/ou des objets strictement indépendants :
 
@@ -105,7 +105,8 @@ Le poids de ce couple augmente proportionnellement à l'écart entre la valeur d
 Ce processus est réalisé par la méthode suivante : *ServiceResolution.chooseOneLayOneCard*.
 
 Si l'on minimise au maximum les coups à l'échelle d'un tour (état en *log 9*), la fonction *ServiceResolution.resolve*  fournit des indications qui permettent d'arriver au résultat suivant :
-```
+
+```shell
 IA has layed 39 cards.
 The Game won.
 ```
@@ -114,7 +115,8 @@ Dans le but d'améliorer ce résultat, nous avons développé une fonctionnalit�
 Ce processus est réalisé par la méthode suivante : *ServiceResolution.chooseOneLayOneCombination*.
 
 Avec l'utilisation de cette nouvelle fonctionnalité (état en *log 10*), la fonction *ServiceResolution.resolve*  fournit désormais des indications qui permettent d'arriver au résultat suivant :
-```
+
+```shell
 IA has layed 48 cards.
 The Game won.
 ```
@@ -125,12 +127,12 @@ The Game won.
 
 #### Comment empêcher l'utilisateur de modifier les données présentées ?
 
-+ *problème* :
++ *Problème* :
   En java, les tableaux sont des données non immuables. Ainsi, si l'on va présenter un tableau de cartes (en montrant une main ou une pile) à un joueur, il va pouvoir le modifier. En effet, avec une méthode de type *get*, on lui donne la référence de notre objet.
-+ *options* :
++ *Options* :
 	1. Renvoyer un tableau mais réaliser une copie [profonde](https://stackoverflow.com/questions/869033/how-do-i-copy-an-object-in-java) et [défensive](https://code.i-harness.com/fr/q/d42a9) de celui-ci et utiliser cette copie défensive comme contrôle.
 	2. Renvoyer une collection de données qui ne soit pas modifiable : [Collections.unmodifiableCollection()](https://www.tutorialspoint.com/java/util/collections_unmodifiablecollection.htm).
-+ *décision* :
++ *Décision* :
   Pour plus d'efficacité, on choisira de renvoyer une collection non modifiable d'objets.
 
 #### Quel interface de collection de données choisir pour les groupes de cartes ?
@@ -144,26 +146,26 @@ The Game won.
 
 #### Comment vérifier que l'utilisateur renvoie bien des cartes de sa main ?
 
-+ *problème* :
++ *Problème* :
   L'utilisateur peut instancier des cartes et tenter de les déposer pour réaliser un coup *BW*, ou diminuer son score notamment.
-+ *options* :
++ *Options* :
 	1. Cacher les classes productrices de cartes : *Number* (en la mettant dans le package pile avec une visibilité protégée), et *DrawPile* (en utilisant un pattern *Singleton*).
 	2. 	Evaluer l'ensemble des cartes (formé par la pioche, la main et les piles de dépôt) qui est un ensemble complet et unique de cartes. En effet, on peut donc comparer ce qu'il y a dans les piles de dépôt et la pioche pour savoir si la main donne des cartes uniques.
 	3. Stocker dans *Game* une main temporaire, qui est une copie de la main jouant, et vérifier que les cartes déposées de la main jouant sont aussi présentes dans la main temporaire.
 	4. Renvoyer une collection non modifiable, et demander à l'utilisateur de choisir une carte en choisissant un indice et non la référence de l'objet.
-+ *décision* :
++ *Décision* :
   Pour plus de simplicité, ne pas choisir l'option (1.) pour laisser une visibilité publique de la classe *Number*.
   Dans le cas où il y aurait plusieurs joueurs, l'option (2.) ne serait pas utilisable.
   Pour plus de sécurité, les options (3.) et (4.) seront toutes deux choisies et implémentées.
 
 #### Doit-on favoriser les coups *BW* ou maximiser le nombre de cartes posées ?
 
-+ *problème* :
++ *Problème* :
   Il est possible de garder en réserve un couple de cartes afin de favoriser la réalisation d'un coup *BW*. Cependant, il se peut que l'on ne puisse plus réaliser ce coup, à la fin de notre tour, si une autre main pose une carte à la place de la deuxième carte.
-+ *options* :
++ *Options* :
 	1. Favoriser les coups BW est la meilleure option lorsque le mode de jeu est solo ;
 	2. Maximiser le nombre de cartes posées, qui respectent une différence critique (à déterminer) par rapport à la carte de la pile de dépôt, est la solution la plus optimale quand il y a plusieurs joueurs.
-+ *décision* :
++ *Décision* :
   Comme la configuration actuelle consiste à jouer en mode solo, l'IA piochera à chaque fin de tour, et privilégier la mise en place de coups *BW* .
   Cette décision sera appliquée à condition qu'il n'y ait qu'un seul joueur (spécialisation de l'IA).
 
