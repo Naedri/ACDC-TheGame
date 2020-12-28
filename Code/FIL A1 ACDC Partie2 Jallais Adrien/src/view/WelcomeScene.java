@@ -64,6 +64,9 @@ public class WelcomeScene extends MainScene {
 			img = null;
 			e.printStackTrace();
 		}
+		if (img != null) {
+			img.setSmooth(true);
+		}
 		// title
 		Label label = new MainLabel(Main.d.get("WELCOME_Title"));
 		// stack

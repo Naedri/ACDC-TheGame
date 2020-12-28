@@ -13,7 +13,7 @@ public final class FrNLS extends DefaultNLS {
 	 * 
 	 */
 	public FrNLS() {
-		super();
+		super(Language.FRENCH);
 	}
 
 	@Override
