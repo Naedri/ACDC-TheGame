@@ -16,6 +16,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import view.label.MainLabel;
 
 /**
  * @author Adrien Jallais
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
  */
 public class MainScene extends Scene {
 	private BorderPane border;
+	private GridPane pane;
 
 	public MainScene(Pane center) {
 		super(new BorderPane());
@@ -37,10 +39,11 @@ public class MainScene extends Scene {
 	}
 
 	private Pane createSignaturePane() {
-		GridPane pane = new GridPane();
-		pane.setPadding(new Insets(10, 60, 0, 60));
+		Label label = new MainLabel(Main.d.get("MAIN_Signature"));
+		pane = new GridPane();
+		pane.setPadding(new Insets(10, 60, 10 - border.getInsets().getBottom(), 60));
 		pane.setAlignment(Pos.CENTER);
-		pane.getChildren().add(new Label(Main.d.get("MAIN_Signature")));
+		pane.getChildren().add(label);
 		return pane;
 	}
 

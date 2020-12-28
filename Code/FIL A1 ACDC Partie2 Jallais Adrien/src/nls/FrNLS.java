@@ -22,10 +22,11 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("STAGE_title", "ACDC - The Game");
 
 		// SCENE - Main
-		this.d.put("MAIN_Signature", "Institut des Mines Télécom Atlantique - FILA1 - Adrien Jallais");
+		this.d.put("MAIN_Signature", "IMT - Adrien Jallais - FILA1");
 
 		// SCENE - Accueil
-		this.d.put("WELCOME_Start", "Appuyer sur Entrée");
+		this.d.put("WELCOME_Title", "The Game");
+		this.d.put("WELCOME_Start", "Appuyer sur 'Entrée'");
 
 		// SCENE - Menu
 		this.d.put("MENU_button_playHuman", "Jouer à 'The Game'");

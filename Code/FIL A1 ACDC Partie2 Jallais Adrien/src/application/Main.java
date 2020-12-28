@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
 import view.MainScene;
-import view.MenuScene;
+import view.WelcomeScene;
 
 /**
  * @author Adrien Jallais
@@ -32,7 +32,8 @@ public class Main extends Application {
 	@Override
 	public void init() throws Exception {
 		primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		this.scene = new MenuScene();
+		// this.scene = new MenuScene();
+		this.scene = new WelcomeScene();
 	}
 
 	@Override
