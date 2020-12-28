@@ -15,7 +15,7 @@ __*Partie 2 - Version 1.0*__
 ### Point négatifs
 
 carteIA constructeur avec indice de tas et pas un ITas
-deux fonction Main
+
 Liste de carte et non une pile -> desavantages de ne pas avoir les methodes associées, par exemple dans la méthode piocher : this.cartes.subList + removeAll alors qu'un pop aurait suffit
 
 /!\ : 
@@ -25,6 +25,12 @@ Liste de carte et non une pile -> desavantages de ne pas avoir les methodes asso
 permet d'avoir la refererence de la liste de la carte est on peut l'annuler
 
 a voir comment la victoire est atteinte
+
+
+#### Organisation du code
+
+pas de séparation en package
+deux fonctions Main -> un seul devrait être appellé un 
 
 ### Points positifs
 
