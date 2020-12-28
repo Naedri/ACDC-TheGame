@@ -4,6 +4,25 @@
     "année": "1",
     "module": "ACDC",
     "Projet": "The Game",
+    "Partie 2": [
+        {
+            "log_number": "12",
+            "date": "28/12/2020",
+            "travail": [
+                "scene Menu",
+                "scene Règles",
+                "scene Accueil",
+                "nls file"
+            ]
+        },
+        {
+            "log_number": "11",
+            "date": "21/12/2020",
+            "travail": [
+                "Ajout code backend"
+            ]
+        }
+    ],
     "Partie 1": [
         {
             "log_number": "10",
