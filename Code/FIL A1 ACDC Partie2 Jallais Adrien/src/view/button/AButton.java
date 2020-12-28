@@ -17,7 +17,7 @@ public abstract class AButton extends Button {
 
 	public AButton(String text) {
 		super(text);
-		// bt.setGraphic(new ImageView(new Image(new FileInputStream("images" +
+		// this.setGraphic(new ImageView(new Image(new FileInputStream("images" +
 		// File.separator + "TP1_logo.jpg"))));
 		// this.setContentDisplay(ContentDisplay.LEFT);
 		this.setPadding(new Insets(10, 60, 10, 60));
