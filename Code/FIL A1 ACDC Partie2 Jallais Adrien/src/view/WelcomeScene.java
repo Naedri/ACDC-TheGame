@@ -8,12 +8,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import application.Main;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import view.label.MainLabel;
 
 /**
@@ -39,6 +43,7 @@ public class WelcomeScene extends MainScene {
 		pane.setCenter(createCenterPane());
 		pane.setBottom(createBottomPane());
 		BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
+		this.addingEnter();
 		this.addingMusic();
 
 		// TODO Erase
@@ -85,8 +90,33 @@ public class WelcomeScene extends MainScene {
 		music = new Media(new File(pathMusic).toURI().toString());
 		player = new MediaPlayer(music);
 		player.play();
-		// TODO add keyboard control
-		// player.stop();
+	}
+
+	/**
+	 * https://edencoding.com/stage-controller/
+	 * https://coderslegacy.com/java/switch-between-scenes-in-javafx/
+	 */
+	private void addingEnter() {
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent k) {
+				if (k.getCode().equals(KeyCode.ENTER)) {
+					player.stop();
+					System.out.println("0000");
+					Stage thisStage;
+
+					thisStage = (Stage) getRoot().getScene().getWindow();
+
+					Node node = (Node) k.getSource();
+					System.out.println("1111");
+					thisStage = (Stage) node.getScene().getWindow();
+
+					System.out.println("2222");
+
+					thisStage.setScene(new MenuScene());
+				}
+			}
+		});
 	}
 
 }
