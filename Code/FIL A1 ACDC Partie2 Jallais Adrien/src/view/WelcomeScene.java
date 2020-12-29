@@ -102,7 +102,6 @@ public class WelcomeScene extends MainScene {
 			public void handle(KeyEvent k) {
 				if (k.getCode().equals(KeyCode.ENTER)) {
 					player.stop();
-					System.out.println("0000");
 					Stage thisStage;
 					thisStage = (Stage) getRoot().getScene().getWindow();
 					MainScene newScene = new MenuScene();
