@@ -104,16 +104,11 @@ public class WelcomeScene extends MainScene {
 					player.stop();
 					System.out.println("0000");
 					Stage thisStage;
-
 					thisStage = (Stage) getRoot().getScene().getWindow();
-
-					Node node = (Node) k.getSource();
-					System.out.println("1111");
-					thisStage = (Stage) node.getScene().getWindow();
-
-					System.out.println("2222");
-
-					thisStage.setScene(new MenuScene());
+					MainScene newScene = new MenuScene();
+					thisStage.hide();
+					thisStage.setScene(newScene);
+					thisStage.show();
 				}
 			}
 		});
