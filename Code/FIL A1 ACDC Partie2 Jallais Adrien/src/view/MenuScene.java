@@ -13,7 +13,7 @@ import view.button.Button_Load_Scene;
 public class MenuScene extends MainScene {
 	private VBox vbox;
 
-	public MenuScene() throws Exception {
+	public MenuScene() {
 		super(new VBox());
 		vbox = (VBox) (super.getPane());
 		createMenuBox();
