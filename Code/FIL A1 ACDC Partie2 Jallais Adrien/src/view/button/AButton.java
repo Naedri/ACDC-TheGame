@@ -1,7 +1,9 @@
 package view.button;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -11,7 +13,10 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import view.Col;
+import view.constant.BordW;
+import view.constant.Col;
+import view.constant.FontS;
+import view.constant.Rad;
 
 public abstract class AButton extends Button {
 
@@ -22,11 +27,31 @@ public abstract class AButton extends Button {
 		// this.setContentDisplay(ContentDisplay.LEFT);
 		this.setPadding(new Insets(10, 60, 10, 60));
 		this.setMaxWidth(Double.MAX_VALUE); // to expand at max
-		this.setFont(Font.font("Arial", FontWeight.BOLD, 11.0));
-		this.setTextFill(Col.GOODD);
-		this.setBorder(new Border(
-				new BorderStroke(Col.GOODD, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3.0))));
-		this.setBackground(new Background(new BackgroundFill(Col.INFOD, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
+		this.setTextFill(Col.GOODD.getColor());
+		this.setBorder(new Border(new BorderStroke(Col.GOODD.getColor(), BorderStrokeStyle.SOLID,
+				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
+		this.setBackground(new Background(
+				new BackgroundFill(Col.INFOD.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+
+		// mouse event
+		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				setBackground(new Background(new BackgroundFill(Col.INFOL.getColor(),
+						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+
+			}
+		});
+
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				setBackground(new Background(new BackgroundFill(Col.INFOD.getColor(),
+						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+
+			}
+		});
 	}
 
 }

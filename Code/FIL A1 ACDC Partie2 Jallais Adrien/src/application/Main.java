@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
 import view.MainScene;
-import view.RulesScene;
+import view.MenuScene;
 
 /**
  * @author Adrien Jallais
@@ -36,8 +36,8 @@ public class Main extends Application {
 
 	private void initScene() throws Exception {
 		// this.scene = new WelcomeScene();
-		// this.scene = new MenuScene();
-		this.scene = new RulesScene();
+		this.scene = new MenuScene();
+		// this.scene = new RulesScene();
 	}
 
 	@Override

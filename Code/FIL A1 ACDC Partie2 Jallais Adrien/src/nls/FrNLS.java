@@ -34,6 +34,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MENU_button_rules", "Lire les règles de 'The Game'");
 		this.d.put("MENU_button_authors", "Contacter les auteurs");
 		this.d.put("MENU_button_parameters", "Modifier les paramètres");
+		this.d.put("MENU_button_exit", "Quitter");
 
 	}
 

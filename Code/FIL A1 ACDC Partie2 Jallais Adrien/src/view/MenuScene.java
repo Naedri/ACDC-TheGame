@@ -27,14 +27,15 @@ public class MenuScene extends MainScene {
 	 * 
 	 */
 	private void createMenuBox() {
-		vbox.setSpacing(8);
+		vbox.setSpacing(12);
 		vbox.setMaxWidth(400);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.getChildren().addAll(new Button_Load_Scene(Main.d.get("MENU_button_playHuman")),
 				new Button_Load_Scene(Main.d.get("MENU_button_playIA")),
 				new Button_Load_Scene(Main.d.get("MENU_button_parameters")),
 				new Button_Load_Scene(Main.d.get("MENU_button_rules")),
-				new Button_Load_Scene(Main.d.get("MENU_button_authors")));
+				new Button_Load_Scene(Main.d.get("MENU_button_authors")),
+				new Button_Load_Scene(Main.d.get("MENU_button_exit")));
 	}
 
 }
