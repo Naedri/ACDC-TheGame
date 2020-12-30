@@ -1,7 +1,7 @@
 /**
  * 
  */
-package view;
+package view.scene;
 
 import java.io.File;
 import java.io.FileInputStream;

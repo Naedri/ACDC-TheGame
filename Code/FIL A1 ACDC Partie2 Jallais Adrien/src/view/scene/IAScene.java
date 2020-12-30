@@ -1,4 +1,4 @@
-package view;
+package view.scene;
 
 public class IAScene extends APlayScene {
 

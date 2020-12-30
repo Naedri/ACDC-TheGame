@@ -9,8 +9,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
-import view.MainScene;
-import view.WelcomeScene;
+import view.scene.MainScene;
+import view.scene.WelcomeScene;
 
 /**
  * @author Adrien Jallais

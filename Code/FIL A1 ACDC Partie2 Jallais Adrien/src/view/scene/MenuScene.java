@@ -1,6 +1,7 @@
-package view;
+package view.scene;
 
 import application.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -74,6 +75,7 @@ public class MenuScene extends MainScene {
 		Stage thisStage;
 		thisStage = (Stage) getRoot().getScene().getWindow();
 		thisStage.hide();
+		Platform.exit();
 	}
 
 	private void changeScene(MainScene newScene) {

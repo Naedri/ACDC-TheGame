@@ -5,4 +5,4 @@
  * @author Adrien Jallais
  *
  */
-package view;
+package view.scene;

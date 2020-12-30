@@ -1,7 +1,7 @@
 /**
  * 
  */
-package view;
+package view.scene;
 
 import application.Main;
 import javafx.geometry.Insets;
