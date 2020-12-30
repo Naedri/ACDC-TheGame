@@ -13,6 +13,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.button.ButtonChangeScene;
+import view.constant.Spacing;
 
 public class MenuScene extends MainScene {
 	private VBox vbox;
@@ -74,7 +75,7 @@ public class MenuScene extends MainScene {
 	 * 
 	 */
 	private void createMenuBox() {
-		vbox.setSpacing(12);
+		vbox.setSpacing(Spacing.MEDIUM.getSpace());
 		vbox.setMaxWidth(400);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.getChildren().addAll(bPH, bPIA, bP, bR, bA, bE);

@@ -20,7 +20,7 @@ public abstract class AButton extends Button {
 		// this.setGraphic(new ImageView(new Image(new FileInputStream("images" +
 		// File.separator + "TP1_logo.jpg"))));
 		// this.setContentDisplay(ContentDisplay.LEFT);
-		this.setPadding(new Insets(10, 60, 10, 60));
+		this.setPadding(new Insets(10, 30, 10, 30));
 		this.setMaxWidth(Double.MAX_VALUE); // to expand at max
 		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
 
