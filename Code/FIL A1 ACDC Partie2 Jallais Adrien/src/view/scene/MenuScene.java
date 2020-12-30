@@ -1,38 +1,38 @@
 package view.scene;
 
 import application.Main;
-import javafx.application.Platform;
+import controller.Services;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import view.button.Button_Load_Scene;
+import view.button.ButtonChangeScene;
 
 public class MenuScene extends MainScene {
 	private VBox vbox;
 
-	private Button_Load_Scene bPH;
-	private Button_Load_Scene bPIA;
-	private Button_Load_Scene bP;
-	private Button_Load_Scene bR;
-	private Button_Load_Scene bA;
-	private Button_Load_Scene bE;
+	private Button bPH;
+	private Button bPIA;
+	private Button bP;
+	private Button bR;
+	private Button bA;
+	private Button bE;
 
 	public MenuScene() {
 		super(new VBox());
 		vbox = (VBox) (super.getPane());
-		bPH = new Button_Load_Scene(Main.d.get("MENU_button_playHuman"));
-		bPIA = new Button_Load_Scene(Main.d.get("MENU_button_playIA"));
-		bP = new Button_Load_Scene(Main.d.get("MENU_button_parameters"));
-		bR = new Button_Load_Scene(Main.d.get("MENU_button_rules"));
-		bA = new Button_Load_Scene(Main.d.get("MENU_button_authors"));
-		bE = new Button_Load_Scene(Main.d.get("MENU_button_exit"));
+		bPH = new ButtonChangeScene(Main.d.get("MENU_playHuman"));
+		bPIA = new ButtonChangeScene(Main.d.get("MENU_playIA"));
+		bP = new ButtonChangeScene(Main.d.get("MENU_parameters"));
+		bR = new ButtonChangeScene(Main.d.get("MENU_rules"));
+		bA = new ButtonChangeScene(Main.d.get("MENU_authors"));
+		bE = new ButtonChangeScene(Main.d.get("MENU_exit"));
 		addingButtonEvent();
 		createMenuBox();
 
@@ -55,35 +55,19 @@ public class MenuScene extends MainScene {
 		@Override
 		public void handle(ActionEvent e) {
 			if (e.getSource() == bPH) {
-				changeScene(new HumanScene());
+				Services.changeScene(MenuScene.this, new HumanScene());
 			} else if (e.getSource() == bPIA) {
-				changeScene(new IAScene());
+				Services.changeScene(MenuScene.this, new IAScene());
 			} else if (e.getSource() == bP) {
-				changeScene(new ParameterScene());
+				Services.changeScene(MenuScene.this, new ParameterScene());
 			} else if (e.getSource() == bR) {
-				changeScene(new RulesScene());
+				Services.changeScene(MenuScene.this, new RulesScene());
 			} else if (e.getSource() == bA) {
-				changeScene(new AuthorsScene());
+				Services.changeScene(MenuScene.this, new AuthorsScene());
 			} else if (e.getSource() == bE) {
-				exitGame();
+				Services.quitApp(MenuScene.this);
 			}
 		}
-	}
-
-	private void exitGame() {
-		// TODO
-		Stage thisStage;
-		thisStage = (Stage) getRoot().getScene().getWindow();
-		thisStage.hide();
-		Platform.exit();
-	}
-
-	private void changeScene(MainScene newScene) {
-		Stage thisStage;
-		thisStage = (Stage) getRoot().getScene().getWindow();
-		thisStage.hide();
-		thisStage.setScene(newScene);
-		thisStage.show();
 	}
 
 	/*

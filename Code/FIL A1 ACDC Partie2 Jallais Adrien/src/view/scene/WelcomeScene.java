@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import application.Main;
+import controller.Services;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,7 +26,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import view.label.MainLabel;
 
 /**
@@ -52,7 +52,7 @@ public class WelcomeScene extends MainScene {
 	}
 
 	private Label createBottomPane() {
-		Label label = new MainLabel(Main.d.get("WELCOME_Start"));
+		Label label = new MainLabel(Main.d.get("WELCOME_start"));
 		// TODO Erase
 		label.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
@@ -73,7 +73,7 @@ public class WelcomeScene extends MainScene {
 			img.setSmooth(true);
 		}
 		// title
-		Label label = new MainLabel(Main.d.get("WELCOME_Title"));
+		Label label = new MainLabel(Main.d.get("WELCOME_title"));
 		// stack
 		StackPane stack;
 		stack = new StackPane();
@@ -102,12 +102,7 @@ public class WelcomeScene extends MainScene {
 			public void handle(KeyEvent k) {
 				if (k.getCode().equals(KeyCode.ENTER)) {
 					player.stop();
-					Stage thisStage;
-					thisStage = (Stage) getRoot().getScene().getWindow();
-					MainScene newScene = new MenuScene();
-					thisStage.hide();
-					thisStage.setScene(newScene);
-					thisStage.show();
+					Services.changeScene(WelcomeScene.this, new MenuScene());
 				}
 			}
 		});

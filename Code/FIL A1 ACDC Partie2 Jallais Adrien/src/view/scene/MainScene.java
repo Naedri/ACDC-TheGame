@@ -7,7 +7,6 @@ import application.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -17,7 +16,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Window;
 import view.label.MainLabel;
 
 /**
@@ -52,14 +50,4 @@ public class MainScene extends Scene {
 	public Node getPane() {
 		return border.getCenter();
 	}
-
-	// TODO erase
-	public Parent getRoot2() {
-		return border;
-	}
-
-	public Window getWindow2() {
-		return this.getRoot().getScene().getWindow();
-	}
-
 }

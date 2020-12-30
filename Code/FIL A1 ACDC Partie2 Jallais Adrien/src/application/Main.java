@@ -40,7 +40,7 @@ public class Main extends Application {
 		this.scene = new WelcomeScene();
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
-
+		// this.scene = new HumanScene();
 		primaryStage.setTitle(d.get("STAGE_title"));
 		primaryStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
 		primaryStage.setHeight(primaryScreenBounds.getHeight() * 0.9);
