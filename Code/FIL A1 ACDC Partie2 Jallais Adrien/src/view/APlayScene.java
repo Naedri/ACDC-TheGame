@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public abstract class APlayScene extends MainScene {
-	public APlayScene() throws Exception {
+	public APlayScene() {
 		super(new BorderPane());
 		BorderPane root = (BorderPane) (this.getRoot());
 	}

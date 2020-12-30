@@ -10,6 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import view.button.Button_Load_Scene;
 
 public class MenuScene extends MainScene {
@@ -53,15 +54,34 @@ public class MenuScene extends MainScene {
 		@Override
 		public void handle(ActionEvent e) {
 			if (e.getSource() == bPH) {
-				System.out.println("ererer");
+				changeScene(new HumanScene());
 			} else if (e.getSource() == bPIA) {
-
+				changeScene(new IAScene());
 			} else if (e.getSource() == bP) {
+				changeScene(new ParameterScene());
 			} else if (e.getSource() == bR) {
+				changeScene(new RulesScene());
 			} else if (e.getSource() == bA) {
+				changeScene(new AuthorsScene());
 			} else if (e.getSource() == bE) {
+				exitGame();
 			}
 		}
+	}
+
+	private void exitGame() {
+		// TODO
+		Stage thisStage;
+		thisStage = (Stage) getRoot().getScene().getWindow();
+		thisStage.hide();
+	}
+
+	private void changeScene(MainScene newScene) {
+		Stage thisStage;
+		thisStage = (Stage) getRoot().getScene().getWindow();
+		thisStage.hide();
+		thisStage.setScene(newScene);
+		thisStage.show();
 	}
 
 	/*
