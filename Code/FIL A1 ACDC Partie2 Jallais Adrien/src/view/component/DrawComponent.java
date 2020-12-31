@@ -21,25 +21,25 @@ import view.constant.BordW;
 import view.constant.Col;
 import view.constant.Rad;
 
-public class DeckView extends Button {
+public class DrawComponent extends Button implements ICardView {
 
 	ICardView card;
 	Background backgroundInit;
 	Background backgroundHover;
 
-	public DeckView(ICardView card) {
+	public DrawComponent(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
 		this.card = card;
 		init();
 	}
 
-	public DeckView(ICardView card, String text, Node graphic) {
+	public DrawComponent(ICardView card, String text, Node graphic) {
 		super(text, graphic);
 		this.card = card;
 		init();
 	}
 
-	public DeckView(ICardView card, String text) {
+	public DrawComponent(ICardView card, String text) {
 		super(text);
 		this.card = card;
 		init();
@@ -64,7 +64,7 @@ public class DeckView extends Button {
 		this.setWrapText(true);
 		this.setTextAlignment(TextAlignment.CENTER);
 		// this.setRotate(270);
-		this.setTextFill(card.getBackgroundColor());
+		this.setTextFill(getBorderColor());
 		// this.setBorder(new Border(card.getBorderStrokes()));
 		this.setBorder(new Border(new BorderStroke(card.getBackgroundColor(), BorderStrokeStyle.SOLID,
 				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
@@ -85,29 +85,28 @@ public class DeckView extends Button {
 			@Override
 			public void handle(MouseEvent e) {
 				setBackground(backgroundInit);
-
 			}
 		});
 	}
 
 	public StackPane makeDeckSupported() {
 		StackPane sp = new StackPane();
-		sp.getChildren().addAll(this.makeDeckSupport(), this);
+		sp.getChildren().addAll(this.makeSupport(), this);
 		// TODO Erase
 		sp.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
 		return sp;
 	}
 
-	public Rectangle makeDeckSupport() {
+	public Rectangle makeSupport() {
 		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2, Col.BLACK.getColor());
 		rect.setArcHeight(10);
 		rect.setArcWidth(100);
 		return rect;
 	}
 
-	public Rectangle makeCardSupportTrans() {
-		Rectangle rect = this.makeDeckSupport();
+	public Rectangle makeSupportTrans() {
+		Rectangle rect = this.makeSupport();
 		rect.setOpacity(rect.getOpacity() * 0.5);
 		return rect;
 	}
@@ -126,4 +125,18 @@ public class DeckView extends Button {
 		return sb.toString();
 	}
 
+	@Override
+	public Color getBorderColor() {
+		return card.getBackgroundColor();
+	}
+
+	@Override
+	public Color getBackgroundColor() {
+		return this.getBorderColor();
+	}
+
+	@Override
+	public BorderStroke getBorderStrokes() {
+		return this.getBorder().getStrokes().get(0);
+	}
 }

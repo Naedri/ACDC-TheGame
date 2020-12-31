@@ -30,8 +30,8 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MAIN_Signature", "IMT - Adrien Jallais - FILA1");
 
 		// SCENE - Welcome
-		this.d.put("WELCOME_title", "The Game");
-		this.d.put("WELCOME_start", "Appuyer sur 'Entrée'");
+		this.d.put("WELCOME_title", "The" + System.lineSeparator() + "Game");
+		this.d.put("WELCOME_start", "Appuyez sur 'Entrée' pour continuer");
 
 		// SCENE - Menu
 		this.d.put("MENU_playHuman", "Jouer à 'The Game'");
@@ -45,6 +45,8 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_mode_human", "Mode jeu");
 		this.d.put("PLAY_mode_ia", "Mode démonstration");
 		this.d.put("PLAY_draw", "Pioche");
+		this.d.put("PLAY_score", "Carte(s) restante(s)");
+		this.d.put("PLAY_dialog_init", "A vous de jouer !");
 	}
 
 }

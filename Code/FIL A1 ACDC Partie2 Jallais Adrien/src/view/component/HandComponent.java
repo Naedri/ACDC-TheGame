@@ -19,17 +19,17 @@ import view.constant.Rad;
  * @author Adrien Jallais
  *
  */
-public class HandView extends HBox {
-	private List<CardView> cardL;
+public class HandComponent extends HBox {
+	private List<CardComponent> cardL;
 	private List<StackPane> stackL;
 
-	public HandView(List<CardView> listCard, double spacing) {
+	public HandComponent(List<CardComponent> listCard, double spacing) {
 		super(spacing);
 		initHand(listCard);
 		setStyle();
 	}
 
-	public HandView(List<CardView> listCard) {
+	public HandComponent(List<CardComponent> listCard) {
 		super();
 		initHand(listCard);
 		setStyle();
@@ -40,13 +40,13 @@ public class HandView extends HBox {
 				new BackgroundFill(Col.INFOL.getColor(), new CornerRadii(Rad.HIGH.getRadius()), Insets.EMPTY)));
 	}
 
-	private void initHand(List<CardView> listCard) {
+	private void initHand(List<CardComponent> listCard) {
 		this.cardL = listCard;
 		this.stackL = new ArrayList<StackPane>();
 
 		cardL.forEach(card -> {
 			StackPane sp = new StackPane();
-			sp.getChildren().addAll(card.makeCardSupport(), card);
+			sp.getChildren().addAll(card.makeSupport(), card);
 			this.stackL.add(sp);
 		});
 

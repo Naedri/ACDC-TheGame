@@ -13,19 +13,28 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import view.constant.BordW;
 import view.constant.Col;
-import view.constant.FontS;
+import view.constant.FontApp;
 import view.constant.Rad;
 
-public class CardView extends Button implements ICardView {
+public class CardComponent extends Button implements ICardView {
 
-	public CardView(int value) {
+	private Background backgroundInit;
+	private Background backgroundHover;
+	private Border border;
+
+	public CardComponent(int value) {
 		super(Integer.toString(value));
+		initBackground();
+		initBorder();
 		setStyle();
 		setAction();
+	}
+
+	private void initBorder() {
+		border = new Border(new BorderStroke(getBorderColor(), BorderStrokeStyle.SOLID,
+				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth())));
 	}
 
 	private void setAction() {
@@ -33,50 +42,48 @@ public class CardView extends Button implements ICardView {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				setBackground(new Background(new BackgroundFill(Col.INFOL.getColor(),
-						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
-
+				setBackground(backgroundHover);
 			}
 		});
 
 		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				setBackground(new Background(new BackgroundFill(Col.INFOD.getColor(),
-						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
-
+				setBackground(backgroundInit);
 			}
 		});
+	}
+
+	private void initBackground() {
+		backgroundInit = new Background(
+				new BackgroundFill(getBackgroundColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
+		backgroundHover = new Background(
+				new BackgroundFill(Col.INFOL.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
 	}
 
 	private void setStyle() {
 		// TODO raw value
 		this.setPrefSize(60, 100);
-		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
+		this.setFont(FontApp.MEDIUM.getFont());
 		this.setWrapText(true);
 		this.setTextFill(getBorderColor());
-		this.setBorder(new Border(new BorderStroke(getBorderColor(), BorderStrokeStyle.SOLID,
-				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
+		this.setBorder(border);
 
 		// BACKGROUNG
-		this.setBackground(new Background(
-				new BackgroundFill(this.getBackgroundColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+		this.setBackground(backgroundInit);
 	}
 
-	public Rectangle makeCardSupport() {
+	@Override
+	public Rectangle makeSupport() {
 		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2, Col.WHITE.getColor());
 		rect.setArcHeight(10);
 		rect.setArcWidth(100);
 		return rect;
 	}
 
-	/**
-	 * a card support with less opacity
-	 * 
-	 * @return
-	 */
-	public Rectangle makeCardSupportTrans() {
-		Rectangle rect = this.makeCardSupport();
+	@Override
+	public Rectangle makeSupportTrans() {
+		Rectangle rect = this.makeSupport();
 		rect.setOpacity(rect.getOpacity() * 0.5);
 		return rect;
 	}
