@@ -9,8 +9,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
-import view.scene.HumanScene;
 import view.scene.MainScene;
+import view.scene.WelcomeScene;
 
 /**
  * @author Adrien Jallais
@@ -37,10 +37,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO select WelcomeScene
-		// this.scene = new WelcomeScene();
+		this.scene = new WelcomeScene();
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
-		this.scene = new HumanScene();
+		// this.scene = new HumanScene();
 		primaryStage.setTitle(d.get("STAGE_title"));
 		primaryStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
 		primaryStage.setHeight(primaryScreenBounds.getHeight() * 0.9);

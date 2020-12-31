@@ -26,8 +26,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import view.label.MainLabel;
+import view.constant.Col;
+import view.constant.FontApp;
 
 /**
  * @author Adrien Jallais
@@ -53,10 +53,16 @@ public class WelcomeScene extends MainScene {
 	}
 
 	private Node createBottomPane() {
+		// subtitle
+		Label label = new Label(Main.d.get("WELCOME_start"));
+		label.setFont(FontApp.SUBTITLE.getFont());
+		label.setTextFill(Col.GOODD.getColor());
+		label.setAlignment(Pos.CENTER);
+		// pane
 		StackPane pane = new StackPane();
-		Text t = new Text(Main.d.get("WELCOME_start"));
-		pane.getChildren().add(t);
-		pane.setAlignment(Pos.CENTER);
+		pane.getChildren().add(label);
+		pane.setPadding(new Insets(0, 30, 60, 30));
+		pane.setAlignment(Pos.TOP_CENTER);
 
 		// TODO Erase
 		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
@@ -66,7 +72,9 @@ public class WelcomeScene extends MainScene {
 
 	private Node createCenterPane() {
 		// img
-		String pathPict = "src" + File.separator + "multimedia" + File.separator + "knight_640.png";
+		String imgName = "knight_640.png";
+//		String imgName = "Castle_Free.png";
+		String pathPict = "src" + File.separator + "multimedia" + File.separator + imgName;
 		ImageView img;
 		try {
 			img = new ImageView(new Image(new FileInputStream(pathPict)));
@@ -76,9 +84,15 @@ public class WelcomeScene extends MainScene {
 		}
 		if (img != null) {
 			img.setSmooth(true);
+			// img.setFitHeight(500);
+			img.setPreserveRatio(true);
 		}
 		// title
-		Label label = new MainLabel(Main.d.get("WELCOME_title"));
+		Label label = new Label(Main.d.get("WELCOME_title"));
+		label.setFont(FontApp.TITLE.getFont());
+		label.setTextFill(Col.BADD.getColor());
+		label.setAlignment(Pos.CENTER);
+
 		// stack
 		StackPane stack;
 		stack = new StackPane();
