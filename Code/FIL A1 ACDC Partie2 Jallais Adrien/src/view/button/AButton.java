@@ -7,10 +7,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import view.constant.Col;
-import view.constant.FontS;
+import view.constant.FontApp;
+import view.constant.InsetsApp;
 import view.constant.Rad;
 
 public abstract class AButton extends Button {
@@ -20,9 +19,9 @@ public abstract class AButton extends Button {
 		// this.setGraphic(new ImageView(new Image(new FileInputStream("images" +
 		// File.separator + "TP1_logo.jpg"))));
 		// this.setContentDisplay(ContentDisplay.LEFT);
-		this.setPadding(new Insets(10, 30, 10, 30));
+		this.setPadding(InsetsApp.MEDIUM.getInsets());
 		this.setMaxWidth(Double.MAX_VALUE); // to expand at max
-		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
+		this.setFont(FontApp.MEDIUM.getFont());
 		this.setWrapText(true);
 
 		// BACKGROUNG

@@ -15,6 +15,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import view.constant.InsetsApp;
 import view.label.MainLabel;
 
 /**
@@ -28,7 +29,7 @@ public class MainScene extends Scene {
 	public MainScene(Pane center) {
 		super(new BorderPane());
 		border = (BorderPane) (this.getRoot());
-		border.setPadding(new Insets(10, 20, 10, 20)); // top right bottom left
+		border.setPadding(InsetsApp.LITTLE.getInsets()); // top right bottom left
 		border.setCenter(center);
 		border.setBottom(createSignaturePane());
 
@@ -40,8 +41,9 @@ public class MainScene extends Scene {
 	private Node createSignaturePane() {
 		Label label = new MainLabel(Main.d.get("MAIN_Signature"));
 		pane = new StackPane();
-		// pane.setPadding(new Insets(10, 60, 10 - border.getInsets().getBottom(), 60));
-		pane.setPadding(new Insets(10, 60, 10 - this.getBorder().getInsets().getBottom(), 60));
+
+		pane.setPadding(new Insets(InsetsApp.HIGH.getTop(), InsetsApp.HIGH.getRight(),
+				InsetsApp.HIGH.getBot() - this.getBorder().getInsets().getBottom(), InsetsApp.HIGH.getLeft()));
 		pane.getChildren().add(label);
 
 		// TODO Erase
