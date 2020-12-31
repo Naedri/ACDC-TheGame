@@ -1,9 +1,11 @@
 package view.component;
 
 import application.Main;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -22,21 +24,38 @@ import view.constant.Rad;
 public class DeckView extends Button {
 
 	ICardView card;
+	Background backgroundInit;
+	Background backgroundHover;
 
 	public DeckView(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
 		this.card = card;
-		setStyle();
+		init();
 	}
 
 	public DeckView(ICardView card, String text, Node graphic) {
 		super(text, graphic);
-		setStyle();
+		this.card = card;
+		init();
 	}
 
 	public DeckView(ICardView card, String text) {
 		super(text);
+		this.card = card;
+		init();
+	}
+
+	private void init() {
+		initBackground();
 		setStyle();
+		setAction();
+	}
+
+	private void initBackground() {
+		backgroundInit = new Background(
+				new BackgroundFill(card.getBorderColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
+		backgroundHover = new Background(
+				new BackgroundFill(Col.BADL.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
 	}
 
 	private void setStyle() {
@@ -49,10 +68,26 @@ public class DeckView extends Button {
 		// this.setBorder(new Border(card.getBorderStrokes()));
 		this.setBorder(new Border(new BorderStroke(card.getBackgroundColor(), BorderStrokeStyle.SOLID,
 				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
-		// this.setBackground(card.getBackground());
-		this.setBackground(new Background(
-				new BackgroundFill(card.getBorderColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+		this.setBackground(backgroundInit);
 		this.setWrapText(true);
+	}
+
+	private void setAction() {
+		// mouse event
+		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				setBackground(backgroundHover);
+			}
+		});
+
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				setBackground(backgroundInit);
+
+			}
+		});
 	}
 
 	public StackPane makeDeckSupported() {
