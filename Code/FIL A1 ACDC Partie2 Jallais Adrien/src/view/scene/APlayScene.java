@@ -36,7 +36,7 @@ import view.label.MainLabel;
 public abstract class APlayScene extends MainScene {
 	protected BorderPane pane;
 	protected List<CardView> cardL;
-
+	protected Insets insets = new Insets(10, 30, 10, 30);
 	/*
 	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
 	 * Pane botP;
@@ -106,18 +106,23 @@ public abstract class APlayScene extends MainScene {
 //		  BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 //		  CornerRadii.EMPTY, Insets.EMPTY))); return root;
 
+		// TODO Raw Value 0.2
 		HBox hand = new HandView(cardL, cardL.get(0).getPrefWidth() * 0.2);
-		hand.setPadding(new Insets(10, 30, 10, 30));
+		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 
 		DeckView deck = new DeckView(cardL.get(0));
+		StackPane handStack = deck.makeDeckSupported();
+		handStack.setPadding(insets);
 
-		HBox pane = new HBox();
-		pane.getChildren().addAll(deck, hand);
+		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
+		pane.getChildren().addAll(handStack, hand);
 		pane.setAlignment(Pos.CENTER);
-		return pane;
-		// TODO Erase
 
+		// TODO Erase
+		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
+				CornerRadii.EMPTY, Insets.EMPTY)));
+		return pane;
 	}
 
 	protected abstract Node createCenterPane();

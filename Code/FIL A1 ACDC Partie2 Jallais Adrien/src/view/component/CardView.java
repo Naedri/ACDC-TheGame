@@ -53,7 +53,7 @@ public class CardView extends Button implements ICardView {
 		// TODO raw value
 		this.setPrefSize(60, 100);
 		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
-
+		this.setWrapText(true);
 		this.setTextFill(getBorderColor());
 		this.setBorder(new Border(new BorderStroke(getBorderColor(), BorderStrokeStyle.SOLID,
 				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));

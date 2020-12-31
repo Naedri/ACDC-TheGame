@@ -23,6 +23,7 @@ public abstract class AButton extends Button {
 		this.setPadding(new Insets(10, 30, 10, 30));
 		this.setMaxWidth(Double.MAX_VALUE); // to expand at max
 		this.setFont(Font.font("Arial", FontWeight.BOLD, FontS.MEDIUM.getSize()));
+		this.setWrapText(true);
 
 		// BACKGROUNG
 		this.setBackground(new Background(
