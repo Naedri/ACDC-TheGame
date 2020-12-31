@@ -6,6 +6,26 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "15",
+            "date": "31/12/2020",
+            "travail": [
+                "activités sur la scène de jeu principale",
+                "style pioche, pile de dépôts",
+                "ajout d'une photo",
+                "ajout d'une photo",
+                "factorisation des polices et insets"
+            ]
+        },
+        {
+            "log_number": "14",
+            "date": "30/12/2020",
+            "travail": [
+                "Recherches sur les modes de changement de scene",
+                "activités sur le menu et action des boutons",
+                "Scène de jeu : boutton quitter et menu"
+            ]
+        },
+        {
             "log_number": "13",
             "date": "29/12/2020",
             "travail": [
