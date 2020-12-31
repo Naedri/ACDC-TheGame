@@ -26,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import view.label.MainLabel;
 
 /**
@@ -51,12 +52,16 @@ public class WelcomeScene extends MainScene {
 				CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	private Label createBottomPane() {
-		Label label = new MainLabel(Main.d.get("WELCOME_start"));
+	private Node createBottomPane() {
+		StackPane pane = new StackPane();
+		Text t = new Text(Main.d.get("WELCOME_start"));
+		pane.getChildren().add(t);
+		pane.setAlignment(Pos.CENTER);
+
 		// TODO Erase
-		label.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
+		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
-		return label;
+		return pane;
 	}
 
 	private Node createCenterPane() {

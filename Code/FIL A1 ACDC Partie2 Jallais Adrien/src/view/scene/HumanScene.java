@@ -1,18 +1,14 @@
 package view.scene;
 
+import application.Main;
 import javafx.scene.Node;
 
 public class HumanScene extends APlayScene {
+	private static String name = Main.d.get("PLAY_mode_human");
 
 	public HumanScene() {
-		super();
+		super(name);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected Node createTopPane() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -22,14 +18,9 @@ public class HumanScene extends APlayScene {
 	}
 
 	@Override
-	protected Node createBottomPane() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	protected Node createCenterPane() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

@@ -41,6 +41,10 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MENU_parameters", "Modifier les paramètres");
 		this.d.put("MENU_exit", "Quitter");
 
+		// SCENE - Play
+		this.d.put("PLAY_mode_human", "Mode jeu");
+		this.d.put("PLAY_mode_ia", "Mode démonstration");
+		this.d.put("PLAY_draw", "Pioche");
 	}
 
 }

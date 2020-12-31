@@ -18,7 +18,7 @@ import view.constant.Rad;
  *
  */
 public class ButtonQuit extends AButton {
-	private static String label = Main.d.get("COMMON_button_exit");
+	private static String label = Main.d.get("COMMON_exit");
 
 	// initializers
 	{

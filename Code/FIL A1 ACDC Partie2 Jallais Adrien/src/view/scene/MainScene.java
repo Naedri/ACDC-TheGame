@@ -5,7 +5,6 @@ package view.scene;
 
 import application.Main;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,8 +12,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import view.label.MainLabel;
 
@@ -24,7 +23,7 @@ import view.label.MainLabel;
  */
 public class MainScene extends Scene {
 	private BorderPane border;
-	private GridPane pane;
+	private StackPane pane;
 
 	public MainScene(Pane center) {
 		super(new BorderPane());
@@ -38,16 +37,24 @@ public class MainScene extends Scene {
 				CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	private Pane createSignaturePane() {
+	private Node createSignaturePane() {
 		Label label = new MainLabel(Main.d.get("MAIN_Signature"));
-		pane = new GridPane();
-		pane.setPadding(new Insets(10, 60, 10 - border.getInsets().getBottom(), 60));
-		pane.setAlignment(Pos.CENTER);
+		pane = new StackPane();
+		// pane.setPadding(new Insets(10, 60, 10 - border.getInsets().getBottom(), 60));
+		pane.setPadding(new Insets(10, 60, 10 - this.getBorder().getInsets().getBottom(), 60));
 		pane.getChildren().add(label);
+
+		// TODO Erase
+		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
+				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
 	public Node getPane() {
 		return border.getCenter();
+	}
+
+	protected BorderPane getBorder() {
+		return this.border;
 	}
 }
