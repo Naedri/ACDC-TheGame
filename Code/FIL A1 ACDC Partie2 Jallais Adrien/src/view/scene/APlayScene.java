@@ -82,8 +82,8 @@ public abstract class APlayScene extends MainScene {
 		layDscL = new ArrayList<LayComponent>();
 		// TODO change mock data 2 should be given by API
 		for (int i = 0; i < 2; i++) {
-			layAscL.add(new LayComponent(1, Col.BADL.getColor()));
-			layDscL.add(new LayComponent(100, Col.BADD.getColor()));
+			layAscL.add(new LayComponent(1, Col.BADD));
+			layDscL.add(new LayComponent(100, Col.BADL));
 		}
 	}
 
@@ -172,23 +172,23 @@ public abstract class APlayScene extends MainScene {
 
 	protected Node createCenterPane() {
 		Insets insets = InsetsApp.HIGH.getInsets();
-
-		// ascending
-		HBox ascP = new HBox();
-		layAscL.forEach(lay -> {
-			StackPane layStack = lay.makeLaySupported();
-			layStack.setPadding(insets);
-			ascP.getChildren().add(layStack);
-		});
-		ascP.setAlignment(Pos.CENTER);
 		// descending
-		HBox descP = new HBox();
+		HBox descP = new HBox(Spacing.HIGH.getSpace());
 		layDscL.forEach(lay -> {
 			StackPane layStack = lay.makeLaySupported();
 			layStack.setPadding(insets);
 			descP.getChildren().add(layStack);
 		});
 		descP.setAlignment(Pos.CENTER);
+		// ascending
+		HBox ascP = new HBox(Spacing.HIGH.getSpace());
+		layAscL.forEach(lay -> {
+			StackPane layStack = lay.makeLaySupported();
+			layStack.setPadding(insets);
+			ascP.getChildren().add(layStack);
+		});
+		ascP.setAlignment(Pos.CENTER);
+
 		// img
 		String pathPict = "src" + File.separator + "multimedia" + File.separator + "Castle_Transparent.png";
 		ImageView img;
@@ -206,7 +206,7 @@ public abstract class APlayScene extends MainScene {
 
 		// merge
 		VBox pane = new VBox();
-		pane.getChildren().addAll(ascP, img, descP);
+		pane.getChildren().addAll(descP, img, ascP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
 		// TODO Erase

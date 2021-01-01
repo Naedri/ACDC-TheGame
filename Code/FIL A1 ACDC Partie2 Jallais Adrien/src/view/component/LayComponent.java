@@ -1,26 +1,38 @@
 package view.component;
 
 import javafx.geometry.Insets;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import view.constant.Col;
 
 public class LayComponent extends CardComponent implements ICardView {
 
 	Color col;
+	Color colShadow;
 
 	public LayComponent(int value, Color color) {
 		super(value);
 		this.col = color;
+		this.colShadow = color;
+	}
+
+	public LayComponent(int value, Col color) {
+		super(value);
+		this.col = color.getColor();
+		this.colShadow = color.getColor();
 	}
 
 	public Rectangle makeSupport() {
 		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2, this.col);
 		rect.setArcHeight(10);
 		rect.setArcWidth(100);
+		rect.setEffect(makingShadow());
 		return rect;
 	}
 
@@ -31,5 +43,33 @@ public class LayComponent extends CardComponent implements ICardView {
 		sp.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
 		return sp;
+	}
+
+	/**
+	 * creating shadow for lay components
+	 * 
+	 * @source https://www.tutorialspoint.com/javafx/drop_shadow_effect.htm
+	 * @return DropShadow
+	 */
+	public DropShadow makingShadow() {
+		// Instantiating the Shadow class
+		DropShadow dropShadow = new DropShadow();
+		// setting the type of blur for the shadow
+		dropShadow.setBlurType(BlurType.GAUSSIAN);
+		// Setting color for the shadow
+		dropShadow.setColor(this.colShadow);
+		// Setting the height of the shadow
+		dropShadow.setHeight(5);
+		// Setting the width of the shadow
+		dropShadow.setWidth(5);
+		// Setting the radius of the shadow
+		dropShadow.setRadius(5);
+		// setting the offset of the shadow
+		dropShadow.setOffsetX(3);
+		dropShadow.setOffsetY(2);
+		// Setting the spread of the shadow
+		dropShadow.setSpread(12);
+
+		return dropShadow;
 	}
 }

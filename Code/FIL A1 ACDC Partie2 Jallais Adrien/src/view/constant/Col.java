@@ -27,4 +27,19 @@ public enum Col {
 	public Color getColor() {
 		return Color.web(this.hexa);
 	}
+
+	/**
+	 * @source https://stackoverflow.com/questions/4672271/reverse-opposing-colors
+	 * @return ContrastColor in black and white
+	 */
+	public Color getContrast() {
+		Color color = this.getColor();
+		double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000;
+		return y >= 128 ? Color.BLACK : Color.WHITE;
+	}
+
+	public Color getInvert() {
+		Color color = this.getColor();
+		return color.invert();
+	}
 }
