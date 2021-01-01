@@ -1,10 +1,8 @@
 package view.component;
 
 import application.Main;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -24,8 +22,6 @@ public class DrawComponent extends ACardComponent implements ICardView {
 
 	ICardView card;
 	ICardView selectedCard;
-	Background backgroundInit;
-	Background backgroundHover;
 
 	public DrawComponent(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
@@ -46,16 +42,23 @@ public class DrawComponent extends ACardComponent implements ICardView {
 	}
 
 	private void init() {
-		initBackground();
+		initBackgroundPost();
 		setStyle();
-		setAction();
 	}
 
-	private void initBackground() {
-		backgroundInit = new Background(
+	@Override
+	protected void initBackground() {
+		// do nothing cause we need this.card = card; done
+	}
+
+	private void initBackgroundPost() {
+		Background backgroundInit = new Background(
 				new BackgroundFill(card.getBorderColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
-		backgroundHover = new Background(new BackgroundFill(ColorApp.BADL.getColor(),
+		Background backgroundHover = new Background(new BackgroundFill(ColorApp.BADL.getColor(),
 				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
+		setBackgroundInit(backgroundInit);
+		setBackgroundHover(backgroundHover);
+		setBackground(backgroundInit);
 	}
 
 	private void setStyle() {
@@ -68,28 +71,11 @@ public class DrawComponent extends ACardComponent implements ICardView {
 		// this.setBorder(new Border(card.getBorderStrokes()));
 		this.setBorder(new Border(new BorderStroke(card.getBackgroundColor(), BorderStrokeStyle.SOLID,
 				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
-		this.setBackground(backgroundInit);
 		this.setWrapText(true);
 	}
 
-	private void setAction() {
-		// mouse event
-		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				setBackground(backgroundHover);
-			}
-		});
-
-		this.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				setBackground(backgroundInit);
-			}
-		});
-	}
-
-	public StackPane makeDeckSupported() {
+	@Override
+	public StackPane makeSupported() {
 		StackPane sp = new StackPane();
 		sp.getChildren().addAll(this.makeSupport(), this);
 		// TODO Erase
@@ -98,6 +84,7 @@ public class DrawComponent extends ACardComponent implements ICardView {
 		return sp;
 	}
 
+	@Override
 	public Rectangle makeSupport() {
 		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2,
 				ColorApp.BLACK.getColor());
@@ -106,6 +93,7 @@ public class DrawComponent extends ACardComponent implements ICardView {
 		return rect;
 	}
 
+	@Override
 	public Rectangle makeSupportTrans() {
 		Rectangle rect = this.makeSupport();
 		rect.setOpacity(rect.getOpacity() * 0.5);
@@ -158,5 +146,4 @@ public class DrawComponent extends ACardComponent implements ICardView {
 			this.selectedCard = selectedCard;
 		}
 	}
-
 }

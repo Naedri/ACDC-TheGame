@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import view.constant.ColorApp;
 
-public class LayComponent extends CardComponent implements ICardView {
+public class LayComponent extends CardComponent {
 
 	Color col;
 	Color colShadow;
@@ -39,7 +39,8 @@ public class LayComponent extends CardComponent implements ICardView {
 		return rect;
 	}
 
-	public StackPane makeLaySupported() {
+	@Override
+	public StackPane makeSupported() {
 		StackPane sp = new StackPane();
 		sp.getChildren().addAll(this.makeSupport(), this);
 		// TODO Erase

@@ -64,9 +64,9 @@ public abstract class APlayScene extends MainScene {
 		pane = (BorderPane) (super.getPane());
 		pane.setTop(createTopPane(modeName));
 		pane.setLeft(createLeftPane());
+		pane.setCenter(createCenterPane());
 		pane.setBottom(createBottomPane());
 		pane.setRight(createRightPane());
-		pane.setCenter(createCenterPane());
 		// BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 	}
 
@@ -158,7 +158,7 @@ public abstract class APlayScene extends MainScene {
 		hand.setAlignment(Pos.CENTER_LEFT);
 
 		draw = new DrawComponent(cardL.get(0));
-		StackPane handStack = draw.makeDeckSupported();
+		StackPane handStack = draw.makeSupported();
 		handStack.setPadding(insets);
 
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
@@ -176,7 +176,7 @@ public abstract class APlayScene extends MainScene {
 		// descending
 		HBox descP = new HBox(Spacing.HIGH.getSpace());
 		layDscL.forEach(lay -> {
-			StackPane layStack = lay.makeLaySupported();
+			StackPane layStack = lay.makeSupported();
 			layStack.setPadding(insets);
 			descP.getChildren().add(layStack);
 		});
@@ -184,7 +184,7 @@ public abstract class APlayScene extends MainScene {
 		// ascending
 		HBox ascP = new HBox(Spacing.HIGH.getSpace());
 		layAscL.forEach(lay -> {
-			StackPane layStack = lay.makeLaySupported();
+			StackPane layStack = lay.makeSupported();
 			layStack.setPadding(insets);
 			ascP.getChildren().add(layStack);
 		});
