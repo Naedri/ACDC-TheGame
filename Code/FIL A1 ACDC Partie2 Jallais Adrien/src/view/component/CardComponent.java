@@ -1,6 +1,5 @@
 package view.component;
 
-import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
@@ -64,8 +63,6 @@ public class CardComponent extends ACardComponent implements ICardView {
 			}
 		});
 
-		this.backgroundProperty()
-				.bind(Bindings.when(super.getActiveObs()).then(backgroundHover).otherwise(backgroundInit));
 	}
 
 	private void initBackground() {
