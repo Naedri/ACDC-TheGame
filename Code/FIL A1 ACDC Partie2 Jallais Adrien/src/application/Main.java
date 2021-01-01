@@ -9,7 +9,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
-import view.scene.MainScene;
 import view.scene.WelcomeScene;
 
 /**
@@ -19,7 +18,7 @@ import view.scene.WelcomeScene;
 public class Main extends Application {
 	public static DefaultNLS d;
 	private static Rectangle2D primaryScreenBounds;
-	private MainScene scene;
+	private WelcomeScene scene;
 
 	/**
 	 * @param args
@@ -48,6 +47,8 @@ public class Main extends Application {
 		primaryStage.centerOnScreen();
 		primaryStage.setScene(this.scene);
 		primaryStage.show();
+
+		scene.addingFlick();
 	}
 
 	@Override

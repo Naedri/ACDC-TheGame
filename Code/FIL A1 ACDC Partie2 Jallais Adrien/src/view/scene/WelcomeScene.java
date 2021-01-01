@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 
 import application.Main;
 import controller.Services;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import view.constant.Col;
 import view.constant.FontApp;
 
@@ -37,6 +39,7 @@ public class WelcomeScene extends MainScene {
 	private Media music;
 	private MediaPlayer player;
 	private BorderPane pane;
+	private boolean flickActive = true;
 
 	public WelcomeScene() {
 		super(new BorderPane());
@@ -58,9 +61,11 @@ public class WelcomeScene extends MainScene {
 		label.setFont(FontApp.SUBTITLE.getFont());
 		label.setTextFill(Col.GOODD.getColor());
 		label.setAlignment(Pos.CENTER);
+		// rectangle
+		Rectangle rect = new Rectangle(60, 60);
 		// pane
 		StackPane pane = new StackPane();
-		pane.getChildren().add(label);
+		pane.getChildren().addAll(rect, label);
 		pane.setPadding(new Insets(0, 30, 60, 30));
 		pane.setAlignment(Pos.TOP_CENTER);
 
@@ -121,10 +126,42 @@ public class WelcomeScene extends MainScene {
 			public void handle(KeyEvent k) {
 				if (k.getCode().equals(KeyCode.ENTER)) {
 					player.stop();
+					flickActive = false;
 					Services.changeScene(WelcomeScene.this, new MenuScene());
 				}
 			}
 		});
+	}
+
+	/**
+	 * Will make flicking the bottom pane
+	 * 
+	 * @source https://www.youtube.com/watch?v=pZzU-e_doNE&list=PLlxQJeQRaKDSlg_sOFKqBHvFsox2ZVWbs&index=2
+	 * @param node     the pane to be flicking
+	 * @param milliSec the period of the time effect
+	 */
+	public void addingFlick() {
+		int milliSec = 500;
+		Node node = ((StackPane) pane.getBottom()).getChildren().get(1);
+		while (this.flickActive) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(milliSec / 2);
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								Boolean visible = node.isVisible();
+								node.setVisible(!visible);
+							}
+						});
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
 	}
 
 }
