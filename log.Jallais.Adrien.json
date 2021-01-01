@@ -6,6 +6,17 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "16",
+            "date": "01/01/2021",
+            "travail": [
+                "lecture documentation sur event listener",
+                "tentative de mise en place d'un timer pour clignotement du sous titre de la page d'acceuil",
+                "mise en place d'un state (activated) pour les cartes",
+                "refactoring du changement du style avec state activated",
+                "composant main fonctionnel"
+            ]
+        },
+        {
             "log_number": "15",
             "date": "31/12/2020",
             "travail": [
