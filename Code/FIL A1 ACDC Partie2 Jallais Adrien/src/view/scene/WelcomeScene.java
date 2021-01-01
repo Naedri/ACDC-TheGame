@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 
 import application.Main;
 import controller.Services;
-import javafx.application.Platform;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,7 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import view.constant.Col;
 import view.constant.FontApp;
 
@@ -49,7 +51,6 @@ public class WelcomeScene extends MainScene {
 		BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 		this.addingEnter();
 		this.addingMusic();
-
 		// TODO Erase
 		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
@@ -61,13 +62,15 @@ public class WelcomeScene extends MainScene {
 		label.setFont(FontApp.SUBTITLE.getFont());
 		label.setTextFill(Col.GOODD.getColor());
 		label.setAlignment(Pos.CENTER);
-		// rectangle
-		Rectangle rect = new Rectangle(60, 60);
 		// pane
 		StackPane pane = new StackPane();
-		pane.getChildren().addAll(rect, label);
+		pane.getChildren().add(label);
 		pane.setPadding(new Insets(0, 30, 60, 30));
 		pane.setAlignment(Pos.TOP_CENTER);
+		// maintaining size
+		// Rectangle rect = new Rectangle(80, 10);
+		// pane.getChildren().add(rect);
+		pane.setPrefSize(80, 20);
 
 		// TODO Erase
 		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
@@ -113,7 +116,6 @@ public class WelcomeScene extends MainScene {
 		String pathMusic = "src" + File.separator + "multimedia" + File.separator + "Welcome.mp3";
 		music = new Media(new File(pathMusic).toURI().toString());
 		player = new MediaPlayer(music);
-		player.play();
 	}
 
 	/**
@@ -134,33 +136,34 @@ public class WelcomeScene extends MainScene {
 	}
 
 	/**
-	 * Will make flicking the bottom pane
+	 * adding flick effect only when the scene is loaded
+	 */
+	@Override
+	public void triggerShow() {
+		triggerFlick();
+		player.play();
+
+	}
+
+	/**
+	 * Will make flicking the bottom pane label
 	 * 
-	 * @source https://www.youtube.com/watch?v=pZzU-e_doNE&list=PLlxQJeQRaKDSlg_sOFKqBHvFsox2ZVWbs&index=2
+	 * @source https://stackoverflow.com/questions/25910963/javafx-hide-pane-for-a-very-short-time/25911758#25911758
 	 * @param node     the pane to be flicking
 	 * @param milliSec the period of the time effect
 	 */
-	public void addingFlick() {
+	private void triggerFlick() {
 		int milliSec = 500;
-		Node node = ((StackPane) pane.getBottom()).getChildren().get(1);
+		Node node = ((StackPane) pane.getBottom()).getChildren().get(0);
 		while (this.flickActive) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						Thread.sleep(milliSec / 2);
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								Boolean visible = node.isVisible();
-								node.setVisible(!visible);
-							}
-						});
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			Boolean visible = node.isVisible();
+			node.setVisible(!visible);
+			Timeline timeline = new Timeline();
+			KeyValue kv = new KeyValue(pane.visibleProperty(), true);
+			Duration time = Duration.millis(milliSec);
+			KeyFrame kf = new KeyFrame(time, kv);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
 		}
 	}
 
