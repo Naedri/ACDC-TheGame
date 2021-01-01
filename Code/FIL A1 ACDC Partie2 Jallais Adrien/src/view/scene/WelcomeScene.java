@@ -30,7 +30,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import view.constant.Col;
+import view.constant.ColorApp;
 import view.constant.FontApp;
 
 /**
@@ -59,7 +59,7 @@ public class WelcomeScene extends MainScene {
 		// subtitle
 		Label label = new Label(Main.d.get("WELCOME_start"));
 		label.setFont(FontApp.SUBTITLE.getFont());
-		label.setTextFill(Col.GOODD.getColor());
+		label.setTextFill(ColorApp.GOODD.getColor());
 		label.setAlignment(Pos.CENTER);
 		// pane
 		StackPane pane = new StackPane();
@@ -97,7 +97,7 @@ public class WelcomeScene extends MainScene {
 		// title
 		Label label = new Label(Main.d.get("WELCOME_title"));
 		label.setFont(FontApp.TITLE.getFont());
-		label.setTextFill(Col.BADD.getColor());
+		label.setTextFill(ColorApp.BADD.getColor());
 		label.setAlignment(Pos.CENTER);
 
 		// stack

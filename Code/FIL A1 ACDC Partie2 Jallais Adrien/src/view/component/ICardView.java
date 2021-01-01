@@ -34,4 +34,10 @@ public interface ICardView {
 	public Rectangle makeSupport();
 
 	public Rectangle makeSupportTrans();
+
+	public void switchActive();
+
+	public Boolean isActive();
+
+	// public
 }

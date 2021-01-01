@@ -9,23 +9,26 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import view.constant.Col;
+import view.constant.ColorApp;
 
 public class LayComponent extends CardComponent implements ICardView {
 
 	Color col;
 	Color colShadow;
+	Boolean ascending;
 
-	public LayComponent(int value, Color color) {
+	public LayComponent(int value, Color color, Boolean ascending) {
 		super(value);
 		this.col = color;
 		this.colShadow = color;
+		this.ascending = ascending;
 	}
 
-	public LayComponent(int value, Col color) {
+	public LayComponent(int value, ColorApp color, Boolean ascending) {
 		super(value);
 		this.col = color.getColor();
 		this.colShadow = color.getColor();
+
 	}
 
 	public Rectangle makeSupport() {

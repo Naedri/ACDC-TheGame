@@ -10,8 +10,8 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import view.constant.BordW;
-import view.constant.Col;
-import view.constant.Rad;
+import view.constant.ColorApp;
+import view.constant.RadiusApp;
 
 /**
  * @author Adrien Jallais
@@ -22,9 +22,9 @@ public class ButtonQuit extends AButton {
 
 	// initializers
 	{
-		this.setTextFill(Col.BADD.getColor());
-		this.setBorder(new Border(new BorderStroke(Col.BADD.getColor(), BorderStrokeStyle.SOLID,
-				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
+		this.setTextFill(ColorApp.BADD.getColor());
+		this.setBorder(new Border(new BorderStroke(ColorApp.BADD.getColor(), BorderStrokeStyle.SOLID,
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
 	}
 
 	/**

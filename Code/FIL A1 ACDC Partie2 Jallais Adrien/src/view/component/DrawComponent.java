@@ -4,7 +4,6 @@ import application.Main;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,12 +17,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import view.constant.BordW;
-import view.constant.Col;
-import view.constant.Rad;
+import view.constant.ColorApp;
+import view.constant.RadiusApp;
 
-public class DrawComponent extends Button implements ICardView {
+public class DrawComponent extends ACardComponent implements ICardView {
 
 	ICardView card;
+	ICardView selectedCard;
 	Background backgroundInit;
 	Background backgroundHover;
 
@@ -53,9 +53,9 @@ public class DrawComponent extends Button implements ICardView {
 
 	private void initBackground() {
 		backgroundInit = new Background(
-				new BackgroundFill(card.getBorderColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
-		backgroundHover = new Background(
-				new BackgroundFill(Col.BADL.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
+				new BackgroundFill(card.getBorderColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
+		backgroundHover = new Background(new BackgroundFill(ColorApp.BADL.getColor(),
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
 	}
 
 	private void setStyle() {
@@ -67,7 +67,7 @@ public class DrawComponent extends Button implements ICardView {
 		this.setTextFill(getBorderColor());
 		// this.setBorder(new Border(card.getBorderStrokes()));
 		this.setBorder(new Border(new BorderStroke(card.getBackgroundColor(), BorderStrokeStyle.SOLID,
-				new CornerRadii(Rad.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
 		this.setBackground(backgroundInit);
 		this.setWrapText(true);
 	}
@@ -99,7 +99,8 @@ public class DrawComponent extends Button implements ICardView {
 	}
 
 	public Rectangle makeSupport() {
-		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2, Col.BLACK.getColor());
+		Rectangle rect = new Rectangle(this.getPrefWidth() * 1.2, this.getPrefHeight() * 1.2,
+				ColorApp.BLACK.getColor());
 		rect.setArcHeight(10);
 		rect.setArcWidth(100);
 		return rect;
@@ -139,4 +140,23 @@ public class DrawComponent extends Button implements ICardView {
 	public BorderStroke getBorderStrokes() {
 		return this.getBorder().getStrokes().get(0);
 	}
+
+	/**
+	 * @return the selectedCard
+	 */
+	public ICardView getSelectedCard() {
+		return selectedCard;
+	}
+
+	/**
+	 * @param selectedCard the selectedCard to set
+	 */
+	public void setSelectedCard(ICardView selectedCard) {
+		if (this.selectedCard == selectedCard) {
+			this.selectedCard = null;
+		} else {
+			this.selectedCard = selectedCard;
+		}
+	}
+
 }

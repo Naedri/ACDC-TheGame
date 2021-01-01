@@ -12,8 +12,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import view.constant.Col;
-import view.constant.Rad;
+import view.constant.ColorApp;
+import view.constant.RadiusApp;
 
 /**
  * @author Adrien Jallais
@@ -37,7 +37,7 @@ public class HandComponent extends HBox {
 
 	private void setStyle() {
 		this.setBackground(new Background(
-				new BackgroundFill(Col.INFOL.getColor(), new CornerRadii(Rad.HIGH.getRadius()), Insets.EMPTY)));
+				new BackgroundFill(ColorApp.INFOL.getColor(), new CornerRadii(RadiusApp.HIGH.getRadius()), Insets.EMPTY)));
 	}
 
 	private void initHand(List<CardComponent> listCard) {

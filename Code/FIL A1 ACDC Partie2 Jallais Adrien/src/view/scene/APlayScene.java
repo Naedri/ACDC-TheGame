@@ -34,7 +34,7 @@ import view.component.DrawComponent;
 import view.component.HandComponent;
 import view.component.LayComponent;
 import view.component.ScoreComponent;
-import view.constant.Col;
+import view.constant.ColorApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
 import view.label.MainLabel;
@@ -48,6 +48,7 @@ public abstract class APlayScene extends MainScene {
 	protected List<CardComponent> cardL;
 	protected List<LayComponent> layAscL;
 	protected List<LayComponent> layDscL;
+	protected DrawComponent draw;
 
 	protected int score;
 	protected String dialog;
@@ -82,8 +83,8 @@ public abstract class APlayScene extends MainScene {
 		layDscL = new ArrayList<LayComponent>();
 		// TODO change mock data 2 should be given by API
 		for (int i = 0; i < 2; i++) {
-			layAscL.add(new LayComponent(1, Col.BADD));
-			layDscL.add(new LayComponent(100, Col.BADL));
+			layAscL.add(new LayComponent(1, ColorApp.BADD, true));
+			layDscL.add(new LayComponent(100, ColorApp.BADL, false));
 		}
 	}
 
@@ -156,8 +157,8 @@ public abstract class APlayScene extends MainScene {
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 
-		DrawComponent deck = new DrawComponent(cardL.get(0));
-		StackPane handStack = deck.makeDeckSupported();
+		draw = new DrawComponent(cardL.get(0));
+		StackPane handStack = draw.makeDeckSupported();
 		handStack.setPadding(insets);
 
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);

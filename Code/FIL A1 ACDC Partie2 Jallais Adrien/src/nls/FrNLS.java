@@ -37,7 +37,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MENU_playHuman", "Jouer à 'The Game'");
 		this.d.put("MENU_playIA", "Regarder l'IA jouer à 'The Game'");
 		this.d.put("MENU_rules", "Lire les règles de 'The Game'");
-		this.d.put("MENU_authors", "Contacter les auteurs");
+		this.d.put("MENU_authors", "Consulter les crédits");
 		this.d.put("MENU_parameters", "Modifier les paramètres");
 		this.d.put("MENU_exit", "Quitter");
 

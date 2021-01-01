@@ -7,10 +7,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import view.constant.Col;
+import view.constant.ColorApp;
 import view.constant.FontApp;
 import view.constant.InsetsApp;
-import view.constant.Rad;
+import view.constant.RadiusApp;
 
 public abstract class AButton extends Button {
 
@@ -26,14 +26,14 @@ public abstract class AButton extends Button {
 
 		// BACKGROUNG
 		this.setBackground(new Background(
-				new BackgroundFill(Col.INFOD.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+				new BackgroundFill(ColorApp.INFOD.getColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY)));
 
 		// mouse event
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				setBackground(new Background(new BackgroundFill(Col.INFOL.getColor(),
-						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+				setBackground(new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
+						new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY)));
 
 			}
 		});
@@ -41,8 +41,8 @@ public abstract class AButton extends Button {
 		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				setBackground(new Background(new BackgroundFill(Col.INFOD.getColor(),
-						new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY)));
+				setBackground(new Background(new BackgroundFill(ColorApp.INFOD.getColor(),
+						new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY)));
 
 			}
 		});

@@ -7,6 +7,31 @@ public class HumanScene extends APlayScene {
 
 	public HumanScene() {
 		super(name);
-		// TODO Auto-generated constructor stub
+		setActionCard();
+		setActionDrawPile();
+		setActionLayPile();
+	}
+
+	private void setActionCard() {
+		super.cardL.forEach(card -> {
+			card.setOnAction(e -> {
+				if (card.isActive()) {
+
+				} else if (!card.isActive()) {
+
+				}
+			});
+		});
+
+	}
+
+	private void setActionDrawPile() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void setActionLayPile() {
+		// TODO Auto-generated method stub
+
 	}
 }

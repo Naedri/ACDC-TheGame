@@ -7,9 +7,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import view.constant.Col;
+import view.constant.ColorApp;
 import view.constant.FontApp;
-import view.constant.Rad;
+import view.constant.RadiusApp;
 import view.label.MainLabel;
 
 public class DialogComponent extends StackPane {
@@ -41,7 +41,7 @@ public class DialogComponent extends StackPane {
 		this.getChildren().add(dialogL);
 
 		backg = new Background(
-				new BackgroundFill(Col.INFOL.getColor(), new CornerRadii(Rad.MEDIUM.getRadius()), Insets.EMPTY));
+				new BackgroundFill(ColorApp.INFOL.getColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
 		this.setBackground(backg);
 	}
 
