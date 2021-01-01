@@ -34,7 +34,7 @@ public abstract class MainScene extends Scene {
 		border.setPadding(InsetsApp.LITTLE.getInsets()); // top right bottom left
 		border.setCenter(center);
 		border.setBottom(createSignaturePane());
-		// this.afterShow();
+		this.afterShow();
 		// TODO Erase
 		border.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
@@ -66,8 +66,6 @@ public abstract class MainScene extends Scene {
 	 * adding effects only when the scene is loaded
 	 */
 	public void afterShow() {
-		// Stage thisStage;
-		// thisStage = (Stage) getRoot().getScene().getWindow();
 		Main.mainStage.setOnShown(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {

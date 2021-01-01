@@ -41,7 +41,6 @@ public class WelcomeScene extends MainScene {
 	private Media music;
 	private MediaPlayer player;
 	private BorderPane pane;
-	private boolean flickActive = true;
 
 	public WelcomeScene() {
 		super(new BorderPane());
@@ -128,7 +127,7 @@ public class WelcomeScene extends MainScene {
 			public void handle(KeyEvent k) {
 				if (k.getCode().equals(KeyCode.ENTER)) {
 					player.stop();
-					flickActive = false;
+					triggerFlick();
 					Services.changeScene(WelcomeScene.this, new MenuScene());
 				}
 			}
@@ -140,9 +139,7 @@ public class WelcomeScene extends MainScene {
 	 */
 	@Override
 	public void triggerShow() {
-		triggerFlick();
 		player.play();
-
 	}
 
 	/**
@@ -151,17 +148,19 @@ public class WelcomeScene extends MainScene {
 	 * @source https://stackoverflow.com/questions/25910963/javafx-hide-pane-for-a-very-short-time/25911758#25911758
 	 * @param node     the pane to be flicking
 	 * @param milliSec the period of the time effect
+	 * @times number
 	 */
 	private void triggerFlick() {
 		int milliSec = 500;
+		int time = 10;
 		Node node = ((StackPane) pane.getBottom()).getChildren().get(0);
-		while (this.flickActive) {
+		for (int i = 0; i < time; i++) {
 			Boolean visible = node.isVisible();
 			node.setVisible(!visible);
 			Timeline timeline = new Timeline();
 			KeyValue kv = new KeyValue(pane.visibleProperty(), true);
-			Duration time = Duration.millis(milliSec);
-			KeyFrame kf = new KeyFrame(time, kv);
+			Duration period = Duration.millis(milliSec);
+			KeyFrame kf = new KeyFrame(period, kv);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();
 		}
