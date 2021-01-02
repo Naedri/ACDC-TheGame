@@ -31,6 +31,11 @@ a voir comment la victoire est atteinte
 Pas de factory de pioche, peut on mettre n'importe quel type de text ?
 A voir si on peut mettre des nombres en double.
 
+#### Méthode jouer
+
+`public void jouer(int tasId, Carte carte, Joueur joueur)`
+arguments non homogènes -> plus facile si on avait juste une valeur de carte à mettre
+
 #### Organisation du code
 
 pas de séparation en package
@@ -43,3 +48,5 @@ carteIA permettant d'associer un poids à une carte de manière durable
 Liste de tas
 
 Joueur IA extends JouerHumain
+
+levée d'exceptions utiles pour l'affichage d'erreur
