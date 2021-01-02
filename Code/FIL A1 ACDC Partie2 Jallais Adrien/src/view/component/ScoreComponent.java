@@ -18,25 +18,25 @@ public class ScoreComponent extends VBox {
 	private MainLabel scoreInfo;
 	private Background backg;
 
-	public ScoreComponent() {
-		init();
+	public ScoreComponent(int initScore) {
+		init(initScore);
 		this.setSpacing(Spacing.LITTLE.getSpace());
 	}
 
-	public ScoreComponent(double spacing) {
+	public ScoreComponent(double spacing, int initScore) {
 		super(spacing);
-		init();
+		init(initScore);
 	}
 
-	private void init() {
+	private void init(int initScore) {
 		// TODO Check value with API
-		scoreT = new MainLabel("99");
-		scoreInfo = new MainLabel(Main.d.get("PLAY_score"));
+		scoreT = new MainLabel(Integer.toString(initScore));
+		scoreInfo = new MainLabel(Main.d.get("PLAY_score_plural"));
 		this.getChildren().addAll(scoreT, scoreInfo);
 		this.setAlignment(Pos.CENTER);
 		this.setPadding(InsetsApp.HIGH.getInsets());
-		backg = new Background(
-				new BackgroundFill(ColorApp.INFOL.getColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
+		backg = new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
 		this.setBackground(backg);
 	}
 
@@ -45,5 +45,12 @@ public class ScoreComponent extends VBox {
 	 */
 	public void setScoreT(int score) {
 		this.scoreT.setText(Integer.toString(score));
+		this.updateScoreInfo(score);
+	}
+
+	private void updateScoreInfo(int score) {
+		if (score < 2) {
+			this.scoreInfo.setText(Main.d.get("PLAY_score_singular"));
+		}
 	}
 }

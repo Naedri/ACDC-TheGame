@@ -7,6 +7,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextAlignment;
 import view.constant.ColorApp;
 import view.constant.FontApp;
 import view.constant.RadiusApp;
@@ -14,7 +15,6 @@ import view.label.MainLabel;
 
 public class DialogComponent extends StackPane {
 	private Background backg;
-	private String dialog;
 	private MainLabel dialogL;
 
 	public DialogComponent() {
@@ -27,21 +27,16 @@ public class DialogComponent extends StackPane {
 	}
 
 	private void init() {
-
-//		Rectangle rect = new Rectangle(90, 90, Col.INFOL.getColor());
-//		this.getChildren().add(rect);
-
-		// TODO Check value with API
-		dialog = Main.d.get("PLAY_dialog_init");
-		dialogL = new MainLabel(dialog);
+		dialogL = new MainLabel(Main.d.get("PLAY_drawing"));
 		dialogL.setPrefSize(180, 180);
 
 		dialogL.setFont(FontApp.MEDIUM.getFont());
+		dialogL.setTextAlignment(TextAlignment.RIGHT);
 		dialogL.setWrapText(true);
 		this.getChildren().add(dialogL);
 
-		backg = new Background(
-				new BackgroundFill(ColorApp.INFOL.getColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
+		backg = new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
 		this.setBackground(backg);
 	}
 
@@ -49,7 +44,7 @@ public class DialogComponent extends StackPane {
 	 * @param score the scoreT to set
 	 */
 	public void setDialog(String text) {
-		this.dialog = text;
+		this.dialogL.setText(text);
 	}
 
 }
