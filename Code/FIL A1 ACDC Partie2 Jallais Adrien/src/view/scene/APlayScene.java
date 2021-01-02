@@ -12,6 +12,7 @@ import java.util.List;
 import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -46,8 +48,9 @@ import view.label.MainLabel;
 public abstract class APlayScene extends MainScene {
 	protected BorderPane pane;
 	protected List<CardComponent> cardL;
-	protected List<LayComponent> layAscL;
 	protected List<LayComponent> layDscL;
+	protected List<LayComponent> layAscL;
+	protected List<LayComponent> layL;
 	protected DrawComponent draw;
 
 	protected int score;
@@ -79,13 +82,16 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	protected void initLayPile() {
-		layAscL = new ArrayList<LayComponent>();
 		layDscL = new ArrayList<LayComponent>();
+		layAscL = new ArrayList<LayComponent>();
+		layL = new ArrayList<LayComponent>();
 		// TODO change mock data 2 should be given by API
 		for (int i = 0; i < 2; i++) {
-			layAscL.add(new LayComponent(1, ColorApp.BADD, true));
 			layDscL.add(new LayComponent(100, ColorApp.BADL, false));
+			layAscL.add(new LayComponent(1, ColorApp.BADD, true));
 		}
+		layL.addAll(layDscL);
+		layL.addAll(layAscL);
 	}
 
 	/**
@@ -189,7 +195,8 @@ public abstract class APlayScene extends MainScene {
 			ascP.getChildren().add(layStack);
 		});
 		ascP.setAlignment(Pos.CENTER);
-
+		// adding effect
+		this.addActionLay();
 		// img
 		String pathPict = "src" + File.separator + "multimedia" + File.separator + "Castle_Transparent.png";
 		ImageView img;
@@ -216,4 +223,21 @@ public abstract class APlayScene extends MainScene {
 		return pane;
 	}
 
+	protected void addActionLay() {
+		layL.forEach(lay -> {
+			lay.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					if (lay.isActive()) {
+						lay.switchActive();
+					} else {
+						layL.forEach(card -> {
+							card.setActive(false);
+						});
+						lay.setActive(true);
+					}
+				}
+			});
+		});
+	}
 }
