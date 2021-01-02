@@ -18,7 +18,7 @@ import view.constant.BordW;
 import view.constant.ColorApp;
 import view.constant.RadiusApp;
 
-public class DrawComponent extends ACardComponent implements ICardView {
+public class DrawComponent extends ACardComponent {
 
 	ICardView card;
 	ICardView selectedCard;

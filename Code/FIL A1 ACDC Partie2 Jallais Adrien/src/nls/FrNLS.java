@@ -57,6 +57,10 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_choose_card_lay", "Choisissez une pile de dépôt.");
 		this.d.put("PLAY_human_layed_card", "Vous avez déposé une carte.");
 
+		// SCENE - PLAY - Exception message
+		this.d.put("PLAY_human_card_not_found",
+				"La valeur fournie ne correspond à aucune carte de la main du joueur indiqué.");
+
 	}
 
 }

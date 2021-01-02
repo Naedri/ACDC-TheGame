@@ -46,4 +46,12 @@ public class DialogComponent extends StackPane {
 		this.dialogL.setText(text);
 	}
 
+	public void addDialog(String text) {
+		this.dialogL.setText(dialogL.getText() + System.lineSeparator() + text);
+	}
+
+	public void clearDialog() {
+		this.dialogL.setText("");
+	}
+
 }

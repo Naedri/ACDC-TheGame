@@ -16,15 +16,17 @@ public class LayComponent extends CardComponent {
 	Color col;
 	Color colShadow;
 	Boolean ascending;
+	private int index;
 
-	public LayComponent(int value, Color color, Boolean ascending) {
+	public LayComponent(int value, Color color, Boolean ascending, int indexFromGame) {
 		super(value);
 		this.col = color;
 		this.colShadow = color;
 		this.ascending = ascending;
+		index = indexFromGame;
 	}
 
-	public LayComponent(int value, ColorApp color, Boolean ascending) {
+	public LayComponent(int value, ColorApp color, Boolean ascending, int indexFromGame) {
 		super(value);
 		this.col = color.getColor();
 		this.colShadow = color.getColor();
@@ -80,5 +82,12 @@ public class LayComponent extends CardComponent {
 	public void addingCard(CardComponent selectedCard) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * @return the index defined at creation
+	 */
+	public int getIndex() {
+		return index;
 	}
 }
