@@ -46,6 +46,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_mode_ia", "Mode démonstration");
 		this.d.put("PLAY_draw", "Pioche");
 		this.d.put("PLAY_drawing", "Cliquer sur la Pioche pour piocher.");
+		this.d.put("PLAY_drawing_needed", "Cliquer sur la Pioche pour piocher, si besoin.");
 		this.d.put("PLAY_score_plural", "Cartes restantes");
 		this.d.put("PLAY_score_singular", "Carte restante");
 

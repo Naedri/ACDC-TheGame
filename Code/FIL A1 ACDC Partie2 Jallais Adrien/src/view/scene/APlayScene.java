@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.Jeu;
+import api.Joueur;
 import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
@@ -60,18 +62,17 @@ public abstract class APlayScene extends MainScene {
 
 	LayComponent selectedLay;
 	CardComponent selectedCard;
-
-	protected int score;
-	protected String dialog;
+	Joueur joueur;
+	Jeu jeu;
 
 	/*
 	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
 	 * Pane botP;
 	 */
 
-	public APlayScene(String modeName) {
+	public APlayScene(String modeName, List<Joueur> joueurs, String pathDeck) {
 		super(new BorderPane());
-		initGame();
+		initGame(joueurs, pathDeck);
 		pane = (BorderPane) (super.getPane());
 		pane.setTop(createTopPane(modeName));
 		pane.setLeft(createLeftPane());
@@ -84,10 +85,14 @@ public abstract class APlayScene extends MainScene {
 		// BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 	}
 
-	protected void initGame() {
-		// TODO add api function
-		this.score = 99;
-		this.dialog = Main.d.get("Play_dialog_init");
+	protected void initGame(List<Joueur> joueurs, String pathDeck) {
+		// jeu
+		this.jeu = Jeu.lancerPartie(joueurs, pathDeck);
+		// score
+		// TODO Check value with API
+		scoreP = new ScoreComponent(jeu.score());
+		// dialog
+		dialogP = new DialogComponent(Main.d.get("PLAY_drawing"));
 		initCardGame();
 		initLayPile();
 	}
@@ -151,12 +156,6 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	protected Node createRightPane() {
-		// score
-		// TODO Check value with API
-		scoreP = new ScoreComponent(99);
-		// dialog
-		dialogP = new DialogComponent();
-		// merge
 		VBox pane = new VBox();
 		pane.getChildren().addAll(scoreP, dialogP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
@@ -297,6 +296,8 @@ public abstract class APlayScene extends MainScene {
 				this.hand.removeCard(this.hand.getCardSelected());
 				dialogP.setDialog(Main.d.get("PLAY_human_layed_card") + System.lineSeparator()
 						+ Main.d.get("PLAY_drawing_needed"));
+				// TODO update score
+				this.scoreP.setScoreT(jeu.score());
 			} else {
 				throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
 			}
@@ -311,6 +312,8 @@ public abstract class APlayScene extends MainScene {
 				this.hand.removeCard(selectedCard);
 				dialogP.setDialog(Main.d.get("PLAY_human_layed_card") + System.lineSeparator()
 						+ Main.d.get("PLAY_drawing_needed"));
+				// TODO update score
+				this.scoreP.setScoreT(jeu.score());
 			} else {
 				throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 			}

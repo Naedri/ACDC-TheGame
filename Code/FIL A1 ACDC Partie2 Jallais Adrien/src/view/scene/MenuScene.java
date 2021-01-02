@@ -1,5 +1,10 @@
 package view.scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import api.Joueur;
+import api.JoueurIA;
 import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
@@ -56,9 +61,19 @@ public class MenuScene extends MainScene {
 		@Override
 		public void handle(ActionEvent e) {
 			if (e.getSource() == bPH) {
-				Services.changeScene(MenuScene.this, new HumanScene());
+				// joueur HUMAND
+				Joueur joueur = new Joueur("Lorem lipsum");
+				List<Joueur> joueurs = new ArrayList<Joueur>();
+				joueurs.add(joueur);
+				String path1 = "../../Jeu_essai/game1.txt"; // relative path
+				Services.changeScene(MenuScene.this, new HumanScene(joueurs, path1));
 			} else if (e.getSource() == bPIA) {
-				Services.changeScene(MenuScene.this, new IAScene());
+				// joueur IA
+				Joueur joueur = new JoueurIA();
+				List<Joueur> joueurs = new ArrayList<Joueur>();
+				joueurs.add(joueur);
+				String path1 = "../../Jeu_essai/game1.txt"; // relative path
+				Services.changeScene(MenuScene.this, new IAScene(joueurs, path1));
 			} else if (e.getSource() == bP) {
 				Services.changeScene(MenuScene.this, new ParameterScene());
 			} else if (e.getSource() == bR) {

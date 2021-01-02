@@ -1,6 +1,5 @@
 package view.component;
 
-import application.Main;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.Background;
@@ -17,17 +16,17 @@ public class DialogComponent extends StackPane {
 	private Background backg;
 	private MainLabel dialogL;
 
-	public DialogComponent() {
-		init();
+	public DialogComponent(String text) {
+		init(text);
 	}
 
-	public DialogComponent(Node... children) {
+	public DialogComponent(String text, Node... children) {
 		super(children);
-		init();
+		init(text);
 	}
 
-	private void init() {
-		dialogL = new MainLabel(Main.d.get("PLAY_drawing"));
+	private void init(String text) {
+		dialogL = new MainLabel(text);
 		dialogL.setPrefSize(180, 180);
 
 		dialogL.setFont(FontApp.MEDIUM.getFont());

@@ -26,6 +26,10 @@ permet d'avoir la refererence de la liste de la carte est on peut l'annuler
 
 a voir comment la victoire est atteinte
 
+#### Choix de la pioche
+
+Pas de factory de pioche, peut on mettre n'importe quel type de text ?
+A voir si on peut mettre des nombres en double.
 
 #### Organisation du code
 

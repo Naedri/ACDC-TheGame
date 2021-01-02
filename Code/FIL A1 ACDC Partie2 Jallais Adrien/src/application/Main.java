@@ -3,6 +3,10 @@
  */
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import api.Joueur;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -42,7 +46,12 @@ public class Main extends Application {
 		// this.scene = new WelcomeScene();
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
-		this.scene = new HumanScene();
+		// joueur
+		Joueur joueur = new Joueur("Lorem lipsum");
+		List<Joueur> joueurs = new ArrayList<Joueur>();
+		joueurs.add(joueur);
+		String path1 = "../../Jeu_essai/game1.txt"; // relative path
+		this.scene = new HumanScene(joueurs, path1);
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
 		mainStage.setHeight(primaryScreenBounds.getHeight() * 0.9);
