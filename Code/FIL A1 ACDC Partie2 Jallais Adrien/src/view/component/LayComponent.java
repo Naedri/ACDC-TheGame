@@ -1,5 +1,8 @@
 package view.component;
 
+import api.Tas;
+import api.TasAscendant;
+import api.TasDescendant;
 import javafx.geometry.Insets;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -15,22 +18,26 @@ public class LayComponent extends CardComponent {
 
 	Color col;
 	Color colShadow;
-	Boolean ascending;
 	private int index;
+	private Tas tas;
 
-	public LayComponent(int value, Color color, Boolean ascending, int indexFromGame) {
-		super(value);
-		this.col = color;
-		this.colShadow = color;
-		this.ascending = ascending;
-		index = indexFromGame;
+	public LayComponent(Tas tas, int indexFromGame) {
+		super(tas.getDerniereCarte());
+		this.tas = tas;
+		this.index = indexFromGame;
+		this.col = getInitColor(tas);
+		this.colShadow = getInitColor(tas);
+
 	}
 
-	public LayComponent(int value, ColorApp color, Boolean ascending, int indexFromGame) {
-		super(value);
-		this.col = color.getColor();
-		this.colShadow = color.getColor();
-
+	private Color getInitColor(Tas tas) {
+		if (tas instanceof TasAscendant) {
+			return ColorApp.BADD.getColor();
+		} else if (tas instanceof TasDescendant) {
+			return ColorApp.BADL.getColor();
+		} else {
+			return ColorApp.BLACK.getColor();
+		}
 	}
 
 	public Rectangle makeSupport() {
@@ -80,8 +87,9 @@ public class LayComponent extends CardComponent {
 	}
 
 	public void addingCard(CardComponent selectedCard) {
-		// TODO Auto-generated method stub
-
+		// TODO erase if event listener added
+		this.setText(String.valueOf(selectedCard.getCardAPI().getValeur()));
+		this.setCardAPI(selectedCard.getCardAPI());
 	}
 
 	/**

@@ -48,7 +48,7 @@ public class DrawComponent extends ACardComponent {
 
 	@Override
 	protected void initBackground() {
-		// do nothing cause we need this.card = card; done
+		// do nothing cause we need this.card = card; done first
 	}
 
 	private void initBackgroundPost() {

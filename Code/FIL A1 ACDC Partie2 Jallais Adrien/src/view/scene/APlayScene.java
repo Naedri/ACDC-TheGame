@@ -14,6 +14,7 @@ import api.Carte;
 import api.CoupInvalideException;
 import api.Jeu;
 import api.Joueur;
+import api.Tas;
 import api.TasAscendant;
 import api.TasDescendant;
 import application.Main;
@@ -43,7 +44,6 @@ import view.component.DrawComponent;
 import view.component.HandComponent;
 import view.component.LayComponent;
 import view.component.ScoreComponent;
-import view.constant.ColorApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
 import view.exception.MissHandCardException;
@@ -98,7 +98,7 @@ public abstract class APlayScene extends MainScene {
 		// score
 		scoreP = new ScoreComponent(jeu.score());
 		// dialog
-		dialogP = new DialogComponent(Main.d.get("PLAY_drawing"));
+		dialogP = new DialogComponent(Main.d.get("PLAY_dialog_init"));
 		initCardGame();
 		initLayPile();
 	}
@@ -107,11 +107,13 @@ public abstract class APlayScene extends MainScene {
 		layDscL = new ArrayList<LayComponent>();
 		layAscL = new ArrayList<LayComponent>();
 		layL = new ArrayList<LayComponent>();
+
 		for (int i = 0; i < jeu.getTas().size(); i++) {
-			if (jeu.getTasById(i) instanceof TasAscendant) {
-				layAscL.add(new LayComponent(1, ColorApp.BADD, true, i));
-			} else if (jeu.getTasById(i) instanceof TasDescendant) {
-				layDscL.add(new LayComponent(100, ColorApp.BADL, false, i));
+			Tas tas = jeu.getTasById(i);
+			if (tas instanceof TasAscendant) {
+				layAscL.add(new LayComponent(tas, i));
+			} else if (tas instanceof TasDescendant) {
+				layDscL.add(new LayComponent(tas, i));
 			}
 		}
 		layL.addAll(layDscL);
@@ -123,10 +125,10 @@ public abstract class APlayScene extends MainScene {
 	 */
 	protected void initCardGame() {
 		cardL = new ArrayList<CardComponent>();
-		// TODO change mock data
-		for (int i = 0; i < 8; i++) {
-			cardL.add(new CardComponent(99 + i));
-		}
+		joueur.piocher(jeu);
+		joueur.getMain().forEach(carte -> {
+			cardL.add(new CardComponent(carte));
+		});
 	}
 
 	protected Node createTopPane(String modeName) {

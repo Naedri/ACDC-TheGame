@@ -1,5 +1,6 @@
 package view.component;
 
+import api.Carte;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,12 +17,15 @@ import view.constant.ColorApp;
 import view.constant.FontApp;
 import view.constant.RadiusApp;
 
-public class CardComponent extends ACardComponent {
+public class CardComponent extends ACardComponent implements IOneCard {
 
+	// TODO add an event listener to cardAPI change to update value of text
 	private Border border;
+	private Carte cardAPI;
 
-	public CardComponent(int value) {
-		super(Integer.toString(value));
+	public CardComponent(Carte cardAPI) {
+		super(Integer.toString(cardAPI.getValeur()));
+		this.cardAPI = cardAPI;
 		initBackground();
 		initBorder();
 		setStyle();
@@ -88,5 +92,15 @@ public class CardComponent extends ACardComponent {
 	@Override
 	public BorderStroke getBorderStrokes() {
 		return this.getBorder().getStrokes().get(0);
+	}
+
+	@Override
+	public Carte getCardAPI() {
+		return cardAPI;
+	}
+
+	@Override
+	public void setCardAPI(Carte cardAPI) {
+		this.cardAPI = cardAPI;
 	}
 }
