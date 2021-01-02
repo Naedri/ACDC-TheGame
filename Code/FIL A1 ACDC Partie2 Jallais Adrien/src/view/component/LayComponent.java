@@ -76,4 +76,9 @@ public class LayComponent extends CardComponent {
 
 		return dropShadow;
 	}
+
+	public void addingCard(CardComponent selectedCard) {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -27,6 +27,7 @@ import view.label.MainLabel;
 public abstract class MainScene extends Scene {
 	private BorderPane border;
 	private StackPane pane;
+	private boolean clikable = true;
 
 	public MainScene(Pane center) {
 		super(new BorderPane());
@@ -79,5 +80,13 @@ public abstract class MainScene extends Scene {
 	 */
 	public void triggerShow() {
 		// BY default do nothing
+	}
+
+	protected boolean isClickable() {
+		return clikable;
+	}
+
+	protected void setClickable(Boolean clickable) {
+		this.clikable = clickable;
 	}
 }

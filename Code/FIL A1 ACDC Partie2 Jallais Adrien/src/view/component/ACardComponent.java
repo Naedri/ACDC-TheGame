@@ -87,9 +87,7 @@ public abstract class ACardComponent extends Button implements ICardView {
 	 */
 	private void initSelectedObs() {
 		selectedObs = new SimpleBooleanProperty(false);
-
 		ChangeListener<Boolean> changeListener = new ChangeListener<Boolean>() {
-
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!selectedObs.getValue()) {

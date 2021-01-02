@@ -39,6 +39,8 @@ import view.component.ScoreComponent;
 import view.constant.ColorApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
+import view.exception.MissHandCardException;
+import view.exception.MissLayCardException;
 import view.label.MainLabel;
 
 /**
@@ -52,6 +54,12 @@ public abstract class APlayScene extends MainScene {
 	protected List<LayComponent> layAscL;
 	protected List<LayComponent> layL;
 	protected DrawComponent draw;
+	protected HandComponent hand;
+	protected ScoreComponent scoreP;
+	protected DialogComponent dialogP;
+
+	LayComponent selectedLay;
+	CardComponent selectedCard;
 
 	protected int score;
 	protected String dialog;
@@ -70,6 +78,9 @@ public abstract class APlayScene extends MainScene {
 		pane.setCenter(createCenterPane());
 		pane.setBottom(createBottomPane());
 		pane.setRight(createRightPane());
+		// adding effect
+		this.addActionLay();
+		this.addActionHand();
 		// BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 	}
 
@@ -141,9 +152,10 @@ public abstract class APlayScene extends MainScene {
 
 	protected Node createRightPane() {
 		// score
-		ScoreComponent scoreP = new ScoreComponent();
+		// TODO Check value with API
+		scoreP = new ScoreComponent(99);
 		// dialog
-		DialogComponent dialogP = new DialogComponent();
+		dialogP = new DialogComponent();
 		// merge
 		VBox pane = new VBox();
 		pane.getChildren().addAll(scoreP, dialogP);
@@ -159,7 +171,7 @@ public abstract class APlayScene extends MainScene {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 
 		// TODO Raw Value 0.2
-		HBox hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2);
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2);
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 
@@ -195,8 +207,6 @@ public abstract class APlayScene extends MainScene {
 			ascP.getChildren().add(layStack);
 		});
 		ascP.setAlignment(Pos.CENTER);
-		// adding effect
-		this.addActionLay();
 		// img
 		String pathPict = "src" + File.separator + "multimedia" + File.separator + "Castle_Transparent.png";
 		ImageView img;
@@ -211,7 +221,6 @@ public abstract class APlayScene extends MainScene {
 			img.setFitHeight(200);
 			img.setPreserveRatio(true);
 		}
-
 		// merge
 		VBox pane = new VBox();
 		pane.getChildren().addAll(descP, img, ascP);
@@ -228,16 +237,84 @@ public abstract class APlayScene extends MainScene {
 			lay.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					if (lay.isActive()) {
-						lay.switchActive();
-					} else {
-						layL.forEach(card -> {
-							card.setActive(false);
-						});
-						lay.setActive(true);
+					if (isClickable()) {
+						if (lay.isActive()) {
+							lay.switchActive();
+							selectedLay = null;
+						} else {
+							layL.forEach(card -> {
+								card.setActive(false);
+							});
+							lay.setActive(true);
+							selectedLay = lay;
+							System.out.println(Main.d.get("PLAY_human_choosen_card_lay"));
+							System.out.println(lay.getText());
+							try {
+								layingAction(lay);
+							} catch (Exception e) {
+								// TODO ajout to dialogs box
+								System.out.println(e.getMessage());
+							}
+						}
 					}
 				}
 			});
 		});
 	}
+
+	/**
+	 * adding a new event OnMouseClicked without overriding the super class
+	 * 
+	 * @source https://docs.oracle.com/javafx/2/events/handlers.htm
+	 */
+	protected void addActionHand() {
+		this.hand.getCardL().forEach(card -> {
+			card.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					System.out.println(Main.d.get("PLAY_human_choosen_card_hand"));
+					System.out.println(card.getText());
+					try {
+						layingAction(card);
+					} catch (Exception e) {
+						// TODO ajout to dialogs box
+						System.out.println(e.getMessage());
+					}
+				}
+			});
+		});
+	}
+
+	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
+		if (selectedCard instanceof LayComponent) {
+			if (this.hand.isCardSelected()) {
+				try {
+					// TODO requete api
+				} catch (Exception e) {
+					dialogP.setDialog(e.getMessage());
+				}
+				((LayComponent) selectedCard).addingCard(selectedLay);
+				this.hand.removeCard(this.hand.getCardSelected());
+				dialogP.setDialog(Main.d.get("PLAY_human_layed_card") + System.lineSeparator()
+						+ Main.d.get("PLAY_drawing_needed"));
+			} else {
+				throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
+			}
+		} else if (selectedCard instanceof CardComponent) {
+			if (selectedLay != null) {
+				try {
+					// TODO requete api
+				} catch (Exception e) {
+					dialogP.setDialog(e.getMessage());
+				}
+				this.selectedLay.addingCard(selectedCard);
+				this.hand.removeCard(selectedCard);
+				dialogP.setDialog(Main.d.get("PLAY_human_layed_card") + System.lineSeparator()
+						+ Main.d.get("PLAY_drawing_needed"));
+			} else {
+				throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
+			}
+		}
+	}
+
 }

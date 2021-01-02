@@ -24,7 +24,8 @@ import view.constant.RadiusApp;
 public class HandComponent extends HBox {
 	private List<CardComponent> cardL;
 	private List<StackPane> stackL;
-	private Boolean isOneCardActivated = false;
+	private CardComponent cardSelected = null;
+	private boolean clikable = true;
 
 	public HandComponent(List<CardComponent> listCard, double spacing) {
 		super(spacing);
@@ -50,13 +51,17 @@ public class HandComponent extends HBox {
 			card.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					if (card.isActive()) {
-						card.switchActive();
-					} else {
-						cardL.forEach(card -> {
-							card.setActive(false);
-						});
-						card.setActive(true);
+					if (isClickable()) {
+						if (card.isActive()) {
+							card.switchActive();
+							setCardSelected(null);
+						} else {
+							cardL.forEach(card -> {
+								card.setActive(false);
+							});
+							card.setActive(true);
+							setCardSelected(card);
+						}
 					}
 				}
 			});
@@ -66,16 +71,53 @@ public class HandComponent extends HBox {
 	private void initHand(List<CardComponent> listCard) {
 		this.cardL = listCard;
 		this.stackL = new ArrayList<StackPane>();
-		isOneCardActivated = false;
-
 		cardL.forEach(card -> {
 			StackPane sp = card.makeSupported();
 			this.stackL.add(sp);
 		});
-
 		stackL.forEach(stack -> {
 			this.getChildren().add(stack);
 		});
+	}
+
+	/**
+	 * @return the cardL
+	 */
+	public List<CardComponent> getCardL() {
+		return cardL;
+	}
+
+	protected boolean isClickable() {
+		return clikable;
+	}
+
+	protected void setClickable(Boolean clickable) {
+		this.clikable = clickable;
+	}
+
+	/**
+	 * @return the cardSelected
+	 */
+	public CardComponent getCardSelected() {
+		return cardSelected;
+	}
+
+	/**
+	 * @param cardSelected the cardSelected to set
+	 */
+	private void setCardSelected(CardComponent cardSelected) {
+		this.cardSelected = cardSelected;
+	}
+
+	/**
+	 * @return the isOneCardSelected
+	 */
+	public Boolean isCardSelected() {
+		return this.cardSelected != null;
+	}
+
+	public void removeCard(CardComponent cardSelected2) {
+		// TODO Auto-generated method stub
 
 	}
 }

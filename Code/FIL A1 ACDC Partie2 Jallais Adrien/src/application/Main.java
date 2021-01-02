@@ -46,7 +46,7 @@ public class Main extends Application {
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
 		mainStage.setHeight(primaryScreenBounds.getHeight() * 0.9);
-		mainStage.setResizable(false);
+		mainStage.setResizable(true);
 		mainStage.centerOnScreen();
 		mainStage.setScene(this.scene);
 		// primaryStage.onShowingProperty();
