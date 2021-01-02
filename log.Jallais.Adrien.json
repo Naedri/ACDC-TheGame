@@ -6,6 +6,14 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "17",
+            "date": "02/01/2021",
+            "travail": [
+                "piocher et déposer une carte de sa main en accord avec l'api",
+                "mise en place de nouvelle exception pour un meilleur dialogue"
+            ]
+        },
+        {
             "log_number": "16",
             "date": "01/01/2021",
             "travail": [
