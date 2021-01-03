@@ -116,8 +116,9 @@ public class HandComponent extends HBox {
 		return this.cardSelected != null;
 	}
 
-	public void removeCard(CardComponent cardSelected2) {
-		// TODO Auto-generated method stub
-
+	public void removeCard(CardComponent card) {
+		StackPane sp = card.makeSupported();
+		this.stackL.remove(sp);
+		cardL.remove(card);
 	}
 }
