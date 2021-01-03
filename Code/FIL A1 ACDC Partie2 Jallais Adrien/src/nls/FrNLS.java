@@ -57,6 +57,14 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_choose_card_lay", "Choisissez une pile de dépôt.");
 		this.d.put("PLAY_human_layed_card", "Vous avez déposé une carte.");
 
+		this.d.put("PLAY_human_turn_begin", "Un nouveau tour commence.");
+		this.d.put("PLAY_human_turn_end", "Votre tour va se terminer.");
+		this.d.put("PLAY_human_turn_end_bad",
+				"Vous n'avez pas poser assez de carte ce tour-ci, cliquez une seconde fois sur la pioche pour confirmer.");
+		this.d.put("PLAY_human_end_good", "Vous avez gagné.");
+		this.d.put("PLAY_human_end_bad", "Vous avez perdu.");
+		this.d.put("PLAY_info_restart", "Pour recommencer une partie : revenez au menu.");
+
 		// SCENE - PLAY - Exception message
 		this.d.put("PLAY_human_card_not_found",
 				"La valeur fournie ne correspond à aucune carte de la main du joueur indiqué.");

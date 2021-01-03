@@ -70,6 +70,8 @@ public abstract class APlayScene extends MainScene {
 	protected Joueur joueur;
 	protected Jeu jeu;
 
+	private int drawClick = 0;
+
 	/*
 	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
 	 * Pane botP;
@@ -283,6 +285,40 @@ public abstract class APlayScene extends MainScene {
 					}
 				}
 			});
+		});
+	}
+
+	/**
+	 * Allow to end its turn Event which checks if a card has been layed if no, ask
+	 * confirmation to end the game if so, draw card without asking confirmation
+	 */
+	protected void addActionDraw() {
+		this.draw.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				++drawClick;
+				if (jeu.nbCartesAJouer() > 0 && drawClick < 1) {
+					dialogP.setDialog(Main.d.get("PLAY_human_turn_end_bad"));
+				} else {
+					jeu.passerTour();
+					cardL = new ArrayList<CardComponent>();
+					joueur.getMain().forEach(carte -> {
+						cardL.add(new CardComponent(carte));
+					});
+					if (!jeu.isPartieFinie()) {
+						if (jeu.isVictoire()) {
+							dialogP.setDialog("PLAY_human_end_good");
+							dialogP.addDialog("PLAY_info_restart");
+						} else {
+							dialogP.setDialog("PLAY_human_end_bad");
+							dialogP.addDialog("PLAY_info_restart");
+						}
+					} else {
+						dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
+					}
+				}
+
+			}
 		});
 	}
 
