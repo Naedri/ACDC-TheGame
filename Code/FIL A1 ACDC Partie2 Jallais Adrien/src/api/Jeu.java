@@ -275,6 +275,14 @@ public class Jeu {
 	}
 
 	/**
+	 * 
+	 * @return si la victoire est atteinte ou non
+	 */
+	public Boolean isVictoire() {
+		return this.score() <= 0;
+	}
+
+	/**
 	 * Affichage (textuel) de la partie
 	 * 
 	 * @return String affichant la partie

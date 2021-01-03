@@ -41,6 +41,18 @@ arguments non homogènes -> plus facile si on avait juste une valeur de carte à
 pas de séparation en package
 deux fonctions Main -> un seul devrait être appellé un 
 
+#### Piles de dépôts initiées à 0 et non 1
+
+#### Piocher avec deux méthodes dans le main
+
+partie.passerTour();
+joueur.piocher(partie);
+le joueur peut il piocher si il a de la place dans sa main un nombre de cartes plus important que celui de la pioche ?
+
+#### Partie terminée mais pas de victoire ou de défaite
+
+On obtient seulement le score et pas la victoire ou non.
+
 ### Points positifs
 
 carteIA permettant d'associer un poids à une carte de manière durable
