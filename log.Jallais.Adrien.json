@@ -6,6 +6,15 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "18",
+            "date": "03/01/2021",
+            "travail": [
+                "reglage dépot de carte de sa main en accord avec l'api",
+                "deselection des cartes lorsqu'un mauvais coup arrive",
+                "termine le tour avec une action sur la pioche,voir le jeur si besoin"
+            ]
+        },
+        {
             "log_number": "17",
             "date": "02/01/2021",
             "travail": [
