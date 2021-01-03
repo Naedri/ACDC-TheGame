@@ -56,15 +56,19 @@ public class HandComponent extends HBox {
 							card.switchActive();
 							setCardSelected(null);
 						} else {
-							cardL.forEach(card -> {
-								card.setActive(false);
-							});
+							unSelectCard();
 							card.setActive(true);
 							setCardSelected(card);
 						}
 					}
 				}
 			});
+		});
+	}
+
+	public void unSelectCard() {
+		this.cardL.forEach(card -> {
+			card.setActive(false);
 		});
 	}
 
@@ -105,7 +109,7 @@ public class HandComponent extends HBox {
 	/**
 	 * @param cardSelected the cardSelected to set
 	 */
-	private void setCardSelected(CardComponent cardSelected) {
+	public void setCardSelected(CardComponent cardSelected) {
 		this.cardSelected = cardSelected;
 	}
 

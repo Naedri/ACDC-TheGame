@@ -26,17 +26,17 @@ public class CardComponent extends ACardComponent implements IOneCard {
 
 	private Border border;
 	private Carte cardAPI;
-	private StringProperty carteObs;
+	private StringProperty carteObsString;
+	private ObservableValue<Number> carteObs;
+	private ChangeListener<Number> carteListener;
 
 	public CardComponent(Carte cardAPI) {
 		super(Integer.toString(cardAPI.getValeur()));
 		this.cardAPI = cardAPI;
-		initCarteObs();
 		initBackground();
 		initBorder();
 		setStyle();
-		carteObs = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
-		this.textProperty().bind(carteObs);
+		initCarteObs();
 	}
 
 	private void initBorder() {
@@ -72,22 +72,21 @@ public class CardComponent extends ACardComponent implements IOneCard {
 	 */
 
 	private void initCarteObs() {
-		carteObs = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
-		this.textProperty().bind(carteObs);
-		ObservableValue<Integer> obsInt = new SimpleIntegerProperty(this.getCardAPI().getValeur()).asObject();
-		ChangeListener<Integer> carteListener = new ChangeListener<Integer>() {
+		this.carteObsString = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
+		this.textProperty().bind(carteObsString);
+		this.carteObs = new SimpleIntegerProperty(this.getCardAPI().getValeur());
+		this.carteListener = new ChangeListener<Number>() {
 			@Override
-			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-				setText(String.valueOf(carteObs.getValue()));
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				setText(String.valueOf(observable.getValue()));
 			}
-
 		};
-		obsInt.addListener(carteListener);
+		carteObs.addListener(carteListener);
 	}
 
 	@Override
-	public StringProperty getCarteObs() {
-		return carteObs;
+	public SimpleIntegerProperty getCarteObs() {
+		return (SimpleIntegerProperty) carteObs;
 	}
 
 	@Override

@@ -89,6 +89,7 @@ public abstract class APlayScene extends MainScene {
 		// adding effect
 		this.addActionLay();
 		this.addActionHand();
+		this.addActionDraw();
 		// BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 	}
 
@@ -249,7 +250,7 @@ public abstract class APlayScene extends MainScene {
 							lay.switchActive();
 							selectedLay = null;
 						} else {
-							unselectingLays();
+							unSelectLays();
 							lay.setActive(true);
 							selectedLay = lay;
 							System.out.println(Main.d.get("PLAY_human_choosen_card_lay"));
@@ -297,6 +298,8 @@ public abstract class APlayScene extends MainScene {
 			@Override
 			public void handle(MouseEvent event) {
 				++drawClick;
+				unSelectLays();
+				hand.unSelectCard();
 				if (jeu.nbCartesAJouer() > 0 && drawClick < 1) {
 					dialogP.setDialog(Main.d.get("PLAY_human_turn_end_bad"));
 				} else {
@@ -307,53 +310,34 @@ public abstract class APlayScene extends MainScene {
 					});
 					if (!jeu.isPartieFinie()) {
 						if (jeu.isVictoire()) {
-							dialogP.setDialog("PLAY_human_end_good");
-							dialogP.addDialog("PLAY_info_restart");
+							dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
+							dialogP.addDialog(Main.d.get("PLAY_info_restart"));
 						} else {
-							dialogP.setDialog("PLAY_human_end_bad");
-							dialogP.addDialog("PLAY_info_restart");
+							dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
+							dialogP.addDialog(Main.d.get("PLAY_info_restart"));
 						}
 					} else {
 						dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
 					}
 				}
-
 			}
 		});
 	}
 
 	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
-		if (selectedCard instanceof LayComponent) {
-			LayComponent lay = (LayComponent) selectedCard;
-			if (this.hand.isCardSelected()) {
-				dialogP.clearDialog();
-				try {
-					jeu.jouer(lay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
-				} catch (Exception e) {
-					dialogP.addDialog(e.getMessage());
-					return;
-				}
-				lay.setCardAPI(selectedLay.getCardAPI());
-				unselectingLays();
-				this.hand.removeCard(this.hand.getCardSelected());
-				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-				this.scoreP.setScoreT(jeu.score());
-			} else {
-				throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
-			}
-		} else if (selectedCard instanceof CardComponent) {
+		if (selectedCard instanceof CardComponent) {
 			if (selectedLay != null) {
 				dialogP.clearDialog();
 				try {
 					jeu.jouer(selectedLay.getIndex(), selectedCard.getCardAPI(), joueur);
 				} catch (Exception e) {
-					dialogP.addDialog(e.getMessage());
+					dialogP.setDialog(e.getMessage());
+					unSelectAll();
 					return;
 				}
-				this.selectedLay.setCardAPI(selectedCard.getCardAPI());
-				unselectingLays();
-				this.hand.removeCard(selectedCard);
+				selectedLay.setCardAPI(selectedCard.getCardAPI());
+				hand.removeCard(selectedCard);
+				unSelectAll();
 				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 				this.scoreP.setScoreT(jeu.score());
@@ -361,13 +345,58 @@ public abstract class APlayScene extends MainScene {
 				throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 			}
 		}
-
 	}
 
-	private void unselectingLays() {
+	protected void layingAction(LayComponent selectedCard) throws MissHandCardException, MissLayCardException {
+		if (selectedCard instanceof LayComponent) {
+			LayComponent lay = (LayComponent) selectedCard;
+			if (this.hand.isCardSelected()) {
+				dialogP.clearDialog();
+				try {
+					jeu.jouer(lay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
+				} catch (Exception e) {
+					dialogP.setDialog(e.getMessage());
+					unSelectAll();
+					return;
+				}
+				lay.setCardAPI(selectedLay.getCardAPI());
+				hand.removeCard(this.hand.getCardSelected());
+				unSelectAll();
+				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+				this.scoreP.setScoreT(jeu.score());
+			} else {
+				throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
+			}
+		}
+	}
+
+	private void unSelectLays() {
 		this.layL.forEach(card -> {
 			card.setActive(false);
 		});
+	}
+
+	/**
+	 * @param selectedLay the selectedLay to set
+	 */
+	private void setSelectedLay(LayComponent selectedLay) {
+		this.selectedLay = selectedLay;
+	}
+
+	/**
+	 * @param selectedCard the selectedCard to set
+	 */
+	private void setSelectedCard(CardComponent selectedCard) {
+		this.selectedCard = selectedCard;
+	}
+
+	private void unSelectAll() {
+		setSelectedLay(null);
+		setSelectedCard(null);
+		hand.setCardSelected(null);
+		unSelectLays();
+		hand.unSelectCard();
 	}
 
 	/**
