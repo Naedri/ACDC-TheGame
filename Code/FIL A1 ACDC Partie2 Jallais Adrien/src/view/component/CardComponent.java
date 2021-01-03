@@ -1,6 +1,11 @@
 package view.component;
 
 import api.Carte;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,16 +24,19 @@ import view.constant.RadiusApp;
 
 public class CardComponent extends ACardComponent implements IOneCard {
 
-	// TODO add an event listener to cardAPI change to update value of text
 	private Border border;
 	private Carte cardAPI;
+	private StringProperty carteObs;
 
 	public CardComponent(Carte cardAPI) {
 		super(Integer.toString(cardAPI.getValeur()));
 		this.cardAPI = cardAPI;
+		initCarteObs();
 		initBackground();
 		initBorder();
 		setStyle();
+		carteObs = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
+		this.textProperty().bind(carteObs);
 	}
 
 	private void initBorder() {
@@ -47,7 +55,7 @@ public class CardComponent extends ACardComponent implements IOneCard {
 	}
 
 	private void setStyle() {
-		// TODO raw value
+		// TODO change raw value
 		this.setPrefSize(60, 100);
 		this.setFont(FontApp.MEDIUM.getFont());
 		this.setWrapText(true);
@@ -55,6 +63,34 @@ public class CardComponent extends ACardComponent implements IOneCard {
 		this.setBorder(border);
 	}
 
+	/**
+	 * To init a String Observable value (SimpleStringProperty) and To add a
+	 * listener on this value (selectedListener) and To define the actions
+	 * associated to the observable change made by the listener (setText)
+	 * 
+	 * @source https://edencoding.com/javafx-properties-and-binding-a-complete-guide/#bindings
+	 */
+
+	private void initCarteObs() {
+		carteObs = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
+		this.textProperty().bind(carteObs);
+		ObservableValue<Integer> obsInt = new SimpleIntegerProperty(this.getCardAPI().getValeur()).asObject();
+		ChangeListener<Integer> carteListener = new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+				setText(String.valueOf(carteObs.getValue()));
+			}
+
+		};
+		obsInt.addListener(carteListener);
+	}
+
+	@Override
+	public StringProperty getCarteObs() {
+		return carteObs;
+	}
+
+	@Override
 	public StackPane makeSupported() {
 		StackPane sp = new StackPane();
 		sp.getChildren().addAll(this.makeSupport(), this);

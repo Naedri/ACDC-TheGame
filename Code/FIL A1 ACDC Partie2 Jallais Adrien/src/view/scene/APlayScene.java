@@ -247,9 +247,7 @@ public abstract class APlayScene extends MainScene {
 							lay.switchActive();
 							selectedLay = null;
 						} else {
-							layL.forEach(card -> {
-								card.setActive(false);
-							});
+							unselectingLays();
 							lay.setActive(true);
 							selectedLay = lay;
 							System.out.println(Main.d.get("PLAY_human_choosen_card_lay"));
@@ -290,15 +288,17 @@ public abstract class APlayScene extends MainScene {
 
 	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
 		if (selectedCard instanceof LayComponent) {
+			LayComponent lay = (LayComponent) selectedCard;
 			if (this.hand.isCardSelected()) {
 				dialogP.clearDialog();
 				try {
-					this.jouer(selectedLay.getIndex(), Integer.parseInt(selectedCard.getText()), joueur);
+					jeu.jouer(lay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
 				} catch (Exception e) {
 					dialogP.addDialog(e.getMessage());
 					return;
 				}
-				((LayComponent) selectedCard).addingCard(selectedLay);
+				lay.setCardAPI(selectedLay.getCardAPI());
+				unselectingLays();
 				this.hand.removeCard(this.hand.getCardSelected());
 				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
@@ -310,12 +310,13 @@ public abstract class APlayScene extends MainScene {
 			if (selectedLay != null) {
 				dialogP.clearDialog();
 				try {
-					this.jouer(selectedLay.getIndex(), Integer.parseInt(selectedCard.getText()), joueur);
+					jeu.jouer(selectedLay.getIndex(), selectedCard.getCardAPI(), joueur);
 				} catch (Exception e) {
 					dialogP.addDialog(e.getMessage());
 					return;
 				}
-				this.selectedLay.addingCard(selectedCard);
+				this.selectedLay.setCardAPI(selectedCard.getCardAPI());
+				unselectingLays();
 				this.hand.removeCard(selectedCard);
 				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
@@ -324,6 +325,13 @@ public abstract class APlayScene extends MainScene {
 				throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 			}
 		}
+
+	}
+
+	private void unselectingLays() {
+		this.layL.forEach(card -> {
+			card.setActive(false);
+		});
 	}
 
 	/**

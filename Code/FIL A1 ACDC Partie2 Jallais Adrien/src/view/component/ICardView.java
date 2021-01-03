@@ -3,6 +3,7 @@
  */
 package view.component;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -16,7 +17,6 @@ import javafx.scene.text.Font;
  *
  */
 public interface ICardView {
-
 	public Font getFont();
 
 	public BorderStroke getBorderStrokes();
@@ -54,5 +54,7 @@ public interface ICardView {
 	public void switchActive();
 
 	public void setActive(Boolean selected);
+
+	public SimpleBooleanProperty getActiveObs();
 
 }
