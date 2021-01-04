@@ -9,9 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.ActionIllegaleException;
-import api.Carte;
-import api.CoupInvalideException;
 import api.Jeu;
 import api.Joueur;
 import api.Tas;
@@ -70,8 +67,6 @@ public abstract class APlayScene extends MainScene {
 	protected Joueur joueur;
 	protected Jeu jeu;
 
-	private int drawClick = 0;
-
 	/*
 	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
 	 * Pane botP;
@@ -81,6 +76,7 @@ public abstract class APlayScene extends MainScene {
 		super(new BorderPane());
 		initGame(joueurs, pathDeck);
 		pane = (BorderPane) (super.getPane());
+		// setting pane
 		pane.setTop(createTopPane(modeName));
 		pane.setLeft(createLeftPane());
 		pane.setCenter(createCenterPane());
@@ -127,11 +123,8 @@ public abstract class APlayScene extends MainScene {
 	 * interaction with API to draw cards
 	 */
 	protected void initCardGame() {
-		cardL = new ArrayList<CardComponent>();
 		joueur.piocher(jeu);
-		joueur.getMain().forEach(carte -> {
-			cardL.add(new CardComponent(carte));
-		});
+		updateCardL();
 	}
 
 	protected Node createTopPane(String modeName) {
@@ -297,18 +290,15 @@ public abstract class APlayScene extends MainScene {
 		this.draw.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				++drawClick;
 				unSelectLays();
 				hand.unSelectCard();
-				if (jeu.nbCartesAJouer() > 0 && drawClick < 1) {
-					dialogP.setDialog(Main.d.get("PLAY_human_turn_end_bad"));
+				if (jeu.nbCartesAJouer() > 0) {
+					dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
 				} else {
 					jeu.passerTour();
-					cardL = new ArrayList<CardComponent>();
-					joueur.getMain().forEach(carte -> {
-						cardL.add(new CardComponent(carte));
-					});
-					if (!jeu.isPartieFinie()) {
+					updateCardL();
+					updateHandPane();
+					if (jeu.isPartieFinie()) {
 						if (jeu.isVictoire()) {
 							dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
 							dialogP.addDialog(Main.d.get("PLAY_info_restart"));
@@ -324,50 +314,58 @@ public abstract class APlayScene extends MainScene {
 		});
 	}
 
+	protected void updateCardL() {
+		cardL = new ArrayList<CardComponent>();
+		joueur.getMain().forEach(carte -> {
+			cardL.add(new CardComponent(carte));
+		});
+	}
+
+	protected void updateHandPane() {
+		pane.setBottom(createBottomPane());
+		addActionHand();
+		addActionDraw();
+	}
+
 	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
-		if (selectedCard instanceof CardComponent) {
-			if (selectedLay != null) {
-				dialogP.clearDialog();
-				try {
-					jeu.jouer(selectedLay.getIndex(), selectedCard.getCardAPI(), joueur);
-				} catch (Exception e) {
-					dialogP.setDialog(e.getMessage());
-					unSelectAll();
-					return;
-				}
-				selectedLay.setCardAPI(selectedCard.getCardAPI());
-				hand.removeCard(selectedCard);
+		if (selectedLay != null) {
+			dialogP.clearDialog();
+			try {
+				jeu.jouer(selectedLay.getIndex(), selectedCard.getCardAPI(), joueur);
+			} catch (Exception e) {
+				dialogP.setDialog(e.getMessage());
 				unSelectAll();
-				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-				this.scoreP.setScoreT(jeu.score());
-			} else {
-				throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
+				return;
 			}
+			selectedLay.setCardAPI(selectedCard.getCardAPI());
+			hand.removeCard(selectedCard);
+			unSelectAll();
+			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+			this.scoreP.setScoreT(jeu.score());
+		} else {
+			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 		}
 	}
 
-	protected void layingAction(LayComponent selectedCard) throws MissHandCardException, MissLayCardException {
-		if (selectedCard instanceof LayComponent) {
-			LayComponent lay = (LayComponent) selectedCard;
-			if (this.hand.isCardSelected()) {
-				dialogP.clearDialog();
-				try {
-					jeu.jouer(lay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
-				} catch (Exception e) {
-					dialogP.setDialog(e.getMessage());
-					unSelectAll();
-					return;
-				}
-				lay.setCardAPI(selectedLay.getCardAPI());
-				hand.removeCard(this.hand.getCardSelected());
+	protected void layingAction(LayComponent selectedLay) throws MissHandCardException, MissLayCardException {
+		if (this.hand.isCardSelected()) {
+			dialogP.clearDialog();
+			try {
+				jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
+			} catch (Exception e) {
+				dialogP.setDialog(e.getMessage());
 				unSelectAll();
-				dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-				dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-				this.scoreP.setScoreT(jeu.score());
-			} else {
-				throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
+				return;
 			}
+			selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
+			hand.removeCard(this.hand.getCardSelected());
+			unSelectAll();
+			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+			this.scoreP.setScoreT(jeu.score());
+		} else {
+			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
 		}
 	}
 
@@ -397,30 +395,7 @@ public abstract class APlayScene extends MainScene {
 		hand.setCardSelected(null);
 		unSelectLays();
 		hand.unSelectCard();
+		setSelectedLay(null);
+		setSelectedCard(null);
 	}
-
-	/**
-	 * Retrouve une carte à partir de sa valeur pour la jouer sur un tas spécifique
-	 * 
-	 * @param tasId  Numero du tas (visible via l'affichage)
-	 * @param carte  Valeur de la carte à jouer depuis la main du joueur
-	 *               indiqué(doit faire partie du jeu)
-	 * @param joueur Joueur effectuant l'action
-	 * @throws ActionIllegaleException, CoupInvalideException
-	 */
-	protected void jouer(int tasId, int carte, Joueur joueur)
-			throws ActionIllegaleException, ActionIllegaleException, CoupInvalideException {
-		Carte carteJouee = null;
-		for (Carte c : joueur.getMain()) {
-			if (c.getValeur() == carte) {
-				carteJouee = c;
-				break;
-			}
-		}
-		if (carteJouee == null) {
-			throw new ActionIllegaleException(Main.d.get("PLAY_human_card_not_found"));
-		}
-		this.jeu.jouer(tasId, carteJouee, joueur);
-	}
-
 }

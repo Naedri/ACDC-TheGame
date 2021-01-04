@@ -1,7 +1,6 @@
 package view.component;
 
 import api.Carte;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,9 +25,8 @@ public class CardComponent extends ACardComponent implements IOneCard {
 
 	private Border border;
 	private Carte cardAPI;
-	private StringProperty carteObsString;
-	private ObservableValue<Number> carteObs;
-	private ChangeListener<Number> carteListener;
+	private StringProperty carteTextObs;
+	private ChangeListener<String> carteTextListener;
 
 	public CardComponent(Carte cardAPI) {
 		super(Integer.toString(cardAPI.getValeur()));
@@ -72,21 +70,19 @@ public class CardComponent extends ACardComponent implements IOneCard {
 	 */
 
 	private void initCarteObs() {
-		this.carteObsString = new SimpleStringProperty(String.valueOf(this.getCardAPI().getValeur()));
-		this.textProperty().bind(carteObsString);
-		this.carteObs = new SimpleIntegerProperty(this.getCardAPI().getValeur());
-		this.carteListener = new ChangeListener<Number>() {
+		this.carteTextObs = new SimpleStringProperty(Integer.toString(this.getCardAPI().getValeur()));
+		this.carteTextListener = new ChangeListener<String>() {
 			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				setText(String.valueOf(observable.getValue()));
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				setText(observable.getValue());
 			}
 		};
-		carteObs.addListener(carteListener);
+		carteTextObs.addListener(carteTextListener);
 	}
 
 	@Override
-	public SimpleIntegerProperty getCarteObs() {
-		return (SimpleIntegerProperty) carteObs;
+	public StringProperty getCarteObs() {
+		return carteTextObs;
 	}
 
 	@Override
@@ -137,5 +133,6 @@ public class CardComponent extends ACardComponent implements IOneCard {
 	@Override
 	public void setCardAPI(Carte cardAPI) {
 		this.cardAPI = cardAPI;
+		carteTextObs.setValue(Integer.toString(cardAPI.getValeur()));
 	}
 }

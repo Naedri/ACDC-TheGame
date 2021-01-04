@@ -59,8 +59,7 @@ public final class FrNLS extends DefaultNLS {
 
 		this.d.put("PLAY_human_turn_begin", "Un nouveau tour commence.");
 		this.d.put("PLAY_human_turn_end", "Votre tour va se terminer.");
-		this.d.put("PLAY_human_turn_end_bad",
-				"Vous n'avez pas poser assez de carte ce tour-ci, cliquez une seconde fois sur la pioche pour confirmer.");
+		this.d.put("PLAY_human_can_not_draw", "Vous n'avez pas posé suffisament de cartes ce tour-ci, pour piocher.");
 		this.d.put("PLAY_human_end_good", "Vous avez gagné.");
 		this.d.put("PLAY_human_end_bad", "Vous avez perdu.");
 		this.d.put("PLAY_info_restart", "Pour recommencer une partie : revenez au menu.");

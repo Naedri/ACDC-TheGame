@@ -22,6 +22,7 @@ public abstract class ACardComponent extends Button implements ICardView {
 	private Background backgroundHover;
 
 	private SimpleBooleanProperty selectedObs;
+	private ChangeListener<Boolean> selectedListener;
 
 	public ACardComponent() {
 		super();
@@ -35,7 +36,6 @@ public abstract class ACardComponent extends Button implements ICardView {
 		initBackground();
 		initSelectedObs();
 		setMouseHoverAction();
-
 	}
 
 	public ACardComponent(String text) {
@@ -89,7 +89,7 @@ public abstract class ACardComponent extends Button implements ICardView {
 	 */
 	private void initSelectedObs() {
 		selectedObs = new SimpleBooleanProperty(false);
-		ChangeListener<Boolean> selectedListener = new ChangeListener<Boolean>() {
+		selectedListener = new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!selectedObs.getValue()) {

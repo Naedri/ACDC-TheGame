@@ -4,7 +4,7 @@
 package view.component;
 
 import api.Carte;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author Adrien Jallais
@@ -15,6 +15,6 @@ public interface IOneCard {
 
 	public void setCardAPI(Carte cardAPI);
 
-	public SimpleIntegerProperty getCarteObs();
+	public StringProperty getCarteObs();
 
 }

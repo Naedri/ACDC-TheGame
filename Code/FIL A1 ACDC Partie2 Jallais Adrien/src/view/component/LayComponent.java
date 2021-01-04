@@ -19,15 +19,12 @@ public class LayComponent extends CardComponent {
 	Color col;
 	Color colShadow;
 	private int index;
-	// private Tas tas;
 
 	public LayComponent(Tas tas, int indexFromGame) {
 		super(tas.getDerniereCarte());
-		// this.tas = tas;
 		this.index = indexFromGame;
 		this.col = getInitColor(tas);
 		this.colShadow = getInitColor(tas);
-
 	}
 
 	private Color getInitColor(Tas tas) {
@@ -85,13 +82,6 @@ public class LayComponent extends CardComponent {
 
 		return dropShadow;
 	}
-
-	/*
-	 * public void setCardAPI(CardComponent selectedCard) { // TODO erase if event
-	 * listener added //
-	 * this.setText(String.valueOf(selectedCard.getCardAPI().getValeur())); //
-	 * this.setCardAPI(selectedCard.getCardAPI()); }
-	 */
 
 	/**
 	 * @return the index defined at creation
