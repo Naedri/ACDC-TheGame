@@ -12,7 +12,7 @@ public class TasAscendant extends Tas implements ITas {
 			return super.getDerniereCarte();
 		}
 
-		return new Carte(0);
+		return new Carte(1);
 	}
 
 	/**
