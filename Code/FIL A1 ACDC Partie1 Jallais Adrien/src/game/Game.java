@@ -31,6 +31,7 @@ public class Game implements IGame {
 	private boolean stop;
 	int choiceQuitTurn = 1;
 	int choiceQuitGame = 1;
+	private int cardsLayed = 0;
 
 	public Game(IDrawPile _draw, List<IHand> _hands, List<ILayPile> _lays) {
 		this.draw = _draw;
@@ -251,10 +252,13 @@ public class Game implements IGame {
 	 */
 	private int draw() {
 		int drawedCards = 0;
-		while (!this.hand.isFull() && !this.draw.isEmpty()) {
-			ICard c = draw.draw();
-			this.hand.add(c);
-			++drawedCards;
+		if (this.cardsLayed < ServiceRules.getNumberOfCardByTurn()) {
+			while (!this.hand.isFull() && !this.draw.isEmpty()) {
+				ICard c = draw.draw();
+				this.hand.add(c);
+				++drawedCards;
+			}
+			this.cardsLayed = 0;
 		}
 		return drawedCards;
 	}
@@ -420,12 +424,16 @@ public class Game implements IGame {
 							System.out.println("Your hand is empty, your turn ends.");
 							break;
 						} else {
-							System.out.println(
-									"If you wish to continue trying to place cards, press 0; otherwise type 1.");
-							choiceTurn = ServiceUser.setChoice(0, 1);
-							if (choiceTurn == 1) {
-								// end turn
-								break;
+							if (this.cardsLayed < ServiceRules.getNumberOfCardByTurn()) {
+								System.out.println("You still have to lay cards before to be allowed to draw.");
+							} else {
+								System.out.println(
+										"If you wish to continue trying to place cards, press 0; otherwise type 1.");
+								choiceTurn = ServiceUser.setChoice(0, 1);
+								if (choiceTurn == 1) {
+									// end turn
+									break;
+								}
 							}
 						}
 					} else {

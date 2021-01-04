@@ -5,13 +5,13 @@ package services;
  * @source https://stackoverflow.com/questions/7486012/static-classes-in-java
  */
 public final class ServiceRules {
-	private final static int handLength = 5;
 	private final static int playerNumber = 1;
 	// private final static int[] cardRange = new int[] { 10, 20 };
 	private final static int[] cardRange = new int[] { 1, 100 };
 	private final static int numberDrawPile = 1; // there is also a singleton pattern
 	private final static int numberDescendingPile = 2;
 	private final static int numberAscendingPile = 2;
+	private final static int numberOfCardByTurn = 2;
 
 	/**
 	 * @return the playerNumber
@@ -24,7 +24,20 @@ public final class ServiceRules {
 	 * @return the handLength number of card in the hand of ONE player
 	 */
 	public static int getHandLength() {
-		return ServiceRules.handLength;
+		int nbCardMax;
+
+		switch (ServiceRules.getPlayerNumber()) {
+		case 1:
+			nbCardMax = 8;
+			break;
+		case 2:
+			nbCardMax = 7;
+			break;
+		default:
+			nbCardMax = 6;
+			break;
+		}
+		return nbCardMax;
 	}
 
 	/**
@@ -100,5 +113,12 @@ public final class ServiceRules {
 		// there is one card on each laying piles
 		return (ServiceRules.getDrawPileSize() + ServiceRules.getNumberAscendingPile()
 				+ ServiceRules.getNumberDescendingPile());
+	}
+
+	/**
+	 * @return the numberofcardbyturn
+	 */
+	public static int getNumberOfCardByTurn() {
+		return numberOfCardByTurn;
 	}
 }
