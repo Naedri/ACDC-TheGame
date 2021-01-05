@@ -67,6 +67,8 @@ public abstract class APlayScene extends MainScene {
 	protected Joueur joueur;
 	protected Jeu jeu;
 
+	protected boolean running = true;
+
 	/*
 	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
 	 * Pane botP;
@@ -238,7 +240,7 @@ public abstract class APlayScene extends MainScene {
 			lay.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					if (isClickable()) {
+					if (lay.isClickable()) {
 						if (lay.isActive()) {
 							lay.switchActive();
 							selectedLay = null;
@@ -246,6 +248,7 @@ public abstract class APlayScene extends MainScene {
 							unSelectLays();
 							lay.setActive(true);
 							selectedLay = lay;
+							// TODO erase
 							System.out.println(Main.d.get("PLAY_human_choosen_card_lay"));
 							System.out.println(lay.getText());
 							try {
@@ -270,12 +273,15 @@ public abstract class APlayScene extends MainScene {
 			card.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					System.out.println(Main.d.get("PLAY_human_choosen_card_hand"));
-					System.out.println(card.getText());
-					try {
-						layingAction(card);
-					} catch (Exception e) {
-						dialogP.setDialog(e.getMessage());
+					if (hand.isClickable()) {
+						// TODO erase
+						System.out.println(Main.d.get("PLAY_human_choosen_card_hand"));
+						System.out.println(card.getText());
+						try {
+							layingAction(card);
+						} catch (Exception e) {
+							dialogP.setDialog(e.getMessage());
+						}
 					}
 				}
 			});
@@ -290,24 +296,21 @@ public abstract class APlayScene extends MainScene {
 		this.draw.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				unSelectLays();
-				hand.unSelectCard();
-				if (jeu.nbCartesAJouer() > 0) {
-					dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
-				} else {
-					jeu.passerTour();
-					updateCardL();
-					updateHandPane();
-					if (jeu.isPartieFinie()) {
-						if (jeu.isVictoire()) {
-							dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
-							dialogP.addDialog(Main.d.get("PLAY_info_restart"));
-						} else {
-							dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
-							dialogP.addDialog(Main.d.get("PLAY_info_restart"));
-						}
+				if (draw.isClickable()) {
+					unSelectLays();
+					hand.unSelectCard();
+					if (jeu.nbCartesAJouer() > 0) {
+						dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
 					} else {
-						dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
+						jeu.passerTour();
+						updateCardL();
+						updateHandPane();
+						if (jeu.isPartieFinie()) {
+							disablePlaying();
+							setDialogsResult();
+						} else {
+							dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
+						}
 					}
 				}
 			}
@@ -343,6 +346,12 @@ public abstract class APlayScene extends MainScene {
 			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(jeu.score());
+			if (jeu.isPartieFinie()) {
+				// TODO Erase syso
+				System.out.println(jeu.isPartieFinie());
+				disablePlaying();
+				setDialogsResult();
+			}
 		} else {
 			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 		}
@@ -364,6 +373,12 @@ public abstract class APlayScene extends MainScene {
 			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(jeu.score());
+			if (jeu.isPartieFinie()) {
+				// TODO Erase syso
+				System.out.println(jeu.isPartieFinie());
+				disablePlaying();
+				setDialogsResult();
+			}
 		} else {
 			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
 		}
@@ -397,5 +412,26 @@ public abstract class APlayScene extends MainScene {
 		hand.unSelectCard();
 		setSelectedLay(null);
 		setSelectedCard(null);
+	}
+
+	/**
+	 * Disable all Click events added to game component
+	 */
+	private void disablePlaying() {
+		layL.forEach(lay -> {
+			lay.setClickable(false);
+		});
+		draw.setClickable(false);
+		hand.setClickable(false);
+	}
+
+	private void setDialogsResult() {
+		if (jeu.isVictoire()) {
+			dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
+			dialogP.addDialog(Main.d.get("PLAY_info_restart"));
+		} else {
+			dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
+			dialogP.addDialog(Main.d.get("PLAY_info_restart"));
+		}
 	}
 }
