@@ -121,7 +121,7 @@ public class Jeu {
 	 * @param joueur Joueur effectuant l'action
 	 */
 	public void jouer(int tasId, Carte carte, Joueur joueur) throws CoupInvalideException, ActionIllegaleException {
-		if (joueur != this.joueurs.get(this.tour)) {
+		if (joueur != getJoueurActuel()) {
 			throw new ActionIllegaleException("Ce n'est pas votre tour !");
 		}
 
@@ -142,6 +142,13 @@ public class Jeu {
 		}
 
 		this.nbCartesTour++;
+	}
+
+	/**
+	 * Obtenir le joueur qui doit jouer ce tour-ci
+	 */
+	private Joueur getJoueurActuel() {
+		return this.joueurs.get(this.tour % this.joueurs.size());
 	}
 
 	/**
@@ -189,7 +196,7 @@ public class Jeu {
 	}
 
 	/**
-	 * Determiner si un joueur ne peut plus jouer, si oui, la partie s'arrete
+	 * Determiner si le joueur actuel ne peut plus jouer, si oui, la partie s'arrete
 	 * 
 	 * @return true si la partie s'arrete, false si non
 	 */
@@ -198,20 +205,17 @@ public class Jeu {
 			return true;
 		}
 
-		int nbCartesAPoser = (this.pioche.getCartes().size() == 0) ? 1 : 2;
-
-		for (Joueur joueur : this.joueurs) {
-			int nbCoupsPossibles = 0;
-			for (Carte carte : joueur.getMain()) {
-				for (Tas tas : this.getTas()) {
-					nbCoupsPossibles = tas.isCoupValide(carte) ? nbCoupsPossibles + 1 : nbCoupsPossibles;
-				}
+		Joueur joueur = this.getJoueurActuel();
+		int nbCoupsPossibles = 0;
+		for (Carte carte : joueur.getMain()) {
+			for (Tas tas : this.getTas()) {
+				nbCoupsPossibles = tas.isCoupValide(carte) ? nbCoupsPossibles + 1 : nbCoupsPossibles;
 			}
+		}
 
-			if (nbCoupsPossibles < nbCartesAPoser) {
-				this.partieFinie = true;
-				return true;
-			}
+		if (nbCoupsPossibles < nbCartesAJouer()) {
+			this.partieFinie = true;
+			return true;
 		}
 
 		return false;
