@@ -21,7 +21,7 @@ import view.constant.RadiusApp;
  * @author Adrien Jallais
  *
  */
-public class HandComponent extends HBox {
+public class HandComponent extends HBox implements IClickable {
 	private List<CardComponent> cardL;
 	private List<StackPane> stackL;
 	private CardComponent cardSelected = null;
@@ -91,14 +91,6 @@ public class HandComponent extends HBox {
 		return cardL;
 	}
 
-	protected boolean isClickable() {
-		return clikable;
-	}
-
-	protected void setClickable(Boolean clickable) {
-		this.clikable = clickable;
-	}
-
 	/**
 	 * @return the cardSelected
 	 */
@@ -125,4 +117,15 @@ public class HandComponent extends HBox {
 		this.stackL.remove(sp);
 		cardL.remove(card);
 	}
+
+	@Override
+	public boolean isClickable() {
+		return clikable;
+	}
+
+	@Override
+	public void setClickable(Boolean clickable) {
+		this.clikable = clickable;
+	}
+
 }

@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
  * @author Adrien Jallais
  *
  */
-public interface ICardView {
+public interface ICardView extends IClickable {
 	public Font getFont();
 
 	public BorderStroke getBorderStrokes();
@@ -56,5 +56,4 @@ public interface ICardView {
 	public void setActive(Boolean selected);
 
 	public SimpleBooleanProperty getActiveObs();
-
 }

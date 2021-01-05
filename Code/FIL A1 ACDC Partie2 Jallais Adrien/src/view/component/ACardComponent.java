@@ -24,6 +24,8 @@ public abstract class ACardComponent extends Button implements ICardView {
 	private SimpleBooleanProperty selectedObs;
 	private ChangeListener<Boolean> selectedListener;
 
+	private boolean clikable = true;
+
 	public ACardComponent() {
 		super();
 		initBackground();
@@ -130,6 +132,16 @@ public abstract class ACardComponent extends Button implements ICardView {
 	 */
 	public void setBackgroundHover(Background backgroundHover) {
 		this.backgroundHover = backgroundHover;
+	}
+
+	@Override
+	public boolean isClickable() {
+		return clikable;
+	}
+
+	@Override
+	public void setClickable(Boolean clickable) {
+		this.clikable = clickable;
 	}
 
 }

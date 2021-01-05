@@ -21,7 +21,7 @@ import view.constant.ColorApp;
 import view.constant.FontApp;
 import view.constant.RadiusApp;
 
-public class CardComponent extends ACardComponent implements IOneCard {
+public class CardComponent extends ACardComponent implements ICardAPI {
 
 	private Border border;
 	private Carte cardAPI;
