@@ -6,6 +6,18 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "19",
+            "date": "05/01/2021",
+            "travail": [
+                "modif api : initier les piles de dépôt non pas à 0 mais à 1",
+                "modif api : méthode jouer (déterminer correctement le joueur actuel pour le comparer avec le joueur fourni)",
+                "modif api : méthode isPartieFinie (observer seulement le joueur actuel et ne pas terminer la partie si il peut piocher)",
+                "feat(game2): refactoring des classes card, lay et draw pour proposer de désactiver leurs évènements de click (reversible)",
+                "feat(game2): détecter fin de partie et désactiver les évènements de click sur les boutons de jeu",
+                "feat(game2): Interface pour une partie 'humain' fonctionnelle"
+            ]
+        },
+        {
             "log_number": "18",
             "date": "03/01/2021",
             "travail": [
