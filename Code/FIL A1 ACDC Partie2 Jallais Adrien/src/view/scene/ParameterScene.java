@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ import view.button.ButtonChangeScene;
 import view.button.ButtonQuit;
 import view.component.DialogComponent;
 import view.constant.ColorApp;
+import view.constant.InsetsApp;
 import view.constant.RadiusApp;
 import view.constant.Spacing;
 import view.exception.BuildDrawPileFromAPI;
@@ -40,19 +42,20 @@ import view.label.MainLabel;
  */
 public class ParameterScene extends MainScene {
 
-	private HBox mainHBox;
+	private BorderPane mainPane;
 	private VBox parameterBox;
 	private HBox langB;
-	private HBox drawB;
+	private HBox deckB;
 	private HBox buttonB;
 	private DialogComponent dialogBox;
 
 	private ChoiceBox<String> langCB;
-	private LanguageApp languagesApp[] = new LanguageApp[] { LanguageApp.FRENCH, LanguageApp.ENGLISH };;
+	private LanguageApp languagesApp[] = new LanguageApp[] { LanguageApp.FRENCH, LanguageApp.ENGLISH };
 	private ObservableList<String> languages;
 
 	private FileChooser fChooser;
 	private AButton btFile;
+	private AButton btRandom;
 
 	private static String filePath = Main.getPathDeck();
 	private static LanguageApp lang = Main.getLang();
@@ -63,14 +66,19 @@ public class ParameterScene extends MainScene {
 	 * @param center
 	 */
 	public ParameterScene() {
-		super(new HBox());
-		mainHBox = (HBox) (this.getPane());
-		Background backg = new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
-				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
-		mainHBox.setBackground(backg);
+		super(new BorderPane());
+		mainPane = (BorderPane) (this.getPane());
 		initDialogBox();
 		initParameterBox();
-		mainHBox.getChildren().addAll(parameterBox, dialogBox);
+		mainPane.setCenter(parameterBox);
+		mainPane.setRight(dialogBox);
+		Background backg = new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
+		mainPane.setBackground(backg);
+
+		// TODO change raw value
+		mainPane.setMaxSize(650, 400);
+		mainPane.setPadding(InsetsApp.MEDIUM.getInsets());
 	}
 
 	private void initDialogBox() {
@@ -79,23 +87,24 @@ public class ParameterScene extends MainScene {
 
 	private void initParameterBox() {
 		parameterBox = new VBox();
-		parameterBox.setMaxSize(400, 100);
-		parameterBox.setSpacing(Spacing.HIGH.getSpace());
+		parameterBox.setSpacing(Spacing.HIGH.getSpace() * 2.5);
 		parameterBox.setAlignment(Pos.CENTER);
 		initLangB();
-		initDrawB();
+		initDeckB();
 		initButtonB();
-		parameterBox.getChildren().addAll(langB, drawB, buttonB);
+		parameterBox.getChildren().addAll(langB, deckB, buttonB);
 	}
 
 	private void initLangB() {
 		langB = new HBox();
 		langB.setSpacing(Spacing.HIGH.getSpace());
 		langB.setAlignment(Pos.CENTER_LEFT);
+
 		// label
 		MainLabel langL = new MainLabel(Main.d.get("PARAMETERS_langue"));
 		langL.setWrapText(true);
-		langB.getChildren().add(langL);
+		langL.setPrefWidth(130); // TODO change raw value
+
 		// combo box
 		languages = FXCollections.observableArrayList();
 		for (LanguageApp lang : languagesApp) {
@@ -103,24 +112,28 @@ public class ParameterScene extends MainScene {
 		}
 		langCB = new ChoiceBox<String>(languages);
 		addActionToLangageBox();
-		langB.getChildren().add(langCB);
+		// merge
+		langB.getChildren().addAll(langL, langCB);
 	}
 
-	private void initDrawB() {
-		drawB = new HBox();
-		drawB.setSpacing(Spacing.HIGH.getSpace());
-		drawB.setAlignment(Pos.CENTER_LEFT);
+	private void initDeckB() {
+		deckB = new HBox();
+		deckB.setSpacing(Spacing.HIGH.getSpace());
+		deckB.setAlignment(Pos.CENTER_LEFT);
+
 		// label
-		MainLabel langL = new MainLabel(Main.d.get("PARAMETERS_draw"));
+		MainLabel langL = new MainLabel(Main.d.get("PARAMETERS_deck"));
 		langL.setWrapText(true);
-		langB.getChildren().add(langL);
-		// fileChooser
-		btFile = new ButtonQuit(Main.d.get("PARAMETERS_browse"));
+		langL.setPrefWidth(130); // TODO change raw value
+
+		// Card from fileChooser for deck
+		btFile = new ButtonQuit(Main.d.get("PARAMETERS_deck_browse"));
 		fChooser = new FileChooser();
 		fChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fChooser.getExtensionFilters().add(new ExtensionFilter(Main.d.get("PARAMETERS_text"), "*.txt"));
 		btFile.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent arg0) {
+			@Override
+			public void handle(ActionEvent event) {
 				fChooser.setTitle(Main.d.get("PARAMETERS_open_file"));
 				File selected = fChooser.showOpenDialog(Main.mainStage);
 				if (selected != null) {
@@ -129,8 +142,20 @@ public class ParameterScene extends MainScene {
 				}
 			}
 		});
+		// Random Card for deck
+		btRandom = new ButtonQuit(Main.d.get("PARAMETERS_deck_random"));
+		btRandom.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				dialogBox.setDialog(Main.d.get("PARAMETERS_choosen_random"));
+				filePathTemp = null;
+			}
+		});
 		// merge
-		drawB.getChildren().addAll(langL, btFile);
+		VBox btBox = new VBox();
+		btBox.setSpacing(Spacing.MEDIUM.getSpace());
+		btBox.getChildren().addAll(btFile, btRandom);
+		deckB.getChildren().addAll(langL, btBox);
 	}
 
 	private void initButtonB() {

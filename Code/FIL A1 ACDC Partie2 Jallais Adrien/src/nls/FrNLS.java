@@ -45,13 +45,15 @@ public final class FrNLS extends DefaultNLS {
 
 		// SCENE - Parameters
 		this.d.put("PARAMETERS_welcome", "Modifier les paramètres souhaités.");
-		this.d.put("PARAMETERS_langue", "Choisir la langue");
-		this.d.put("PARAMETERS_draw", "Choisir un fichier de base pour le deck du jeu");
-		this.d.put("PARAMETERS_browse", "Parcourir");
+		this.d.put("PARAMETERS_langue", "Choisir la langue :");
+		this.d.put("PARAMETERS_deck", "Choisir la méthode construisant la pioche du jeu :");
+		this.d.put("PARAMETERS_deck_browse", "A partir d'un fichier");
+		this.d.put("PARAMETERS_deck_random", "De manière aléatoire");
 		this.d.put("PARAMETERS_text", "Texte");
 		this.d.put("PARAMETERS_open_file", "Ouvrir un fichier");
 		this.d.put("PARAMETERS_choosen_file", "Vous avez choisi le fichier suivant :");
 		this.d.put("PARAMETERS_choosen_language", "Vous avez choisi la langue suivante :");
+		this.d.put("PARAMETERS_choosen_random", "Vous avez choisi la construction aléatoire.");
 
 		// SCENE - Authors
 		this.d.put("CREDITS_Authors", "Cette application est basée sur :");
