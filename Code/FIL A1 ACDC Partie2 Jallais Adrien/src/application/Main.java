@@ -12,22 +12,26 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nls.DefaultNLS;
+import nls.EnNLS;
 import nls.FrNLS;
-import view.scene.AuthorsScene;
+import nls.LanguageApp;
 import view.scene.MainScene;
-import view.scene.WelcomeScene;
+import view.scene.ParameterScene;
 
 /**
  * @author Adrien Jallais
  *
  */
 public class Main extends Application {
-	public static DefaultNLS d;
+
 	private static Rectangle2D primaryScreenBounds;
 	public static Stage mainStage;
 	private MainScene scene;
 
-	private String path1;
+	private static LanguageApp lang;
+	public static DefaultNLS d;
+	private static String pathDeck;
+
 	private List<Joueur> joueurs;
 	private Joueur joueur;
 
@@ -35,28 +39,29 @@ public class Main extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		d = new FrNLS();
+		setLang(LanguageApp.FRENCH);
+		pathDeck = "../../Jeu_essai/game1.txt"; // default
 		Application.launch(args);
 	}
 
 	@Override
 	public void init() throws Exception {
 		primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		List<Joueur> joueurs = new ArrayList<Joueur>();
+		joueurs = new ArrayList<Joueur>();
 		joueur = new Joueur("Lorem lipsum");
 		joueurs.add(joueur);
-		path1 = "../../Jeu_essai/game1.txt"; // relative path
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		mainStage = primaryStage;
 		// TODO select WelcomeScene
-		this.scene = new WelcomeScene();
+		// this.scene = new WelcomeScene();
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
-		// this.scene = new HumanScene(joueurs, path1);
-		this.scene = new AuthorsScene();
+		// this.scene = new HumanScene(joueurs, getPathDeck());
+		// this.scene = new AuthorScene();
+		this.scene = new ParameterScene();
 		// joueur
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
@@ -71,6 +76,50 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 
+	}
+
+	/**
+	 * @return the lang
+	 */
+	public static LanguageApp getLang() {
+		return lang;
+	}
+
+	/**
+	 * @param lang the lang to set
+	 */
+	public static void setLang(LanguageApp lang) {
+		Main.lang = lang;
+		Main.updateNLS();
+	}
+
+	private static void updateNLS() {
+		switch (lang) {
+		case FRENCH: {
+			Main.d = new FrNLS();
+			break;
+		}
+		case ENGLISH: {
+			Main.d = new EnNLS();
+			break;
+		}
+		default:
+			Main.d = new FrNLS();
+		}
+	}
+
+	/**
+	 * @return the pathDeck
+	 */
+	public static String getPathDeck() {
+		return Main.pathDeck;
+	}
+
+	/**
+	 * @param pathDeck the pathDeck to set
+	 */
+	public static void setPathDeck(String pathDeck) {
+		Main.pathDeck = pathDeck;
 	}
 
 }

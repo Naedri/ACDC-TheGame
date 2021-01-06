@@ -7,7 +7,7 @@ import application.Main;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import nls.Language;
+import nls.LanguageApp;
 
 /**
  * @author Adrien Jallais
@@ -26,7 +26,7 @@ public class RulesScene extends MainScene {
 		WebView view;
 		WebEngine engine;
 		String url;
-		Language lang = Main.d.getLanguage();
+		LanguageApp lang = Main.d.getLanguage();
 		switch (lang) {
 		case FRENCH:
 			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-francais.pdf";

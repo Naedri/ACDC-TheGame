@@ -94,6 +94,7 @@ public class HandComponent extends HBox implements IClickable {
 	 * allow to unselect all cards added to the hand
 	 */
 	public void unSelectCards() {
+		this.setCardSelected(null);
 		this.cardL.forEach(card -> {
 			card.setActive(false);
 		});

@@ -55,21 +55,21 @@ public class MenuScene extends MainScene {
 				Joueur joueur = new Joueur("Lorem lipsum");
 				List<Joueur> joueurs = new ArrayList<Joueur>();
 				joueurs.add(joueur);
-				String path1 = "../../Jeu_essai/game1.txt"; // relative path
-				Services.changeScene(MenuScene.this, new HumanScene(joueurs, path1));
+				String path = Main.getPathDeck();
+				Services.changeScene(MenuScene.this, new HumanScene(joueurs, path));
 			} else if (e.getSource() == bPIA) {
 				// joueur IA
 				Joueur joueur = new JoueurIA();
 				List<Joueur> joueurs = new ArrayList<Joueur>();
 				joueurs.add(joueur);
-				String path1 = "../../Jeu_essai/game1.txt"; // relative path
-				Services.changeScene(MenuScene.this, new IAScene(joueurs, path1));
+				String path = Main.getPathDeck();
+				Services.changeScene(MenuScene.this, new IAScene(joueurs, path));
 			} else if (e.getSource() == bP) {
 				Services.changeScene(MenuScene.this, new ParameterScene());
 			} else if (e.getSource() == bR) {
 				Services.changeScene(MenuScene.this, new RulesScene());
 			} else if (e.getSource() == bA) {
-				Services.changeScene(MenuScene.this, new AuthorsScene());
+				Services.changeScene(MenuScene.this, new AuthorScene());
 			} else if (e.getSource() == bE) {
 				Services.quitApp(MenuScene.this);
 			}

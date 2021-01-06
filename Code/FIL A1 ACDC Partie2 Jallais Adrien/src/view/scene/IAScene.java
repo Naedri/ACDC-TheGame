@@ -4,7 +4,6 @@ import java.util.List;
 
 import api.Joueur;
 import application.Main;
-import javafx.scene.Node;
 
 public class IAScene extends APlayScene {
 	private static String name = Main.d.get("PLAY_mode_ia");
@@ -13,9 +12,4 @@ public class IAScene extends APlayScene {
 		super(name, joueurs, path);
 	}
 
-	@Override
-	public Node createRightPane() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

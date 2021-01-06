@@ -10,13 +10,13 @@ public class HumanScene extends APlayScene {
 
 	public HumanScene(List<Joueur> joueurs, String path) {
 		super(name, joueurs, path);
-		setActionCard();
-		setActionDrawPile();
-		setActionLayPile();
+		/*
+		 * setActionCard(); setActionDrawPile(); setActionLayPile();
+		 */
 	}
 
 	private void setActionCard() {
-
+		// TODO Auto-generated method stub
 	}
 
 	private void setActionDrawPile() {

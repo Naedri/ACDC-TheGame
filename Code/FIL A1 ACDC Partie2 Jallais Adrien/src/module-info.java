@@ -10,6 +10,7 @@ module acdc_partie2 {
 	requires javafx.base;
 	requires java.base;
 	requires javafx.web;
+	requires java.desktop;
 
 	// https://stackoverflow.com/questions/53035454/javafx-module-javafx-graphics
 	// exports application;
