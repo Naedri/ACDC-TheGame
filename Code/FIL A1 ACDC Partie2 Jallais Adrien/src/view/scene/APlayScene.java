@@ -66,7 +66,7 @@ public abstract class APlayScene extends MainScene {
 	protected DialogComponent dialogP;
 
 	protected LayComponent selectedLay;
-	protected CardComponent selectedCard;
+	// protected CardComponent selectedCard;
 	protected Joueur joueur;
 	protected Jeu jeu;
 
@@ -152,7 +152,7 @@ public abstract class APlayScene extends MainScene {
 	 * @param modeName either Human mode or IA mode
 	 * @return StackPane with label containing the mode name
 	 */
-	public Node createTopPane(String modeName) {
+	private Node createTopPane(String modeName) {
 		Label label = new MainLabel(modeName);
 		StackPane pane = new StackPane();
 		pane.setPadding(new Insets(InsetsApp.HIGH.getTop() - this.getBorder().getInsets().getBottom(),
@@ -165,7 +165,7 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @return VBox containing the exit and menu buttons
 	 */
-	public Node createLeftPane() {
+	private Node createLeftPane() {
 		VBox pane = new VBox();
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
@@ -184,7 +184,7 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * create the right pane with a VBox, including score and dialog box
 	 */
-	public Node createRightPane() {
+	private Node createRightPane() {
 		VBox pane = new VBox();
 		pane.getChildren().addAll(scoreP, dialogP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
@@ -195,13 +195,12 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * create the bottom pane with a HBox, including hand and draw component
 	 */
-	public Node createBottomPane() {
+	private Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
 		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2);
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
-		addActionHand();
 		// draw
 		draw = new DrawComponent(cardL.get(0));
 		StackPane drawStack = draw.makeSupported();
@@ -216,7 +215,7 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * Create the bottom pane with a HBox, including lays in HBox and an image
 	 */
-	public Node createCenterPane() {
+	private Node createCenterPane() {
 		Insets insets = InsetsApp.HIGH.getInsets();
 		// descending
 		HBox descP = new HBox(Spacing.HIGH.getSpace());
@@ -273,7 +272,7 @@ public abstract class APlayScene extends MainScene {
 							lay.setActive(true);
 							selectedLay = lay;
 							try {
-								layingAction(lay);
+								layingActionFromLay(lay);
 							} catch (Exception e) {
 								dialogP.setDialog(e.getMessage());
 							}
@@ -290,14 +289,14 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @source https://docs.oracle.com/javafx/2/events/handlers.htm
 	 */
-	protected void addActionHand() {
+	private void addActionHand() {
 		this.hand.getCardL().forEach(card -> {
 			card.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					if (hand.isClickable()) {
 						try {
-							layingAction(card);
+							layingActionFromHand(card);
 						} catch (Exception e) {
 							dialogP.setDialog(e.getMessage());
 						}
@@ -311,13 +310,12 @@ public abstract class APlayScene extends MainScene {
 	 * Allow to end its turn Event which checks if a card has been layed if no, ask
 	 * confirmation to end the game if so, draw card without asking confirmation
 	 */
-	protected void addActionDraw() {
+	private void addActionDraw() {
 		this.draw.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (draw.isClickable()) {
-					unSelectLays();
-					hand.unSelectCards();
+					unSelectAll();
 					if (jeu.nbCartesAJouer() > 0) {
 						dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
 					} else {
@@ -352,28 +350,30 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
 	 */
-	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
-		if (selectedLay != null) {
-			dialogP.clearDialog();
+	private void layingActionFromHand(CardComponent selectedCard) throws MissHandCardException {
+		System.out.println("Je passe layingActionFromHand");
+		if (this.selectedLay != null) {
+			this.dialogP.clearDialog();
 			try {
-				jeu.jouer(selectedLay.getIndex(), selectedCard.getCardAPI(), joueur);
+				this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
 			} catch (Exception e) {
-				dialogP.setDialog(e.getMessage());
+				this.dialogP.setDialog(e.getMessage());
 				unSelectAll();
 				return;
 			}
-			selectedLay.setCardAPI(selectedCard.getCardAPI());
-			hand.removeCard(selectedCard);
+			this.selectedLay.setCardAPI(selectedCard.getCardAPI());
+			this.hand.removeCard(selectedCard);
 			unSelectAll();
-			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(jeu.score());
-			if (jeu.isPartieFinie()) {
+			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+			this.scoreP.setScoreT(this.jeu.score());
+			if (this.jeu.isPartieFinie()) {
 				disablePlaying();
 				setDialogsResult();
 			}
 		} else {
 			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
+			// throw new MissHandCardException();
 		}
 	}
 
@@ -383,28 +383,30 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
 	 */
-	protected void layingAction(LayComponent selectedLay) throws MissHandCardException, MissLayCardException {
+	private void layingActionFromLay(LayComponent selectedLay) throws MissLayCardException {
+		System.out.println("Je passe layingActionFromLay");
 		if (this.hand.isCardSelected()) {
-			dialogP.clearDialog();
+			this.dialogP.clearDialog();
 			try {
-				jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), joueur);
+				this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
 			} catch (Exception e) {
-				dialogP.setDialog(e.getMessage());
+				this.dialogP.setDialog(e.getMessage());
 				unSelectAll();
 				return;
 			}
 			selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
-			hand.removeCard(this.hand.getCardSelected());
+			this.hand.removeCard(this.hand.getCardSelected());
 			unSelectAll();
-			dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(jeu.score());
-			if (jeu.isPartieFinie()) {
+			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+			this.scoreP.setScoreT(this.jeu.score());
+			if (this.jeu.isPartieFinie()) {
 				disablePlaying();
 				setDialogsResult();
 			}
 		} else {
 			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
+			// throw new MissLayCardException();
 		}
 	}
 
@@ -412,10 +414,10 @@ public abstract class APlayScene extends MainScene {
 	 * Unselect all the component from the APLayScene which could have been selected
 	 */
 	private void unSelectAll() {
-		selectedCard = null;
+		// selectedCard = null;
+		selectedLay = null;
 		hand.setCardSelected(null);
 		hand.unSelectCards();
-		selectedLay = null;
 		unSelectLays();
 	}
 
@@ -423,8 +425,8 @@ public abstract class APlayScene extends MainScene {
 	 * Unselect all lays
 	 */
 	private void unSelectLays() {
-		this.layL.forEach(card -> {
-			card.setActive(false);
+		this.layL.forEach(lay -> {
+			lay.setActive(false);
 		});
 	}
 
@@ -443,14 +445,14 @@ public abstract class APlayScene extends MainScene {
 	 * In case of the game ends, modify the dialog box to add the result of the user
 	 * against the game
 	 */
-	protected void setDialogsResult() {
-		if (jeu.isPartieFinie()) {
-			if (jeu.isVictoire()) {
-				dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
+	private void setDialogsResult() {
+		if (this.jeu.isPartieFinie()) {
+			if (this.jeu.isVictoire()) {
+				this.dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
 			} else {
-				dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
+				this.dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
 			}
-			dialogP.addDialog(Main.d.get("PLAY_info_restart"));
+			this.dialogP.addDialog(Main.d.get("PLAY_info_restart"));
 		}
 	}
 }

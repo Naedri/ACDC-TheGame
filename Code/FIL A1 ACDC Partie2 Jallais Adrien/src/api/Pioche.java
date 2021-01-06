@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.exception.DuplicateCardFromDraw;
+import view.exception.WrongSizeForDrawBuild;
+
 public class Pioche {
 
 	private List<Carte> cartes;
@@ -41,12 +44,11 @@ public class Pioche {
 				if (isCarteValide(carte, pioche)) {
 					pioche.add(new Carte(value));
 				} else {
-					throw new IllegalArgumentException(
-							"In the given file path, the current card value number" + value + " is not unique.");
+					throw new DuplicateCardFromDraw();
 				}
 			} while (line != null);
 			if (pioche.size() != 98) {
-				throw new IllegalArgumentException("With the given file path, the size of draw pile is not correct.");
+				throw new WrongSizeForDrawBuild();
 			}
 			return new Pioche(pioche);
 		} catch (Exception e) {
