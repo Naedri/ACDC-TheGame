@@ -3,6 +3,7 @@ package api;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import view.exception.DuplicateCardFromDraw;
@@ -27,35 +28,44 @@ public class Pioche {
 	 * @return Pioche
 	 */
 	public static Pioche fromFile(String chemin) {
-		try {
-			BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+		List<Carte> pioche = new ArrayList<Carte>();
+		if (chemin != null) {
+			try {
+				BufferedReader fichier = new BufferedReader(new FileReader(chemin));
 
-			String line;
-			List<Carte> pioche = new ArrayList<Carte>();
-			do {
-				line = fichier.readLine();
+				String line;
 
-				if (line == null) {
-					continue;
+				do {
+					line = fichier.readLine();
+
+					if (line == null) {
+						continue;
+					}
+
+					int value = Integer.parseInt(line);
+					Carte carte = new Carte(value);
+					if (isCarteValide(carte, pioche)) {
+						pioche.add(new Carte(value));
+					} else {
+						throw new DuplicateCardFromDraw();
+					}
+				} while (line != null);
+				if (pioche.size() != 98) {
+					throw new WrongSizeForDrawBuild();
 				}
-
-				int value = Integer.parseInt(line);
-				Carte carte = new Carte(value);
-				if (isCarteValide(carte, pioche)) {
-					pioche.add(new Carte(value));
-				} else {
-					throw new DuplicateCardFromDraw();
-				}
-			} while (line != null);
-			if (pioche.size() != 98) {
-				throw new WrongSizeForDrawBuild();
+				return new Pioche(pioche);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
 			}
+		} else {
+			for (int i = 1; i < 99; i++) {
+				Carte carte = new Carte(i);
+				pioche.add(carte);
+			}
+			Collections.shuffle(pioche);
 			return new Pioche(pioche);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
-
 	}
 
 	/**
