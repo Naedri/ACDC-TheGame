@@ -13,7 +13,7 @@ public final class FrNLS extends DefaultNLS {
 	 * 
 	 */
 	public FrNLS() {
-		super(Language.FRENCH);
+		super(LanguageApp.FRENCH);
 	}
 
 	@Override
@@ -25,6 +25,8 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("COMMON_back", "Retour");
 		this.d.put("COMMON_exit", "Quitter");
 		this.d.put("COMMON_menu", "Menu");
+		this.d.put("COMMON_validate", "Valider");
+		this.d.put("COMMON_cancel", "Annuler");
 
 		// SCENE - Main
 		this.d.put("MAIN_Signature", "IMT - Adrien Jallais - FILA1");
@@ -42,10 +44,14 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MENU_exit", "Quitter");
 
 		// SCENE - Parameters
-		this.d.put("PARAMETERS_menu", "Menu");
-		this.d.put("COMMON_menu", "Menu");
-		this.d.put("COMMON_menu", "Menu");
-		this.d.put("COMMON_menu", "Menu");
+		this.d.put("PARAMETERS_welcome", "Modifier les paramètres souhaités.");
+		this.d.put("PARAMETERS_langue", "Choisir la langue");
+		this.d.put("PARAMETERS_draw", "Choisir un fichier de base pour le deck du jeu");
+		this.d.put("PARAMETERS_browse", "Parcourir");
+		this.d.put("PARAMETERS_text", "Texte");
+		this.d.put("PARAMETERS_open_file", "Ouvrir un fichier");
+		this.d.put("PARAMETERS_choosen_file", "Vous avez choisi le fichier suivant :");
+		this.d.put("PARAMETERS_choosen_language", "Vous avez choisi la langue suivante :");
 
 		// SCENE - Authors
 		this.d.put("CREDITS_Authors", "Cette application est basée sur :");
@@ -59,7 +65,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_mode_ia", "Mode démonstration");
 		this.d.put("PLAY_draw", "Pioche");
 		this.d.put("PLAY_drawing", "Cliquer sur la Pioche pour piocher.");
-		this.d.put("PLAY_drawing_needed", "Cliquer sur la Pioche pour piocher, si besoin.");
+		this.d.put("PLAY_drawing_needed", "Cliquer sur la Pioche pour tenter de piocher, si besoin.");
 		this.d.put("PLAY_score_plural", "Cartes restantes");
 		this.d.put("PLAY_score_singular", "Carte restante");
 
@@ -77,10 +83,16 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_end_bad", "Vous avez perdu.");
 		this.d.put("PLAY_info_restart", "Pour recommencer une partie : revenez au menu.");
 
-		// SCENE - PLAY - Exception message
+		// Exception message
 		this.d.put("PLAY_human_card_not_found",
 				"La valeur fournie ne correspond à aucune carte de la main du joueur indiqué.");
+		this.d.put("PLAY_human_laying_miss_hand_card", "Pour poser, choisissez une carte de vote main");
+		this.d.put("PLAY_human_laying_miss_lay_card", "Pour poser, choisisser une pile de dépôt.");
 
+		this.d.put("API_build_deck_duplicated_cards",
+				"Le fichier indiqué, semble comporter des carte(s) dupliquée(s).");
+		this.d.put("API_build_deck_size", "Le fichier indiqué, ne semble pas comporter un nombre correct de cartes.");
+		this.d.put("API_build_deck", "Le fichier indiqué, ne semple pas être constructible pas l'api.");
 	}
 
 }

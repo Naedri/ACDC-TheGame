@@ -5,9 +5,9 @@ import java.util.Hashtable;
 
 public abstract class DefaultNLS {
 	protected final Dictionary<String, String> d;
-	private Language lang;
+	private LanguageApp lang;
 
-	public DefaultNLS(Language lang) {
+	public DefaultNLS(LanguageApp lang) {
 		this.d = new Hashtable<String, String>();
 		this.makeNLS();
 		this.lang = lang;
@@ -17,7 +17,7 @@ public abstract class DefaultNLS {
 		return this.d.get(key);
 	}
 
-	public Language getLanguage() {
+	public LanguageApp getLanguage() {
 		return lang;
 	}
 
