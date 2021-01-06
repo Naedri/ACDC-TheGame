@@ -37,14 +37,20 @@ public class Pioche {
 				}
 
 				int value = Integer.parseInt(line);
-
-				pioche.add(new Carte(value));
+				Carte carte = new Carte(value);
+				if (isCarteValide(carte, pioche)) {
+					pioche.add(new Carte(value));
+				} else {
+					throw new IllegalArgumentException(
+							"In the given file path, the current card value number" + value + " is not unique.");
+				}
 			} while (line != null);
-
+			if (pioche.size() != 98) {
+				throw new IllegalArgumentException("With the given file path, the size of draw pile is not correct.");
+			}
 			return new Pioche(pioche);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 			return null;
 		}
 
@@ -91,6 +97,17 @@ public class Pioche {
 
 		return res + "]";
 
+	}
+
+	/**
+	 * Observe la redondance d'une carte dans la pioche
+	 * 
+	 * @param carte  Carte à évaluer
+	 * @param pioche collectrions observée
+	 * @return true si la carte n'est pas déjà dans la pioce
+	 */
+	public static boolean isCarteValide(Carte carte, List<Carte> pioche) {
+		return !pioche.contains(carte);
 	}
 
 };
