@@ -6,6 +6,18 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "20",
+            "date": "06/01/2021",
+            "travail": [
+                "refactoring general, mise en place d'un background uniforme",
+                "réalisation de la scène des Paramètres pour changement de la langue et du fichier à la base du deck ",
+                "réalisation de la scène des Crédits pour les auteurs",
+                "modif api : ajout d'exception plus particulière pour les afficher à l'utilisateur",
+                "modif api : pour la factory Pioche.fromfile  - ajout de levée d'exception (cartes dupliquées, quantité de carte insuffisante)",
+                "modif api : pour la factory Pioche.fromfile  - pouvant créer désormais une pioche aléatoire si le path indiqué est nul"
+            ]
+        },
+        {
             "log_number": "19",
             "date": "05/01/2021",
             "travail": [

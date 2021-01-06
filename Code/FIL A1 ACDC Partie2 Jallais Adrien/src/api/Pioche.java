@@ -22,9 +22,11 @@ public class Pioche {
 	}
 
 	/**
-	 * Initialiser la pioche a partir d'un fichier
+	 * Initialiser la pioche a partir d'un fichier, ou construite aléatoirement
 	 * 
-	 * @param chemin Chemin du fichier txt contenant les valeurs de la pioche
+	 * @param chemin Chemin du fichier txt contenant les valeurs de la pioche, si le
+	 *               chemin est null, la pioche renvoyée sera construite
+	 *               aléatoirement
 	 * @return Pioche
 	 */
 	public static Pioche fromFile(String chemin) {
@@ -47,12 +49,15 @@ public class Pioche {
 					if (isCarteValide(carte, pioche)) {
 						pioche.add(new Carte(value));
 					} else {
+						fichier.close();
 						throw new DuplicateCardFromDraw();
 					}
 				} while (line != null);
 				if (pioche.size() != 98) {
+					fichier.close();
 					throw new WrongSizeForDrawBuild();
 				}
+				fichier.close();
 				return new Pioche(pioche);
 			} catch (Exception e) {
 				e.printStackTrace();
