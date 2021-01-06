@@ -16,15 +16,6 @@ public class HumanScene extends APlayScene {
 	}
 
 	private void setActionCard() {
-		super.cardL.forEach(card -> {
-			card.setOnAction(e -> {
-				if (card.isActive()) {
-
-				} else if (!card.isActive()) {
-
-				}
-			});
-		});
 
 	}
 

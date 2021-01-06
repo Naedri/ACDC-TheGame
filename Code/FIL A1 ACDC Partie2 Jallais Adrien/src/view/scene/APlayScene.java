@@ -28,7 +28,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -39,6 +42,7 @@ import view.component.DrawComponent;
 import view.component.HandComponent;
 import view.component.LayComponent;
 import view.component.ScoreComponent;
+import view.constant.ColorApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
 import view.exception.MissHandCardException;
@@ -80,6 +84,9 @@ public abstract class APlayScene extends MainScene {
 		this.addActionLay();
 		this.addActionHand();
 		this.addActionDraw();
+		// set background
+		this.getBorder().setBackground(
+				new Background(new BackgroundFill(ColorApp.GOODL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
 	/**
@@ -315,8 +322,7 @@ public abstract class APlayScene extends MainScene {
 						dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
 					} else {
 						jeu.passerTour();
-						updateCardL();
-						panePlay.setBottom(createBottomPane());
+						updateBottomPane();
 						if (jeu.isPartieFinie()) {
 							disablePlaying();
 							setDialogsResult();
@@ -327,6 +333,17 @@ public abstract class APlayScene extends MainScene {
 				}
 			}
 		});
+	}
+
+	/**
+	 * Update the bottom pane, in order to rebuild the hand and add associated effet
+	 * As we rebuild the bottom pane, we should add Hand AND Draw event
+	 */
+	private void updateBottomPane() {
+		updateCardL();
+		panePlay.setBottom(createBottomPane());
+		addActionHand();
+		addActionDraw();
 	}
 
 	/**

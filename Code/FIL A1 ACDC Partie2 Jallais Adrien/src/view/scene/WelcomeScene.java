@@ -28,7 +28,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import view.constant.ColorApp;
 import view.constant.FontApp;
@@ -50,9 +49,9 @@ public class WelcomeScene extends MainScene {
 		BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 		this.addingEnter();
 		this.addingMusic();
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
+		// set background
+		this.getBorder().setBackground(
+				new Background(new BackgroundFill(ColorApp.INFOL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
 	private Node createBottomPane() {
@@ -67,13 +66,7 @@ public class WelcomeScene extends MainScene {
 		pane.setPadding(new Insets(0, 30, 60, 30));
 		pane.setAlignment(Pos.TOP_CENTER);
 		// maintaining size
-		// Rectangle rect = new Rectangle(80, 10);
-		// pane.getChildren().add(rect);
 		pane.setPrefSize(80, 20);
-
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
@@ -99,16 +92,11 @@ public class WelcomeScene extends MainScene {
 		label.setFont(FontApp.TITLE.getFont());
 		label.setTextFill(ColorApp.BADD.getColor());
 		label.setAlignment(Pos.CENTER);
-
 		// stack
 		StackPane stack;
 		stack = new StackPane();
 		stack.getChildren().addAll(img, label);
-		// TODO Erase
-		stack.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return stack;
-
 	}
 
 	private void addingMusic() {

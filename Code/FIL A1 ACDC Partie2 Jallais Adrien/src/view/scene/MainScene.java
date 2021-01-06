@@ -26,7 +26,7 @@ import view.label.MainLabel;
  */
 public abstract class MainScene extends Scene {
 	private BorderPane border;
-	private StackPane pane;
+	private StackPane vbox;
 
 	public MainScene(Pane center) {
 		super(new BorderPane());
@@ -35,25 +35,34 @@ public abstract class MainScene extends Scene {
 		border.setCenter(center);
 		border.setBottom(createSignaturePane());
 		this.afterShow();
-		border.setBackground(
-				new Background(new BackgroundFill(ColorApp.GOODL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+		// set background
+		this.getBorder().setBackground(
+				new Background(new BackgroundFill(ColorApp.BADL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
 	private Node createSignaturePane() {
 		Label label = new MainLabel(Main.d.get("MAIN_Signature"));
-		pane = new StackPane();
-
-		pane.setPadding(new Insets(InsetsApp.HIGH.getTop(), InsetsApp.HIGH.getRight(),
+		vbox = new StackPane();
+		vbox.setPadding(new Insets(InsetsApp.HIGH.getTop(), InsetsApp.HIGH.getRight(),
 				InsetsApp.HIGH.getBot() - this.getBorder().getInsets().getBottom(), InsetsApp.HIGH.getLeft()));
-		pane.getChildren().add(label);
-		return pane;
+		vbox.getChildren().add(label);
+		return vbox;
 	}
 
+	/**
+	 * To be used by descendant in order to modify the center of the scene
+	 * 
+	 * @return the center of the border
+	 */
 	public Node getPane() {
 		return border.getCenter();
 	}
 
-	protected BorderPane getBorder() {
+	/**
+	 * 
+	 * @return the center
+	 */
+	public BorderPane getBorder() {
 		return this.border;
 	}
 

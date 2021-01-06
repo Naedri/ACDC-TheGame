@@ -40,6 +40,13 @@ public class DialogComponent extends StackPane {
 	}
 
 	/**
+	 * @return the dialogL
+	 */
+	public MainLabel getDialogL() {
+		return dialogL;
+	}
+
+	/**
 	 * Define the text in the dialog box
 	 * 
 	 * @param text

@@ -13,6 +13,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nls.DefaultNLS;
 import nls.FrNLS;
+import view.scene.AuthorsScene;
 import view.scene.MainScene;
 import view.scene.WelcomeScene;
 
@@ -35,7 +36,6 @@ public class Main extends Application {
 	 */
 	public static void main(String[] args) {
 		d = new FrNLS();
-
 		Application.launch(args);
 	}
 
@@ -56,6 +56,7 @@ public class Main extends Application {
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
 		// this.scene = new HumanScene(joueurs, path1);
+		this.scene = new AuthorsScene();
 		// joueur
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
