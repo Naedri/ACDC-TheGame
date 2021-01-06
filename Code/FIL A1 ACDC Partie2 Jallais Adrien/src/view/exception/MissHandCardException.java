@@ -5,7 +5,9 @@ package view.exception;
 
 /**
  * @author Adrien Jallais
- *
+ * 
+ *         Exception to be used in the case, the user try to lay whereas he has
+ *         not yet choose a card from his hand
  */
 public class MissHandCardException extends Exception {
 

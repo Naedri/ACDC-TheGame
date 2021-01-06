@@ -25,24 +25,27 @@ public class DrawComponent extends ACardComponent {
 
 	public DrawComponent(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
-		this.card = card;
-		init();
+		init(card);
 	}
 
 	public DrawComponent(ICardView card, String text, Node graphic) {
 		super(text, graphic);
-		this.card = card;
-		init();
+		init(card);
 	}
 
 	public DrawComponent(ICardView card, String text) {
 		super(text);
-		this.card = card;
-		init();
+		init(card);
 	}
 
-	private void init() {
-		initBackgroundPost();
+	/**
+	 * To gather steps done at the instanciation of the class in a same function
+	 * 
+	 * @param card
+	 */
+	private void init(ICardView card) {
+		this.card = card;
+		initBackgroundAfterSuper();
 		setStyle();
 	}
 
@@ -51,7 +54,10 @@ public class DrawComponent extends ACardComponent {
 		// do nothing cause we need this.card = card; done first
 	}
 
-	private void initBackgroundPost() {
+	/**
+	 * with the I
+	 */
+	private void initBackgroundAfterSuper() {
 		Background backgroundInit = new Background(
 				new BackgroundFill(card.getBorderColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
 		Background backgroundHover = new Background(new BackgroundFill(ColorApp.BADL.getColor(),
@@ -69,7 +75,7 @@ public class DrawComponent extends ACardComponent {
 		// this.setRotate(270);
 		this.setTextFill(getBorderColor());
 		// this.setBorder(new Border(card.getBorderStrokes()));
-		this.setBorder(new Border(new BorderStroke(card.getBackgroundColor(), BorderStrokeStyle.SOLID,
+		this.setBorder(new Border(new BorderStroke(this.getBorderColor(), BorderStrokeStyle.SOLID,
 				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth()))));
 		this.setWrapText(true);
 	}
@@ -78,9 +84,6 @@ public class DrawComponent extends ACardComponent {
 	public StackPane makeSupported() {
 		StackPane sp = new StackPane();
 		sp.getChildren().addAll(this.makeSupport(), this);
-		// TODO Erase
-		sp.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return sp;
 	}
 
@@ -100,28 +103,17 @@ public class DrawComponent extends ACardComponent {
 		return rect;
 	}
 
-	private static String reverseText(String text) {
-		StringBuilder sb = new StringBuilder();
-		String sep = System.lineSeparator();
-		Character c;
-		for (int i = 0; i < text.length(); i++) {
-			c = sb.charAt(i);
-			sb.append(c);
-			if (i < (text.length() - 2)) {
-				sb.append(sep);
-			}
-		}
-		return sb.toString();
-	}
-
 	@Override
-	public Color getBorderColor() {
+	public Color getBackgroundColor() {
 		return card.getBackgroundColor();
 	}
 
 	@Override
-	public Color getBackgroundColor() {
-		return this.getBorderColor();
+	/**
+	 * the border and the background should be the same for the hand
+	 */
+	public Color getBorderColor() {
+		return card.getBackgroundColor();
 	}
 
 	@Override
@@ -137,9 +129,10 @@ public class DrawComponent extends ACardComponent {
 	}
 
 	/**
+	 * 
 	 * @param selectedCard the selectedCard to set
 	 */
-	public void setSelectedCard(ICardView selectedCard) {
+	public void switchSelectedCard(ICardView selectedCard) {
 		if (this.selectedCard == selectedCard) {
 			this.selectedCard = null;
 		} else {

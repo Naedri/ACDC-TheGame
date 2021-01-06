@@ -27,8 +27,8 @@ public class DialogComponent extends StackPane {
 
 	private void init(String text) {
 		dialogL = new MainLabel(text);
+		// TODO change raw value
 		dialogL.setPrefSize(180, 180);
-
 		dialogL.setFont(FontApp.MEDIUM.getFont());
 		dialogL.setTextAlignment(TextAlignment.RIGHT);
 		dialogL.setWrapText(true);
@@ -40,16 +40,24 @@ public class DialogComponent extends StackPane {
 	}
 
 	/**
-	 * @param score the scoreT to set
+	 * Define the text in the dialog box
+	 * 
+	 * @param text
 	 */
 	public void setDialog(String text) {
 		this.dialogL.setText(text);
 	}
 
+	/**
+	 * Adding new text to the dialog box at the end
+	 */
 	public void addDialog(String text) {
 		this.dialogL.setText(dialogL.getText() + System.lineSeparator() + text);
 	}
 
+	/**
+	 * ShortCut to clear the dialog box
+	 */
 	public void clearDialog() {
 		this.dialogL.setText("");
 	}

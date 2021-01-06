@@ -20,28 +20,30 @@ public abstract class ACardComponent extends Button implements ICardView {
 
 	private Background backgroundInit;
 	private Background backgroundHover;
-
 	private SimpleBooleanProperty selectedObs;
 	private ChangeListener<Boolean> selectedListener;
-
 	private boolean clikable = true;
 
 	public ACardComponent() {
 		super();
-		initBackground();
-		initSelectedObs();
-		setMouseHoverAction();
+		init();
 	}
 
 	public ACardComponent(String text, Node graphic) {
 		super(text, graphic);
-		initBackground();
-		initSelectedObs();
-		setMouseHoverAction();
+		init();
 	}
 
 	public ACardComponent(String text) {
 		super(text);
+		init();
+	}
+
+	/**
+	 * To gather steps done at the instanciation of the class in a same function
+	 * 
+	 */
+	private void init() {
 		initBackground();
 		initSelectedObs();
 		setMouseHoverAction();
@@ -49,6 +51,32 @@ public abstract class ACardComponent extends Button implements ICardView {
 
 	protected abstract void initBackground();
 
+	/**
+	 * To init a Boolean Observable value (SimpleBooleanProperty) and To add a
+	 * listener on this value (selectedListener) and To define the actions
+	 * associated to the observable change made by the listener (setBackground)
+	 * 
+	 * @source https://edencoding.com/javafx-properties-and-binding-a-complete-guide/#bindings
+	 */
+	private void initSelectedObs() {
+		selectedObs = new SimpleBooleanProperty(false);
+		selectedListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!selectedObs.getValue()) {
+					setBackground(getBackgroundInit());
+				} else {
+					setBackground(getBackgroundHover());
+				}
+			}
+		};
+		getActiveObs().addListener(selectedListener);
+	}
+
+	/**
+	 * To define the behaviour of the component when it is hovered by the user's
+	 * mouse
+	 */
 	private void setMouseHoverAction() {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -78,32 +106,11 @@ public abstract class ACardComponent extends Button implements ICardView {
 	}
 
 	@Override
-	public void setActive(Boolean selected) {
-		selectedObs.set(selected);
+	public void setActive(Boolean state) {
+		selectedObs.set(state);
 	}
 
-	/**
-	 * To init a Boolean Observable value (SimpleBooleanProperty) and To add a
-	 * listener on this value (selectedListener) and To define the actions
-	 * associated to the observable change made by the listener (setBackground)
-	 * 
-	 * @source https://edencoding.com/javafx-properties-and-binding-a-complete-guide/#bindings
-	 */
-	private void initSelectedObs() {
-		selectedObs = new SimpleBooleanProperty(false);
-		selectedListener = new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if (!selectedObs.getValue()) {
-					setBackground(getBackgroundInit());
-				} else {
-					setBackground(getBackgroundHover());
-				}
-			}
-		};
-		getActiveObs().addListener(selectedListener);
-	}
-
+	@Override
 	public SimpleBooleanProperty getActiveObs() {
 		return selectedObs;
 	}
@@ -119,17 +126,11 @@ public abstract class ACardComponent extends Button implements ICardView {
 	}
 
 	@Override
-	/**
-	 * @param backgroundInit the backgroundInit to set
-	 */
 	public void setBackgroundInit(Background backgroundInit) {
 		this.backgroundInit = backgroundInit;
 	}
 
 	@Override
-	/**
-	 * @param backgroundHover the backgroundHover to set
-	 */
 	public void setBackgroundHover(Background backgroundHover) {
 		this.backgroundHover = backgroundHover;
 	}

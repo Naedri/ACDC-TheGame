@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import api.Carte;
 import api.Jeu;
 import api.Joueur;
 import api.Tas;
@@ -26,14 +28,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import view.button.ButtonQuit;
 import view.component.CardComponent;
 import view.component.DialogComponent;
@@ -52,7 +50,8 @@ import view.label.MainLabel;
  *
  */
 public abstract class APlayScene extends MainScene {
-	protected BorderPane pane;
+
+	protected BorderPane panePlay;
 	protected List<CardComponent> cardL;
 	protected List<LayComponent> layDscL;
 	protected List<LayComponent> layAscL;
@@ -67,31 +66,29 @@ public abstract class APlayScene extends MainScene {
 	protected Joueur joueur;
 	protected Jeu jeu;
 
-	protected boolean running = true;
-
-	/*
-	 * protected Pane leftP; protected Pane topP; protected Pane rightP; protected
-	 * Pane botP;
-	 */
-
 	public APlayScene(String modeName, List<Joueur> joueurs, String pathDeck) {
 		super(new BorderPane());
 		initGame(joueurs, pathDeck);
-		pane = (BorderPane) (super.getPane());
+		panePlay = (BorderPane) (super.getPane());
 		// setting pane
-		pane.setTop(createTopPane(modeName));
-		pane.setLeft(createLeftPane());
-		pane.setCenter(createCenterPane());
-		pane.setBottom(createBottomPane());
-		pane.setRight(createRightPane());
+		panePlay.setTop(createTopPane(modeName));
+		panePlay.setLeft(createLeftPane());
+		panePlay.setCenter(createCenterPane());
+		panePlay.setBottom(createBottomPane());
+		panePlay.setRight(createRightPane());
 		// adding effect
 		this.addActionLay();
 		this.addActionHand();
 		this.addActionDraw();
-		// BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
 	}
 
-	protected void initGame(List<Joueur> joueurs, String pathDeck) {
+	/**
+	 * Load card and game to allow the creation of the component
+	 * 
+	 * @param joueurs
+	 * @param pathDeck
+	 */
+	private void initGame(List<Joueur> joueurs, String pathDeck) {
 		// jeu
 		this.jeu = Jeu.lancerPartie(joueurs, pathDeck);
 		// joueur
@@ -104,11 +101,33 @@ public abstract class APlayScene extends MainScene {
 		initLayPile();
 	}
 
-	protected void initLayPile() {
+	/**
+	 * Draw cards to update the list of Carte : CardL
+	 */
+	private void initCardGame() {
+		joueur.piocher(jeu);
+		updateCardL();
+	}
+
+	/**
+	 * Reload the list of CardComponent : cardL, and sort it
+	 */
+	private void updateCardL() {
+		cardL = new ArrayList<CardComponent>();
+		List<Carte> handSorted = joueur.getMain();
+		Collections.sort(handSorted);
+		handSorted.forEach(carte -> {
+			cardL.add(new CardComponent(carte));
+		});
+	}
+
+	/**
+	 * Init the lay component and gather it in a list : layL
+	 */
+	private void initLayPile() {
 		layDscL = new ArrayList<LayComponent>();
 		layAscL = new ArrayList<LayComponent>();
 		layL = new ArrayList<LayComponent>();
-
 		for (int i = 0; i < jeu.getTas().size(); i++) {
 			Tas tas = jeu.getTasById(i);
 			if (tas instanceof TasAscendant) {
@@ -122,26 +141,24 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	/**
-	 * interaction with API to draw cards
+	 * 
+	 * @param modeName either Human mode or IA mode
+	 * @return StackPane with label containing the mode name
 	 */
-	protected void initCardGame() {
-		joueur.piocher(jeu);
-		updateCardL();
-	}
-
-	protected Node createTopPane(String modeName) {
+	public Node createTopPane(String modeName) {
 		Label label = new MainLabel(modeName);
 		StackPane pane = new StackPane();
 		pane.setPadding(new Insets(InsetsApp.HIGH.getTop() - this.getBorder().getInsets().getBottom(),
 				InsetsApp.HIGH.getRight(), InsetsApp.HIGH.getBot(), InsetsApp.HIGH.getLeft()));
 		pane.getChildren().add(label);
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
-	};
+	}
 
-	protected Node createLeftPane() {
+	/**
+	 * 
+	 * @return VBox containing the exit and menu buttons
+	 */
+	public Node createLeftPane() {
 		VBox pane = new VBox();
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
@@ -154,45 +171,45 @@ public abstract class APlayScene extends MainScene {
 		pane.getChildren().addAll(bM, bQ);
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
-
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
-	protected Node createRightPane() {
+	/**
+	 * create the right pane with a VBox, including score and dialog box
+	 */
+	public Node createRightPane() {
 		VBox pane = new VBox();
 		pane.getChildren().addAll(scoreP, dialogP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
-	protected Node createBottomPane() {
+	/**
+	 * create the bottom pane with a HBox, including hand and draw component
+	 */
+	public Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
+		// hand
 		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2);
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
-
+		addActionHand();
+		// draw
 		draw = new DrawComponent(cardL.get(0));
-		StackPane handStack = draw.makeSupported();
-		handStack.setPadding(insets);
-
+		StackPane drawStack = draw.makeSupported();
+		drawStack.setPadding(insets);
+		// merge
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
-		pane.getChildren().addAll(handStack, hand);
+		pane.getChildren().addAll(drawStack, hand);
 		pane.setAlignment(Pos.CENTER);
-
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
-	protected Node createCenterPane() {
+	/**
+	 * Create the bottom pane with a HBox, including lays in HBox and an image
+	 */
+	public Node createCenterPane() {
 		Insets insets = InsetsApp.HIGH.getInsets();
 		// descending
 		HBox descP = new HBox(Spacing.HIGH.getSpace());
@@ -229,13 +246,13 @@ public abstract class APlayScene extends MainScene {
 		pane.getChildren().addAll(descP, img, ascP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
-		// TODO Erase
-		pane.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
 	}
 
-	protected void addActionLay() {
+	/**
+	 * Setting an OnMouseClicked event for all the lay component
+	 */
+	private void addActionLay() {
 		layL.forEach(lay -> {
 			lay.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
@@ -248,9 +265,6 @@ public abstract class APlayScene extends MainScene {
 							unSelectLays();
 							lay.setActive(true);
 							selectedLay = lay;
-							// TODO erase
-							System.out.println(Main.d.get("PLAY_human_choosen_card_lay"));
-							System.out.println(lay.getText());
 							try {
 								layingAction(lay);
 							} catch (Exception e) {
@@ -264,7 +278,8 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	/**
-	 * adding a new event OnMouseClicked without overriding the super class
+	 * Adding a new event OnMouseClicked for all the card form the hand ; without
+	 * overriding the initial event click for the hand component
 	 * 
 	 * @source https://docs.oracle.com/javafx/2/events/handlers.htm
 	 */
@@ -274,9 +289,6 @@ public abstract class APlayScene extends MainScene {
 				@Override
 				public void handle(MouseEvent event) {
 					if (hand.isClickable()) {
-						// TODO erase
-						System.out.println(Main.d.get("PLAY_human_choosen_card_hand"));
-						System.out.println(card.getText());
 						try {
 							layingAction(card);
 						} catch (Exception e) {
@@ -298,13 +310,13 @@ public abstract class APlayScene extends MainScene {
 			public void handle(MouseEvent event) {
 				if (draw.isClickable()) {
 					unSelectLays();
-					hand.unSelectCard();
+					hand.unSelectCards();
 					if (jeu.nbCartesAJouer() > 0) {
 						dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
 					} else {
 						jeu.passerTour();
 						updateCardL();
-						updateHandPane();
+						panePlay.setBottom(createBottomPane());
 						if (jeu.isPartieFinie()) {
 							disablePlaying();
 							setDialogsResult();
@@ -317,19 +329,12 @@ public abstract class APlayScene extends MainScene {
 		});
 	}
 
-	protected void updateCardL() {
-		cardL = new ArrayList<CardComponent>();
-		joueur.getMain().forEach(carte -> {
-			cardL.add(new CardComponent(carte));
-		});
-	}
-
-	protected void updateHandPane() {
-		pane.setBottom(createBottomPane());
-		addActionHand();
-		addActionDraw();
-	}
-
+	/**
+	 * Try to lay a card, and to update the dialog box according the result or
+	 * exceptions of jeu.jouer() method from API, and according the end of the game
+	 * 
+	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
+	 */
 	protected void layingAction(CardComponent selectedCard) throws MissHandCardException, MissLayCardException {
 		if (selectedLay != null) {
 			dialogP.clearDialog();
@@ -347,8 +352,6 @@ public abstract class APlayScene extends MainScene {
 			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(jeu.score());
 			if (jeu.isPartieFinie()) {
-				// TODO Erase syso
-				System.out.println(jeu.isPartieFinie());
 				disablePlaying();
 				setDialogsResult();
 			}
@@ -357,6 +360,12 @@ public abstract class APlayScene extends MainScene {
 		}
 	}
 
+	/**
+	 * Try to lay a card, and to update the dialog box according the result or
+	 * exceptions of jeu.jouer() method from API, and according the end of the game
+	 * 
+	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
+	 */
 	protected void layingAction(LayComponent selectedLay) throws MissHandCardException, MissLayCardException {
 		if (this.hand.isCardSelected()) {
 			dialogP.clearDialog();
@@ -374,8 +383,6 @@ public abstract class APlayScene extends MainScene {
 			dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(jeu.score());
 			if (jeu.isPartieFinie()) {
-				// TODO Erase syso
-				System.out.println(jeu.isPartieFinie());
 				disablePlaying();
 				setDialogsResult();
 			}
@@ -384,34 +391,24 @@ public abstract class APlayScene extends MainScene {
 		}
 	}
 
+	/**
+	 * Unselect all the component from the APLayScene which could have been selected
+	 */
+	private void unSelectAll() {
+		selectedCard = null;
+		hand.setCardSelected(null);
+		hand.unSelectCards();
+		selectedLay = null;
+		unSelectLays();
+	}
+
+	/**
+	 * Unselect all lays
+	 */
 	private void unSelectLays() {
 		this.layL.forEach(card -> {
 			card.setActive(false);
 		});
-	}
-
-	/**
-	 * @param selectedLay the selectedLay to set
-	 */
-	private void setSelectedLay(LayComponent selectedLay) {
-		this.selectedLay = selectedLay;
-	}
-
-	/**
-	 * @param selectedCard the selectedCard to set
-	 */
-	private void setSelectedCard(CardComponent selectedCard) {
-		this.selectedCard = selectedCard;
-	}
-
-	private void unSelectAll() {
-		setSelectedLay(null);
-		setSelectedCard(null);
-		hand.setCardSelected(null);
-		unSelectLays();
-		hand.unSelectCard();
-		setSelectedLay(null);
-		setSelectedCard(null);
 	}
 
 	/**
@@ -425,12 +422,17 @@ public abstract class APlayScene extends MainScene {
 		hand.setClickable(false);
 	}
 
-	private void setDialogsResult() {
-		if (jeu.isVictoire()) {
-			dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
-			dialogP.addDialog(Main.d.get("PLAY_info_restart"));
-		} else {
-			dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
+	/**
+	 * In case of the game ends, modify the dialog box to add the result of the user
+	 * against the game
+	 */
+	protected void setDialogsResult() {
+		if (jeu.isPartieFinie()) {
+			if (jeu.isVictoire()) {
+				dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
+			} else {
+				dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
+			}
 			dialogP.addDialog(Main.d.get("PLAY_info_restart"));
 		}
 	}

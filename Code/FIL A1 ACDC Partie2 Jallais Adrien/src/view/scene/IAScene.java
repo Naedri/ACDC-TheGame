@@ -14,19 +14,7 @@ public class IAScene extends APlayScene {
 	}
 
 	@Override
-	protected Node createRightPane() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Node createBottomPane() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Node createCenterPane() {
+	public Node createRightPane() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -37,11 +37,6 @@ public class CardComponent extends ACardComponent implements ICardAPI {
 		initCarteObs();
 	}
 
-	private void initBorder() {
-		border = new Border(new BorderStroke(getBorderColor(), BorderStrokeStyle.SOLID,
-				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth())));
-	}
-
 	protected void initBackground() {
 		Background backgroundInit = new Background(
 				new BackgroundFill(getBackgroundColor(), new CornerRadii(RadiusApp.MEDIUM.getRadius()), Insets.EMPTY));
@@ -50,6 +45,11 @@ public class CardComponent extends ACardComponent implements ICardAPI {
 		setBackgroundInit(backgroundInit);
 		setBackgroundHover(backgroundHover);
 		setBackground(backgroundInit);
+	}
+
+	private void initBorder() {
+		border = new Border(new BorderStroke(getBorderColor(), BorderStrokeStyle.SOLID,
+				new CornerRadii(RadiusApp.MEDIUM.getRadius()), new BorderWidths(BordW.HIGH.getWidth())));
 	}
 
 	private void setStyle() {
@@ -68,7 +68,6 @@ public class CardComponent extends ACardComponent implements ICardAPI {
 	 * 
 	 * @source https://edencoding.com/javafx-properties-and-binding-a-complete-guide/#bindings
 	 */
-
 	private void initCarteObs() {
 		this.carteTextObs = new SimpleStringProperty(Integer.toString(this.getCardAPI().getValeur()));
 		this.carteTextListener = new ChangeListener<String>() {

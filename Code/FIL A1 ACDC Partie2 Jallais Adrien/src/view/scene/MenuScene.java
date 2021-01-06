@@ -9,14 +9,9 @@ import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import view.button.ButtonChangeScene;
 import view.constant.Spacing;
 
@@ -41,10 +36,6 @@ public class MenuScene extends MainScene {
 		bE = new ButtonChangeScene(Main.d.get("MENU_exit"));
 		addingButtonEvent();
 		createMenuBox();
-
-		// TODO Erase
-		vbox.setBackground(new Background(new BackgroundFill(Color.color(Math.random(), Math.random(), Math.random()),
-				CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
 	private void addingButtonEvent() {
@@ -57,7 +48,6 @@ public class MenuScene extends MainScene {
 	}
 
 	private class ButtonHandler implements EventHandler<ActionEvent> {
-
 		@Override
 		public void handle(ActionEvent e) {
 			if (e.getSource() == bPH) {
@@ -87,7 +77,7 @@ public class MenuScene extends MainScene {
 	}
 
 	/*
-	 * 
+	 * Adjust the VBox which gather all the button items from the menu
 	 */
 	private void createMenuBox() {
 		vbox.setSpacing(Spacing.MEDIUM.getSpace());
