@@ -41,6 +41,19 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("MENU_parameters", "Modifier les paramètres");
 		this.d.put("MENU_exit", "Quitter");
 
+		// SCENE - Parameters
+		this.d.put("PARAMETERS_menu", "Menu");
+		this.d.put("COMMON_menu", "Menu");
+		this.d.put("COMMON_menu", "Menu");
+		this.d.put("COMMON_menu", "Menu");
+
+		// SCENE - Authors
+		this.d.put("CREDITS_Authors", "Cette application est basée sur :");
+		this.d.put("CREDITS_Author_back", "Le backend par réalisé par :");
+		this.d.put("CREDITS_Author_front", "Le frontend réalisé par :");
+		this.d.put("CREDITS_Image_welcome", "L'image d'accueil réalisée par :");
+		this.d.put("CREDITS_Image_play", "L'image de fond du plateau de jeu par :");
+
 		// SCENE - Play
 		this.d.put("PLAY_mode_human", "Mode jeu");
 		this.d.put("PLAY_mode_ia", "Mode démonstration");
