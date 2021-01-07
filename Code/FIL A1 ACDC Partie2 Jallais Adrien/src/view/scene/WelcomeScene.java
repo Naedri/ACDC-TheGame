@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import application.Main;
 import controller.Services;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -41,6 +40,10 @@ public class WelcomeScene extends MainScene {
 	private MediaPlayer player;
 	private BorderPane pane;
 
+	private Label labelSubTitle;
+	private boolean subTitleOn = true;
+	private Timeline timeline;
+
 	public WelcomeScene() {
 		super(new BorderPane());
 		pane = (BorderPane) (super.getPane());
@@ -54,26 +57,10 @@ public class WelcomeScene extends MainScene {
 				new Background(new BackgroundFill(ColorApp.INFOL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	private Node createBottomPane() {
-		// subtitle
-		Label label = new Label(Main.d.get("WELCOME_start"));
-		label.setFont(FontApp.SUBTITLE.getFont());
-		label.setTextFill(ColorApp.GOODD.getColor());
-		label.setAlignment(Pos.CENTER);
-		// pane
-		StackPane pane = new StackPane();
-		pane.getChildren().add(label);
-		pane.setPadding(new Insets(0, 30, 60, 30));
-		pane.setAlignment(Pos.TOP_CENTER);
-		// maintaining size
-		pane.setPrefSize(80, 20);
-		return pane;
-	}
-
 	private Node createCenterPane() {
 		// img
 		String imgName = "knight_640.png";
-//		String imgName = "Castle_Free.png";
+		// String imgName = "Castle_Free.png";
 		String pathPict = "src" + File.separator + "multimedia" + File.separator + imgName;
 		ImageView img;
 		try {
@@ -99,6 +86,22 @@ public class WelcomeScene extends MainScene {
 		return stack;
 	}
 
+	private Node createBottomPane() {
+		// subtitle
+		labelSubTitle = new Label(Main.d.get("WELCOME_start"));
+		labelSubTitle.setFont(FontApp.SUBTITLE.getFont());
+		labelSubTitle.setTextFill(ColorApp.GOODD.getColor());
+		labelSubTitle.setAlignment(Pos.CENTER);
+		// pane
+		StackPane pane = new StackPane();
+		pane.getChildren().add(labelSubTitle);
+		pane.setPadding(new Insets(0, 30, 60, 30));
+		pane.setAlignment(Pos.TOP_CENTER);
+		// maintaining size
+		pane.setPrefSize(80, 20);
+		return pane;
+	}
+
 	private void addingMusic() {
 		String pathMusic = "src" + File.separator + "multimedia" + File.separator + "Welcome.mp3";
 		music = new Media(new File(pathMusic).toURI().toString());
@@ -115,7 +118,7 @@ public class WelcomeScene extends MainScene {
 			public void handle(KeyEvent k) {
 				if (k.getCode().equals(KeyCode.ENTER)) {
 					player.stop();
-					triggerFlick();
+					timeline.stop();
 					Services.changeScene(WelcomeScene.this, new MenuScene());
 				}
 			}
@@ -123,35 +126,32 @@ public class WelcomeScene extends MainScene {
 	}
 
 	/**
-	 * adding flick effect only when the scene is loaded
+	 * adding music and flick effect only when the scene is loaded
 	 */
 	@Override
 	public void triggerShow() {
 		player.play();
+		triggerFlick();
 	}
 
 	/**
-	 * Will make flicking the bottom pane label
-	 * 
-	 * @source https://stackoverflow.com/questions/25910963/javafx-hide-pane-for-a-very-short-time/25911758#25911758
-	 * @param node     the pane to be flicking
-	 * @param milliSec the period of the time effect
-	 * @times number
+	 * to make flinking the subtitle
 	 */
-	private void triggerFlick() {
-		int milliSec = 500;
-		int time = 10;
-		Node node = ((StackPane) pane.getBottom()).getChildren().get(0);
-		for (int i = 0; i < time; i++) {
-			Boolean visible = node.isVisible();
-			node.setVisible(!visible);
-			Timeline timeline = new Timeline();
-			KeyValue kv = new KeyValue(pane.visibleProperty(), true);
-			Duration period = Duration.millis(milliSec);
-			KeyFrame kf = new KeyFrame(period, kv);
-			timeline.getKeyFrames().add(kf);
-			timeline.play();
-		}
+	private void flinckSubTitle() {
+		this.labelSubTitle.setVisible(this.subTitleOn);
+		this.subTitleOn = !this.subTitleOn;
 	}
 
+	/**
+	 * Will make flicking the bottom pane label; Every 500 milliseconds ;
+	 * 
+	 * @source https://stackoverflow.com/questions/9966136/javafx-periodic-background-task
+	 */
+	private void triggerFlick() {
+		timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
+			flinckSubTitle();
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
 }
