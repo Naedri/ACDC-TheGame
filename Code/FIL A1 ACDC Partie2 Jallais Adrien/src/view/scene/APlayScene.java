@@ -19,7 +19,6 @@ import api.TasDescendant;
 import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -27,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -45,8 +43,6 @@ import view.component.ScoreComponent;
 import view.constant.ColorApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
-import view.exception.MissHandCardException;
-import view.exception.MissLayCardException;
 import view.label.MainLabel;
 
 /**
@@ -66,7 +62,6 @@ public abstract class APlayScene extends MainScene {
 	protected DialogComponent dialogP;
 
 	protected LayComponent selectedLay;
-	// protected CardComponent selectedCard;
 	protected Joueur joueur;
 	protected Jeu jeu;
 
@@ -80,10 +75,7 @@ public abstract class APlayScene extends MainScene {
 		panePlay.setCenter(createCenterPane());
 		panePlay.setBottom(createBottomPane());
 		panePlay.setRight(createRightPane());
-		// adding effect
-		this.addActionLay();
-		this.addActionHand();
-		this.addActionDraw();
+
 		// set background
 		this.getBorder().setBackground(
 				new Background(new BackgroundFill(ColorApp.GOODL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -129,6 +121,14 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	/**
+	 * Alllow to draw (updateCardL) and to update the bottom pane
+	 */
+	protected void updateHand() {
+		updateCardL();
+		panePlay.setBottom(createBottomPane());
+	}
+
+	/**
 	 * Init the lay component and gather it in a list : layL
 	 */
 	private void initLayPile() {
@@ -145,6 +145,36 @@ public abstract class APlayScene extends MainScene {
 		}
 		layL.addAll(layDscL);
 		layL.addAll(layAscL);
+	}
+
+	/**
+	 * Disable all Click events added to game component
+	 */
+	protected void disablePlaying() {
+		layL.forEach(lay -> {
+			lay.setClickable(false);
+		});
+		draw.setClickable(false);
+		hand.setClickable(false);
+	}
+
+	/**
+	 * Unselect all the component from the APLayScene which could have been selected
+	 */
+	protected void unSelectAll() {
+		selectedLay = null;
+		hand.setCardSelected(null);
+		hand.unSelectCards();
+		unSelectLays();
+	}
+
+	/**
+	 * Unselect all lays
+	 */
+	protected void unSelectLays() {
+		this.layL.forEach(lay -> {
+			lay.setActive(false);
+		});
 	}
 
 	/**
@@ -249,210 +279,13 @@ public abstract class APlayScene extends MainScene {
 		}
 		// merge
 		VBox pane = new VBox();
-		pane.getChildren().addAll(descP, img, ascP);
+		if (Main.isSmallScreen()) {
+			pane.getChildren().addAll(descP, ascP);
+		} else {
+			pane.getChildren().addAll(descP, img, ascP);
+		}
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
 		return pane;
-	}
-
-	/**
-	 * Setting an OnMouseClicked event for all the lay component
-	 */
-	private void addActionLay() {
-		layL.forEach(lay -> {
-			lay.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					if (lay.isClickable()) {
-						if (lay.isActive()) {
-							lay.switchActive();
-							selectedLay = null;
-						} else {
-							unSelectLays();
-							lay.setActive(true);
-							selectedLay = lay;
-							try {
-								layingActionFromLay(lay);
-							} catch (Exception e) {
-								dialogP.setDialog(e.getMessage());
-							}
-						}
-					}
-				}
-			});
-		});
-	}
-
-	/**
-	 * Adding a new event OnMouseClicked for all the card form the hand ; without
-	 * overriding the initial event click for the hand component
-	 * 
-	 * @source https://docs.oracle.com/javafx/2/events/handlers.htm
-	 */
-	private void addActionHand() {
-		this.hand.getCardL().forEach(card -> {
-			card.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					if (hand.isClickable()) {
-						try {
-							layingActionFromHand(card);
-						} catch (Exception e) {
-							dialogP.setDialog(e.getMessage());
-						}
-					}
-				}
-			});
-		});
-	}
-
-	/**
-	 * Allow to end its turn Event which checks if a card has been layed if no, ask
-	 * confirmation to end the game if so, draw card without asking confirmation
-	 */
-	private void addActionDraw() {
-		this.draw.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (draw.isClickable()) {
-					unSelectAll();
-					if (jeu.nbCartesAJouer() > 0) {
-						dialogP.setDialog(Main.d.get("PLAY_human_can_not_draw"));
-					} else {
-						jeu.passerTour();
-						updateBottomPane();
-						if (jeu.isPartieFinie()) {
-							disablePlaying();
-							setDialogsResult();
-						} else {
-							dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
-						}
-					}
-				}
-			}
-		});
-	}
-
-	/**
-	 * Update the bottom pane, in order to rebuild the hand and add associated effet
-	 * As we rebuild the bottom pane, we should add Hand AND Draw event
-	 */
-	private void updateBottomPane() {
-		updateCardL();
-		panePlay.setBottom(createBottomPane());
-		addActionHand();
-		addActionDraw();
-	}
-
-	/**
-	 * Try to lay a card, and to update the dialog box according the result or
-	 * exceptions of jeu.jouer() method from API, and according the end of the game
-	 * 
-	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
-	 */
-	private void layingActionFromHand(CardComponent selectedCard) throws MissHandCardException {
-		System.out.println("Je passe layingActionFromHand");
-		if (this.selectedLay != null) {
-			this.dialogP.clearDialog();
-			try {
-				this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
-			} catch (Exception e) {
-				this.dialogP.setDialog(e.getMessage());
-				unSelectAll();
-				return;
-			}
-			this.selectedLay.setCardAPI(selectedCard.getCardAPI());
-			this.hand.removeCard(selectedCard);
-			unSelectAll();
-			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(this.jeu.score());
-			if (this.jeu.isPartieFinie()) {
-				disablePlaying();
-				setDialogsResult();
-			}
-		} else {
-			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
-			// throw new MissHandCardException();
-		}
-	}
-
-	/**
-	 * Try to lay a card, and to update the dialog box according the result or
-	 * exceptions of jeu.jouer() method from API, and according the end of the game
-	 * 
-	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
-	 */
-	private void layingActionFromLay(LayComponent selectedLay) throws MissLayCardException {
-		System.out.println("Je passe layingActionFromLay");
-		if (this.hand.isCardSelected()) {
-			this.dialogP.clearDialog();
-			try {
-				this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
-			} catch (Exception e) {
-				this.dialogP.setDialog(e.getMessage());
-				unSelectAll();
-				return;
-			}
-			selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
-			this.hand.removeCard(this.hand.getCardSelected());
-			unSelectAll();
-			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(this.jeu.score());
-			if (this.jeu.isPartieFinie()) {
-				disablePlaying();
-				setDialogsResult();
-			}
-		} else {
-			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
-			// throw new MissLayCardException();
-		}
-	}
-
-	/**
-	 * Unselect all the component from the APLayScene which could have been selected
-	 */
-	private void unSelectAll() {
-		// selectedCard = null;
-		selectedLay = null;
-		hand.setCardSelected(null);
-		hand.unSelectCards();
-		unSelectLays();
-	}
-
-	/**
-	 * Unselect all lays
-	 */
-	private void unSelectLays() {
-		this.layL.forEach(lay -> {
-			lay.setActive(false);
-		});
-	}
-
-	/**
-	 * Disable all Click events added to game component
-	 */
-	private void disablePlaying() {
-		layL.forEach(lay -> {
-			lay.setClickable(false);
-		});
-		draw.setClickable(false);
-		hand.setClickable(false);
-	}
-
-	/**
-	 * In case of the game ends, modify the dialog box to add the result of the user
-	 * against the game
-	 */
-	private void setDialogsResult() {
-		if (this.jeu.isPartieFinie()) {
-			if (this.jeu.isVictoire()) {
-				this.dialogP.setDialog(Main.d.get("PLAY_human_end_good"));
-			} else {
-				this.dialogP.setDialog(Main.d.get("PLAY_human_end_bad"));
-			}
-			this.dialogP.addDialog(Main.d.get("PLAY_info_restart"));
-		}
 	}
 }
