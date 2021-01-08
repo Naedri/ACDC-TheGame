@@ -42,9 +42,10 @@ public class AuthorScene extends MainScene {
 		mainLabel.addDialog("- Momentmal - pixabay.com");
 		mainLabel.addDialog(Main.d.get("CREDITS_Image_play"));
 		mainLabel.addDialog("- Castle Transparent - pngall.com");
-
 		mainLabel.getDialogL().setTextAlignment(TextAlignment.LEFT);
 		mainLabel.getDialogL().setMaxWidth(Double.MAX_VALUE);
+		// TODO change raw value
+		mainLabel.getDialogL().setLineSpacing(3);
 	}
 
 	public Node createCenterPane() {

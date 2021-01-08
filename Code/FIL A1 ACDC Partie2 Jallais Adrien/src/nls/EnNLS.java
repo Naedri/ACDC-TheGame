@@ -87,7 +87,7 @@ public class EnNLS extends DefaultNLS {
 		// SCENE - PLAY - IA
 		this.d.put("PLAY_ia_begin", "AI plays in:");
 		this.d.put("PLAY_ia_start", "Fire");
-		this.d.put("PLAY_ia_watch", "Watch!");
+		this.d.put("PLAY_ia_watch", "AI is running !");
 		this.d.put("PLAY_ia_turn", "AI starts the turn:");
 		this.d.put("PLAY_ia_end_turn", "AI stopped at turn:");
 		this.d.put("PLAY_ia_end_good", "The AI beat the game.");

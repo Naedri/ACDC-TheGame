@@ -89,7 +89,7 @@ public final class FrNLS extends DefaultNLS {
 		// SCENE - PLAY - IA
 		this.d.put("PLAY_ia_begin", "L'IA joue dans :");
 		this.d.put("PLAY_ia_start", "Feu");
-		this.d.put("PLAY_ia_watch", "Observez !");
+		this.d.put("PLAY_ia_watch", "Résolution en cours !");
 		this.d.put("PLAY_ia_turn", "L'IA commence le tour :");
 		this.d.put("PLAY_ia_end_turn", "L'IA s'est arrêtée au tour :");
 		this.d.put("PLAY_ia_end_good", "L'IA a battu le jeu.");
