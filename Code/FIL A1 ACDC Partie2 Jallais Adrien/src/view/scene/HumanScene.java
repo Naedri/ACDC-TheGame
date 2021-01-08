@@ -104,8 +104,8 @@ public class HumanScene extends APlayScene {
 	 * Update the bottom pane, in order to rebuild the hand and add associated effet
 	 * As we rebuild the bottom pane, we should add Hand AND Draw event
 	 */
-	private void updateBottomPane() {
-		super.updateHand();
+	public void updateBottomPane() {
+		super.updateHandAndDraw();
 		this.addActionHand();
 		this.addActionDraw();
 	}
@@ -117,19 +117,21 @@ public class HumanScene extends APlayScene {
 	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
 	 */
 	private void layingActionFromHand(CardComponent selectedCard) throws MissHandCardException {
-		System.out.println("Je passe layingActionFromHand");
 		if (this.selectedLay != null) {
+			System.out.println(selectedLay.getIndex());
+			System.out.println(this.hand.getCardSelected().getCardAPI());
+
 			this.dialogP.clearDialog();
 			try {
 				this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
 			} catch (Exception e) {
 				this.dialogP.setDialog(e.getMessage());
-				unSelectAll();
+				super.unSelectAll();
 				return;
 			}
 			this.selectedLay.setCardAPI(selectedCard.getCardAPI());
 			this.hand.removeCard(selectedCard);
-			unSelectAll();
+			super.unSelectAll();
 			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(this.jeu.score());
@@ -150,19 +152,18 @@ public class HumanScene extends APlayScene {
 	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
 	 */
 	private void layingActionFromLay(LayComponent selectedLay) throws MissLayCardException {
-		System.out.println("Je passe layingActionFromLay");
 		if (this.hand.isCardSelected()) {
 			this.dialogP.clearDialog();
 			try {
 				this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
 			} catch (Exception e) {
 				this.dialogP.setDialog(e.getMessage());
-				unSelectAll();
+				this.unSelectAll();
 				return;
 			}
 			selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
 			this.hand.removeCard(this.hand.getCardSelected());
-			unSelectAll();
+			this.unSelectAll();
 			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 			this.scoreP.setScoreT(this.jeu.score());

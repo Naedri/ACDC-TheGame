@@ -75,10 +75,16 @@ public abstract class APlayScene extends MainScene {
 		panePlay.setCenter(createCenterPane());
 		panePlay.setBottom(createBottomPane());
 		panePlay.setRight(createRightPane());
-
 		// set background
 		this.getBorder().setBackground(
 				new Background(new BackgroundFill(ColorApp.GOODL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+
+	/**
+	 * @return the joueur
+	 */
+	public Joueur getJoueur() {
+		return joueur;
 	}
 
 	/**
@@ -121,11 +127,34 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	/**
-	 * Alllow to draw (updateCardL) and to update the bottom pane
+	 * Allow to update the card in hand showed according to the API, and if the draw
+	 * is empty make it disappear
 	 */
-	protected void updateHand() {
+	protected void updateHandAndDraw() {
 		updateCardL();
 		panePlay.setBottom(createBottomPane());
+	}
+
+	/**
+	 * Allow to update the card on lays showed according to the API
+	 */
+	protected void updateLays() {
+		for (int i = 0; i < layL.size(); i++) {
+			Tas tas = jeu.getTasById(i);
+			LayComponent lay = layL.get(i);
+			lay.setCardAPI(tas.getDerniereCarte());
+		}
+	}
+
+	/**
+	 * Allow to update the card in hand and the lays showed on the board game
+	 * according to the API = Update the scene to match with the game state
+	 * 
+	 */
+	protected void updateBoardGame() {
+		updateHandAndDraw();
+		updateLays();
+		this.scoreP.setScoreT(this.jeu.score());
 	}
 
 	/**
@@ -137,14 +166,14 @@ public abstract class APlayScene extends MainScene {
 		layL = new ArrayList<LayComponent>();
 		for (int i = 0; i < jeu.getTas().size(); i++) {
 			Tas tas = jeu.getTasById(i);
+			LayComponent lay = new LayComponent(tas, i);
 			if (tas instanceof TasAscendant) {
-				layAscL.add(new LayComponent(tas, i));
+				layAscL.add(lay);
 			} else if (tas instanceof TasDescendant) {
-				layDscL.add(new LayComponent(tas, i));
+				layDscL.add(lay);
 			}
+			layL.add(lay);
 		}
-		layL.addAll(layDscL);
-		layL.addAll(layAscL);
 	}
 
 	/**
@@ -161,11 +190,14 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * Unselect all the component from the APLayScene which could have been selected
 	 */
-	protected void unSelectAll() {
+	public void unSelectAll() {
 		selectedLay = null;
 		hand.setCardSelected(null);
 		hand.unSelectCards();
 		unSelectLays();
+//		selectedLay = null;
+//		hand.unSelectCards();
+//		unSelectLays();
 	}
 
 	/**
@@ -228,17 +260,23 @@ public abstract class APlayScene extends MainScene {
 	private Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2);
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 		// draw
 		draw = new DrawComponent(cardL.get(0));
 		StackPane drawStack = draw.makeSupported();
+		// if the draw is empty
+		if (jeu.getPioche().getCartes().size() <= 0) {
+			StackPane stp = new StackPane();
+			stp.getChildren().add(draw.makeSupport());
+			drawStack = stp;
+		}
 		drawStack.setPadding(insets);
 		// merge
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
 		pane.getChildren().addAll(drawStack, hand);
-		pane.setAlignment(Pos.CENTER);
+		pane.setAlignment(Pos.CENTER_LEFT);
 		return pane;
 	}
 
