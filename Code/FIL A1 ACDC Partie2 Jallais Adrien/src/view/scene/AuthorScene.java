@@ -12,6 +12,7 @@ import javafx.scene.text.TextAlignment;
 import view.button.ButtonQuit;
 import view.component.DialogComponent;
 import view.constant.FontApp;
+import view.constant.InsetsApp;
 import view.constant.Spacing;
 
 public class AuthorScene extends MainScene {
@@ -49,10 +50,11 @@ public class AuthorScene extends MainScene {
 	public Node createCenterPane() {
 		VBox vbox = new VBox();
 		// TODO change raw value
-		vbox.setMaxSize(300, 350);
+		vbox.setMaxSize(350, 400);
 		vbox.getChildren().addAll(labelAuthors, mainLabel);
 		vbox.setAlignment(Pos.CENTER_LEFT);
 		vbox.setBackground(mainLabel.getBackground());
+		vbox.setPadding(InsetsApp.HIGH.getInsets());
 		return vbox;
 	}
 
