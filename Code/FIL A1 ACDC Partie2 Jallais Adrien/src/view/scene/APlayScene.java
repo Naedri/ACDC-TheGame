@@ -167,21 +167,15 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @return VBox containing the exit and menu buttons
 	 */
-	private Node createLeftPane() {
+	protected Node createLeftPane() {
 		VBox pane = new VBox();
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
 			Services.changeScene(this, new MenuScene());
-			if (IAScene.isTimelineNull()) {
-				IAScene.killTimeline();
-			}
 		});
 		Button bQ = new ButtonQuit(Main.d.get("COMMON_exit"));
 		bQ.setOnAction((ActionEvent e) -> {
 			Services.quitApp(this);
-			if (IAScene.isTimelineNull()) {
-				IAScene.killTimeline();
-			}
 		});
 		pane.getChildren().addAll(bM, bQ);
 		pane.setSpacing(Spacing.HIGH.getSpace());

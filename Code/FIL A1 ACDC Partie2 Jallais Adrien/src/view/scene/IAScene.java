@@ -9,19 +9,31 @@ import api.Joueur;
 import api.JoueurIA;
 import api.Tas;
 import application.Main;
+import controller.Services;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import view.button.ButtonQuit;
 import view.component.LayComponent;
+import view.constant.Spacing;
+import view.label.MainLabel;
 
 public class IAScene extends APlayScene {
 
 	private static String name = Main.d.get("PLAY_mode_ia");
 	protected static Timeline timeline;
-	private static final Integer STARTTIME = 3;
-	private Integer timeSeconds;
-	private static final Integer INTERVALIATURN = 2;
-	private Integer timeTurn;
+	private static final int STARTTIME = 3;
+	private int timeSeconds;
+	private static final int INTERVALIATURN = 2;
+	private int timeTurn;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
@@ -40,7 +52,7 @@ public class IAScene extends APlayScene {
 		timeline.setCycleCount(STARTTIME + 1);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
 			if (timeSeconds > 0) {
-				dialogP.addDialog(timeSeconds.toString());
+				dialogP.addDialog(String.valueOf(timeSeconds));
 			} else if (timeSeconds == 0) {
 				// timeline.stop();
 				dialogP.addDialog(Main.d.get("PLAY_ia_start"));
@@ -58,7 +70,18 @@ public class IAScene extends APlayScene {
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeTurn = INTERVALIATURN;
-		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(timeTurn), event -> {
+		timeline.getKeyFrames().add(makeKeyFrameIATurn(timeTurn));
+		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
+		timeline.play();
+	}
+
+	/**
+	 * 
+	 * @param time number of second for duration of the Turn
+	 * @return keyframe which allows to the IA to play
+	 */
+	private KeyFrame makeKeyFrameIATurn(int time) {
+		return new KeyFrame(Duration.seconds(time), event -> {
 			boolean goodTurn = false;
 			try {
 				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(jeu);
@@ -76,9 +99,7 @@ public class IAScene extends APlayScene {
 				unSelectLays();
 				setDialogsResult();
 			}
-		}));
-		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
-		timeline.play();
+		});
 	}
 
 	/**
@@ -91,7 +112,7 @@ public class IAScene extends APlayScene {
 	/**
 	 * @param timeTurn the timeTurn to set
 	 */
-	public void setTimeTurn(Integer timeTurn) {
+	public void setTimeTurn(int timeTurn) {
 		this.timeTurn = timeTurn;
 	}
 
@@ -151,6 +172,67 @@ public class IAScene extends APlayScene {
 	 */
 	public static boolean isTimelineNull() {
 		return timeline != null;
+	}
+
+	/**
+	 * 
+	 * @return VBox containing the exit and menu buttons
+	 */
+	@Override
+	protected Node createLeftPane() {
+		VBox pane = new VBox();
+		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
+		bM.setOnAction((ActionEvent e) -> {
+			Services.changeScene(this, new MenuScene());
+			if (IAScene.isTimelineNull()) {
+				IAScene.killTimeline();
+			}
+		});
+		Button bQ = new ButtonQuit(Main.d.get("COMMON_exit"));
+		bQ.setOnAction((ActionEvent e) -> {
+			Services.quitApp(this);
+			if (IAScene.isTimelineNull()) {
+				IAScene.killTimeline();
+			}
+		});
+		// merge
+		pane.getChildren().addAll(bM, bQ);
+		pane.setSpacing(Spacing.HIGH.getSpace());
+		pane.setAlignment(Pos.CENTER);
+		// Slider
+//		VBox slb = makeSlider();
+//		pane.getChildren().addAll(slb);
+		return pane;
+	}
+
+	/**
+	 * 
+	 * @return a vBox which contains
+	 */
+	public VBox makeSlider() {
+		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
+		Slider sl = new Slider(0.5, 4, INTERVALIATURN);
+		sl.setShowTickLabels(true);
+		sl.setShowTickMarks(true);
+		sl.setMajorTickUnit(1.0);
+		sl.setMinorTickCount(1);
+		sl.setBlockIncrement(1.0);
+		sl.setSnapToTicks(true);
+		sl.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> v, Number av, Number ap) {
+				setTimeTurn(ap.intValue());
+				// Does not work
+				// timeline.getKeyFrames().clear();
+				// timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
+				timeline.getKeyFrames().get(0).getTime();
+			}
+		});
+		VBox slb = new VBox();
+		slb.getChildren().addAll(sl, sll);
+		slb.setSpacing(Spacing.LITTLE.getSpace());
+		slb.setAlignment(Pos.CENTER);
+		return slb;
 	}
 
 }
