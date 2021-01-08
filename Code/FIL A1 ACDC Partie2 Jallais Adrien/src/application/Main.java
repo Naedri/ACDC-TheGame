@@ -16,7 +16,7 @@ import nls.DefaultNLS;
 import nls.EnNLS;
 import nls.FrNLS;
 import nls.LanguageApp;
-import view.scene.HumanScene;
+import view.scene.IAScene;
 import view.scene.MainScene;
 
 /**
@@ -70,10 +70,10 @@ public class Main extends Application {
 		// this.scene = new WelcomeScene();
 		// this.scene = new MenuScene();
 		// this.scene = new RulesScene();
-		this.scene = new HumanScene(joueurs, getPathDeck());
+//		this.scene = new HumanScene(joueurs, getPathDeck());
 		// this.scene = new AuthorScene();
 		// this.scene = new ParameterScene();
-//		this.scene = new IAScene(getPathDeck());
+		this.scene = new IAScene(getPathDeck());
 		// joueur
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);

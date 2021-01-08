@@ -63,8 +63,10 @@ public class IAScene extends APlayScene {
 				e.printStackTrace();
 			}
 			if (!goodTurn) {
-				updateBoardGame();
-				// setDialogTurn(); //does not work
+				reloadHandAndDraw();
+				updateLays();
+				scoreP.setScoreT(this.jeu.score());
+				// setDialogTurn(); // does not work
 			} else if (goodTurn || jeu.isPartieFinie()) {
 				timeline.stop();
 				unSelectLays();
@@ -79,8 +81,7 @@ public class IAScene extends APlayScene {
 	 * Allow to update the card on lays showed according to the API And to set
 	 * active the ones for wich a the value of the Carte has changed
 	 */
-	@Override
-	protected void updateLays() {
+	public void updateLays() {
 		for (int i = 0; i < layL.size(); i++) {
 			Tas tas = jeu.getTasById(i);
 			LayComponent lay = layL.get(i);
@@ -98,7 +99,7 @@ public class IAScene extends APlayScene {
 	 * 
 	 * @param turn
 	 */
-	private void setDialogTurn() {
+	public void setDialogTurn() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
 		this.dialogP.addDialog(String.valueOf(jeu.getTour()));
 	}
