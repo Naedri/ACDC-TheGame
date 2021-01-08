@@ -19,8 +19,7 @@ public class MissLayCardException extends Exception {
 	private static final long serialVersionUID = -4855286190791451127L;
 
 	public MissLayCardException() {
-		super(Main.d.get("PLAY_human_choose_card_hand"));
-		// super(Main.d.get("PLAY_human_laying_miss_lay_card"));
+		super(Main.d.get("PLAY_human_choose_card_lay"));
 	}
 
 	public MissLayCardException(String message) {

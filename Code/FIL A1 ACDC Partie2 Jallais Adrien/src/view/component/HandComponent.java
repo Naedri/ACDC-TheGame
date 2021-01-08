@@ -25,15 +25,18 @@ public class HandComponent extends HBox implements IClickable {
 
 	private List<CardComponent> cardL;
 	private List<StackPane> stackL;
-	public CardComponent cardSelected = null;
+	private CardComponent cardSelected;
 	private boolean clikable = true;
-	// private final int numberCardsBegin;
+	private final int numberCardsBegin;
 
 	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin) {
 		super(spacing);
 		initHand(listCard);
 		setStyle();
 		setAction();
+		this.cardSelected = null;
+		this.numberCardsBegin = numberCardsBegin;
+		System.out.println("HandComponent");
 	}
 
 	public HandComponent(List<CardComponent> listCard, int numberCardsBegin) {
@@ -41,6 +44,9 @@ public class HandComponent extends HBox implements IClickable {
 		initHand(listCard);
 		setStyle();
 		setAction();
+		this.cardSelected = null;
+		this.numberCardsBegin = numberCardsBegin;
+		System.out.println("HandComponent");
 	}
 
 	/**

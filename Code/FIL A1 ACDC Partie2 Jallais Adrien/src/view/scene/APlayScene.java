@@ -66,7 +66,8 @@ public abstract class APlayScene extends MainScene {
 	protected DialogComponent dialogP;
 
 	protected LayComponent selectedLay;
-	// protected CardComponent selectedCard;
+	protected CardComponent selectedCard;
+
 	protected Joueur joueur;
 	protected Jeu jeu;
 
@@ -204,7 +205,12 @@ public abstract class APlayScene extends MainScene {
 		// draw
 		draw = new DrawComponent(cardL.get(0));
 		StackPane drawStack = draw.makeSupported();
-		drawStack.setPadding(insets);
+		// if the draw is empty
+		if (jeu.getPioche().getCartes().size() <= 0) {
+			StackPane stp = new StackPane();
+			stp.getChildren().add(draw.makeSupport());
+			drawStack = stp;
+		}
 		// merge
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
 		pane.getChildren().addAll(drawStack, hand);
@@ -269,14 +275,15 @@ public abstract class APlayScene extends MainScene {
 				public void handle(MouseEvent event) {
 					if (lay.isClickable()) {
 						if (lay.isActive()) {
-							lay.switchActive();
+							unSelectLays();
+							lay.setActive(false);
 							selectedLay = null;
 						} else {
 							unSelectLays();
 							lay.setActive(true);
 							selectedLay = lay;
 							try {
-								layingActionFromLay(lay);
+								layingAction(getSelectedCardHand(), lay);
 							} catch (Exception e) {
 								dialogP.setDialog(e.getMessage());
 							}
@@ -299,8 +306,9 @@ public abstract class APlayScene extends MainScene {
 				@Override
 				public void handle(MouseEvent event) {
 					if (hand.isClickable()) {
+						selectedCard = card;
 						try {
-							layingActionFromHand(card);
+							layingAction(card, getSelectedLay());
 						} catch (Exception e) {
 							dialogP.setDialog(e.getMessage());
 						}
@@ -308,6 +316,53 @@ public abstract class APlayScene extends MainScene {
 				}
 			});
 		});
+	}
+
+	protected void layingAction(CardComponent _card, LayComponent _lay) throws Exception {
+		if (_lay == null) {
+			throw new MissHandCardException();
+		}
+		if (_card == null) {
+			throw new MissLayCardException();
+		}
+		this.dialogP.clearDialog();
+		try {
+			this.jeu.jouer(_lay.getIndex(), _card.getCardAPI(), this.joueur);
+		} catch (Exception e) {
+			this.dialogP.setDialog(e.getMessage());
+			unSelectAll();
+			killSelectedLay();
+			killSelectedCardHand();
+			return;
+		}
+		this.selectedLay.setCardAPI(_card.getCardAPI());
+		this.hand.removeCard(_card);
+		unSelectAll();
+		killSelectedLay();
+		killSelectedCardHand();
+		this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+		this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+		this.scoreP.setScoreT(this.jeu.score());
+		if (this.jeu.isPartieFinie()) {
+			disablePlaying();
+			setDialogsResult();
+		}
+	}
+
+	protected LayComponent getSelectedLay() {
+		return this.selectedLay;
+	}
+
+	protected void killSelectedLay() {
+		this.selectedLay = null;
+	}
+
+	protected CardComponent getSelectedCardHand() {
+		return this.selectedCard;
+	}
+
+	protected void killSelectedCardHand() {
+		this.selectedCard = null;
 	}
 
 	/**
@@ -361,28 +416,43 @@ public abstract class APlayScene extends MainScene {
 	private void layingActionFromHand(CardComponent selectedCard) throws MissHandCardException {
 		System.out.println("Je passe layingActionFromHand");
 		if (this.selectedLay != null) {
-			this.dialogP.clearDialog();
-			try {
-				this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
-			} catch (Exception e) {
-				this.dialogP.setDialog(e.getMessage());
+			System.out.println("Je passe layingActionFromHand-Selected");
+			if (selectedCard.getCardAPI() != null) {
+				System.out.println("Je passe layingActionFromHand-getCardAPI");
+				if (selectedLay == null) {
+					System.out.println("BOUM");
+				}
+				this.dialogP.clearDialog();
+				try {
+					this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
+				} catch (Exception e) {
+					this.dialogP.setDialog(e.getMessage());
+					unSelectAll();
+					selectedCard = null;
+
+					System.out.println("Je xcep");
+
+					return;
+				}
+				System.out.println("Je termine layingActionFromHand");
+
+				this.selectedLay.setCardAPI(selectedCard.getCardAPI());
+				this.hand.removeCard(selectedCard);
 				unSelectAll();
-				return;
-			}
-			this.selectedLay.setCardAPI(selectedCard.getCardAPI());
-			this.hand.removeCard(selectedCard);
-			unSelectAll();
-			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(this.jeu.score());
-			if (this.jeu.isPartieFinie()) {
-				disablePlaying();
-				setDialogsResult();
+				selectedCard = null;
+				this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+				this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+				this.scoreP.setScoreT(this.jeu.score());
+				if (this.jeu.isPartieFinie()) {
+					disablePlaying();
+					setDialogsResult();
+				}
 			}
 		} else {
 			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
 			// throw new MissHandCardException();
 		}
+
 	}
 
 	/**
@@ -393,24 +463,39 @@ public abstract class APlayScene extends MainScene {
 	 */
 	private void layingActionFromLay(LayComponent selectedLay) throws MissLayCardException {
 		System.out.println("Je passe layingActionFromLay");
-		if (this.hand.isCardSelected()) {
-			this.dialogP.clearDialog();
-			try {
-				this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
-			} catch (Exception e) {
-				this.dialogP.setDialog(e.getMessage());
+		if (this.hand.getCardSelected() != null) {
+			System.out.println("Je passe layingActionFromLay-Selected");
+			if (this.hand.getCardSelected().getCardAPI() != null) {
+				System.out.println("Je passe layingActionFromLay-getCardAPI");
+				if (selectedLay == null) {
+					System.out.println("BOUM");
+				}
+				this.dialogP.clearDialog();
+				try {
+					this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
+				} catch (Exception e) {
+					this.dialogP.setDialog(e.getMessage());
+					unSelectAll();
+					selectedLay = null;
+
+					System.out.println("Je xcep");
+
+					return;
+				}
+				System.out.println("Je termine layingActionFromLay");
+
+				selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
+				this.hand.removeCard(this.hand.getCardSelected());
 				unSelectAll();
-				return;
-			}
-			selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
-			this.hand.removeCard(this.hand.getCardSelected());
-			unSelectAll();
-			this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(this.jeu.score());
-			if (this.jeu.isPartieFinie()) {
-				disablePlaying();
-				setDialogsResult();
+				selectedLay = null;
+
+				this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
+				this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
+				this.scoreP.setScoreT(this.jeu.score());
+				if (this.jeu.isPartieFinie()) {
+					disablePlaying();
+					setDialogsResult();
+				}
 			}
 		} else {
 			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
@@ -422,10 +507,9 @@ public abstract class APlayScene extends MainScene {
 	 * Unselect all the component from the APLayScene which could have been selected
 	 */
 	private void unSelectAll() {
-		// selectedCard = null;
-		selectedLay = null;
-		hand.setCardSelected(null);
-		hand.unSelectCards();
+		this.selectedLay = null;
+		this.hand.setCardSelected(null);
+		this.hand.unSelectCards();
 		unSelectLays();
 	}
 
