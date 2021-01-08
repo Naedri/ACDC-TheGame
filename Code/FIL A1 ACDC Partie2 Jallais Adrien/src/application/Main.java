@@ -16,7 +16,6 @@ import nls.DefaultNLS;
 import nls.EnNLS;
 import nls.FrNLS;
 import nls.LanguageApp;
-import view.scene.IAScene;
 import view.scene.MainScene;
 import view.scene.WelcomeScene;
 
@@ -68,7 +67,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		mainStage = primaryStage;
 		this.scene = new WelcomeScene();
-		this.scene = new IAScene(getPathDeck());
 		// joueur
 		mainStage.setTitle(d.get("STAGE_title"));
 		mainStage.setWidth(primaryScreenBounds.getWidth() * 0.9);
