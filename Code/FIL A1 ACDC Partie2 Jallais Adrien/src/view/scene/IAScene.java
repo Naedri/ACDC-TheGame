@@ -15,14 +15,20 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import view.button.ButtonQuit;
+import view.component.DrawComponent;
+import view.component.HandComponent;
 import view.component.LayComponent;
+import view.constant.InsetsApp;
 import view.constant.Spacing;
 import view.label.MainLabel;
 
@@ -35,6 +41,9 @@ public class IAScene extends APlayScene {
 	private int timeStartSec;
 	private static final int TURN_TIME = 2;
 	private double timeTurnSec;
+
+	private int cardUpdated = 0;
+	private int turn = 0;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
@@ -73,7 +82,7 @@ public class IAScene extends APlayScene {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
-		sliderModify = true;
+		this.sliderModify = true;
 		timeline.play();
 	}
 
@@ -86,17 +95,18 @@ public class IAScene extends APlayScene {
 		return new KeyFrame(Duration.seconds(time), event -> {
 			boolean goodTurn = false;
 			try {
-				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(jeu);
+				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.jeu);
 			} catch (CoupInvalideException | ActionIllegaleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if (!goodTurn) {
 				reloadHandAndDraw();
-				updateLays();
-				scoreP.setScoreT(this.jeu.score());
-				// setDialogTurn(); // does not work
-			} else if (goodTurn || jeu.isPartieFinie()) {
+				this.scoreP.setScoreT(this.jeu.score());
+				this.cardUpdated = updateLays();
+				++this.turn;
+				this.updateDialogTurn(); // does not work
+			} else if (goodTurn || this.jeu.isPartieFinie()) {
 				timeline.stop();
 				unSelectLays();
 				setDialogsResult();
@@ -121,28 +131,39 @@ public class IAScene extends APlayScene {
 	/**
 	 * Allow to update the card on lays showed according to the API And to set
 	 * active the ones for wich a the value of the Carte has changed
+	 * 
+	 * @return number of card updated
 	 */
-	public void updateLays() {
+	public int updateLays() {
+		int cardUpdated = 0;
 		for (int i = 0; i < layL.size(); i++) {
-			Tas tas = jeu.getTasById(i);
+			Tas tas = this.jeu.getTasById(i);
 			LayComponent lay = layL.get(i);
 			lay.setActive(false);
 			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
+				++cardUpdated;
 				lay.setActive(true);
 			}
 			lay.setCardAPI(tas.getDerniereCarte());
 		}
+		return cardUpdated;
+
 	}
 
 	/**
 	 * Does not work properly in the Timeline, update the dialog box with the given
 	 * turn
 	 * 
+	 * @param cardUpdated
+	 * @param turn
+	 * 
 	 * @param turn
 	 */
-	public void setDialogTurn() {
-		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
-		this.dialogP.addDialog(String.valueOf(jeu.getTour()));
+	public void updateDialogTurn() {
+		this.dialogP.setDialog(Main.d.get("PLAY_ia_layed_card_last_turn"));
+		this.dialogP.addDialog(String.valueOf(this.cardUpdated));
+		this.dialogP.addDialog(Main.d.get("PLAY_ia_turn"));
+		this.dialogP.addDialog(String.valueOf(this.turn));
 	}
 
 	/**
@@ -152,7 +173,7 @@ public class IAScene extends APlayScene {
 	private void setDialogsResult() {
 		if (this.jeu.isPartieFinie()) {
 			this.dialogP.setDialog(Main.d.get("PLAY_ia_end_turn"));
-			this.dialogP.addDialog(String.valueOf(jeu.getTour()));
+			this.dialogP.addDialog(String.valueOf(this.jeu.getTour()));
 			if (this.jeu.isVictoire()) {
 				this.dialogP.addDialog(Main.d.get("PLAY_ia_end_good"));
 			} else {
@@ -241,6 +262,32 @@ public class IAScene extends APlayScene {
 		slb.setSpacing(Spacing.LITTLE.getSpace());
 		slb.setAlignment(Pos.CENTER);
 		return slb;
+	}
+
+	/**
+	 * create the bottom pane with a HBox, including hand and draw component
+	 */
+	@Override
+	protected Node createBottomPane() {
+		Insets insets = InsetsApp.MEDIUM.getInsets();
+		// hand
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax(), false);
+		hand.setPadding(insets);
+		hand.setAlignment(Pos.CENTER_LEFT);
+		// draw
+		draw = new DrawComponent(cardL.get(0));
+		StackPane drawStack = draw.makeSupported();
+		// if the draw is empty
+		if (jeu.getPioche().getCartes().size() <= 0) {
+			StackPane stp = new StackPane();
+			stp.getChildren().add(draw.makeSupport());
+			drawStack = stp;
+		}
+		// merge
+		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
+		pane.getChildren().addAll(drawStack, hand);
+		pane.setAlignment(Pos.CENTER_LEFT);
+		return pane;
 	}
 
 }

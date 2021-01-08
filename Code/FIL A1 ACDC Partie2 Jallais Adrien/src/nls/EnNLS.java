@@ -93,6 +93,7 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_end_good", "The AI beat the game.");
 		this.d.put("PLAY_ia_end_bad", "The game beat the AI.");
 		this.d.put("PLAY_ia_slider_label", "Time of an action (sec)");
+		this.d.put("PLAY_ia_layed_card_last_turn", "AI has layed the following number of cards : ");
 
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
