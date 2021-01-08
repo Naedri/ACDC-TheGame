@@ -198,10 +198,10 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * create the bottom pane with a HBox, including hand and draw component
 	 */
-	private Node createBottomPane() {
+	protected Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax(), true);
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 		// draw
