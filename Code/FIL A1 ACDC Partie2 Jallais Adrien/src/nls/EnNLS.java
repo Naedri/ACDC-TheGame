@@ -65,7 +65,7 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_mode_ia", "Demo mode");
 		this.d.put("PLAY_draw", "Draw");
 		this.d.put("PLAY_drawing", "Click on the Drawing Board to draw.");
-		this.d.put("PLAY_drawing_needed", "Click on the deck to try to draw, if needed.");
+		this.d.put("PLAY_drawing_needed", "Click on the deck to draw, if needed.");
 		this.d.put("PLAY_score_plural", "Remaining cards");
 		this.d.put("PLAY_score_singular", "Remaining cards");
 
@@ -74,7 +74,8 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_human_choosen_card_lay", "You have chosen a stack of cards from your hand.");
 		this.d.put("PLAY_human_choose_card_hand", "You have chosen a card from your hand.");
 		this.d.put("PLAY_human_choose_card_lay", "Choose a stack of cards from your hand.");
-		this.d.put("PLAY_human_layed_card", "You have deposited a card.");
+		this.d.put("PLAY_human_layed_card", "You have layed a card.");
+		this.d.put("PLAY_human_layed_bad", "The attempted layed action is not allowed.");
 
 		this.d.put("PLAY_human_turn_begin", "A new round begins.");
 		this.d.put("PLAY_human_turn_end", "Your turn will end.");

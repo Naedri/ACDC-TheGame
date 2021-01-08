@@ -67,7 +67,6 @@ public class Jeu {
 
 		for (int i = 0; i < this.tas.size(); i++) {
 			if (this.tas.get(i).getCartes().contains(carte)) {
-				System.out.println(carte.getValeur());
 				System.out.println("ici 2");
 				return false;
 			}

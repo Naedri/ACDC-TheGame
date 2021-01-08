@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import api.Carte;
+import api.CoupInvalideException;
 import api.Jeu;
 import api.Joueur;
 import api.Tas;
@@ -320,7 +321,6 @@ public abstract class APlayScene extends MainScene {
 	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
 	 */
 	protected void layingAction(CardComponent _card, LayComponent _lay) throws Exception {
-		boolean fail = false;
 		if (_lay == null) {
 			throw new MissLayCardException();
 		}
@@ -329,24 +329,24 @@ public abstract class APlayScene extends MainScene {
 		}
 		try {
 			this.jeu.jouer(_lay.getIndex(), _card.getCardAPI(), this.joueur);
-		} catch (Exception e) {
-			fail = true;
+		} catch (CoupInvalideException e) {
 			selectedCard.setBackground(selectedCard.getBackgroundInit());
 			unSelectAll();
-			throw e;
+			this.dialogP.setDialog(Main.d.get("PLAY_human_layed_bad"));
 		}
-		if (!fail) {
-			this.selectedLay.setCardAPI(_card.getCardAPI());
-			this.hand.removeCard(_card);
-			unSelectAll();
-			this.dialogP.setDialog(Main.d.get("PLAY_human_layed_card"));
+		this.selectedLay.setCardAPI(_card.getCardAPI());
+		this.hand.removeCard(_card);
+		unSelectAll();
+		this.dialogP.setDialog(Main.d.get("PLAY_human_layed_card"));
+		if (jeu.nbCartesAJouer() <= 0) {
 			this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-			this.scoreP.setScoreT(this.jeu.score());
-			if (this.jeu.isPartieFinie()) {
-				disablePlaying();
-				setDialogsResult();
-			}
 		}
+		this.scoreP.setScoreT(this.jeu.score());
+		if (this.jeu.isPartieFinie()) {
+			disablePlaying();
+			setDialogsResult();
+		}
+
 	}
 
 	/**

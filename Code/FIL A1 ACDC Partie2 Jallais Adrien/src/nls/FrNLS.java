@@ -67,7 +67,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_mode_ia", "Mode démonstration");
 		this.d.put("PLAY_draw", "Pioche");
 		this.d.put("PLAY_drawing", "Cliquer sur la Pioche pour piocher.");
-		this.d.put("PLAY_drawing_needed", "Cliquer sur la Pioche pour tenter de piocher, si besoin.");
+		this.d.put("PLAY_drawing_needed", "Cliquer sur la Pioche pour piocher, si besoin.");
 		this.d.put("PLAY_score_plural", "Cartes restantes");
 		this.d.put("PLAY_score_singular", "Carte restante");
 
@@ -77,6 +77,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_choose_card_hand", "Choisissez une carte de votre main.");
 		this.d.put("PLAY_human_choose_card_lay", "Choisissez une pile de dépôt.");
 		this.d.put("PLAY_human_layed_card", "Vous avez déposé une carte.");
+		this.d.put("PLAY_human_layed_bad", "Le coup tenté est invalide.");
 
 		this.d.put("PLAY_human_turn_begin", "Un nouveau tour commence.");
 		this.d.put("PLAY_human_turn_end", "Votre tour va se terminer.");
