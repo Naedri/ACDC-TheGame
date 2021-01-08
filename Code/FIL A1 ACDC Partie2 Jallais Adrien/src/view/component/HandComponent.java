@@ -27,19 +27,22 @@ public class HandComponent extends HBox implements IClickable {
 	private List<StackPane> stackL;
 	private CardComponent cardSelected = null;
 	private boolean clikable = true;
+	private final int numberCardsBegin;
 
-	public HandComponent(List<CardComponent> listCard, double spacing) {
+	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin) {
 		super(spacing);
 		initHand(listCard);
 		setStyle();
 		setAction();
+		this.numberCardsBegin = numberCardsBegin;
 	}
 
-	public HandComponent(List<CardComponent> listCard) {
+	public HandComponent(List<CardComponent> listCard, int numberCardsBegin) {
 		super();
 		initHand(listCard);
 		setStyle();
 		setAction();
+		this.numberCardsBegin = numberCardsBegin;
 	}
 
 	/**
@@ -49,14 +52,33 @@ public class HandComponent extends HBox implements IClickable {
 	 */
 	private void initHand(List<CardComponent> listCard) {
 		this.cardL = listCard;
+		// to prepare the blank place
+//		if (cardL.size() < numberCardsBegin) {
+//			CardComponent card = new CardComponent(new Carte(-6666));
+//			int cardsToAdd = numberCardsBegin - cardL.size();
+//			for (int i = 0; i < cardsToAdd; i++) {
+//				this.cardL.add(card);
+//			}
+//		}
 		this.stackL = new ArrayList<StackPane>();
+		// CardComponent = a stack with the card and its support
 		cardL.forEach(card -> {
 			StackPane sp = card.makeSupported();
 			this.stackL.add(sp);
 		});
+		// HBox = all the hand
 		stackL.forEach(stack -> {
 			this.getChildren().add(stack);
 		});
+		// to make the blank place
+//		cardL.forEach(card -> {
+//			if (card.getCardAPI().getValeur() == -6666) {
+//				StackPane sp = card.makeSupported();
+//				this.stackL.remove(sp);
+//				cardL.remove(card);
+//			}
+//		});
+
 	}
 
 	/**
@@ -77,7 +99,7 @@ public class HandComponent extends HBox implements IClickable {
 				public void handle(MouseEvent event) {
 					if (isClickable()) {
 						if (card.isActive()) {
-							card.switchActive();
+							card.setActive(false);
 							setCardSelected(null);
 						} else {
 							unSelectCards();
@@ -94,7 +116,7 @@ public class HandComponent extends HBox implements IClickable {
 	 * allow to unselect all cards added to the hand
 	 */
 	public void unSelectCards() {
-		this.setCardSelected(null);
+//		this.setCardSelected(null);
 		this.cardL.forEach(card -> {
 			card.setActive(false);
 		});

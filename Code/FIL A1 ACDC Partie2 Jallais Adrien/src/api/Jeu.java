@@ -222,6 +222,26 @@ public class Jeu {
 	}
 
 	/**
+	 * 
+	 * @return le nombre de cartes maximum par joueurs
+	 */
+	public int getNbCartesMax() {
+		int nbCartesMax;
+		switch (this.getJoueurs().size()) {
+		case 1:
+			nbCartesMax = 8;
+			break;
+		case 2:
+			nbCartesMax = 7;
+			break;
+		default:
+			nbCartesMax = 6;
+			break;
+		}
+		return nbCartesMax;
+	}
+
+	/**
 	 * Fabrique pour une partie "cle-en-mains"
 	 * 
 	 * @param joueurs      Liste des joueurs
