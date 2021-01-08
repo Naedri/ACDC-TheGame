@@ -30,15 +30,18 @@ public class IAScene extends APlayScene {
 
 	private static String name = Main.d.get("PLAY_mode_ia");
 	protected static Timeline timeline;
-	private static final int STARTTIME = 3;
-	private int timeSeconds;
-	private static final int INTERVALIATURN = 2;
-	private int timeTurn;
+	private boolean sliderModify = false; // to avoid stop timeline at start
+	private static final int START_TIME = 3;
+	private int timeStartSec;
+	private static final int TURN_TIME = 2;
+	private double timeTurnSec;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
 		this.disablePlaying();
 		this.disableHoverLays();
+		timeStartSec = START_TIME;
+		timeTurnSec = TURN_TIME;
 		this.setDialogsStart();
 	}
 
@@ -47,18 +50,17 @@ public class IAScene extends APlayScene {
 	 */
 	private void setDialogsStart() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_begin"));
-		timeSeconds = STARTTIME;
 		timeline = new Timeline();
-		timeline.setCycleCount(STARTTIME + 1);
+		timeline.setCycleCount(START_TIME + 1);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
-			if (timeSeconds > 0) {
-				dialogP.addDialog(String.valueOf(timeSeconds));
-			} else if (timeSeconds == 0) {
+			if (timeStartSec > 0) {
+				dialogP.addDialog(String.valueOf(timeStartSec));
+			} else if (timeStartSec == 0) {
 				// timeline.stop();
 				dialogP.addDialog(Main.d.get("PLAY_ia_start"));
 				startTurns();
 			}
-			--timeSeconds;
+			--timeStartSec;
 		}));
 		timeline.play();
 	}
@@ -69,9 +71,9 @@ public class IAScene extends APlayScene {
 	private void startTurns() {
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeTurn = INTERVALIATURN;
-		timeline.getKeyFrames().add(makeKeyFrameIATurn(timeTurn));
+		timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
+		sliderModify = true;
 		timeline.play();
 	}
 
@@ -80,7 +82,7 @@ public class IAScene extends APlayScene {
 	 * @param time number of second for duration of the Turn
 	 * @return keyframe which allows to the IA to play
 	 */
-	private KeyFrame makeKeyFrameIATurn(int time) {
+	private KeyFrame makeKeyFrameIATurn(double time) {
 		return new KeyFrame(Duration.seconds(time), event -> {
 			boolean goodTurn = false;
 			try {
@@ -105,15 +107,15 @@ public class IAScene extends APlayScene {
 	/**
 	 * @return the timeTurn
 	 */
-	public Integer getTimeTurn() {
-		return timeTurn;
+	public double getTimeTurn() {
+		return timeTurnSec;
 	}
 
 	/**
 	 * @param timeTurn the timeTurn to set
 	 */
-	public void setTimeTurn(int timeTurn) {
-		this.timeTurn = timeTurn;
+	public void setTimeTurn(double timeTurn) {
+		this.timeTurnSec = timeTurn;
 	}
 
 	/**
@@ -200,8 +202,8 @@ public class IAScene extends APlayScene {
 		pane.setSpacing(Spacing.HIGH.getSpace());
 		pane.setAlignment(Pos.CENTER);
 		// Slider
-//		VBox slb = makeSlider();
-//		pane.getChildren().addAll(slb);
+		VBox slb = makeSlider();
+		pane.getChildren().addAll(slb);
 		return pane;
 	}
 
@@ -211,7 +213,7 @@ public class IAScene extends APlayScene {
 	 */
 	public VBox makeSlider() {
 		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
-		Slider sl = new Slider(0.5, 4, INTERVALIATURN);
+		Slider sl = new Slider(0.5, 4, TURN_TIME);
 		sl.setShowTickLabels(true);
 		sl.setShowTickMarks(true);
 		sl.setMajorTickUnit(1.0);
@@ -222,10 +224,16 @@ public class IAScene extends APlayScene {
 			@Override
 			public void changed(ObservableValue<? extends Number> v, Number av, Number ap) {
 				setTimeTurn(ap.intValue());
-				// Does not work
-				// timeline.getKeyFrames().clear();
-				// timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
-				timeline.getKeyFrames().get(0).getTime();
+//				System.out.println(timeline.getKeyFrames().get(0).getTime());
+				if (sliderModify) {
+					timeline.stop();
+					timeline.getKeyFrames().clear();
+					timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
+					unSelectLays();
+					updateLays();
+					timeline.play();
+				}
+//				System.out.println(timeline.getKeyFrames().get(0).getTime());
 			}
 		});
 		VBox slb = new VBox();
