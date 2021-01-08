@@ -19,6 +19,7 @@ import api.TasDescendant;
 import application.Main;
 import controller.Services;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -171,10 +172,16 @@ public abstract class APlayScene extends MainScene {
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
 			Services.changeScene(this, new MenuScene());
+			if (IAScene.isTimelineNull()) {
+				IAScene.killTimeline();
+			}
 		});
 		Button bQ = new ButtonQuit(Main.d.get("COMMON_exit"));
 		bQ.setOnAction((ActionEvent e) -> {
 			Services.quitApp(this);
+			if (IAScene.isTimelineNull()) {
+				IAScene.killTimeline();
+			}
 		});
 		pane.getChildren().addAll(bM, bQ);
 		pane.setSpacing(Spacing.HIGH.getSpace());
@@ -283,7 +290,7 @@ public abstract class APlayScene extends MainScene {
 							lay.setActive(true);
 							selectedLay = lay;
 							try {
-								layingAction(getSelectedCardHand(), lay);
+								layingAction(selectedCard, lay);
 							} catch (Exception e) {
 								dialogP.setDialog(e.getMessage());
 							}
@@ -308,7 +315,7 @@ public abstract class APlayScene extends MainScene {
 					if (hand.isClickable()) {
 						selectedCard = card;
 						try {
-							layingAction(card, getSelectedLay());
+							layingAction(card, selectedLay);
 						} catch (Exception e) {
 							dialogP.setDialog(e.getMessage());
 						}
@@ -318,12 +325,19 @@ public abstract class APlayScene extends MainScene {
 		});
 	}
 
+	/**
+	 * Try to lay a card, and to update the dialog box according the result or
+	 * exceptions of jeu.jouer() method from API, and according the end of the game
+	 * 
+	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
+	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
+	 */
 	protected void layingAction(CardComponent _card, LayComponent _lay) throws Exception {
 		if (_lay == null) {
-			throw new MissHandCardException();
+			throw new MissLayCardException();
 		}
 		if (_card == null) {
-			throw new MissLayCardException();
+			throw new MissHandCardException();
 		}
 		this.dialogP.clearDialog();
 		try {
@@ -331,15 +345,11 @@ public abstract class APlayScene extends MainScene {
 		} catch (Exception e) {
 			this.dialogP.setDialog(e.getMessage());
 			unSelectAll();
-			killSelectedLay();
-			killSelectedCardHand();
 			return;
 		}
 		this.selectedLay.setCardAPI(_card.getCardAPI());
 		this.hand.removeCard(_card);
 		unSelectAll();
-		killSelectedLay();
-		killSelectedCardHand();
 		this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
 		this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
 		this.scoreP.setScoreT(this.jeu.score());
@@ -347,22 +357,6 @@ public abstract class APlayScene extends MainScene {
 			disablePlaying();
 			setDialogsResult();
 		}
-	}
-
-	protected LayComponent getSelectedLay() {
-		return this.selectedLay;
-	}
-
-	protected void killSelectedLay() {
-		this.selectedLay = null;
-	}
-
-	protected CardComponent getSelectedCardHand() {
-		return this.selectedCard;
-	}
-
-	protected void killSelectedCardHand() {
-		this.selectedCard = null;
 	}
 
 	/**
@@ -408,106 +402,11 @@ public abstract class APlayScene extends MainScene {
 	}
 
 	/**
-	 * Try to lay a card, and to update the dialog box according the result or
-	 * exceptions of jeu.jouer() method from API, and according the end of the game
-	 * 
-	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
-	 */
-	private void layingActionFromHand(CardComponent selectedCard) throws MissHandCardException {
-		System.out.println("Je passe layingActionFromHand");
-		if (this.selectedLay != null) {
-			System.out.println("Je passe layingActionFromHand-Selected");
-			if (selectedCard.getCardAPI() != null) {
-				System.out.println("Je passe layingActionFromHand-getCardAPI");
-				if (selectedLay == null) {
-					System.out.println("BOUM");
-				}
-				this.dialogP.clearDialog();
-				try {
-					this.jeu.jouer(this.selectedLay.getIndex(), selectedCard.getCardAPI(), this.joueur);
-				} catch (Exception e) {
-					this.dialogP.setDialog(e.getMessage());
-					unSelectAll();
-					selectedCard = null;
-
-					System.out.println("Je xcep");
-
-					return;
-				}
-				System.out.println("Je termine layingActionFromHand");
-
-				this.selectedLay.setCardAPI(selectedCard.getCardAPI());
-				this.hand.removeCard(selectedCard);
-				unSelectAll();
-				selectedCard = null;
-				this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-				this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-				this.scoreP.setScoreT(this.jeu.score());
-				if (this.jeu.isPartieFinie()) {
-					disablePlaying();
-					setDialogsResult();
-				}
-			}
-		} else {
-			throw new MissHandCardException(Main.d.get("PLAY_human_choose_card_lay"));
-			// throw new MissHandCardException();
-		}
-
-	}
-
-	/**
-	 * Try to lay a card, and to update the dialog box according the result or
-	 * exceptions of jeu.jouer() method from API, and according the end of the game
-	 * 
-	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
-	 */
-	private void layingActionFromLay(LayComponent selectedLay) throws MissLayCardException {
-		System.out.println("Je passe layingActionFromLay");
-		if (this.hand.getCardSelected() != null) {
-			System.out.println("Je passe layingActionFromLay-Selected");
-			if (this.hand.getCardSelected().getCardAPI() != null) {
-				System.out.println("Je passe layingActionFromLay-getCardAPI");
-				if (selectedLay == null) {
-					System.out.println("BOUM");
-				}
-				this.dialogP.clearDialog();
-				try {
-					this.jeu.jouer(selectedLay.getIndex(), this.hand.getCardSelected().getCardAPI(), this.joueur);
-				} catch (Exception e) {
-					this.dialogP.setDialog(e.getMessage());
-					unSelectAll();
-					selectedLay = null;
-
-					System.out.println("Je xcep");
-
-					return;
-				}
-				System.out.println("Je termine layingActionFromLay");
-
-				selectedLay.setCardAPI(this.hand.getCardSelected().getCardAPI());
-				this.hand.removeCard(this.hand.getCardSelected());
-				unSelectAll();
-				selectedLay = null;
-
-				this.dialogP.addDialog(Main.d.get("PLAY_human_layed_card"));
-				this.dialogP.addDialog(Main.d.get("PLAY_drawing_needed"));
-				this.scoreP.setScoreT(this.jeu.score());
-				if (this.jeu.isPartieFinie()) {
-					disablePlaying();
-					setDialogsResult();
-				}
-			}
-		} else {
-			throw new MissLayCardException(Main.d.get("PLAY_human_choose_card_hand"));
-			// throw new MissLayCardException();
-		}
-	}
-
-	/**
 	 * Unselect all the component from the APLayScene which could have been selected
 	 */
 	private void unSelectAll() {
-		this.selectedLay = null;
+		selectedLay = null;
+		selectedCard = null;
 		this.hand.setCardSelected(null);
 		this.hand.unSelectCards();
 		unSelectLays();
@@ -531,6 +430,26 @@ public abstract class APlayScene extends MainScene {
 		});
 		draw.setClickable(false);
 		hand.setClickable(false);
+	}
+
+	/**
+	 * Disable Hover action for lays
+	 */
+	protected void disableHoverLays() {
+		layL.forEach(lay -> {
+			lay.setOnMouseEntered(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// TODO Auto-generated method stub
+				}
+			});
+			lay.setOnMouseExited(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// TODO Auto-generated method stub
+				}
+			});
+		});
 	}
 
 	/**

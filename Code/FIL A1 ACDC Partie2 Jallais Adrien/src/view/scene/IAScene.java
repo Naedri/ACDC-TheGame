@@ -17,13 +17,16 @@ import view.component.LayComponent;
 public class IAScene extends APlayScene {
 
 	private static String name = Main.d.get("PLAY_mode_ia");
-	private Timeline timeline;
+	protected static Timeline timeline;
 	private static final Integer STARTTIME = 3;
 	private Integer timeSeconds;
+	private static final Integer INTERVALIATURN = 2;
+	private Integer timeTurn;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
 		this.disablePlaying();
+		this.disableHoverLays();
 		this.setDialogsStart();
 	}
 
@@ -54,7 +57,8 @@ public class IAScene extends APlayScene {
 	private void startTurns() {
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1.5), event -> {
+		timeTurn = INTERVALIATURN;
+		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(timeTurn), event -> {
 			boolean goodTurn = false;
 			try {
 				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(jeu);
@@ -75,6 +79,20 @@ public class IAScene extends APlayScene {
 		}));
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
 		timeline.play();
+	}
+
+	/**
+	 * @return the timeTurn
+	 */
+	public Integer getTimeTurn() {
+		return timeTurn;
+	}
+
+	/**
+	 * @param timeTurn the timeTurn to set
+	 */
+	public void setTimeTurn(Integer timeTurn) {
+		this.timeTurn = timeTurn;
 	}
 
 	/**
@@ -119,6 +137,20 @@ public class IAScene extends APlayScene {
 			}
 			this.dialogP.addDialog(Main.d.get("PLAY_info_restart"));
 		}
+	}
+
+	/**
+	 * To kill whenever and whereever I want the timeline
+	 */
+	public static void killTimeline() {
+		timeline.stop();
+	}
+
+	/**
+	 * To kill whenever and whereever I want the timeline
+	 */
+	public static boolean isTimelineNull() {
+		return timeline != null;
 	}
 
 }

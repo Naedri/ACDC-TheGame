@@ -148,7 +148,7 @@ public class ParameterScene extends MainScene {
 			@Override
 			public void handle(ActionEvent event) {
 				dialogBox.setDialog(Main.d.get("PARAMETERS_choosen_random"));
-				filePathTemp = null;
+				filePathTemp = "?";
 			}
 		});
 		// merge
@@ -163,6 +163,9 @@ public class ParameterScene extends MainScene {
 		AButton bV = new ButtonChangeScene(Main.d.get("COMMON_validate"));
 		bV.setOnAction((ActionEvent e) -> {
 			if (filePathTemp != null) {
+				if (filePathTemp.compareTo("?") == 0) {
+					filePathTemp = null;
+				}
 				filePath = filePathTemp;
 				Main.setPathDeck(filePath);
 			}

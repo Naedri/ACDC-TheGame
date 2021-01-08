@@ -36,7 +36,6 @@ public class HandComponent extends HBox implements IClickable {
 		setAction();
 		this.cardSelected = null;
 		this.numberCardsBegin = numberCardsBegin;
-		System.out.println("HandComponent");
 	}
 
 	public HandComponent(List<CardComponent> listCard, int numberCardsBegin) {
@@ -46,7 +45,6 @@ public class HandComponent extends HBox implements IClickable {
 		setAction();
 		this.cardSelected = null;
 		this.numberCardsBegin = numberCardsBegin;
-		System.out.println("HandComponent");
 	}
 
 	/**
