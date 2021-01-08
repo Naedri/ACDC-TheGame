@@ -63,7 +63,7 @@ public class MenuScene extends MainScene {
 				List<Joueur> joueurs = new ArrayList<Joueur>();
 				joueurs.add(joueur);
 				String path = Main.getPathDeck();
-				Services.changeScene(MenuScene.this, new IAScene(joueurs, path));
+				Services.changeScene(MenuScene.this, new IAScene(path));
 			} else if (e.getSource() == bP) {
 				Services.changeScene(MenuScene.this, new ParameterScene());
 			} else if (e.getSource() == bR) {

@@ -85,6 +85,15 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_end_bad", "Vous avez perdu.");
 		this.d.put("PLAY_info_restart", "Pour recommencer une partie : revenez au menu.");
 
+		// SCENE - PLAY - IA
+		this.d.put("PLAY_ia_begin", "L'IA joue dans :");
+		this.d.put("PLAY_ia_start", "Feu");
+		this.d.put("PLAY_ia_watch", "Observez !");
+		this.d.put("PLAY_ia_turn", "L'IA commence le tour :");
+		this.d.put("PLAY_ia_end_turn", "L'IA s'est arrêtée au tour :");
+		this.d.put("PLAY_ia_end_good", "L'IA a battu le jeu.");
+		this.d.put("PLAY_ia_end_bad", "Le jeu a battu l'IA.");
+
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
 				"La valeur fournie ne correspond à aucune carte de la main du joueur indiqué.");
