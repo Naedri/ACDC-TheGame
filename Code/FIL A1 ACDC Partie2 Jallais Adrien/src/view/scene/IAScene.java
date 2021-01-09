@@ -30,12 +30,16 @@ public class IAScene extends APlayScene {
 
 	private static String name = Main.d.get("PLAY_mode_ia");
 	protected static Timeline timeline;
-	private boolean sliderModify = false; // to avoid stop timeline at start
 	private static final int START_TIME = 3;
 	private int timeStartSec;
 	private static final int TURN_TIME = 2;
 	private double timeTurnSec;
 
+	// to avoid to stop the timeline at start
+	private boolean sliderModify = false;
+
+	// this.jeu.getNbCartesTour() can not be used as the IA lays and ends turn as
+	// well
 	private int cardUpdated = 0;
 
 	public IAScene(String path) {
@@ -95,15 +99,14 @@ public class IAScene extends APlayScene {
 			if (!goodTurn && !this.jeu.isPartieFinie()) {
 				reloadHandAndDraw();
 				this.scoreP.setScoreT(this.jeu.score());
-//				this.cardUpdated = updateLays();
-				this.updateLays();
+				this.cardUpdated = updateLays();
 				this.updateDialogTurn();
 			} else {
 				reloadHandAndDraw();
 				this.scoreP.setScoreT(this.jeu.score());
 				this.updateLays();
-				unSelectLays();
-				setDialogsResult();
+				this.unSelectLays();
+				this.setDialogsResult();
 				timeline.stop();
 			}
 		});
@@ -156,10 +159,15 @@ public class IAScene extends APlayScene {
 	 */
 	public void updateDialogTurn() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
-		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1));
-		if ((this.jeu.getNbCartesTour() + 1) > 0) {
+		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
+		// can not be used as the IA lays and ends turn as well
+//		if (this.jeu.getNbCartesTour() > 0) {
+//			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
+//			this.dialogP.addDialog(String.valueOf(this.jeu.getNbCartesTour()));
+//		}
+		if (this.cardUpdated > 0) {
 			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
-			this.dialogP.addDialog(String.valueOf(this.jeu.getNbCartesTour() + 1));
+			this.dialogP.addDialog(String.valueOf(this.cardUpdated));
 		}
 	}
 
@@ -170,7 +178,7 @@ public class IAScene extends APlayScene {
 	private void setDialogsResult() {
 		if (this.jeu.isPartieFinie()) {
 			this.dialogP.setDialog(Main.d.get("PLAY_ia_end_turn"));
-			this.dialogP.addDialog(String.valueOf(this.jeu.getTour()));
+			this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
 			if (this.jeu.isVictoire()) {
 				this.dialogP.addDialog(Main.d.get("PLAY_ia_end_good"));
 			} else {
@@ -231,11 +239,13 @@ public class IAScene extends APlayScene {
 	 */
 	public VBox makeSlider() {
 		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
-		Slider sl = new Slider(0.25, 4, TURN_TIME);
+//		Slider sl = new Slider(0.25, 4, TURN_TIME);
+//		sl.setBlockIncrement(0.25);
+		Slider sl = new Slider(0.5, 4, TURN_TIME);
+		sl.setBlockIncrement(0.5);
+		sl.setMajorTickUnit(1);
 		sl.setShowTickLabels(true);
 		sl.setShowTickMarks(true);
-		sl.setMajorTickUnit(1);
-		sl.setBlockIncrement(0.25);
 		sl.setSnapToTicks(true);
 		sl.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
