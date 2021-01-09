@@ -29,7 +29,7 @@ import view.label.MainLabel;
 public class IAScene extends APlayScene {
 
 	private static String name = Main.d.get("PLAY_mode_ia");
-	protected static Timeline timeline;
+	private Timeline timeline;
 	private static final int START_TIME = 3;
 	private int timeStartSec;
 	private static final int TURN_TIME = 2;
@@ -56,30 +56,30 @@ public class IAScene extends APlayScene {
 	 */
 	private void setDialogsStart() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_begin"));
-		timeline = new Timeline();
-		timeline.setCycleCount(START_TIME + 1);
-		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+		this.timeline = new Timeline();
+		this.timeline.setCycleCount(START_TIME + 1);
+		this.timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
 			if (timeStartSec > 0) {
-				dialogP.addDialog(String.valueOf(timeStartSec));
+				this.dialogP.addDialog(String.valueOf(timeStartSec));
 			} else if (timeStartSec == 0) {
 				// timeline.stop();
-				dialogP.addDialog(Main.d.get("PLAY_ia_start"));
+				this.dialogP.addDialog(Main.d.get("PLAY_ia_start"));
 				startTurns();
 			}
 			--timeStartSec;
 		}));
-		timeline.play();
+		this.timeline.play();
 	}
 
 	/**
 	 * Start the IA turn concretely
 	 */
 	private void startTurns() {
-		timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
+		this.timeline = new Timeline();
+		this.timeline.setCycleCount(Timeline.INDEFINITE);
+		this.timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
 		this.sliderModify = true;
-		timeline.play();
+		this.timeline.play();
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class IAScene extends APlayScene {
 				this.updateLays();
 				this.unSelectLays();
 				this.setDialogsResult();
-				timeline.stop();
+				this.timeline.stop();
 			}
 		});
 	}
@@ -191,14 +191,14 @@ public class IAScene extends APlayScene {
 	/**
 	 * To kill whenever and whereever I want the timeline
 	 */
-	public static void killTimeline() {
-		timeline.stop();
+	public void killTimeline() {
+		this.timeline.stop();
 	}
 
 	/**
 	 * To kill whenever and whereever I want the timeline
 	 */
-	public static boolean isTimelineNull() {
+	public boolean isTimelineNull() {
 		return timeline == null;
 	}
 
@@ -212,15 +212,15 @@ public class IAScene extends APlayScene {
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
 			Services.changeScene(this, new MenuScene());
-			if (!IAScene.isTimelineNull()) {
-				IAScene.killTimeline();
+			if (!isTimelineNull()) {
+				killTimeline();
 			}
 		});
 		Button bQ = new ButtonQuit(Main.d.get("COMMON_exit"));
 		bQ.setOnAction((ActionEvent e) -> {
 			Services.quitApp(this);
-			if (!IAScene.isTimelineNull()) {
-				IAScene.killTimeline();
+			if (!isTimelineNull()) {
+				killTimeline();
 			}
 		});
 		// merge
@@ -239,10 +239,10 @@ public class IAScene extends APlayScene {
 	 */
 	public VBox makeSlider() {
 		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
-//		Slider sl = new Slider(0.25, 4, TURN_TIME);
-//		sl.setBlockIncrement(0.25);
-		Slider sl = new Slider(0.5, 4, TURN_TIME);
-		sl.setBlockIncrement(0.5);
+		Slider sl = new Slider(0.25, 4, TURN_TIME);
+		sl.setBlockIncrement(0.25);
+//		Slider sl = new Slider(0.5, 4, TURN_TIME);
+//		sl.setBlockIncrement(0.5);
 		sl.setMajorTickUnit(1);
 		sl.setShowTickLabels(true);
 		sl.setShowTickMarks(true);
