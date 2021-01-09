@@ -170,13 +170,9 @@ public class Jeu {
 			return false;
 		}
 
-		this.joueurs.get(this.tour).piocher(this);
+		this.getJoueurActuel().piocher(this);
 
-		if (this.tour == this.joueurs.size() - 1) {
-			this.tour = 0;
-		} else {
-			this.tour++;
-		}
+		this.tour++;
 
 		this.nbCartesTour = 0;
 		return true;
