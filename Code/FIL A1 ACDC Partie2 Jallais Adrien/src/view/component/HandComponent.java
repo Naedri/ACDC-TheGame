@@ -14,7 +14,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import view.constant.ColorApp;
 import view.constant.RadiusApp;
 
@@ -28,16 +27,18 @@ public class HandComponent extends HBox implements IClickable {
 	private List<StackPane> stackL;
 	private CardComponent cardSelected;
 	private boolean clickable;
-	private final int numberCardsBegin;
+	private int numberCardsBegin;
 
 	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin) {
 		super(spacing);
+		this.numberCardsBegin = numberCardsBegin;
+		this.cardSelected = null;
+		this.clickable = true;
 		initHand(listCard);
 		setStyle();
 		setAction();
 		this.cardSelected = null;
 		this.clickable = true;
-		this.numberCardsBegin = numberCardsBegin;
 	}
 
 	/**
@@ -48,30 +49,47 @@ public class HandComponent extends HBox implements IClickable {
 	private void initHand(List<CardComponent> listCard) {
 		this.cardL = listCard;
 		this.stackL = new ArrayList<StackPane>();
-		cardL.forEach(card -> {
-			StackPane sp = card.makeSupported();
-			this.stackL.add(sp);
-		});
-		for (int i = cardL.size(); i < this.numberCardsBegin; i++) {
-			System.out.println("not enough cards in the hand of the player"); // TODO ERASE
-			// not enough cards in the hand of the player
-			Rectangle rect = cardL.get(0).makeSupport();
-			StackPane sp = new StackPane();
-			sp.getChildren().add(rect);
-			stackL.add(sp);
-		}
-		stackL.forEach(stack -> {
-			this.getChildren().add(stack);
-		});
 
+		for (int i = 0; i < this.numberCardsBegin; i++) {
+			if (i >= this.cardL.size()) {
+				System.out.println("NOT enough cards in the hand of the player"); // TODO ERASE
+				this.getChildren().add(ACardComponent.makeSupportS());
+//				Rectangle rect = ACardComponent.makeSupportS();
+//				StackPane sp = new StackPane();
+//				sp.getChildren().add(rect);
+//				this.stackL.add(sp);
+			} else {
+				System.out.println("enough cards in the hand of the player"); // TODO ERASE
+				this.getChildren().add(cardL.get(i).makeSupported());
+			}
+		}
+//		cardL.forEach(card -> {
+//			StackPane sp = card.makeSupported();
+//			this.stackL.add(sp);
+//		});
+//		for (int i = cardL.size(); i < this.numberCardsBegin; i++) {
+//			System.out.println("not enough cards in the hand of the player"); // TODO ERASE
+//			// not enough cards in the hand of the player
+//			Rectangle rect = cardL.get(0).makeSupport();
+//			StackPane sp = new StackPane();
+//			sp.getChildren().add(rect);
+//			stackL.add(sp);
+//		}
+//		stackL.forEach(stack -> {
+//			this.getChildren().add(stack);
+//		});
 	}
 
 	/**
 	 * Adding specific style to the component
 	 */
 	private void setStyle() {
-		this.setBackground(new Background(new BackgroundFill(ColorApp.INFOL.getColor(),
-				new CornerRadii(RadiusApp.HIGH.getRadius()), Insets.EMPTY)));
+		this.setBackground(getBackgroundInit());
+	}
+
+	private Background getBackgroundInit() {
+		return new Background(new BackgroundFill(ColorApp.INFOL.getColor(), new CornerRadii(RadiusApp.HIGH.getRadius()),
+				Insets.EMPTY));
 	}
 
 	/**
