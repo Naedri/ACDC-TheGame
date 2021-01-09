@@ -199,13 +199,17 @@ public abstract class APlayScene extends MainScene {
 	 * create the bottom pane with a HBox, including hand and draw component
 	 */
 	protected Node createBottomPane() {
+		HBox pane;
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
 		if (cardL.size() > 0) {
 			hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+			pane = new HBox(cardL.get(0).getPrefWidth() * 2);
+
 		} else {
 			// if the hand is empty
 			hand = new HandComponent(cardL, layL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+			pane = new HBox(layL.get(0).getPrefWidth() * 2);
 		}
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
@@ -221,7 +225,6 @@ public abstract class APlayScene extends MainScene {
 			drawStack.getChildren().add(draw.makeSupport());
 		}
 		// merge
-		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
 		pane.getChildren().addAll(drawStack, hand);
 		pane.setAlignment(Pos.CENTER);
 		return pane;

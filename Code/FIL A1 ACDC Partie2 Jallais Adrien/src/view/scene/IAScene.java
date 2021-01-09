@@ -85,22 +85,26 @@ public class IAScene extends APlayScene {
 	 */
 	private KeyFrame makeKeyFrameIATurn(double time) {
 		return new KeyFrame(Duration.seconds(time), event -> {
-			boolean goodTurn = false;
+			boolean goodTurn = true;
 			try {
 				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.jeu);
 			} catch (CoupInvalideException | ActionIllegaleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (!goodTurn) {
+			if (!goodTurn && !this.jeu.isPartieFinie()) {
 				reloadHandAndDraw();
 				this.scoreP.setScoreT(this.jeu.score());
-				this.cardUpdated = updateLays();
+//				this.cardUpdated = updateLays();
+				this.updateLays();
 				this.updateDialogTurn();
-			} else if (goodTurn || this.jeu.isPartieFinie()) {
-				timeline.stop();
+			} else {
+				reloadHandAndDraw();
+				this.scoreP.setScoreT(this.jeu.score());
+				this.updateLays();
 				unSelectLays();
 				setDialogsResult();
+				timeline.stop();
 			}
 		});
 	}
