@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import view.constant.ColorApp;
 import view.constant.RadiusApp;
 
@@ -51,9 +52,18 @@ public class HandComponent extends HBox implements IClickable {
 			StackPane sp = card.makeSupported();
 			this.stackL.add(sp);
 		});
+		for (int i = cardL.size(); i < this.numberCardsBegin; i++) {
+			System.out.println("not enough cards in the hand of the player"); // TODO ERASE
+			// not enough cards in the hand of the player
+			Rectangle rect = cardL.get(0).makeSupport();
+			StackPane sp = new StackPane();
+			sp.getChildren().add(rect);
+			stackL.add(sp);
+		}
 		stackL.forEach(stack -> {
 			this.getChildren().add(stack);
 		});
+
 	}
 
 	/**

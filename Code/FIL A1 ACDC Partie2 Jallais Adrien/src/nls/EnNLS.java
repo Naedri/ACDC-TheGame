@@ -78,6 +78,8 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_human_layed_bad", "The attempted layed action is not allowed.");
 
 		this.d.put("PLAY_human_turn_begin", "A new round begins.");
+		this.d.put("PLAY_human_turn_begin-1", "The turn ");
+		this.d.put("PLAY_human_turn_begin-2", " begins.");
 		this.d.put("PLAY_human_turn_end", "Your turn will end.");
 		this.d.put("PLAY_human_can_not_draw", "You didn't put down enough cards this turn to draw.");
 		this.d.put("PLAY_human_end_good", "You won.");
@@ -88,12 +90,14 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_begin", "AI plays in:");
 		this.d.put("PLAY_ia_start", "Fire");
 		this.d.put("PLAY_ia_watch", "AI is running !");
-		this.d.put("PLAY_ia_turn", "AI starts the turn:");
+		this.d.put("PLAY_ia_turn", "AI play the turn:");
 		this.d.put("PLAY_ia_end_turn", "AI stopped at turn:");
 		this.d.put("PLAY_ia_end_good", "The AI beat the game.");
 		this.d.put("PLAY_ia_end_bad", "The game beat the AI.");
 		this.d.put("PLAY_ia_slider_label", "Time of an action (sec)");
-		this.d.put("PLAY_ia_layed_card_last_turn", "AI has layed the following number of cards : ");
+		this.d.put("PLAY_ia_layed_card_last_turn", "AI has layed the following number of card : ");
+		this.d.put("PLAY_ia_layed_card_turn", "This turn, AI has layed the following number of cards :");
+		this.d.put("PLAY_ia_layed_card", "Number of layed card(s), this turn :");
 
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",

@@ -15,20 +15,14 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import view.button.ButtonQuit;
-import view.component.DrawComponent;
-import view.component.HandComponent;
 import view.component.LayComponent;
-import view.constant.InsetsApp;
 import view.constant.Spacing;
 import view.label.MainLabel;
 
@@ -43,7 +37,6 @@ public class IAScene extends APlayScene {
 	private double timeTurnSec;
 
 	private int cardUpdated = 0;
-	private int turn = 0;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
@@ -81,7 +74,6 @@ public class IAScene extends APlayScene {
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
-		this.dialogP.setDialog(Main.d.get("PLAY_ia_watch"));
 		this.sliderModify = true;
 		timeline.play();
 	}
@@ -104,8 +96,7 @@ public class IAScene extends APlayScene {
 				reloadHandAndDraw();
 				this.scoreP.setScoreT(this.jeu.score());
 				this.cardUpdated = updateLays();
-				++this.turn;
-				this.updateDialogTurn(); // does not work
+				this.updateDialogTurn();
 			} else if (goodTurn || this.jeu.isPartieFinie()) {
 				timeline.stop();
 				unSelectLays();
@@ -160,10 +151,12 @@ public class IAScene extends APlayScene {
 	 * @param turn
 	 */
 	public void updateDialogTurn() {
-		this.dialogP.setDialog(Main.d.get("PLAY_ia_layed_card_last_turn"));
-		this.dialogP.addDialog(String.valueOf(this.cardUpdated));
-		this.dialogP.addDialog(Main.d.get("PLAY_ia_turn"));
-		this.dialogP.addDialog(String.valueOf(this.turn));
+		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
+		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1));
+		if ((this.jeu.getNbCartesTour() + 1) > 0) {
+			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
+			this.dialogP.addDialog(String.valueOf(this.jeu.getNbCartesTour() + 1));
+		}
 	}
 
 	/**
@@ -194,7 +187,7 @@ public class IAScene extends APlayScene {
 	 * To kill whenever and whereever I want the timeline
 	 */
 	public static boolean isTimelineNull() {
-		return timeline != null;
+		return timeline == null;
 	}
 
 	/**
@@ -207,14 +200,14 @@ public class IAScene extends APlayScene {
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
 			Services.changeScene(this, new MenuScene());
-			if (IAScene.isTimelineNull()) {
+			if (!IAScene.isTimelineNull()) {
 				IAScene.killTimeline();
 			}
 		});
 		Button bQ = new ButtonQuit(Main.d.get("COMMON_exit"));
 		bQ.setOnAction((ActionEvent e) -> {
 			Services.quitApp(this);
-			if (IAScene.isTimelineNull()) {
+			if (!IAScene.isTimelineNull()) {
 				IAScene.killTimeline();
 			}
 		});
@@ -234,18 +227,16 @@ public class IAScene extends APlayScene {
 	 */
 	public VBox makeSlider() {
 		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
-		Slider sl = new Slider(0.5, 4, TURN_TIME);
+		Slider sl = new Slider(0.25, 4, TURN_TIME);
 		sl.setShowTickLabels(true);
 		sl.setShowTickMarks(true);
-		sl.setMajorTickUnit(1.0);
-		sl.setMinorTickCount(1);
-		sl.setBlockIncrement(1.0);
+		sl.setMajorTickUnit(1);
+		sl.setBlockIncrement(0.25);
 		sl.setSnapToTicks(true);
 		sl.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> v, Number av, Number ap) {
-				setTimeTurn(ap.intValue());
-//				System.out.println(timeline.getKeyFrames().get(0).getTime());
+				setTimeTurn(ap.doubleValue());
 				if (sliderModify) {
 					timeline.stop();
 					timeline.getKeyFrames().clear();
@@ -254,7 +245,6 @@ public class IAScene extends APlayScene {
 					updateLays();
 					timeline.play();
 				}
-//				System.out.println(timeline.getKeyFrames().get(0).getTime());
 			}
 		});
 		VBox slb = new VBox();
@@ -263,31 +253,4 @@ public class IAScene extends APlayScene {
 		slb.setAlignment(Pos.CENTER);
 		return slb;
 	}
-
-	/**
-	 * create the bottom pane with a HBox, including hand and draw component
-	 */
-	@Override
-	protected Node createBottomPane() {
-		Insets insets = InsetsApp.MEDIUM.getInsets();
-		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
-		hand.setPadding(insets);
-		hand.setAlignment(Pos.CENTER_LEFT);
-		// draw
-		draw = new DrawComponent(cardL.get(0));
-		StackPane drawStack = draw.makeSupported();
-		// if the draw is empty
-		if (jeu.getPioche().getCartes().size() <= 0) {
-			StackPane stp = new StackPane();
-			stp.getChildren().add(draw.makeSupport());
-			drawStack = stp;
-		}
-		// merge
-		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
-		pane.getChildren().addAll(drawStack, hand);
-		pane.setAlignment(Pos.CENTER_LEFT);
-		return pane;
-	}
-
 }

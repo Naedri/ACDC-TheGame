@@ -378,7 +378,9 @@ public abstract class APlayScene extends MainScene {
 							disablePlaying();
 							setDialogsResult();
 						} else {
-							dialogP.setDialog(Main.d.get("PLAY_human_turn_begin"));
+							String turnToDisplay = String.valueOf(jeu.getTour() + 1);
+							dialogP.setDialog(Main.d.get("PLAY_human_turn_begin-1") + turnToDisplay
+									+ Main.d.get("PLAY_human_turn_begin-2"));
 						}
 					}
 				}

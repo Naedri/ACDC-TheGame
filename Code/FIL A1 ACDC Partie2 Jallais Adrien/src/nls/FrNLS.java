@@ -80,6 +80,8 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_human_layed_bad", "Le coup tenté est invalide.");
 
 		this.d.put("PLAY_human_turn_begin", "Un nouveau tour commence.");
+		this.d.put("PLAY_human_turn_begin-1", "Le tour ");
+		this.d.put("PLAY_human_turn_begin-2", " commence.");
 		this.d.put("PLAY_human_turn_end", "Votre tour va se terminer.");
 		this.d.put("PLAY_human_can_not_draw", "Vous n'avez pas posé suffisament de cartes ce tour-ci, pour piocher.");
 		this.d.put("PLAY_human_end_good", "Vous avez gagné.");
@@ -90,12 +92,13 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_begin", "L'IA joue dans :");
 		this.d.put("PLAY_ia_start", "Feu");
 		this.d.put("PLAY_ia_watch", "Résolution en cours !");
-		this.d.put("PLAY_ia_turn", "L'IA commence le tour :");
+		this.d.put("PLAY_ia_turn", "L'IA joue le tour :");
 		this.d.put("PLAY_ia_end_turn", "L'IA s'est arrêtée au tour :");
 		this.d.put("PLAY_ia_end_good", "L'IA a battu le jeu.");
 		this.d.put("PLAY_ia_end_bad", "Le jeu a battu l'IA.");
 		this.d.put("PLAY_ia_slider_label", "Temps d'une action (sec)");
-		this.d.put("PLAY_ia_layed_card_last_turn", "L'IA a déposé le nombre de carte suivant : ");
+		this.d.put("PLAY_ia_layed_card_turn", "Ce tour-ci, l'IA a déposé le nombre de carte suivant :");
+		this.d.put("PLAY_ia_layed_card", "Nombre de carte(s) posée(s) ce tour-ci :");
 
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
