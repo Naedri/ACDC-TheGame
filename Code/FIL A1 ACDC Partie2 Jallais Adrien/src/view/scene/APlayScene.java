@@ -223,9 +223,7 @@ public abstract class APlayScene extends MainScene {
 		// merge
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
 		pane.getChildren().addAll(drawStack, hand);
-		pane.setAlignment(Pos.CENTER_LEFT);
-		// TODO change to
-		// pane.setAlignment(Pos.CENTER);
+		pane.setAlignment(Pos.CENTER);
 		return pane;
 	}
 

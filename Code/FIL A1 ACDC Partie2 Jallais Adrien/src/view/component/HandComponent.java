@@ -52,32 +52,13 @@ public class HandComponent extends HBox implements IClickable {
 
 		for (int i = 0; i < this.numberCardsBegin; i++) {
 			if (i >= this.cardL.size()) {
-				System.out.println("NOT enough cards in the hand of the player"); // TODO ERASE
+//				System.out.println("NOT enough cards in the hand of the player");
 				this.getChildren().add(ACardComponent.makeSupportS());
-//				Rectangle rect = ACardComponent.makeSupportS();
-//				StackPane sp = new StackPane();
-//				sp.getChildren().add(rect);
-//				this.stackL.add(sp);
 			} else {
-				System.out.println("enough cards in the hand of the player"); // TODO ERASE
+//				System.out.println("enough cards in the hand of the player"); 
 				this.getChildren().add(cardL.get(i).makeSupported());
 			}
 		}
-//		cardL.forEach(card -> {
-//			StackPane sp = card.makeSupported();
-//			this.stackL.add(sp);
-//		});
-//		for (int i = cardL.size(); i < this.numberCardsBegin; i++) {
-//			System.out.println("not enough cards in the hand of the player"); // TODO ERASE
-//			// not enough cards in the hand of the player
-//			Rectangle rect = cardL.get(0).makeSupport();
-//			StackPane sp = new StackPane();
-//			sp.getChildren().add(rect);
-//			stackL.add(sp);
-//		}
-//		stackL.forEach(stack -> {
-//			this.getChildren().add(stack);
-//		});
 	}
 
 	/**
