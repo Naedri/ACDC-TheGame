@@ -11,6 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.shape.Rectangle;
+import view.constant.ColorApp;
 
 /**
  * @author Adrien Jallais
@@ -23,6 +25,9 @@ public abstract class ACardComponent extends Button implements ICardView {
 	private SimpleBooleanProperty selectedObs;
 	private ChangeListener<Boolean> selectedListener;
 	private boolean clikable = true;
+
+	private static int prefWidth = 60;
+	private static int prefHeight = 100;
 
 	public ACardComponent() {
 		super();
@@ -44,6 +49,8 @@ public abstract class ACardComponent extends Button implements ICardView {
 	 * 
 	 */
 	private void init() {
+		// TODO change raw value
+		this.setPrefSize(prefWidth, prefHeight);
 		initBackground();
 		initSelectedObs();
 		setMouseHoverAction();
@@ -143,6 +150,34 @@ public abstract class ACardComponent extends Button implements ICardView {
 	@Override
 	public void setClickable(Boolean clickable) {
 		this.clikable = clickable;
+	}
+
+	/**
+	 * @return the prefWidth
+	 */
+	public static int getSWidth() {
+		return prefWidth;
+	}
+
+	/**
+	 * @return the prefHeight
+	 */
+	public static int getSHeight() {
+		return prefHeight;
+	}
+
+	/**
+	 * To allow the production of a support, to be used if we can not instantiate
+	 * any card
+	 * 
+	 * @return Rectangle to support a ACardComponent
+	 */
+	public static Rectangle makeSupportS() {
+		Rectangle rect = new Rectangle(ACardComponent.getSWidth() * 1.2, ACardComponent.getSWidth() * 1.2,
+				ColorApp.WHITE.getColor());
+		rect.setArcHeight(10);
+		rect.setArcWidth(100);
+		return rect;
 	}
 
 }

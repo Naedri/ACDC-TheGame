@@ -53,8 +53,6 @@ public class CardComponent extends ACardComponent implements ICardAPI {
 	}
 
 	private void setStyle() {
-		// TODO change raw value
-		this.setPrefSize(60, 100);
 		this.setFont(FontApp.MEDIUM.getFont());
 		this.setWrapText(true);
 		this.setTextFill(getBorderColor());
