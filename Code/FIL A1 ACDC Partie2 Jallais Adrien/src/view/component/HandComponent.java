@@ -14,7 +14,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import view.constant.ColorApp;
 import view.constant.RadiusApp;
 
@@ -30,32 +29,22 @@ public class HandComponent extends HBox implements IClickable {
 	private boolean clikable = true;
 	private final int numberCardsBegin;
 
-	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin, boolean human) {
+	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin) {
 		super(spacing);
-		this.numberCardsBegin = numberCardsBegin;
-		if (human) {
-			initHandHuman(listCard);
-
-		} else {
-			initHandIA(listCard);
-		}
+		initHand(listCard);
 		setStyle();
 		setAction();
 		this.cardSelected = null;
+		this.numberCardsBegin = numberCardsBegin;
 	}
 
-	public HandComponent(List<CardComponent> listCard, int numberCardsBegin, boolean human) {
+	public HandComponent(List<CardComponent> listCard, int numberCardsBegin) {
 		super();
-		this.numberCardsBegin = numberCardsBegin;
-		if (human) {
-			initHandHuman(listCard);
-
-		} else {
-			initHandIA(listCard);
-		}
+		initHand(listCard);
 		setStyle();
 		setAction();
 		this.cardSelected = null;
+		this.numberCardsBegin = numberCardsBegin;
 	}
 
 	/**
@@ -63,32 +52,7 @@ public class HandComponent extends HBox implements IClickable {
 	 * 
 	 * @param listCard
 	 */
-	private void initHandIA(List<CardComponent> listCard) {
-		this.cardL = listCard;
-		this.stackL = new ArrayList<StackPane>();
-		if (this.cardL.size() > 0) {
-			// to prepare the blank place
-			for (int i = 0; i < this.numberCardsBegin; i++) {
-				Rectangle rect = cardL.get(0).makeSupport();
-				StackPane sp = new StackPane();
-				sp.getChildren().add(rect);
-				stackL.add(sp);
-			}
-			// CardComponent = a stack with the card and its support
-			for (int i = 0; i < this.cardL.size(); i++) {
-				this.stackL.get(i).getChildren().add(cardL.get(i));
-			}
-			// HBox = all the hand
-			this.getChildren().addAll(stackL);
-		}
-	}
-
-	/**
-	 * Adding cardComponent with its support to Hand
-	 * 
-	 * @param listCard
-	 */
-	private void initHandHuman(List<CardComponent> listCard) {
+	private void initHand(List<CardComponent> listCard) {
 		this.cardL = listCard;
 		this.stackL = new ArrayList<StackPane>();
 		cardL.forEach(card -> {

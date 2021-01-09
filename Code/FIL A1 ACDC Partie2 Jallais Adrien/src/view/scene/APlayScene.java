@@ -201,7 +201,7 @@ public abstract class APlayScene extends MainScene {
 	protected Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax(), true);
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 		// draw
@@ -333,6 +333,7 @@ public abstract class APlayScene extends MainScene {
 			selectedCard.setBackground(selectedCard.getBackgroundInit());
 			unSelectAll();
 			this.dialogP.setDialog(Main.d.get("PLAY_human_layed_bad"));
+			return;
 		}
 		this.selectedLay.setCardAPI(_card.getCardAPI());
 		this.hand.removeCard(_card);

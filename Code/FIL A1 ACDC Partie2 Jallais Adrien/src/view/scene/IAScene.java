@@ -271,7 +271,7 @@ public class IAScene extends APlayScene {
 	protected Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax(), false);
+		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 		// draw
