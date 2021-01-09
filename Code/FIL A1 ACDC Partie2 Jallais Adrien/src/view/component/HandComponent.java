@@ -26,7 +26,7 @@ public class HandComponent extends HBox implements IClickable {
 	private List<CardComponent> cardL;
 	private List<StackPane> stackL;
 	private CardComponent cardSelected;
-	private boolean clikable = true;
+	private boolean clickable;
 	private final int numberCardsBegin;
 
 	public HandComponent(List<CardComponent> listCard, double spacing, int numberCardsBegin) {
@@ -35,15 +35,7 @@ public class HandComponent extends HBox implements IClickable {
 		setStyle();
 		setAction();
 		this.cardSelected = null;
-		this.numberCardsBegin = numberCardsBegin;
-	}
-
-	public HandComponent(List<CardComponent> listCard, int numberCardsBegin) {
-		super();
-		initHand(listCard);
-		setStyle();
-		setAction();
-		this.cardSelected = null;
+		this.clickable = true;
 		this.numberCardsBegin = numberCardsBegin;
 	}
 
@@ -146,12 +138,12 @@ public class HandComponent extends HBox implements IClickable {
 
 	@Override
 	public boolean isClickable() {
-		return clikable;
+		return clickable;
 	}
 
 	@Override
 	public void setClickable(Boolean clickable) {
-		this.clikable = clickable;
+		this.clickable = clickable;
 	}
 
 }

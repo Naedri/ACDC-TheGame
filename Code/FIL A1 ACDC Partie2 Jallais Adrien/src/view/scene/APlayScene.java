@@ -201,22 +201,31 @@ public abstract class APlayScene extends MainScene {
 	protected Node createBottomPane() {
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
-		hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+		if (cardL.size() > 0) {
+			hand = new HandComponent(cardL, cardL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+		} else {
+			// if the hand is empty
+			hand = new HandComponent(cardL, layL.get(0).getPrefWidth() * 0.2, jeu.getNbCartesMax());
+		}
 		hand.setPadding(insets);
 		hand.setAlignment(Pos.CENTER_LEFT);
 		// draw
-		draw = new DrawComponent(cardL.get(0));
-		StackPane drawStack = draw.makeSupported();
-		// if the draw is empty
-		if (jeu.getPioche().getCartes().size() <= 0) {
-			StackPane stp = new StackPane();
-			stp.getChildren().add(draw.makeSupport());
-			drawStack = stp;
+		StackPane drawStack;
+		if (jeu.getPioche().getCartes().size() > 0) {
+			draw = new DrawComponent(cardL.get(0));
+			drawStack = draw.makeSupported();
+		} else {
+			// if the draw is empty
+			draw = new DrawComponent(layL.get(0));
+			drawStack = new StackPane();
+			drawStack.getChildren().add(draw.makeSupport());
 		}
 		// merge
 		HBox pane = new HBox(cardL.get(0).getPrefWidth() * 2);
 		pane.getChildren().addAll(drawStack, hand);
 		pane.setAlignment(Pos.CENTER_LEFT);
+		// TODO change to
+		// pane.setAlignment(Pos.CENTER);
 		return pane;
 	}
 
