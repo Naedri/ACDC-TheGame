@@ -12,8 +12,8 @@ __*Partie 2 - Version 1.0*__
 
 ### Utilisation de l'application
 
-Les fichiers sources sont accessibles dans le dossier suivant : [Code/FIL A1 ACDC Partie1 Jallais Adrien](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src).
-Pour savoir comment lancer l'application, reportez-vous au fichier suivant : [module-info.java](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/module-info.java).
+Les fichiers sources sont accessibles dans le dossier suivant : [Code/FIL A1 ACDC Partie2 Jallais Adrien](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src).
+Pour savoir comment lancer l'application, reportez-vous au fichier suivant : [module-info.java](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/module-info.java).
 
 ### Auteurs
 
@@ -53,7 +53,7 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 + les relations de dépendance entre les classes (au profit de celles entre les packages),
 + les méthodes de visibilité publique des classes implémentant des interfaces (afin d'éviter une répétition entre ces deux entités).
 
-![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
+![Diagramme de classe en version légère](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie2_Jallais_Adrien-UML-Vlight.jpg)
 
 *__Illustration 2 :__  Diagramme UML de classe de l'application.*
 

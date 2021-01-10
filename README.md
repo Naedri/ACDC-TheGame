@@ -92,8 +92,11 @@ L'*Illustration 1-2-2* présente ce que la fenêtre cliente affiche au départ d
 
 Un fichier décrivant les logs réalisés quotidiennement est disponible dans le fichier suivant : [log.Jallais.Adrien.json](./log.Jallais.Adrien.json). En complément, le *Tableau 1* et le *Tableau 2* illustrent ces logs pour mieux visualiser la cinétique de développement du projet au cours de la première (*backend*) et de la seconde partie (*frontend*) respectivement..
 
-![Tableau de progression](./Grille_progression/avt.Jallais.Adrien.jpg)
-*__Tableau 1 :__ Grille de progression du développement de l'application. Les logs représentent un jour de travail.*
+![Tableau de progression de la partie API](./Grille_progression/avt.Jallais.Adrien.jpg)
+*__Tableau 1 :__ Grille de progression du développement de l'application (partie api). Les logs représentent un jour de travail.*
+
+![Tableau de progression de la partie IHM](./Grille_progression/avt.Jallais.Adrien.2.jpg)
+*__Tableau 2 :__ Grille de progression du développement de l'application (partie IHM). Les logs représentent un jour de travail.*
 
 ### Diagrammes de classe
 
@@ -112,6 +115,6 @@ Afin d'améliorer leur lisibilité, les caractéristiques suivantes ne sont pas 
 
 #### Partie 2 (frontend)
 
-![Diagramme de classe en version légère - partie2](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie2_Jallais_Adrien-UML-Vlight.png)
+![Diagramme de classe en version légère - partie2](./Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie2_Jallais_Adrien-UML-Vlight.jpg)
 
 *__Illustration 2 :__  Diagramme UML de classe de l'application pour la partie 2 (frontend).*
