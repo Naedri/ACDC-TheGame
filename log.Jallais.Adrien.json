@@ -6,6 +6,13 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "24",
+            "date": "10/01/2021",
+            "travail": [
+                "fix(IAScene): IA IHM compte les piles de dépôts sollicitées par l'IA API lors de sont tour (en effet la méthode de résolution joue un tour et non un coup)"
+            ]
+        },
+        {
             "log_number": "23",
             "date": "09/01/2021",
             "travail": [
