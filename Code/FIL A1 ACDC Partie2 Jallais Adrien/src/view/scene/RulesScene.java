@@ -22,9 +22,9 @@ import view.constant.Spacing;
  * @author Adrien Jallais
  *
  */
-public class RulesScene extends MainScene {
+public class RulesScene extends AMainScene {
 
-	protected BorderPane pane;
+	private BorderPane pane;
 
 	public RulesScene() {
 		super(new BorderPane());
@@ -55,25 +55,28 @@ public class RulesScene extends MainScene {
 	}
 
 	/**
-	 * according the language given, the scene will show the apporpriate rules
+	 * according the language given, the scene will show the appropriate rules
 	 * version
 	 * 
 	 * @return
 	 */
-	private WebView createWebView() {
+	public WebView createWebView() {
 		WebView view;
 		WebEngine engine;
 		String url;
 		LanguageApp lang = Main.d.getLanguage();
 		switch (lang) {
 		case FRENCH:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-francais.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-francais.pdf";
+			url = "https://www.trukmuchspot.fr/regles-et-critiques/the-game";
 			break;
 		case ENGLISH:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+			url = "https://www.geekyhobbies.com/the-game-2015-steffen-benndorf-card-game-review-and-rules/";
 			break;
 		default:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+			url = "https://www.geekyhobbies.com/the-game-2015-steffen-benndorf-card-game-review-and-rules/";
 			break;
 		}
 		view = new WebView();

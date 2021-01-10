@@ -12,8 +12,8 @@ import view.constant.ColorApp;
 
 public class LayComponent extends CardComponent {
 
-	Color col;
-	Color colShadow;
+	private Color col;
+	private Color colShadow;
 	private int index;
 
 	public LayComponent(Tas tas, int indexFromGame) {
@@ -62,7 +62,7 @@ public class LayComponent extends CardComponent {
 	 * @source https://www.tutorialspoint.com/javafx/drop_shadow_effect.htm
 	 * @return DropShadow
 	 */
-	private DropShadow makingShadow() {
+	public DropShadow makingShadow() {
 		DropShadow dropShadow = new DropShadow();
 		// setting the type of blur for the shadow
 		dropShadow.setBlurType(BlurType.GAUSSIAN);

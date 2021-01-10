@@ -115,28 +115,28 @@ public class IAScene extends APlayScene {
 	/**
 	 * @return the timeTurn
 	 */
-	public double getTimeTurn() {
+	private double getTimeTurn() {
 		return timeTurnSec;
 	}
 
 	/**
 	 * @param timeTurn the timeTurn to set
 	 */
-	public void setTimeTurn(double timeTurn) {
+	private void setTimeTurn(double timeTurn) {
 		this.timeTurnSec = timeTurn;
 	}
 
 	/**
 	 * Allow to update the card on lays showed according to the API And to set
-	 * active the ones for wich a the value of the Carte has changed
+	 * active the ones for which the value of their Carte has changed
 	 * 
 	 * @return number of card updated
 	 */
-	public int updateLays() {
+	private int updateLays() {
 		int cardUpdated = 0;
-		for (int i = 0; i < layL.size(); i++) {
+		for (int i = 0; i < this.layL.size(); i++) {
 			Tas tas = this.jeu.getTasById(i);
-			LayComponent lay = layL.get(i);
+			LayComponent lay = this.layL.get(i);
 			lay.setActive(false);
 			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
 				++cardUpdated;
@@ -157,7 +157,7 @@ public class IAScene extends APlayScene {
 	 * 
 	 * @param turn
 	 */
-	public void updateDialogTurn() {
+	private void updateDialogTurn() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
 		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
 		// can not be used as the IA lays and ends turn as well
@@ -191,14 +191,14 @@ public class IAScene extends APlayScene {
 	/**
 	 * To kill whenever and whereever I want the timeline
 	 */
-	public void killTimeline() {
+	private void killTimeline() {
 		this.timeline.stop();
 	}
 
 	/**
 	 * To kill whenever and whereever I want the timeline
 	 */
-	public boolean isTimelineNull() {
+	private boolean isTimelineNull() {
 		return timeline == null;
 	}
 
@@ -207,7 +207,7 @@ public class IAScene extends APlayScene {
 	 * @return VBox containing the exit and menu buttons
 	 */
 	@Override
-	protected Node createLeftPane() {
+	public Node createLeftPane() {
 		VBox pane = new VBox();
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
@@ -237,7 +237,7 @@ public class IAScene extends APlayScene {
 	 * 
 	 * @return a vBox which contains
 	 */
-	public VBox makeSlider() {
+	private VBox makeSlider() {
 		MainLabel sll = new MainLabel(Main.d.get("PLAY_ia_slider_label"));
 		Slider sl = new Slider(0.25, 4, TURN_TIME);
 		sl.setBlockIncrement(0.25);

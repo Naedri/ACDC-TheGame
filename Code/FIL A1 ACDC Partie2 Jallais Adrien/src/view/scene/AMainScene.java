@@ -24,11 +24,11 @@ import view.label.MainLabel;
  * @author Adrien Jallais
  *
  */
-public abstract class MainScene extends Scene {
+public abstract class AMainScene extends Scene {
 	private BorderPane border;
 	private StackPane vbox;
 
-	public MainScene(Pane center) {
+	public AMainScene(Pane center) {
 		super(new BorderPane());
 		border = (BorderPane) (this.getRoot());
 		border.setPadding(InsetsApp.LITTLE.getInsets()); // top right bottom left

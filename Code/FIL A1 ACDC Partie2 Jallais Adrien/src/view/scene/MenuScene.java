@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import view.button.ButtonChangeScene;
 import view.constant.Spacing;
 
-public class MenuScene extends MainScene {
+public class MenuScene extends AMainScene {
 	private VBox vbox;
 
 	private Button bPH;
@@ -39,19 +39,25 @@ public class MenuScene extends MainScene {
 	}
 
 	private void addingButtonEvent() {
-		bPH.setOnAction(new ButtonHandler());
-		bPIA.setOnAction(new ButtonHandler());
-		bP.setOnAction(new ButtonHandler());
-		bR.setOnAction(new ButtonHandler());
-		bA.setOnAction(new ButtonHandler());
-		bE.setOnAction(new ButtonHandler());
+		bPH.setOnAction(new ButtonScene());
+		bPIA.setOnAction(new ButtonScene());
+		bP.setOnAction(new ButtonScene());
+		bR.setOnAction(new ButtonScene());
+		bA.setOnAction(new ButtonScene());
+		bE.setOnAction(new ButtonScene());
 	}
 
-	private class ButtonHandler implements EventHandler<ActionEvent> {
+	/**
+	 * Button to change of scene especially for menu scene
+	 * 
+	 * @author Adrien Jallais
+	 *
+	 */
+	private class ButtonScene implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {
 			if (e.getSource() == bPH) {
-				// joueur HUMAND
+				// joueur HUMAN
 				Joueur joueur = new Joueur("Lorem lipsum");
 				List<Joueur> joueurs = new ArrayList<Joueur>();
 				joueurs.add(joueur);

@@ -55,22 +55,22 @@ import view.label.MainLabel;
  * @author Adrien Jallais
  *
  */
-public abstract class APlayScene extends MainScene {
+public abstract class APlayScene extends AMainScene {
 
-	protected BorderPane panePlay;
-	protected List<CardComponent> cardL;
-	protected List<LayComponent> layDscL;
-	protected List<LayComponent> layAscL;
+	private BorderPane panePlay;
+	private List<CardComponent> cardL;
+	private List<LayComponent> layDscL;
+	private List<LayComponent> layAscL;
 	protected List<LayComponent> layL;
-	protected DrawComponent draw;
-	protected HandComponent hand;
+	private DrawComponent draw;
+	private HandComponent hand;
 	protected ScoreComponent scoreP;
 	protected DialogComponent dialogP;
 
-	protected LayComponent selectedLay;
-	protected CardComponent selectedCard;
+	private LayComponent selectedLay;
+	private CardComponent selectedCard;
 
-	protected Joueur joueur;
+	private Joueur joueur;
 	protected Jeu jeu;
 
 	public APlayScene(String modeName, List<Joueur> joueurs, String pathDeck) {
@@ -156,7 +156,7 @@ public abstract class APlayScene extends MainScene {
 	 * @param modeName either Human mode or IA mode
 	 * @return StackPane with label containing the mode name
 	 */
-	private Node createTopPane(String modeName) {
+	public Node createTopPane(String modeName) {
 		Label label = new MainLabel(modeName);
 		StackPane pane = new StackPane();
 		pane.setPadding(new Insets(InsetsApp.HIGH.getTop() - this.getBorder().getInsets().getBottom(),
@@ -169,7 +169,7 @@ public abstract class APlayScene extends MainScene {
 	 * 
 	 * @return VBox containing the exit and menu buttons
 	 */
-	protected Node createLeftPane() {
+	public Node createLeftPane() {
 		VBox pane = new VBox();
 		Button bM = new ButtonQuit(Main.d.get("COMMON_menu"));
 		bM.setOnAction((ActionEvent e) -> {
@@ -188,7 +188,7 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * create the right pane with a VBox, including score and dialog box
 	 */
-	private Node createRightPane() {
+	public Node createRightPane() {
 		VBox pane = new VBox();
 		pane.getChildren().addAll(scoreP, dialogP);
 		pane.setSpacing(Spacing.HIGH.getSpace());
@@ -199,7 +199,7 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * create the bottom pane with a HBox, including hand and draw component
 	 */
-	protected Node createBottomPane() {
+	public Node createBottomPane() {
 		HBox pane;
 		Insets insets = InsetsApp.MEDIUM.getInsets();
 		// hand
@@ -234,7 +234,7 @@ public abstract class APlayScene extends MainScene {
 	/**
 	 * Create the bottom pane with a HBox, including lays in HBox and an image
 	 */
-	private Node createCenterPane() {
+	public Node createCenterPane() {
 		Insets insets = InsetsApp.HIGH.getInsets();
 		// descending
 		HBox descP = new HBox(Spacing.HIGH.getSpace());
@@ -331,7 +331,7 @@ public abstract class APlayScene extends MainScene {
 	 * @param selectedCard a CardComponent (taken from the cardL = HandComponent)
 	 * @param selectedCard a LayComponent (taken from the layL = CenterPane)
 	 */
-	protected void layingAction(CardComponent _card, LayComponent _lay) throws Exception {
+	private void layingAction(CardComponent _card, LayComponent _lay) throws Exception {
 		if (_lay == null) {
 			throw new MissLayCardException();
 		}
@@ -390,14 +390,18 @@ public abstract class APlayScene extends MainScene {
 		});
 	}
 
-	public void reloadHandAndDraw() {
+	/**
+	 * update cardL and the bottom scene containing the hand of the current player
+	 * and the state of the draw (which could be empty) and the
+	 */
+	protected void reloadHandAndDraw() {
 		updateCardL();
 		panePlay.setBottom(createBottomPane());
 	}
 
 	/**
-	 * Update the bottom pane, in order to rebuild the hand and add associated effet
-	 * As we rebuild the bottom pane, we should add Hand AND Draw event
+	 * Update the bottom pane, in order to rebuild the hand and add associated
+	 * effect As we rebuild the bottom pane, we should add Hand AND Draw event
 	 */
 	private void updateBottomPane() {
 		reloadHandAndDraw();

@@ -40,7 +40,7 @@ import view.label.MainLabel;
  * @author Adrien Jallais
  *
  */
-public class ParameterScene extends MainScene {
+public class ParameterScene extends AMainScene {
 
 	private BorderPane mainPane;
 	private VBox parameterBox;

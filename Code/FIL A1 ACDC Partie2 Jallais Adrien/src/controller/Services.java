@@ -3,7 +3,7 @@ package controller;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.scene.MainScene;
+import view.scene.AMainScene;
 
 public final class Services {
 
@@ -11,7 +11,7 @@ public final class Services {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void changeScene(Scene currentScene, MainScene newScene) {
+	public static void changeScene(Scene currentScene, AMainScene newScene) {
 		Stage thisStage;
 		thisStage = (Stage) currentScene.getRoot().getScene().getWindow();
 		thisStage.hide();

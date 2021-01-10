@@ -20,8 +20,7 @@ import view.constant.RadiusApp;
 
 public class DrawComponent extends ACardComponent {
 
-	ICardView card;
-	ICardView selectedCard;
+	private ICardView card;
 
 	public DrawComponent(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
@@ -119,24 +118,5 @@ public class DrawComponent extends ACardComponent {
 	@Override
 	public BorderStroke getBorderStrokes() {
 		return this.getBorder().getStrokes().get(0);
-	}
-
-	/**
-	 * @return the selectedCard
-	 */
-	public ICardView getSelectedCard() {
-		return selectedCard;
-	}
-
-	/**
-	 * 
-	 * @param selectedCard the selectedCard to set
-	 */
-	public void switchSelectedCard(ICardView selectedCard) {
-		if (this.selectedCard == selectedCard) {
-			this.selectedCard = null;
-		} else {
-			this.selectedCard = selectedCard;
-		}
 	}
 }
