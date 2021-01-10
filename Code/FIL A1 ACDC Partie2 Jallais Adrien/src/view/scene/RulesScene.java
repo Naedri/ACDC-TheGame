@@ -67,13 +67,16 @@ public class RulesScene extends AMainScene {
 		LanguageApp lang = Main.d.getLanguage();
 		switch (lang) {
 		case FRENCH:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-francais.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-francais.pdf";
+			url = "https://www.trukmuchspot.fr/regles-et-critiques/the-game";
 			break;
 		case ENGLISH:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+			url = "https://www.geekyhobbies.com/the-game-2015-steffen-benndorf-card-game-review-and-rules/";
 			break;
 		default:
-			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+//			url = "https://github.com/Naedri/ACDC-TheGame/blob/main/Consignes/the-game-english.pdf";
+			url = "https://www.geekyhobbies.com/the-game-2015-steffen-benndorf-card-game-review-and-rules/";
 			break;
 		}
 		view = new WebView();
