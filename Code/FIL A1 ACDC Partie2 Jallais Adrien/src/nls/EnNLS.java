@@ -97,7 +97,7 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_slider_label", "Time of an action (sec)");
 		this.d.put("PLAY_ia_layed_card_last_turn", "AI has layed the following number of card : ");
 		this.d.put("PLAY_ia_layed_card_turn", "This turn, AI has layed the following number of cards :");
-		this.d.put("PLAY_ia_layed_card", "Number of layed card(s), this turn :");
+		this.d.put("PLAY_ia_layed_card", "Number of laying pile(s) used this turn :");
 
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",

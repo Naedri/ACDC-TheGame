@@ -98,7 +98,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_end_bad", "Le jeu a battu l'IA.");
 		this.d.put("PLAY_ia_slider_label", "Temps d'une action (sec)");
 		this.d.put("PLAY_ia_layed_card_turn", "Ce tour-ci, l'IA a déposé le nombre de carte suivant :");
-		this.d.put("PLAY_ia_layed_card", "Nombre de carte(s) posée(s) ce tour-ci :");
+		this.d.put("PLAY_ia_layed_card", "Nombre de pile(s) de dépôt sollicitée(s) ce tour-ci :");
 
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
