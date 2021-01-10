@@ -6,6 +6,49 @@
     "Projet": "The Game",
     "Partie 2": [
         {
+            "log_number": "23",
+            "date": "09/01/2021",
+            "travail": [
+                "fix(API): IA ne pioche pas si la pioche est vide",
+                "fix(API): modif API pour incrémenter le nbr de tours qui restait à 0 car jeu à un seul joueur",
+                "fix(APlayScene) : prise en charge des draw and hand empty",
+                "fix(IAScene): IA simulation arrête le Timer quand pioche et main sont vides",
+                "feat(IAScene): IA IHM compte les cartes posées par l'IA API(utilisation méthode de la méthode fournie par l'API (getNbCartesTour) non possible car l'IA joue et termine le tour également)",
+                "feat(ACardComponent): static method pour avoir un support par défault de carte",
+                "feat(HandComponent): prise en charge du cas où il n'y a plus assez de cartes dans la pioche en rajoutant un support pour les cartes manquantes le nombre max autorisé par main",
+                "feat(IAScene HumanScene): Mise à jour du dénombrement des tours réalisés",
+                "refactor(HandComponent): simplification de l'initialisation de la main",
+                "refactor(IAScene): timeline not static"
+            ]
+        },
+        {
+            "log_number": "22",
+            "date": "08/01/2021",
+            "travail": [
+                "fix(HumanScene): le dépôt de carte ne se fait plus qu'à partir de la main pour éviter pour plus de robustesse (simplification)",
+                "fix(IAScene): better update of the IAScene turn time",
+                "feat(IAScene): finalisation scene jeu IA",
+                "feat(IAScene): Ajout d'un slider pour modifier le temps d'un tour du mode IA",
+                "feat(NLS): traduction de la version NLS française en anglais",
+                "style(HumanScene): modification de la prise en charge remontée des erreurs de l'API pour un coup non autorisé :  on n'affiche pas le message d'erreur renvoyé par l'API mais une phrase spécifique à celle-ci pour pouvoir adapter une version anglaise et française",
+                "style(AuthorScene): Reglage presentation du texte pour un meilleur emballement",
+                "docs: Ajout de capture d'écran pour documentation"
+            ]
+        },
+        {
+            "log_number": "21",
+            "date": "07/01/2021",
+            "travail": [
+                "fix(API): mise en place d'une méthode dans l'API pour connaitre le nombre max de cartes par joueur",
+                "feat(IAscene): initiation de la scene jeu IA",
+                "feat(WelcomeScene): ajout d'effect clignotant pour le sous titre avec un Timer",
+                "refactor(APlayScene): rassemblement des méthodes pour jouer dans la classe APlayScene",
+                "refactor(HumanScene): simplification de la fonction déposant les cartes",
+                "style(photo): faire disparaitre les photos en fonction de la taille de l'écran",
+                "test(HumanScene): réalisation de test pour la scene jeu sol"
+            ]
+        },
+        {
             "log_number": "20",
             "date": "06/01/2021",
             "travail": [
