@@ -72,6 +72,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_score_singular", "Carte restante");
 
 		this.d.put("PLAY_dialog_init", "A vous de jouer !");
+		this.d.put("PLAY_dialog_init_click", "Commencez par cliquer sur une carte de votre main.");
 		this.d.put("PLAY_human_choosen_card_hand", "Vous avez choisi une carte de votre main.");
 		this.d.put("PLAY_human_choosen_card_lay", "Vous avez choisi une pile de dépôt.");
 		this.d.put("PLAY_human_choose_card_hand", "Choisissez une carte de votre main.");

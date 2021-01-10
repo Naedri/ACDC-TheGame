@@ -70,6 +70,7 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_score_singular", "Remaining cards");
 
 		this.d.put("PLAY_dialog_init", "It's your turn!");
+		this.d.put("PLAY_dialog_init_click", "Start by clicking on a card from your hand.");
 		this.d.put("PLAY_human_choosen_card_hand", "You have chosen a card from your hand.");
 		this.d.put("PLAY_human_choosen_card_lay", "You have chosen a stack of cards from your hand.");
 		this.d.put("PLAY_human_choose_card_hand", "You have chosen a card from your hand.");

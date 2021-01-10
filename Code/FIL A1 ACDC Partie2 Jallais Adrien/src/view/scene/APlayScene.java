@@ -107,6 +107,7 @@ public abstract class APlayScene extends MainScene {
 		scoreP = new ScoreComponent(jeu.score());
 		// dialog
 		dialogP = new DialogComponent(Main.d.get("PLAY_dialog_init"));
+		dialogP.addDialog(Main.d.get("PLAY_dialog_init_click"));
 		initCardGame();
 		initLayPile();
 	}
