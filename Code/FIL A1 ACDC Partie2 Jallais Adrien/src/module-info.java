@@ -1,4 +1,9 @@
 /**
+ * L'application se lance à partir de la fonction "main" qui se trouve au
+ * fichier suivant : "Code\FIL A1 ACDC Partie2 Jallais Adrien\src\application\Main.java"
+ * 
+ */
+/**
  * @author Adrien Jallais
  *
  */

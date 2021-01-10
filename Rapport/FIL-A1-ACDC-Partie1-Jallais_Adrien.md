@@ -35,7 +35,7 @@ Les règles du jeu sont disponibles dans le fichier suivant : [the-game-english]
 
 L'*Illustration 1* présente ce qu'affiche la console lors du lancement d'une partie.
 
-![Capture console au lancement d'une partie](./Illustrations/Capture_1.PNG)
+![Capture console au lancement d'une partie](../Illustrations/Capture_1.PNG)
 
 *__Illustration 1 :__ Capture de la console au lancement d'une partie.*
 
@@ -56,9 +56,9 @@ Une traduction des éléments du jeu est fournie ci-dessous afin de faciliter l'
 
 ### Progression et suivi du projet
 
-Un fichier décrivant les logs réalisés quotidiennement est disponible dans le fichier suivant : [log.Jallais.Adrien.json](./log.Jallais.Adrien.json). En complément, le *Tableau 1* illustre ces logs pour mieux visualiser la cinétique de développement du projet.
+Un fichier décrivant les logs réalisés quotidiennement est disponible dans le fichier suivant : [log.Jallais.Adrien.json](../log.Jallais.Adrien.json). En complément, le *Tableau 1* illustre ces logs pour mieux visualiser la cinétique de développement du projet.
 
-![Tableau de progression](./Grille_progression/avt.Jallais.Adrien.jpg)
+![Tableau de progression](../Grille_progression/avt.Jallais.Adrien.jpg)
 *__Tableau 1 :__ Grille de progression du développement de l'application. Les logs représentent un jour de travail.*
 
 Avec le *Tableau 1*, on observe que l'écriture des interfaces a permis de guider le développement des classes concrètes les implémentant, et que le développement a commencé par les objets les plus basiques (Cartes, Piles) pour servir de base à des objets intermédiaires (Fabriques), ou plus complexes (Jeu puis Service de Résolution). 
@@ -71,7 +71,7 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 + les relations de dépendance entre les classes (au profit de celles entre les packages),
 + les méthodes de visibilité publique des classes implémentant des interfaces (afin d'éviter une répétition entre ces deux entités).
 
-![Diagramme de classe en version légère](./Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
+![Diagramme de classe en version légère](../Code/FIL%20A1%20ACDC%20Partie1%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie1_Jallais_Adrien-UML-Vlight.png)
 
 *__Illustration 2 :__  Diagramme UML de classe de l'application.*
 
