@@ -70,7 +70,7 @@ La seconde partie (*frontend*) a été réalisée par Adrien JALLAIS, mais celle
 
 L'*Illustration 1-1* présente ce qu'affiche la console lors du lancement d'une partie.
 
-![Capture console au lancement d'une partie](./Illustrations/Capture_1.PNG)
+![Capture console au lancement d'une partie](./Illustrations/Capture_1.png)
 
 *__Illustration 1-1 :__ Capture de la console au lancement d'une partie.*
 
@@ -78,13 +78,13 @@ L'*Illustration 1-1* présente ce qu'affiche la console lors du lancement d'une 
 
 L'*Illustration 1-2-1* présente ce que la fenêtre cliente affiche au cours d'une partie en **mode Solo**.
 
-![Capture fenêtre en mode Solo](./Illustrations/Capture_2-Play-Human.PNG)
+![Capture fenêtre en mode Solo](./Illustrations/Capture_2-Play-Human.png)
 
 *__Illustration 1-2-1 :__ Capture de la fenêtre au cours d'une partie en mode Solo.*
 
 L'*Illustration 1-2-2* présente ce que la fenêtre cliente affiche au départ d'une partie en **mode Démonstration**.
 
-![Capture fenêtre en mode Démonstration](./Illustrations/Capture_2-Play-IA.PNG)
+![Capture fenêtre en mode Démonstration](./Illustrations/Capture_2-Play-IA.png)
 
 *__Illustration 1-2-2 :__ Capture de la fenêtre au départ d'une partie en mode Démonstration.*
 
