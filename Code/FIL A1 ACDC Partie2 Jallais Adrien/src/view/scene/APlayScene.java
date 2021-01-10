@@ -55,7 +55,7 @@ import view.label.MainLabel;
  * @author Adrien Jallais
  *
  */
-public abstract class APlayScene extends MainScene {
+public abstract class APlayScene extends AMainScene {
 
 	private BorderPane panePlay;
 	private List<CardComponent> cardL;

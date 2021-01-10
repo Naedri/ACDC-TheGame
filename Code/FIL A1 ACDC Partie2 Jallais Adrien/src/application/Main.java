@@ -16,7 +16,7 @@ import nls.DefaultNLS;
 import nls.EnNLS;
 import nls.FrNLS;
 import nls.LanguageApp;
-import view.scene.MainScene;
+import view.scene.AMainScene;
 import view.scene.WelcomeScene;
 
 /**
@@ -27,7 +27,7 @@ public class Main extends Application {
 
 	private static Rectangle2D primaryScreenBounds;
 	public static Stage mainStage;
-	private MainScene scene;
+	private AMainScene scene;
 	private static boolean smallScreen = false;
 
 	private static LanguageApp lang;

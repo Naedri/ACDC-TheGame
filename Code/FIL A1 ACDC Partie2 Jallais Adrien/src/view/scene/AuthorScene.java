@@ -15,7 +15,7 @@ import view.constant.FontApp;
 import view.constant.InsetsApp;
 import view.constant.Spacing;
 
-public class AuthorScene extends MainScene {
+public class AuthorScene extends AMainScene {
 
 	private BorderPane pane;
 	private DialogComponent mainLabel;

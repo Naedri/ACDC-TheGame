@@ -35,7 +35,7 @@ import view.constant.FontApp;
  * @author Adrien Jallais
  *
  */
-public class WelcomeScene extends MainScene {
+public class WelcomeScene extends AMainScene {
 	private Media music;
 	private MediaPlayer player;
 	private BorderPane pane;

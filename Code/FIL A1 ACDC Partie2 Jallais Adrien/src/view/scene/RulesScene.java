@@ -22,7 +22,7 @@ import view.constant.Spacing;
  * @author Adrien Jallais
  *
  */
-public class RulesScene extends MainScene {
+public class RulesScene extends AMainScene {
 
 	private BorderPane pane;
 
