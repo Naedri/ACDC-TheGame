@@ -4,6 +4,156 @@
     "année": "1",
     "module": "ACDC",
     "Projet": "The Game",
+    "Partie 2": [
+        {
+            "log_number": "24",
+            "date": "10/01/2021",
+            "travail": [
+                "fix(IAScene): IA IHM compte les piles de dépôts sollicitées par l'IA API lors de sont tour (en effet la méthode de résolution joue un tour et non un coup)"
+            ]
+        },
+        {
+            "log_number": "23",
+            "date": "09/01/2021",
+            "travail": [
+                "fix(API): IA ne pioche pas si la pioche est vide",
+                "fix(API): modif API pour incrémenter le nbr de tours qui restait à 0 car jeu à un seul joueur",
+                "fix(APlayScene) : prise en charge des draw and hand empty",
+                "fix(IAScene): IA simulation arrête le Timer quand pioche et main sont vides",
+                "feat(IAScene): IA IHM compte les cartes posées par l'IA API(utilisation méthode de la méthode fournie par l'API (getNbCartesTour) non possible car l'IA joue et termine le tour également)",
+                "feat(ACardComponent): static method pour avoir un support par défault de carte",
+                "feat(HandComponent): prise en charge du cas où il n'y a plus assez de cartes dans la pioche en rajoutant un support pour les cartes manquantes le nombre max autorisé par main",
+                "feat(IAScene HumanScene): Mise à jour du dénombrement des tours réalisés",
+                "refactor(HandComponent): simplification de l'initialisation de la main",
+                "refactor(IAScene): timeline not static"
+            ]
+        },
+        {
+            "log_number": "22",
+            "date": "08/01/2021",
+            "travail": [
+                "fix(HumanScene): le dépôt de carte ne se fait plus qu'à partir de la main pour éviter pour plus de robustesse (simplification)",
+                "fix(IAScene): better update of the IAScene turn time",
+                "feat(IAScene): finalisation scene jeu IA",
+                "feat(IAScene): Ajout d'un slider pour modifier le temps d'un tour du mode IA",
+                "feat(NLS): traduction de la version NLS française en anglais",
+                "style(HumanScene): modification de la prise en charge remontée des erreurs de l'API pour un coup non autorisé :  on n'affiche pas le message d'erreur renvoyé par l'API mais une phrase spécifique à celle-ci pour pouvoir adapter une version anglaise et française",
+                "style(AuthorScene): Reglage presentation du texte pour un meilleur emballement",
+                "docs: Ajout de capture d'écran pour documentation"
+            ]
+        },
+        {
+            "log_number": "21",
+            "date": "07/01/2021",
+            "travail": [
+                "fix(API): mise en place d'une méthode dans l'API pour connaitre le nombre max de cartes par joueur",
+                "feat(IAscene): initiation de la scene jeu IA",
+                "feat(WelcomeScene): ajout d'effect clignotant pour le sous titre avec un Timer",
+                "refactor(APlayScene): rassemblement des méthodes pour jouer dans la classe APlayScene",
+                "refactor(HumanScene): simplification de la fonction déposant les cartes",
+                "style(photo): faire disparaitre les photos en fonction de la taille de l'écran",
+                "test(HumanScene): réalisation de test pour la scene jeu sol"
+            ]
+        },
+        {
+            "log_number": "20",
+            "date": "06/01/2021",
+            "travail": [
+                "refactoring general, mise en place d'un background uniforme",
+                "réalisation de la scène des Paramètres pour changement de la langue et du fichier à la base du deck ",
+                "réalisation de la scène des Crédits pour les auteurs",
+                "modif api : ajout d'exception plus particulière pour les afficher à l'utilisateur",
+                "modif api : pour la factory Pioche.fromfile  - ajout de levée d'exception (cartes dupliquées, quantité de carte insuffisante)",
+                "modif api : pour la factory Pioche.fromfile  - pouvant créer désormais une pioche aléatoire si le path indiqué est nul"
+            ]
+        },
+        {
+            "log_number": "19",
+            "date": "05/01/2021",
+            "travail": [
+                "modif api : initier les piles de dépôt non pas à 0 mais à 1",
+                "modif api : méthode jouer (déterminer correctement le joueur actuel pour le comparer avec le joueur fourni)",
+                "modif api : méthode isPartieFinie (observer seulement le joueur actuel et ne pas terminer la partie si il peut piocher)",
+                "feat(game2): refactoring des classes card, lay et draw pour proposer de désactiver leurs évènements de click (reversible)",
+                "feat(game2): détecter fin de partie et désactiver les évènements de click sur les boutons de jeu",
+                "feat(game2): Interface pour une partie 'humain' fonctionnelle"
+            ]
+        },
+        {
+            "log_number": "18",
+            "date": "03/01/2021",
+            "travail": [
+                "reglage dépot de carte de sa main en accord avec l'api",
+                "deselection des cartes lorsqu'un mauvais coup arrive",
+                "termine le tour avec une action sur la pioche,voir le jeur si besoin"
+            ]
+        },
+        {
+            "log_number": "17",
+            "date": "02/01/2021",
+            "travail": [
+                "piocher et déposer une carte de sa main en accord avec l'api",
+                "mise en place de nouvelle exception pour un meilleur dialogue"
+            ]
+        },
+        {
+            "log_number": "16",
+            "date": "01/01/2021",
+            "travail": [
+                "lecture documentation sur event listener",
+                "tentative de mise en place d'un timer pour clignotement du sous titre de la page d'acceuil",
+                "mise en place d'un state (activated) pour les cartes",
+                "refactoring du changement du style avec state activated",
+                "composant main fonctionnel"
+            ]
+        },
+        {
+            "log_number": "15",
+            "date": "31/12/2020",
+            "travail": [
+                "activités sur la scène de jeu principale",
+                "style pioche, pile de dépôts",
+                "ajout d'une photo",
+                "ajout d'une photo",
+                "factorisation des polices et insets"
+            ]
+        },
+        {
+            "log_number": "14",
+            "date": "30/12/2020",
+            "travail": [
+                "Recherches sur les modes de changement de scene",
+                "activités sur le menu et action des boutons",
+                "Scène de jeu : boutton quitter et menu"
+            ]
+        },
+        {
+            "log_number": "13",
+            "date": "29/12/2020",
+            "travail": [
+                "fonctionalité changement de scene comprise et implémentée",
+                "style bouton menu selon event listener",
+                "mise en place de constante de style"
+            ]
+        },
+        {
+            "log_number": "12",
+            "date": "28/12/2020",
+            "travail": [
+                "scene Menu",
+                "scene Règles",
+                "scene Accueil",
+                "nls file"
+            ]
+        },
+        {
+            "log_number": "11",
+            "date": "21/12/2020",
+            "travail": [
+                "Ajout code backend"
+            ]
+        }
+    ],
     "Partie 1": [
         {
             "log_number": "10",
