@@ -57,7 +57,7 @@ public class WelcomeScene extends MainScene {
 				new Background(new BackgroundFill(ColorApp.INFOL.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	private Node createCenterPane() {
+	public Node createCenterPane() {
 		// img
 		String imgName = "knight_640.png";
 		// String imgName = "Castle_Free.png";
@@ -86,7 +86,7 @@ public class WelcomeScene extends MainScene {
 		return stack;
 	}
 
-	private Node createBottomPane() {
+	public Node createBottomPane() {
 		// subtitle
 		labelSubTitle = new Label(Main.d.get("WELCOME_start"));
 		labelSubTitle.setFont(FontApp.SUBTITLE.getFont());
@@ -102,6 +102,9 @@ public class WelcomeScene extends MainScene {
 		return pane;
 	}
 
+	/**
+	 * adding the music effect
+	 */
 	private void addingMusic() {
 		String pathMusic = "src" + File.separator + "multimedia" + File.separator + "Welcome.mp3";
 		music = new Media(new File(pathMusic).toURI().toString());
@@ -109,6 +112,7 @@ public class WelcomeScene extends MainScene {
 	}
 
 	/**
+	 * the current scene will not change until the user has not pressed enter
 	 * https://edencoding.com/stage-controller/
 	 * https://coderslegacy.com/java/switch-between-scenes-in-javafx/
 	 */
@@ -131,15 +135,7 @@ public class WelcomeScene extends MainScene {
 	@Override
 	public void triggerShow() {
 		player.play();
-		triggerFlick();
-	}
-
-	/**
-	 * to make flinking the subtitle
-	 */
-	private void flinckSubTitle() {
-		this.labelSubTitle.setVisible(this.subTitleOn);
-		this.subTitleOn = !this.subTitleOn;
+		triggerBlink();
 	}
 
 	/**
@@ -147,11 +143,20 @@ public class WelcomeScene extends MainScene {
 	 * 
 	 * @source https://stackoverflow.com/questions/9966136/javafx-periodic-background-task
 	 */
-	private void triggerFlick() {
+	private void triggerBlink() {
 		timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
-			flinckSubTitle();
+			blinkSubTitle();
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 	}
+
+	/**
+	 * to make flicking the subtitle
+	 */
+	private void blinkSubTitle() {
+		this.labelSubTitle.setVisible(this.subTitleOn);
+		this.subTitleOn = !this.subTitleOn;
+	}
+
 }

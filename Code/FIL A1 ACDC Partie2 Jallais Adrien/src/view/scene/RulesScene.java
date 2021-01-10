@@ -24,7 +24,7 @@ import view.constant.Spacing;
  */
 public class RulesScene extends MainScene {
 
-	protected BorderPane pane;
+	private BorderPane pane;
 
 	public RulesScene() {
 		super(new BorderPane());
@@ -55,12 +55,12 @@ public class RulesScene extends MainScene {
 	}
 
 	/**
-	 * according the language given, the scene will show the apporpriate rules
+	 * according the language given, the scene will show the appropriate rules
 	 * version
 	 * 
 	 * @return
 	 */
-	private WebView createWebView() {
+	public WebView createWebView() {
 		WebView view;
 		WebEngine engine;
 		String url;

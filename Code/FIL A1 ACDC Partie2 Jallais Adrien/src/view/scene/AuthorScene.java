@@ -17,7 +17,7 @@ import view.constant.Spacing;
 
 public class AuthorScene extends MainScene {
 
-	protected BorderPane pane;
+	private BorderPane pane;
 	private DialogComponent mainLabel;
 	private DialogComponent labelAuthors;
 
