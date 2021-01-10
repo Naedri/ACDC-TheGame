@@ -12,8 +12,8 @@ import view.constant.ColorApp;
 
 public class LayComponent extends CardComponent {
 
-	Color col;
-	Color colShadow;
+	private Color col;
+	private Color colShadow;
 	private int index;
 
 	public LayComponent(Tas tas, int indexFromGame) {
