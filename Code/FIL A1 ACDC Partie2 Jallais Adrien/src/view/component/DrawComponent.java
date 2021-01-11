@@ -2,7 +2,6 @@ package view.component;
 
 import application.Main;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -24,16 +23,6 @@ public class DrawComponent extends ACardComponent {
 
 	public DrawComponent(ICardView card) {
 		super(Main.d.get("PLAY_draw"));
-		init(card);
-	}
-
-	public DrawComponent(ICardView card, String text, Node graphic) {
-		super(text, graphic);
-		init(card);
-	}
-
-	public DrawComponent(ICardView card, String text) {
-		super(text);
 		init(card);
 	}
 

@@ -116,15 +116,15 @@ public class IAScene extends APlayScene {
 			this.initCardLDiff();
 			boolean goodTurn = true;
 			try {
-				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.jeu);
+				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.getJeu());
 			} catch (CoupInvalideException | ActionIllegaleException e) {
 				e.printStackTrace();
 			}
 			this.updateCardLDiff();
 			this.cardsUpdated = this.activeUpdatedHand();
 			this.laysUpdated = this.activeUpdatedLays();
-			this.scoreP.setScoreT(this.jeu.score());
-			if (!goodTurn && !this.jeu.isPartieFinie()) {
+			this.scoreP.setScoreT(this.getJeu().score());
+			if (!goodTurn && !this.getJeu().isPartieFinie()) {
 				this.updateDialogTurn();
 			} else {
 				this.endTurns();
@@ -157,7 +157,7 @@ public class IAScene extends APlayScene {
 	 */
 	private void reloadLays() {
 		for (int i = 0; i < this.getLayL().size(); i++) {
-			Tas tas = this.jeu.getTasById(i);
+			Tas tas = this.getJeu().getTasById(i);
 			LayComponent lay = this.getLayL().get(i);
 			lay.setCardAPI(tas.getDerniereCarte());
 			lay.setActive(false);
@@ -173,7 +173,7 @@ public class IAScene extends APlayScene {
 	private int activeUpdatedLays() {
 		int layUpdated = 0;
 		for (int i = 0; i < this.getLayL().size(); i++) {
-			Tas tas = this.jeu.getTasById(i);
+			Tas tas = this.getJeu().getTasById(i);
 			LayComponent lay = this.getLayL().get(i);
 			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
 				++layUpdated;
@@ -189,7 +189,6 @@ public class IAScene extends APlayScene {
 	 * to init the cardLDiff
 	 */
 	private void initCardLDiff() {
-		System.out.println("initCardLdiff");
 		this.cardLOld = new ArrayList<Integer>();
 		this.getCardL().forEach(card -> {
 			this.cardLOld.add(card.getCardAPI().getValeur());
@@ -202,7 +201,6 @@ public class IAScene extends APlayScene {
 	 * hand of the IA Player, during its last turn
 	 */
 	private int updateCardLDiff() {
-		System.out.println("updateCardLDiff");
 		super.updateCardL();
 		this.cardLNew = new ArrayList<Integer>();
 		this.getCardL().forEach(card -> {
@@ -231,7 +229,6 @@ public class IAScene extends APlayScene {
 	 * difference between two turns of IA
 	 */
 	private int activeUpdatedHand() {
-		System.out.println("boum");
 		int cardUpdated = 0;
 		CardComponent cardEval;
 		Integer valueEval;
@@ -269,7 +266,7 @@ public class IAScene extends APlayScene {
 	 */
 	private void updateDialogTurn() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
-		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
+		this.dialogP.addDialog(String.valueOf(this.getJeu().getTour() + 1)); // as turn begin at 0
 		if (this.laysUpdated > 0) {
 			this.dialogP.addDialog(Main.d.get("PLAY_ia_will_use_lay"));
 			this.dialogP.addDialog(String.valueOf(this.laysUpdated));
@@ -285,10 +282,10 @@ public class IAScene extends APlayScene {
 	 * against the game
 	 */
 	private void setDialogsResult() {
-		if (this.jeu.isPartieFinie()) {
+		if (this.getJeu().isPartieFinie()) {
 			this.dialogP.setDialog(Main.d.get("PLAY_ia_end_turn"));
-			this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
-			if (this.jeu.isVictoire()) {
+			this.dialogP.addDialog(String.valueOf(this.getJeu().getTour() + 1)); // as turn begin at 0
+			if (this.getJeu().isVictoire()) {
 				this.dialogP.addDialog(Main.d.get("PLAY_ia_end_good"));
 			} else {
 				this.dialogP.addDialog(Main.d.get("PLAY_ia_end_bad"));

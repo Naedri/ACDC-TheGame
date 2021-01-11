@@ -71,7 +71,7 @@ public abstract class APlayScene extends AMainScene {
 	private CardComponent selectedCard;
 
 	private Joueur joueur;
-	protected Jeu jeu;
+	private Jeu jeu;
 
 	public APlayScene(String modeName, List<Joueur> joueurs, String pathDeck) {
 		super(new BorderPane());
@@ -546,6 +546,13 @@ public abstract class APlayScene extends AMainScene {
 	 */
 	public List<LayComponent> getLayL() {
 		return Collections.unmodifiableList(layL);
+	}
+
+	/**
+	 * @return the jeu
+	 */
+	public Jeu getJeu() {
+		return jeu;
 	}
 
 }
