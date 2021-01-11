@@ -123,7 +123,7 @@ public abstract class APlayScene extends AMainScene {
 	/**
 	 * Reload the list of CardComponent : cardL, and sort it
 	 */
-	private void updateCardL() {
+	protected void updateCardL() {
 		cardL = new ArrayList<CardComponent>();
 		List<Carte> handSorted = joueur.getMain();
 		Collections.sort(handSorted);
@@ -520,4 +520,15 @@ public abstract class APlayScene extends AMainScene {
 	public Joueur getJoueur() {
 		return joueur;
 	}
+
+	/**
+	 * To be used by IAScene in order to make the difference between the new and old
+	 * value from hand
+	 * 
+	 * @return the cardL
+	 */
+	public List<CardComponent> getCardL() {
+		return Collections.unmodifiableList(cardL);
+	}
+
 }

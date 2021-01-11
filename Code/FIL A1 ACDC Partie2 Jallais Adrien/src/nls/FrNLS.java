@@ -101,6 +101,9 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_layed_card_turn", "Ce tour-ci, l'IA a déposé le nombre de carte suivant :");
 		this.d.put("PLAY_ia_layed_card", "Nombre de pile(s) de dépôt sollicitée(s) ce tour-ci :");
 
+		this.d.put("PLAY_ia_will_use_lay", "L'IA va utiliser le nombre de pile de dépôt suivant :");
+		this.d.put("PLAY_ia_will_use_hand", "L'IA va déposer le nombre de cartes suivant :");
+
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
 				"La valeur fournie ne correspond à aucune carte de la main du joueur indiqué.");

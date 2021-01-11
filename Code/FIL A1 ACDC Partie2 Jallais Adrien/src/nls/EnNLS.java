@@ -100,6 +100,9 @@ public class EnNLS extends DefaultNLS {
 		this.d.put("PLAY_ia_layed_card_turn", "This turn, AI has layed the following number of cards :");
 		this.d.put("PLAY_ia_layed_card", "Number of laying pile(s) used this turn :");
 
+		this.d.put("PLAY_ia_will_use_lay", "The AI will use the following number of repository stacks:");
+		this.d.put("PLAY_ia_will_use_hand", "The AI will lay the following number of cards:");
+
 		// Exception message
 		this.d.put("PLAY_human_card_not_found",
 				"The value provided does not correspond to any card in the indicated player's hand");

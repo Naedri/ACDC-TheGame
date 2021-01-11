@@ -2,6 +2,7 @@ package view.scene;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import api.ActionIllegaleException;
 import api.CoupInvalideException;
@@ -22,6 +23,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import view.button.ButtonQuit;
+import view.component.CardComponent;
 import view.component.LayComponent;
 import view.constant.Spacing;
 import view.label.MainLabel;
@@ -40,7 +42,13 @@ public class IAScene extends APlayScene {
 
 	// this.jeu.getNbCartesTour() can not be used as the IA lays and ends turn as
 	// well
-	private int cardUpdated = 0;
+	private int cardsUpdated = 0;
+	private int laysUpdated = 0;
+
+	// to show the difference between the turn played by IA
+	private List<CardComponent> cardLOld;
+	private List<CardComponent> cardLNew;
+	private List<CardComponent> cardLDiff;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
@@ -85,12 +93,26 @@ public class IAScene extends APlayScene {
 	}
 
 	/**
+	 * End the IA Turns displaying dialog and laying last cards
+	 */
+	private void endTurns() {
+		this.sliderModify = false;
+		this.timeline = new Timeline();
+		this.timeline.setCycleCount(1);
+		this.setTimeTurn(timeTurnSec);
+		this.timeline.getKeyFrames().add(makeKeyFrameIAEnd(getTimeTurn()));
+		this.timeline.play();
+	}
+
+	/**
 	 * 
 	 * @param time number of second for duration of the Turn
 	 * @return keyframe which allows to the IA to play
 	 */
 	private KeyFrame makeKeyFrameIATurn(double time) {
 		return new KeyFrame(Duration.seconds(time), event -> {
+			this.reloadHandAndDrawAndLays();
+			this.initCardLDiff();
 			boolean goodTurn = true;
 			try {
 				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.jeu);
@@ -98,20 +120,82 @@ public class IAScene extends APlayScene {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			this.cardsUpdated = this.updateCardLDiff();
+			this.activeUpdatedHand();
+			this.laysUpdated = this.activeUpdatedLays();
+			this.scoreP.setScoreT(this.jeu.score());
+//			this.laysUpdated = this.updateLays();
 			if (!goodTurn && !this.jeu.isPartieFinie()) {
-				reloadHandAndDraw();
-				this.scoreP.setScoreT(this.jeu.score());
-				this.cardUpdated = updateLays();
 				this.updateDialogTurn();
 			} else {
-				reloadHandAndDraw();
-				this.scoreP.setScoreT(this.jeu.score());
-				this.updateLays();
-				this.unSelectLays();
-				this.setDialogsResult();
-				this.timeline.stop();
+//				this.setDialogsResult();
+//				this.timeline.stop();
+				this.endTurns();
 			}
 		});
+	}
+
+	/**
+	 * End the IA Turns displaying dialog and laying last cards
+	 */
+	private KeyFrame makeKeyFrameIAEnd(double time) {
+		return new KeyFrame(Duration.seconds(time), event -> {
+			this.reloadHandAndDrawAndLays();
+			this.endTurns();
+			this.setDialogsResult();
+			this.timeline.stop();
+		});
+	}
+
+	private void reloadHandAndDrawAndLays() {
+		this.reloadHandAndDraw();
+		this.reloadLays();
+	}
+
+	private void reloadLays() {
+		for (int i = 0; i < this.layL.size(); i++) {
+			Tas tas = this.jeu.getTasById(i);
+			LayComponent lay = this.layL.get(i);
+			lay.setCardAPI(tas.getDerniereCarte());
+			lay.setActive(false);
+		}
+
+	}
+
+	private int activeUpdatedLays() {
+		int layUpdated = 0;
+		for (int i = 0; i < this.layL.size(); i++) {
+			Tas tas = this.jeu.getTasById(i);
+			LayComponent lay = this.layL.get(i);
+			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
+				++layUpdated;
+				lay.setActive(true);
+			} else {
+				lay.setActive(false);
+			}
+		}
+		return layUpdated;
+	}
+
+	/**
+	 * to init the cardLDiff
+	 */
+	private void initCardLDiff() {
+		System.out.println("initCardLdiff");
+		this.cardLOld = this.getCardL();
+		this.cardLDiff = new ArrayList<CardComponent>(this.cardLOld);
+	}
+
+	/**
+	 * to make cardLDiff containing all the card which has been removed from the
+	 * hand of the IA Player, during its last turn
+	 */
+	private int updateCardLDiff() {
+		System.out.println("updateCardLDiff");
+		super.updateCardL();
+		this.cardLNew = this.getCardL();
+		this.cardLDiff.removeAll(cardLNew);
+		return this.cardLDiff.size();
 	}
 
 	/**
@@ -135,23 +219,43 @@ public class IAScene extends APlayScene {
 	 * @return number of card updated
 	 */
 	private int updateLays() {
-		int cardUpdated = 0;
+		int layUpdated = 0;
 		for (int i = 0; i < this.layL.size(); i++) {
 			Tas tas = this.jeu.getTasById(i);
 			LayComponent lay = this.layL.get(i);
-			lay.setActive(false);
 			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
-				++cardUpdated;
+				++layUpdated;
 				lay.setActive(true);
+			} else {
+				lay.setActive(false);
 			}
 			lay.setCardAPI(tas.getDerniereCarte());
 		}
-		return cardUpdated;
+		return layUpdated;
 	}
 
+	/**
+	 * set active the card from the hand which are in the cardLDiff, showing
+	 * difference between two turns of IA
+	 */
+	private void activeUpdatedHand() {
+		System.out.println("boum");
+
+		this.cardLOld.forEach(card -> {
+			card.setActive(false);
+		});
+		this.cardLDiff.forEach(card -> {
+			card.setActive(true);
+		});
+		System.out.println(cardLDiff);
+	}
+
+	/**
+	 * to be sure to cancel all hover action of hand and draw
+	 */
 	@Override
 	protected void reloadHandAndDraw() {
-		super.reloadHandAndDraw();
+		super.reloadHandAndDraw(); // no need to setActive(false) the card form hand
 		this.disableHoverHand();
 		this.disableHoverDraw();
 	}
@@ -173,9 +277,13 @@ public class IAScene extends APlayScene {
 //			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
 //			this.dialogP.addDialog(String.valueOf(this.jeu.getNbCartesTour()));
 //		}
-		if (this.cardUpdated > 0) {
-			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
-			this.dialogP.addDialog(String.valueOf(this.cardUpdated));
+		if (this.laysUpdated > 0) {
+			this.dialogP.addDialog(Main.d.get("PLAY_ia_will_use_lay"));
+			this.dialogP.addDialog(String.valueOf(this.laysUpdated));
+		}
+		if (this.cardsUpdated > 0) {
+			this.dialogP.addDialog(Main.d.get("PLAY_ia_will_use_hand"));
+			this.dialogP.addDialog(String.valueOf(this.cardsUpdated));
 		}
 	}
 
