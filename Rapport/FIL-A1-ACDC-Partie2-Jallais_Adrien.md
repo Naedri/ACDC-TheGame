@@ -6,7 +6,7 @@ IMT - FIL1 - 2020
 
 *JALLAIS Adrien : adrien.jallais@protonmail.com*
 
-__*Partie 2 - Version 1.4*__
+__*Partie 2 - Version 1.5*__
 
 ## Introduction
 
@@ -94,7 +94,7 @@ Il a été apporté des modifications au code de l'API, afin de permettre la ré
 + les piles de dépôt étaient initiées, non pas à 1, mais à 0 ([lien](https://github.com/Naedri/ACDC-TheGame/commit/10c0920570a1d475d7e5047db862c4a9adb064b5)) ;
 + lors de la fin d'un tour, le jeu était amené à piocher dans tous les cas, malgré que la pioche était vide ([lien](https://github.com/Naedri/ACDC-TheGame/commit/6da45776d36bfa877b504f8ff8473c6b4cc3f7e5)).  
 
-#### Point négatifs du code fourni
+#### Points négatifs du code fourni
 
 La méthode fournie `fromFile` pour générer  une pioche est simple d'utilisation et évite de mettre en place un patron de conception complexe comme celui de la *Factory*. Cependant, comme on l'a mentionné plus haut, cette méthode n'était pas assez robuste. Par ailleurs, celle-ci ne remonte pas les exceptions (elle ne fait que les afficher), ainsi il n'est pas possible d'afficher à l'IHM un dialogue adapté pour conseiller l'utilisateur dans la soumission d'un nouveau fichier.
 
@@ -109,7 +109,7 @@ La pioche et les tas de l'API contenant un attribut de type `List<Carte>`, il au
 
 Les *getteurs* des attributs de la classe *Jeu*, en particulier getTas et getPioche pourraient, pour plus de sécurité, renvoyer ces collections au sein de la méthode suivante : `Collections.unmodifiableCollection()`.
 
-#### Points positifs  du code fourni
+#### Points positifs du code fourni
 
 Premièrement, la documentation des méthodes est exemplaire, ce qui permet une lecture du code de l'API plus facile, et permettra, à l'avenir, une plus grande maintenabilité du code.
 
