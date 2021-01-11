@@ -6,7 +6,7 @@ IMT - FIL1 - 2020
 
 *JALLAIS Adrien : adrien.jallais@protonmail.com*
 
-__*Partie 2 - Version 1.3*__
+__*Partie 2 - Version 1.4*__
 
 ## Introduction
 
@@ -147,14 +147,14 @@ Après avoir fait essayer cette IHM à des utilisateurs, il semble que la possib
 
 #### Points forts de l'application
 
-Le point essentiel de cette IHM est qu'elle presente les fonctionalités demandées par le cahier des charges : jouer une partie en mode Solo et observer une IA jouer.
+Le point fort essentiel de cette IHM est qu'elle présente les fonctionalités demandées par le cahier des charges : jouer une partie en mode Solo et observer une IA jouer.
 De plus, l'ajout d'un slider sur la scène de l'IA permet de modifier la vitesse de démonstration de jeu de l'IA.
 
 Par ailleurs, une fonctionnalité majeure a été réalisée en supplément, qui permet de modifier la langue d'affichage de l'application (en anglais ou en français). 
 
 Cette IHM est basée sur l'utilisation de composants réutilisables et de constantes de design qui permettent son homogénéité.
 
-Au cours du développement des différentes scènes, il a été abordé une diversité importante des outils de JavaFX (par exemple : agencer des composants, régler l'execution de l'application avec des timeurs, lire d'un fichier audio, évaluer les touches claviers sélectionnées par l'utilisateur). La réalisation de cette IHM m'a donc permis de monter en compétences sur différents outils proposés par le framework de JavaFX.
+Au cours du développement des différentes scènes, il a été abordé une diversité importante des outils de JavaFX (par exemple : agencer des composants, régler l'exécution de l'application avec des timeurs, lire un fichier audio, évaluer les touches claviers sélectionnées par l'utilisateur). La réalisation de cette IHM m'a donc permis de monter en compétences sur différents outils proposés par le framework de JavaFX.
 
 
 
