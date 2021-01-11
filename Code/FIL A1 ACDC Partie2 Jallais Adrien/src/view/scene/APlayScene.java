@@ -531,4 +531,14 @@ public abstract class APlayScene extends AMainScene {
 		return Collections.unmodifiableList(cardL);
 	}
 
+	/**
+	 * To be used by IAScene in order to make the difference between the new and old
+	 * value from hand
+	 * 
+	 * @return the hand
+	 */
+	public List<CardComponent> getCardLFromHand() {
+		return Collections.unmodifiableList(hand.getCardL());
+	}
+
 }

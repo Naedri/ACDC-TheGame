@@ -46,9 +46,9 @@ public class IAScene extends APlayScene {
 	private int laysUpdated = 0;
 
 	// to show the difference between the turn played by IA
-	private List<CardComponent> cardLOld;
-	private List<CardComponent> cardLNew;
-	private List<CardComponent> cardLDiff;
+	private List<Integer> cardLOld;
+	private List<Integer> cardLNew;
+	private List<Integer> cardLDiff;
 
 	public IAScene(String path) {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
@@ -97,9 +97,16 @@ public class IAScene extends APlayScene {
 	 */
 	private void endTurns() {
 		this.sliderModify = false;
-		this.timeline = new Timeline();
+//		this.timeline = new Timeline();
+//		this.timeline.setCycleCount(1);
+//		this.setTimeTurn(timeTurnSec);
+//		this.timeline.getKeyFrames().add(makeKeyFrameIAEnd(getTimeTurn()));
+//		this.timeline.play();
+
+		this.timeline.stop();
 		this.timeline.setCycleCount(1);
 		this.setTimeTurn(timeTurnSec);
+		this.timeline.getKeyFrames().clear();
 		this.timeline.getKeyFrames().add(makeKeyFrameIAEnd(getTimeTurn()));
 		this.timeline.play();
 	}
@@ -117,11 +124,10 @@ public class IAScene extends APlayScene {
 			try {
 				goodTurn = ((JoueurIA) super.getJoueur()).jouerTour(this.jeu);
 			} catch (CoupInvalideException | ActionIllegaleException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.cardsUpdated = this.updateCardLDiff();
-			this.activeUpdatedHand();
+			this.updateCardLDiff();
+			this.cardsUpdated = this.activeUpdatedHand();
 			this.laysUpdated = this.activeUpdatedLays();
 			this.scoreP.setScoreT(this.jeu.score());
 //			this.laysUpdated = this.updateLays();
@@ -143,7 +149,7 @@ public class IAScene extends APlayScene {
 			this.reloadHandAndDrawAndLays();
 			this.endTurns();
 			this.setDialogsResult();
-			this.timeline.stop();
+//			this.timeline.stop();
 		});
 	}
 
@@ -159,7 +165,6 @@ public class IAScene extends APlayScene {
 			lay.setCardAPI(tas.getDerniereCarte());
 			lay.setActive(false);
 		}
-
 	}
 
 	private int activeUpdatedLays() {
@@ -182,8 +187,11 @@ public class IAScene extends APlayScene {
 	 */
 	private void initCardLDiff() {
 		System.out.println("initCardLdiff");
-		this.cardLOld = this.getCardL();
-		this.cardLDiff = new ArrayList<CardComponent>(this.cardLOld);
+		this.cardLOld = new ArrayList<Integer>();
+		this.getCardL().forEach(card -> {
+			this.cardLOld.add(card.getCardAPI().getValeur());
+		});
+		this.cardLDiff = new ArrayList<Integer>(this.cardLOld);
 	}
 
 	/**
@@ -193,7 +201,10 @@ public class IAScene extends APlayScene {
 	private int updateCardLDiff() {
 		System.out.println("updateCardLDiff");
 		super.updateCardL();
-		this.cardLNew = this.getCardL();
+		this.cardLNew = new ArrayList<Integer>();
+		this.getCardL().forEach(card -> {
+			this.cardLNew.add(card.getCardAPI().getValeur());
+		});
 		this.cardLDiff.removeAll(cardLNew);
 		return this.cardLDiff.size();
 	}
@@ -238,16 +249,22 @@ public class IAScene extends APlayScene {
 	 * set active the card from the hand which are in the cardLDiff, showing
 	 * difference between two turns of IA
 	 */
-	private void activeUpdatedHand() {
+	private int activeUpdatedHand() {
 		System.out.println("boum");
-
-		this.cardLOld.forEach(card -> {
-			card.setActive(false);
-		});
-		this.cardLDiff.forEach(card -> {
-			card.setActive(true);
-		});
-		System.out.println(cardLDiff);
+		int cardUpdated = 0;
+		CardComponent cardEval;
+		Integer valueEval;
+		for (int i = 0; i < this.getCardLFromHand().size(); i++) {
+			cardEval = this.getCardLFromHand().get(i);
+			valueEval = Integer.valueOf(cardEval.getCardAPI().getValeur());
+			if (this.cardLDiff.contains(valueEval)) {
+				++cardUpdated;
+				cardEval.setActive(true);
+			} else {
+				cardEval.setActive(false);
+			}
+		}
+		return cardUpdated;
 	}
 
 	/**
@@ -255,7 +272,7 @@ public class IAScene extends APlayScene {
 	 */
 	@Override
 	protected void reloadHandAndDraw() {
-		super.reloadHandAndDraw(); // no need to setActive(false) the card form hand
+		super.reloadHandAndDraw(); // no need to setActive(false) the card form hand as it is recreated
 		this.disableHoverHand();
 		this.disableHoverDraw();
 	}
@@ -373,6 +390,7 @@ public class IAScene extends APlayScene {
 					timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
 					unSelectLays();
 					updateLays();
+					reloadHandAndDraw();
 					timeline.play();
 				}
 			}
