@@ -1,6 +1,4 @@
-package view.exception;
-
-import application.Main;
+package api;
 
 /**
  * 
@@ -17,7 +15,7 @@ public class WrongSizeForDrawBuild extends Exception {
 	private static final long serialVersionUID = -2401226273522673612L;
 
 	public WrongSizeForDrawBuild() {
-		super(Main.d.get("API_build_deck_size"));
+		super("The file indicated, does not seem to contain the correct number of cards.");
 	}
 
 }

@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import view.exception.DuplicateCardFromDraw;
-import view.exception.WrongSizeForDrawBuild;
-
 public class Pioche {
 
 	private List<Carte> cartes;
@@ -29,7 +26,7 @@ public class Pioche {
 	 *               aléatoirement
 	 * @return Pioche
 	 */
-	public static Pioche fromFile(String chemin) {
+	public static Pioche fromFile(String chemin) throws Exception {
 		List<Carte> pioche = new ArrayList<Carte>();
 		if (chemin != null) {
 			try {

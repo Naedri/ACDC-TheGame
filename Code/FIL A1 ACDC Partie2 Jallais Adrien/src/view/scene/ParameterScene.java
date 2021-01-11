@@ -5,7 +5,9 @@ package view.scene;
 
 import java.io.File;
 
+import api.DuplicateCardFromDraw;
 import api.Pioche;
+import api.WrongSizeForDrawBuild;
 import application.Main;
 import controller.Services;
 import javafx.beans.value.ObservableValue;
@@ -204,7 +206,16 @@ public class ParameterScene extends AMainScene {
 				throw new BuildDrawPileFromAPI();
 			}
 		} catch (Exception e) {
-			dialogBox.setDialog(e.getMessage());
+			if (e instanceof DuplicateCardFromDraw) {
+				dialogBox.setDialog(Main.d.get("API_build_deck_duplicated_cards"));
+			} else if (e instanceof WrongSizeForDrawBuild) {
+				dialogBox.setDialog(Main.d.get("API_build_deck_size"));
+			} else if (e instanceof BuildDrawPileFromAPI) {
+				dialogBox.setDialog(e.getMessage());
+			} else {
+				dialogBox.setDialog(Main.d.get("API_build_deck"));
+				e.printStackTrace();
+			}
 		}
 	}
 
