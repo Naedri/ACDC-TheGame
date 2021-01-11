@@ -122,38 +122,40 @@ En outre, l'API utilise de manière pertinente les levées d'exceptions, pour la
 Malgré des consignes indiquant le développement d'un jeu avec un seul joueur, le code fourni prend déjà en compte une possible extension vers un mode à plusieurs joueurs. En effet, le code met en place l'attribut suivant : `List<Joueur>`, ainsi que le dénombrement de tour et la possibilité de vérifier qu'il n'y a que le joueur dont c'est le tour de déposer des cartes.
 Par ailleurs, cette prise en compte d'une possible évolution du jeu s'illustre aussi par le rassemblement des tas de dépôts de carte au sein d'une liste et non d'un tableau, ce qui rend possible la modification du nombre de tas de dépôts.
 
-Les attributs de la classe *Jeu* sont accessibles via des *getteurs* (comme `getPioche`) ce qui permet de limiter le nombre de méthodes à mettre en place pour faire parvenir une information pertinente aux classes externes (comme `getPioche().size()`), et donc d'obtenir un code léger mais tout autant puissant.
-En conclusion, de manière globale la rédaction du code est légère et efficace, ce qui en permet une lecture agréable et rapide.
-
+Les attributs de la classe *Jeu* sont accessibles via des *getteurs* (comme `getPioche`) ce qui permet de limiter le nombre de méthodes à mettre en place pour faire parvenir une information pertinente aux classes externes (comme `getPioche().size()`), et donc d'obtenir un code léger mais puissant pour autant.
+En conclusion, de manière globale, la rédaction du code est légère et efficace, ce qui en permet une lecture agréable et rapide.
 
 ### Choix réalisés
 
-Une partie des choix qui ont été réalisé au cours du développement de cette IHM ont été expliqués dans la partie de ce rapport traitant des modifications apportées à l'API.
+Une partie des choix qui ont été faits au cours du développement de cette IHM ont été expliqués dans la partie de ce rapport traitant des modifications apportées à l'API.
+
 Par ailleurs, bien que l'API permette de jouer à plusieurs joueurs, il a été choisi de se focaliser sur le but premier du cahier des charges, qui était de fonctionner avec un seul joueur, afin de respecter les délais de livraison de l'application.
+
+L'utilisation de feuille de style *.css* a été écartée car il n'est à ma connaissance pas possible de combiner l'utilisation de valeurs calculées avec ce format de fichier. Souhaitant utiliser des constantes de design récupérées à partir de classes d'énumération, j'ai décidé de ne pas baser le style de mon application sur des fichiers *.css*.
 
 ### Bilan de l'application
 
 #### Points faibles de l'application
 
-Malgré que l'application prennentNon compatible avec les smartphones
+La classe *APlayScene* propose un mode de fonctionnement plus chargé qu'il ne pourrait l'être. En effet, la scène *IAScene* n'a pas besoin des évènements déclenchés par la souris pour montrer comment jouer. Ainsi, l'instanciation de *IAScene* pourrait solliciter moins de mémoire, si la classe *APlayScene* ne posait que les fondements communs des scènes *IAScene* et *HumanScene*.
 
-Pas de fonctionnalité drag and drop pour les cartes qui semblent être une fonctionnalité importante pour l'utilisateur
+Malgré que l'application prenne en compte la taille de l'écran à son démarrage, notamment en modifiant l'affichage de l'image de fond du plateau de jeu, cette modification de l'affichage n'est pas dynamique.
+Par ailleurs, les composants du plateau de jeu n'adaptent par leur taille à celle de l'écran, et leur agencement n'est pas non plus sensible à ce paramètre. On ne peut donc qualifier le design de l'application de *responsive*. 
+Cependant, comme la taille de ces composants est définie au sein d'une même classe (*ACardComponent*), le développement de la fonctionnalité qui répondra à ce cas d'utilisation en sera facilité.
 
-La classe *APlayScene* propose un mode de fonctionnement plus chargé qu'il ne pourrait l'être. En effet, la scène *IAScene* n'a pas besoin des évènements déclenchés par la souris pour montrer comment jouer, ainsi l'instanciation de *IAScene* pourrait solliciter moins de mémoire, en ne posant que les fondements communs des scènes *IAScene* et *HumanScene*.
+Après avoir fait essayer cette IHM à des utilisateurs, il semble que la possibilité de déposer les cartes en mode *drag and drop* soit une fonctionnalité importante à mettre en place, car ce comportement semble naturel pour l'utilisateur.
 
 #### Points forts de l'application
 
-Respect du cahier des charges, 
+Le point essentiel de cette IHM est qu'elle presente les fonctionalités demandées par le cahier des charges : jouer une partie en mode Solo et observer une IA jouer.
+De plus, l'ajout d'un slider sur la scène de l'IA permet de modifier la vitesse de démonstration de jeu de l'IA.
 
-changement de langue possible,
+Par ailleurs, une fonctionnalité majeure a été réalisée en supplément, qui permet de modifier la langue d'affichage de l'application (en anglais ou en français). 
 
-IHM basée sur l'utilisation de composants réutilisable,
+Cette IHM est basée sur l'utilisation de composants réutilisables et de constantes de design qui permettent son homogénéité.
 
-En abordant plusieurs montée en compétences du développeur car elle a permis d'aborder plusieurs sujet
+Au cours du développement des différentes scènes, il a été abordé une diversité importante des outils de JavaFX (par exemple : agencer des composants, régler l'execution de l'application avec des timeurs, lire d'un fichier audio, évaluer les touches claviers sélectionnées par l'utilisateur). La réalisation de cette IHM m'a donc permis de monter en compétences sur différents outils proposés par le framework de JavaFX.
 
-Les composants ont un design homogène entre eux car celui est basé sur des énumérations.
-
-Pas d'utilisation de feuille css, ainsi l'utilisation de variables est possible pour l'affinement du style
 
 
 
