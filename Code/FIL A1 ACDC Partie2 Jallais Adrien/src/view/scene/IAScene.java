@@ -46,6 +46,8 @@ public class IAScene extends APlayScene {
 		super(name, new ArrayList<Joueur>(Arrays.asList(new JoueurIA())), path);
 		this.disablePlaying();
 		this.disableHoverLays();
+		this.disableHoverHand();
+		this.disableHoverDraw();
 		timeStartSec = START_TIME;
 		timeTurnSec = TURN_TIME;
 		this.setDialogsStart();
@@ -145,7 +147,13 @@ public class IAScene extends APlayScene {
 			lay.setCardAPI(tas.getDerniereCarte());
 		}
 		return cardUpdated;
+	}
 
+	@Override
+	protected void reloadHandAndDraw() {
+		super.reloadHandAndDraw();
+		this.disableHoverHand();
+		this.disableHoverDraw();
 	}
 
 	/**

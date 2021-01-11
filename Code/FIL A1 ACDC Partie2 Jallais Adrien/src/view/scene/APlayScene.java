@@ -461,6 +461,44 @@ public abstract class APlayScene extends AMainScene {
 	}
 
 	/**
+	 * Disable Hover action for card of hand
+	 */
+	protected void disableHoverHand() {
+		cardL.forEach(card -> {
+			card.setOnMouseEntered(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// Do nothing to overwrite event
+				}
+			});
+			card.setOnMouseExited(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// Do nothing to overwrite event
+				}
+			});
+		});
+	}
+
+	/**
+	 * Disable Hover action for the draw
+	 */
+	protected void disableHoverDraw() {
+		draw.setOnMouseEntered(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				// Do nothing to overwrite event
+			}
+		});
+		draw.setOnMouseExited(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				// Do nothing to overwrite event
+			}
+		});
+	}
+
+	/**
 	 * In case of the game ends, modify the dialog box to add the result of the user
 	 * against the game
 	 */
