@@ -43,7 +43,7 @@ Un fichier décrivant les logs réalisés quotidiennement est disponible dans le
 *__Tableau 1 :__ Grille de progression du développement de l'application. Les logs représentent un jour de travail.*
 
 Avec le *Tableau 1*, on observe que les premières  scènes qui ont été mises en place sont celles qui demandaient le moins de complexité. En effet, dans le but de monter en compétence de manière graduelle avec la librairie JavaFX les scènes d'accueil et du menu ont d'abord été réalisées car elles comportaient une infrastructure simple : un à deux composants d'agencement impliqués, et des composants interactifs basiques (bouton) avec des actions similaires (changement de scène).
-La réalisation de ces scènes a permis également de poser les bases d'un design homogène de cette application. En effet il a été mis en évidence la nécessité d'un *wrapper* commun aux scènes pour plus d'homogénéité entre elles, ainsi que la mise en place de constantes communes, pour un style commun entre les scènes, qui possèdent notamment des boutons et les labels identiques. 
+La réalisation de ces scènes a permis également de poser les bases pour la mise en place d'un design homogène entre les différentes scènes de l'application. En effet il a été mis en évidence la nécessité d'un *wrapper* commun aux scènes pour plus définir une structure commune, ainsi que la mise en place de constantes communes, notamment pour les couleurs utilisées et l'espacement entre les composants d'une scène, comme c'est le cas pour les boutons et les labels. 
 
 ### Diagramme de classe
 
@@ -52,7 +52,7 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 
 + les relations de dépendance entre les classes (au profit de celles entre les packages),
 + les méthodes de visibilité publique des classes implémentant des interfaces (afin d'éviter une répétition entre ces deux entités),
-+ les méthodes des classes du package [view.scene](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view), qui consistent à créer les constituant d'un *BorderPane* de JavaFX,
++ les méthodes des classes du package [view.scene](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view),
 + les classes du package [api](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/api).
 
 ![Diagramme de classe en version légère](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/FIL_A1_ACDC_Partie2_Jallais_Adrien-UML-Vlight.jpg)
@@ -61,21 +61,42 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 
 L'*Illustration 2* présente la composition de notre application. 
 
-Les composants de jeu de l'application sont rassemblés au sein du package [view.component](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/component), afin d'optimiser leur réutilisation au sein des scènes de type *APlayScene*. Pour les classes concrètes de ce package
+Les composants spécifique aux scènes de jeu sont rassemblés au sein du package [view.component](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/component), afin d'optimiser leur réutilisation au sein des scènes de type *APlayScene*. 
+Les attributs des classes concrètes, de types *ACardComponent* de ce package, sont affichés dans le but de soulever le lien entre ces classes et le l'API. On voit notamment que les classes *CardComponent* et *LayComponent* possèdent un attribut de type *Carte* ou de type *int* respectivement, qui permettent de savoir à quel élément du jeu ils font référence.
+De plus, un des attributs de *HandComponent* est de type *List*, dont chacun des éléments possèdent notamment un *CardComponent*, et donc par extension un attribut de type *Carte*.
+En opposition, *DrawComponent* ne possède pas d'attribut de jeu mais il est initialisé avec une une variable de type *ICardView* qui permet de régir son style.
 
-+ [view.label](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/label),
-+ [view.exception](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/exception), qui contient les classes permettant de 
-+ [view.constant](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/constant),
-+ [view.button](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/button),
-+ [view.scene](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/scene),
-+ [view.component](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/component), 
-+ [nls](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/nls)
+D'autres composants ne sont pas spécifiques aux scènes de jeu : [view.button](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/button), [view.label](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/label). Comme ces derniers n'ont ni la même finalité et ni la même tendance à être modifié, ils n'ont pas été rassemblés dans le même package. 
 
+L'ensemble des scènes sont réunis au sein d'un même package : [view.scene](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/scene). 
+On remarque qu'ils sont tous de type *AMainScene*, qui est un *BorderPane*, permettant ainsi de définir un masque de scène, utilisé notamment pour l'ajout d'une signature en bas de fenêtre. 
+Les scènes de jeu (c'est-à-dire de type *APlayScene*), possèdent deux attributs : un de type *Jeu* et un de type *Joueur*, afin de permettre une interaction avec l'API. L'attribut *Joueur* est déterminé par les scènes concrètes l'implémentant (*IAScene* ou *HumanScene*), et l'attribut *Jeu* est également défini par le chemin du fichier constituant la pioche.
+La classe *APlayScene* sollicite l'attribut *Jeu* en utilisant ses méthodes afin de piocher, obtenir les cartes de la main du joueur actuel, connaître l'état du plateau et de son achèvement (victoire ou défaite). 
 
+Le réglage graphique des packages abordés ci dessus, est défini à partir de constantes énumérées au sein du package : [view.constant](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/constant).  On y trouve notamment la police, les couleurs des composants de notre application.
 
-## Discussion 
+Le package [view.exception](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/exception), rassemble les exceptions nécessaires au traitement de celles soulevées par l'API, pouvant survenir lors de la création d'une pile ou de l'action d'un tour. Il permet notamment de régler les messages associés, en fonction de la langue choisie par l'utilisateur.
+
+En effet, deux dimensions linguistiques sont prises en charge par cette application. Le package [nls](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/nls) (correspondant à l'abréviation : National Langage Support ou Soutien aux Langues Nationales) rassemble les éléments qui définissent le contenu des messages affichés à l'interface, afin de faciliter leur modification et leur traduction.
+
+## Discussions 
 
 ### Analyse du code fourni
+
+#### Modifications apportées
+
+On peut retrouver les commit associés aux modifications de l'API en recherchant les mots clé suivant : *feat(gameAPI)* ou *fix(gameAPI)*, correspondant respectivement à l'ajout d'une nouvelle fonctionnalité ou la résolution d'un bug.
+
+ 
+
+feat(gameAPI): modif de l'api pour definir si la partie est gagnée ou non
+feat(gameAPI): modif de l'api pour initier les piles de dépôt non pas à 0 mais à 1
+feat(gameAPI): modif api (méthode jouer et isPartieFinie)
+feat(gameAPI): modif api (fromFile method vérfiant validité pioche donnée)
+feat(gameAPI): modif api (fromFile method pouvant créer pioche aléatoire)
+feat(gameAPI): modif API to know the max number cards by user
+feat(gameAPI): modif API pour incrémenter le nbr de tour qui restait à 0 car jeu à un seul joueur
+fix(gameAPI): IA ne pioche pas si la pioche est vide
 
 #### Point négatifs du code fourni
 
@@ -108,32 +129,20 @@ deux fonctions Main -> un seul devrait être appellé un
 
 #### Piles de dépôts initiées à 0 et non 1
 
-#### Piocher avec deux méthodes dans le main
-
-partie.passerTour();
-joueur.piocher(partie);
-le joueur peut il piocher si il a de la place dans sa main un nombre de cartes plus important que celui de la pioche ?
-
 #### Partie terminée mais pas de victoire ou de défaite
 
 On obtient seulement le score et pas la victoire ou non.
 
 #### Factory Pioche
 
-#### Autres
-
-feat(gameAPI): modif de l'api pour definir si la partie est gagnée ou non
-feat(gameAPI): modif de l'api pour initier les piles de dépôt non pas à 0 mais à 1
-feat(gameAPI): modif api (méthode jouer et isPartieFinie)
-feat(gameAPI): modif api (fromFile method vérfiant validité pioche donnée)
-feat(gameAPI): modif api (fromFile method pouvant créer pioche aléatoire)
-feat(gameAPI): modif API to know the max number cards by user
-feat(gameAPI): modif API pour incrémenter le nbr de tour qui restait à 0 car jeu à un seul joueur
-fix(gameAPI): IA ne pioche pas si la pioche est vide
-
 #### Service IA
 
 On ne peut obtenir le meilleur coup qu'il faut jouer sans qu'il le soit : pas d'indice possible car il est joué directement.
+
+#### Le main ne fonctionne pas 
+
+Comme l'indique la photo ci dessous la fonction main de l'API,  ne pouvait s'executer.
+
 
 #### Points positifs  du code fourni
 
@@ -147,7 +156,8 @@ levée d'exceptions utiles pour l'affichage d'erreur
 
 ### Choix réalisés
 
-La méthode 
+Une partie des choix qui ont été réalisé au cours du développement de cette IHM ont été expliqué dans la partie de ce rapport traitant des modifications apportées à l'API.
+Par ailleurs, bien que l'API permette de jouer à plusieurs joueurs, il a été choisi de se focaliser sur le but premier du cahier des charges, étant de fonctionner avec un seul joueur, afin de respecter les délais de livraison de l'application.
 
 ### Bilan de l'application
 
@@ -157,6 +167,8 @@ Non compatible avec les smartphones
 
 Pas de fonctionnalité drag and drop pour les cartes qui semblent être une fonctionnalité importante pour l'utilisateur
 
+La classe *APlayScene* propose un mode de fonctionnement plus chargé qu'il ne pourrait l'être. En effet, la classe IAScenepar rapport à celle qu'elle des méthodes qui ne sont pas utilisé refactoring des classes *HumanScene* et *IAScene* n'a pas été réalisé plus de rapidité de dévelRassemble les méthodes a
+
 #### Points forts de l'application
 
 Respect du cahier des charges, 
@@ -164,6 +176,8 @@ Respect du cahier des charges,
 changement de langue possible,
 
 IHM basée sur l'utilisation de composants réutilisable,
+
+En abordant plusieurs montée en compétences du développeur car elle a permis d'aborder plusieurs sujet
 
 Les composants ont un design homogène entre eux car celui est basé sur des énumérations.
 
