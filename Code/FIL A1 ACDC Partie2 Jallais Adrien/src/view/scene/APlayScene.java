@@ -61,7 +61,7 @@ public abstract class APlayScene extends AMainScene {
 	private List<CardComponent> cardL;
 	private List<LayComponent> layDscL;
 	private List<LayComponent> layAscL;
-	protected List<LayComponent> layL;
+	private List<LayComponent> layL;
 	private DrawComponent draw;
 	private HandComponent hand;
 	protected ScoreComponent scoreP;
@@ -539,6 +539,13 @@ public abstract class APlayScene extends AMainScene {
 	 */
 	public List<CardComponent> getCardLFromHand() {
 		return Collections.unmodifiableList(hand.getCardL());
+	}
+
+	/**
+	 * @return the layL
+	 */
+	public List<LayComponent> getLayL() {
+		return Collections.unmodifiableList(layL);
 	}
 
 }

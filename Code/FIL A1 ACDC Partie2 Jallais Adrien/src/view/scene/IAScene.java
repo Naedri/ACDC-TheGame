@@ -97,12 +97,6 @@ public class IAScene extends APlayScene {
 	 */
 	private void endTurns() {
 		this.sliderModify = false;
-//		this.timeline = new Timeline();
-//		this.timeline.setCycleCount(1);
-//		this.setTimeTurn(timeTurnSec);
-//		this.timeline.getKeyFrames().add(makeKeyFrameIAEnd(getTimeTurn()));
-//		this.timeline.play();
-
 		this.timeline.stop();
 		this.timeline.setCycleCount(1);
 		this.setTimeTurn(timeTurnSec);
@@ -130,12 +124,9 @@ public class IAScene extends APlayScene {
 			this.cardsUpdated = this.activeUpdatedHand();
 			this.laysUpdated = this.activeUpdatedLays();
 			this.scoreP.setScoreT(this.jeu.score());
-//			this.laysUpdated = this.updateLays();
 			if (!goodTurn && !this.jeu.isPartieFinie()) {
 				this.updateDialogTurn();
 			} else {
-//				this.setDialogsResult();
-//				this.timeline.stop();
 				this.endTurns();
 			}
 		});
@@ -149,29 +140,41 @@ public class IAScene extends APlayScene {
 			this.reloadHandAndDrawAndLays();
 			this.endTurns();
 			this.setDialogsResult();
-//			this.timeline.stop();
 		});
 	}
 
+	/**
+	 * setActive(false) all card from lays and hand, and update their value on the
+	 * scene
+	 */
 	private void reloadHandAndDrawAndLays() {
 		this.reloadHandAndDraw();
 		this.reloadLays();
 	}
 
+	/**
+	 * setActive(false) all the lays, but DO modify their value
+	 */
 	private void reloadLays() {
-		for (int i = 0; i < this.layL.size(); i++) {
+		for (int i = 0; i < this.getLayL().size(); i++) {
 			Tas tas = this.jeu.getTasById(i);
-			LayComponent lay = this.layL.get(i);
+			LayComponent lay = this.getLayL().get(i);
 			lay.setCardAPI(tas.getDerniereCarte());
 			lay.setActive(false);
 		}
 	}
 
+	/**
+	 * setActive(true) the lays which will have been updated by the IA during its
+	 * turn, but do NOT modify their value
+	 * 
+	 * @return the number of lays to update
+	 */
 	private int activeUpdatedLays() {
 		int layUpdated = 0;
-		for (int i = 0; i < this.layL.size(); i++) {
+		for (int i = 0; i < this.getLayL().size(); i++) {
 			Tas tas = this.jeu.getTasById(i);
-			LayComponent lay = this.layL.get(i);
+			LayComponent lay = this.getLayL().get(i);
 			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
 				++layUpdated;
 				lay.setActive(true);
@@ -224,28 +227,6 @@ public class IAScene extends APlayScene {
 	}
 
 	/**
-	 * Allow to update the card on lays showed according to the API And to set
-	 * active the ones for which the value of their Carte has changed
-	 * 
-	 * @return number of card updated
-	 */
-	private int updateLays() {
-		int layUpdated = 0;
-		for (int i = 0; i < this.layL.size(); i++) {
-			Tas tas = this.jeu.getTasById(i);
-			LayComponent lay = this.layL.get(i);
-			if (tas.getDerniereCarte().getValeur() != lay.getCardAPI().getValeur()) {
-				++layUpdated;
-				lay.setActive(true);
-			} else {
-				lay.setActive(false);
-			}
-			lay.setCardAPI(tas.getDerniereCarte());
-		}
-		return layUpdated;
-	}
-
-	/**
 	 * set active the card from the hand which are in the cardLDiff, showing
 	 * difference between two turns of IA
 	 */
@@ -289,11 +270,6 @@ public class IAScene extends APlayScene {
 	private void updateDialogTurn() {
 		this.dialogP.setDialog(Main.d.get("PLAY_ia_turn"));
 		this.dialogP.addDialog(String.valueOf(this.jeu.getTour() + 1)); // as turn begin at 0
-		// can not be used as the IA lays and ends turn as well
-//		if (this.jeu.getNbCartesTour() > 0) {
-//			this.dialogP.addDialog(Main.d.get("PLAY_ia_layed_card"));
-//			this.dialogP.addDialog(String.valueOf(this.jeu.getNbCartesTour()));
-//		}
 		if (this.laysUpdated > 0) {
 			this.dialogP.addDialog(Main.d.get("PLAY_ia_will_use_lay"));
 			this.dialogP.addDialog(String.valueOf(this.laysUpdated));
@@ -388,8 +364,7 @@ public class IAScene extends APlayScene {
 					timeline.stop();
 					timeline.getKeyFrames().clear();
 					timeline.getKeyFrames().add(makeKeyFrameIATurn(getTimeTurn()));
-					unSelectLays();
-					updateLays();
+					reloadLays();
 					reloadHandAndDraw();
 					timeline.play();
 				}
