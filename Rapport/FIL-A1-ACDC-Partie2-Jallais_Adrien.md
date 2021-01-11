@@ -59,8 +59,6 @@ Afin d'améliorer sa lisibilité, les caractéristiques suivantes ne sont pas mo
 
 *__Illustration 2 :__  Diagramme UML de classe de l'application.*
 
-L'*Illustration 2* présente la composition de notre application. 
-
 Les composants spécifique aux scènes de jeu sont rassemblés au sein du package [view.component](../Code/FIL%20A1%20ACDC%20Partie2%20Jallais%20Adrien/src/view/component), afin d'optimiser leur réutilisation au sein des scènes de type *APlayScene*. 
 Les attributs des classes concrètes, de types *ACardComponent* de ce package, sont affichés dans le but de soulever le lien entre ces classes et le l'API. On voit notamment que les classes *CardComponent* et *LayComponent* possèdent un attribut de type *Carte* ou de type *int* respectivement, qui permettent de savoir à quel élément du jeu ils font référence.
 De plus, un des attributs de *HandComponent* est de type *List*, dont chacun des éléments possèdent notamment un *CardComponent*, et donc par extension un attribut de type *Carte*.
@@ -87,16 +85,20 @@ En effet, deux dimensions linguistiques sont prises en charge par cette applicat
 
 On peut retrouver les commit associés aux modifications de l'API en recherchant les mots clé suivant : *feat(gameAPI)* ou *fix(gameAPI)*, correspondant respectivement à l'ajout d'une nouvelle fonctionnalité ou la résolution d'un bug.
 
- 
+ Il a été rajoutées des méthodes, qui permettent les fonctionnalités suivantes : 
 
-feat(gameAPI): modif de l'api pour definir si la partie est gagnée ou non
-feat(gameAPI): modif de l'api pour initier les piles de dépôt non pas à 0 mais à 1
-feat(gameAPI): modif api (méthode jouer et isPartieFinie)
-feat(gameAPI): modif api (fromFile method vérfiant validité pioche donnée)
-feat(gameAPI): modif api (fromFile method pouvant créer pioche aléatoire)
-feat(gameAPI): modif API to know the max number cards by user
-feat(gameAPI): modif API pour incrémenter le nbr de tour qui restait à 0 car jeu à un seul joueur
-fix(gameAPI): IA ne pioche pas si la pioche est vide
++ savoir si une partie est gagnée ou non avec *isVictoire* : en effet, je choisis d'affirmer que c'est à l'API et son arbitre de dire si la victoire est remportée ou non, et pas seulement d'afficher le score ([lien](https://github.com/Naedri/ACDC-TheGame/commit/1911f954874f06e2133082df0a616c8f70f920bc)) ;
++ savoir le nombre maximum de cartes autorisé par joueur *getNbCartesMax* : en effet, pour initialiser une nouvelle main après avoir pioché et qu'il n'y a plus assez de cartes dans la pioche pour atteindre le nombre maximum de carte autorisé et l'IHM doit afficher cette information, je choisis d'affirmer que c'est à l'API et son arbitre de donner cette indication et ai pu utiliser du code existant pour écrire cette méthode ([lien](https://github.com/Naedri/ACDC-TheGame/commit/3fcf4d25183a61cfe2854f87bc21cee83354cab3)) ;
++ vérifier la validité de la pioche fourni au format .txt : en effet la méthode *fromFile* ne vérifiant pas la présence de doublons, le nombre de cartes produites ([lien](https://github.com/Naedri/ACDC-TheGame/commit/8b7196650bd3a7d4f4ee18147a3678c4870f7ace)) ;
++ générer une pioche non pas seulement à partir d'un fichier, mais également de manière aléatoire :  afin de limiter mon impact sur l'API, je n'ai pas créé de nouvelle méthode mais seulement ajouté un cas à *fromFile*, qui renvoie une pioche générée aléatoirement lorsque le chemin indiqué est nul ([lien](https://github.com/Naedri/ACDC-TheGame/commit/7d01870799193e18c9c1894eae8063d0760edb7b)).
+
+Il a été apporté des modifications au code de l'API, afin de permettre la résolution des bugs suivants : 
+
++ la méthode *passerTour*, ne permettaient pas d'incrémenter le nombre de tour si il n'y avait qu'un seul joueur ([lien](https://github.com/Naedri/ACDC-TheGame/commit/1fc4adc10db499756d3d4aecfcfa0e287ca280c7)) ;
++ dès lors que l'incrémentation des tours était de nouveau fonctionnel, la méthode *jouer* levait l'exception : *"Ce n'est pas votre tour !"* ([lien](https://github.com/Naedri/ACDC-TheGame/commit/799a215e24a23e89c74b32d9573ceea22757d749)) ;
++ la méthode *isPartieFinie*, ne prenait pas en compte que le joueur actuel est autorisé à passer son tour et donc à piocher, si il a posé un nombre de cartes suffisant ([lien](https://github.com/Naedri/ACDC-TheGame/commit/799a215e24a23e89c74b32d9573ceea22757d749)) ;
++ les piles de dépôt étaient initiées, non pas à 1, mais à 0 ([lien](https://github.com/Naedri/ACDC-TheGame/commit/10c0920570a1d475d7e5047db862c4a9adb064b5)) ;
++ lors de la fin d'un tour, le jeu était amener à piocher dans tous les cas, malgré que la pioche était vide ([lien](https://github.com/Naedri/ACDC-TheGame/commit/6da45776d36bfa877b504f8ff8473c6b4cc3f7e5)). 
 
 #### Point négatifs du code fourni
 
