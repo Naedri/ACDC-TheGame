@@ -111,7 +111,7 @@ public class EnNLS extends DefaultNLS {
 
 		this.d.put("API_build_deck_duplicated_cards", "The file indicated, seems to contain duplicate card(s)");
 		this.d.put("API_build_deck_size", "The file indicated, does not seem to contain the correct number of cards.");
-		this.d.put("API_build_deck", "The indicated file, does not seem to be buildable by the api.");
+		this.d.put("API_build_deck", "The indicated file, does not seem to be buildable by the API.");
 
 	}
 

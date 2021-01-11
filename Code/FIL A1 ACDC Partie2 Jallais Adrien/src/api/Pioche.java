@@ -26,7 +26,7 @@ public class Pioche {
 	 *               aléatoirement
 	 * @return Pioche
 	 */
-	public static Pioche fromFile(String chemin) throws Exception {
+	public static Pioche fromFile(String chemin) {
 		List<Carte> pioche = new ArrayList<Carte>();
 		if (chemin != null) {
 			try {

@@ -113,7 +113,7 @@ public final class FrNLS extends DefaultNLS {
 		this.d.put("API_build_deck_duplicated_cards",
 				"Le fichier indiqué, semble comporter des carte(s) dupliquée(s).");
 		this.d.put("API_build_deck_size", "Le fichier indiqué, ne semble pas comporter un nombre correct de cartes.");
-		this.d.put("API_build_deck", "Le fichier indiqué, ne semple pas être constructible pas l'api.");
+		this.d.put("API_build_deck", "Le fichier indiqué, ne semple pas être constructible pas l'API.");
 	}
 
 }
